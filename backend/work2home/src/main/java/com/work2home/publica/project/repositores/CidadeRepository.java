@@ -1,10 +1,8 @@
-package com.work2home.publica.userutilities.repositores;
-
-import java.util.Optional;
+package com.work2home.publica.project.repositores;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.work2home.publica.userutilities.model.Cidade;
+import com.work2home.publica.project.model.Cidade;
 
 
 public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
