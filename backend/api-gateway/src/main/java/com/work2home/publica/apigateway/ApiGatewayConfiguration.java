@@ -11,11 +11,11 @@ public class ApiGatewayConfiguration {
 	public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
 
 		return builder.routes()
-				.route(p -> p.path("**/user-authentication/**").uri("lb://user-authentication"))
-				.route(p -> p.path("**/user-utilities/**").uri("lb://user-utilities"))
-				.route(p -> p.path("**/user-utilities/cidade/**").uri("lb://user-utilities"))
-				.route(p -> p.path("**/main-services/**").uri("lb://main-services"))
-				.route(p -> p.path("**/main-services/avaliacao/**").uri("lb://main-services"))
+				.route(p -> p.path("/user-authentication/**").uri("lb://user-authentication"))
+				.route(p -> p.path("/user-utilities/**").uri("lb://user-utilities"))
+				.route(p -> p.path("/user-utilities/cidade/**").uri("lb://user-utilities"))
+				.route(p -> p.path("/main-services/**").uri("lb://main-services"))
+        .route(p -> p.path("**/main-services/avaliacao/**").uri("lb://main-services"))
 				.build();
 	}
 }

@@ -31,7 +31,6 @@ public class PrestadorController {
 
 	@GetMapping
 	public List<Prestador> buscaListaPrestador() {
-
 		return prestadorService.buscarPrestador();
 	}
 	

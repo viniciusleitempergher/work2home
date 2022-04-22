@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.work2home.publica.userauthentication.model.Usuario;
 
-public interface LoginRepository extends JpaRepository<Usuario, Integer>{
-	
-	
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
 }

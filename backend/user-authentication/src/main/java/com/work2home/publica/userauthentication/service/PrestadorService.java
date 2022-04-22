@@ -11,9 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.userauthentication.dto.PrestadorDto;
 import com.work2home.publica.userauthentication.model.Prestador;
-import com.work2home.publica.userauthentication.model.Usuario;
-import com.work2home.publica.userauthentication.repositores.LoginRepository;
 import com.work2home.publica.userauthentication.repositores.PrestadorRepository;
+import com.work2home.publica.userauthentication.repositores.UsuarioRepository;
 
 @Service
 public class PrestadorService {
@@ -22,32 +21,23 @@ public class PrestadorService {
 	PrestadorRepository prestadorRepository;
 	
 	@Autowired
-	LoginRepository loginRepository;
+	UsuarioRepository usuarioRepository;
 
 	public List<Prestador> buscarPrestador() {
 		return prestadorRepository.findAll();
 	}
 
 	public Prestador buscarPrestadorId(Integer id) {
-
 		return prestadorRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
 	}
 
 	public Prestador cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
-
-		Usuario usuario = new Usuario();
-		usuario= prestadorDto.converter(prestadorDto);
-		Prestador prestador = new Prestador();
-		prestador.setUsuario(loginRepository.save(usuario));
+		Prestador prestador = prestadorDto.converter();
+		
+		usuarioRepository.save(prestadorDto.getUsuarioDto().converter());
 		prestador.setCnpj(prestadorDto.getCnpj());
 		prestador.setNomeFantasia(prestadorDto.getNomeFantasia());
-		System.out.println(prestador);
 		
 		return prestadorRepository.save(prestador);
 	}
-	
-
-
-
 }
