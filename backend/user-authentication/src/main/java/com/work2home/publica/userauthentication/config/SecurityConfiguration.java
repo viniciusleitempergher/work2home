@@ -12,24 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	// login autenticação
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-	}
-
 	// Autorização
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/user-authentication/cliente").permitAll()
 				.antMatchers(HttpMethod.GET, "/user-authentication/cliente/*").permitAll().antMatchers(HttpMethod.GET, "/prestador")
 				.permitAll();
-	}
-
-	// css, javascript
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-
 	}
 
 }

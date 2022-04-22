@@ -31,17 +31,17 @@ public class ClienteController {
 
 	@GetMapping
 	public List<Cliente> buscaListaContas() {
-
 		return clienteService.buscarContas();
 	}
+	
 	@GetMapping("/{id}")
 	public Cliente buscaCliente(@PathVariable Integer id) {
 		return clienteService.buscarClienteId(id);
 	}
+	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Cliente cadastrarCliente(@RequestBody @Valid ClienteDto clienteDto) {
-		System.out.println("2"+clienteDto);
 		return clienteService.cadastrarCliente(clienteDto);
 	}
 

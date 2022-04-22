@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.validation.Valid;
 
+import com.work2home.publica.userauthentication.model.Cliente;
+import com.work2home.publica.userauthentication.model.Prestador;
 import com.work2home.publica.userauthentication.model.Usuario;
 
 import lombok.AllArgsConstructor;
@@ -20,23 +22,15 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ClienteDto {
-	private String email;
-	private String senha;
-	private String nome;
-	private String telefone;
-	private LocalDate dtNascimento;
+	private UsuarioDto usuarioDto;
 	private String cpf;
-	
-	
-	public Usuario converter(@Valid ClienteDto clienteDto) {
-		Usuario user = new  Usuario();
-		user.setNome(clienteDto.getNome());
-		user.setEmail(clienteDto.getEmail());
-		user.setSenha(clienteDto.getSenha());
-		user.setDtNascimento(clienteDto.getDtNascimento());
-		user.setTelefone(clienteDto.getTelefone());
-		return user;
+
+	public Cliente converter() {
+		Cliente cliente = new Cliente();
+		
+		cliente.setUsuario(usuarioDto.converter(usuarioDto));
+		cliente.setCpf(cpf);
+		
+		return cliente;
 	}
-
-
 }

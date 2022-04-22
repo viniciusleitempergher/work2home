@@ -12,12 +12,13 @@ import org.springframework.web.server.ResponseStatusException;
 import com.work2home.publica.userauthentication.dto.LoginDto;
 import com.work2home.publica.userauthentication.model.Usuario;
 import com.work2home.publica.userauthentication.repositores.LoginRepository;
+import com.work2home.publica.userauthentication.repositores.UsuarioRepository;
 
 @Service
 public class LoginService {
 
 	@Autowired
-	LoginRepository usuarioRepository;
+	UsuarioRepository usuarioRepository;
 
 	public List<Usuario> buscarLogin() {
 		return usuarioRepository.findAll();

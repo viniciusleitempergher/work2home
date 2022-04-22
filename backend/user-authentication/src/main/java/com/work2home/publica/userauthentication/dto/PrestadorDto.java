@@ -1,10 +1,6 @@
 package com.work2home.publica.userauthentication.dto;
 
-import java.time.LocalDate;
-
-import javax.validation.Valid;
-
-import com.work2home.publica.userauthentication.model.Usuario;
+import com.work2home.publica.userauthentication.model.Prestador;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,22 +16,17 @@ import lombok.ToString;
 @Builder
 @ToString
 public class PrestadorDto {
-	private String email;
-	private String senha;
-	private String nome;
-	private String telefone;
-	private LocalDate dtNascimento;
+	private UsuarioDto usuarioDto;
 	private String cnpj;
 	private String nomeFantasia;
 	
-	
-	public Usuario converter(@Valid PrestadorDto prestadorDto) {
-		Usuario user = new  Usuario();
-		user.setNome(prestadorDto.getNome());
-		user.setEmail(prestadorDto.getEmail());
-		user.setSenha(prestadorDto.getSenha());
-		user.setDtNascimento(prestadorDto.getDtNascimento());
-		user.setTelefone(prestadorDto.getTelefone());
-		return user;
+	public Prestador converter() {
+		Prestador prestador = new Prestador();
+		
+		prestador.setUsuario(usuarioDto.converter(usuarioDto));
+		prestador.setCnpj(cnpj);
+		prestador.setNomeFantasia(nomeFantasia);
+		
+		return prestador;
 	}
 }
