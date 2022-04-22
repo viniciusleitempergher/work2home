@@ -15,6 +15,7 @@ public class ApiGatewayConfiguration {
 				.route(p -> p.path("/user-utilities/**").uri("lb://user-utilities"))
 				.route(p -> p.path("/user-utilities/cidade/**").uri("lb://user-utilities"))
 				.route(p -> p.path("/main-services/**").uri("lb://main-services"))
+        .route(p -> p.path("**/main-services/avaliacao/**").uri("lb://main-services"))
 				.build();
 	}
 }
