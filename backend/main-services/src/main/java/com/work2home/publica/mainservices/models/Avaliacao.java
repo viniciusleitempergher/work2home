@@ -10,18 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Data
 @Table(name = "avaliacao_tb")
 public class Avaliacao {
 	
@@ -44,6 +40,5 @@ public class Avaliacao {
 	
 	@ManyToOne
 	@JoinColumn(name = "ordem_servico_id")
-	private OrdemServico ordemServico;
-	
+	private OrdemServico ordemServico;	
 }
