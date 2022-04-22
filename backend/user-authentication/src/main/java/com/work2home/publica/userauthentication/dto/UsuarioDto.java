@@ -26,14 +26,14 @@ public class UsuarioDto {
 	private String telefone;
 	private LocalDate dtNascimento;
 	
-	public Usuario converter(@Valid UsuarioDto usuarioDto) {
+	public Usuario converter() {
 		Usuario user = new  Usuario();
 		
-		user.setNome(usuarioDto.getNome());
-		user.setEmail(usuarioDto.getEmail());
-		user.setSenha(usuarioDto.getSenha());
-		user.setDtNascimento(usuarioDto.getDtNascimento());
-		user.setTelefone(usuarioDto.getTelefone());
+		user.setNome(nome);
+		user.setEmail(email);
+		user.setSenha(senha);
+		user.setDtNascimento(dtNascimento);
+		user.setTelefone(telefone);
 		
 		return user;
 	}

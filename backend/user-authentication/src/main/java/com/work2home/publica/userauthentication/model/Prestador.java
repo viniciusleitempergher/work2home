@@ -24,15 +24,13 @@ import lombok.ToString;
 @ToString
 @Table(name="prestador_tb")
 public class Prestador {
-	
 	@Id
 	private Integer id;
+	
 	@MapsId
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Usuario usuario;
 	private String cnpj;
 	private String nomeFantasia;
-
-		
 }

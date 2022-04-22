@@ -25,10 +25,11 @@ import lombok.ToString;
 public class Cliente{
 	@Id
 	private Integer id;
+	
 	@MapsId
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Usuario usuario;
+	
 	private String cpf;
-
 }

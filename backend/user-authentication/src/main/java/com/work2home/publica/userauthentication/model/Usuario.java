@@ -25,10 +25,10 @@ import lombok.ToString;
 @ToString
 @Table(name="usuario_tb")
 public class Usuario {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String email;
 	private String senha;
 	private String nome;

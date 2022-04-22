@@ -23,7 +23,7 @@ public class PrestadorDto {
 	public Prestador converter() {
 		Prestador prestador = new Prestador();
 		
-		prestador.setUsuario(usuarioDto.converter(usuarioDto));
+		prestador.setUsuario(usuarioDto.converter());
 		prestador.setCnpj(cnpj);
 		prestador.setNomeFantasia(nomeFantasia);
 		

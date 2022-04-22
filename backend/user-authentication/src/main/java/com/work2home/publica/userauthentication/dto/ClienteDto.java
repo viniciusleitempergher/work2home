@@ -28,7 +28,7 @@ public class ClienteDto {
 	public Cliente converter() {
 		Cliente cliente = new Cliente();
 		
-		cliente.setUsuario(usuarioDto.converter(usuarioDto));
+		cliente.setUsuario(usuarioDto.converter());
 		cliente.setCpf(cpf);
 		
 		return cliente;

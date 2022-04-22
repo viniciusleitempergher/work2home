@@ -22,7 +22,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 	@Autowired
 	private RefreshTokenRepository refreshTokenRepository;
-	
+
 	public Long JWT_REFRESH_TOKEN_VALIDITY;
 	public Long JWT_TOKEN_VALIDITY;
 
@@ -173,7 +173,7 @@ public class JwtUtil {
 
 		return usuario;
 	}
-	
+
 	/**
 	 * Returns the id of the customer token
 	 * 

@@ -14,8 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class LoginDto {
+public class LoginRequest {
 	private String login;
 	private String senha;
-
 }
