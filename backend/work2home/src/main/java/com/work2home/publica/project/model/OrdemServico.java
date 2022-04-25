@@ -3,23 +3,17 @@ package com.work2home.publica.project.model;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.work2home.publica.project.enums.StatusOrcamento;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -57,14 +51,17 @@ public class OrdemServico {
 	@Column(name = "data_solicitada", nullable = false)
 	private LocalDate dataSolicitada;
 	
-	@JoinColumn(table = "categoria_servico_tb", name = "categoria_id", nullable = false)
-	private Integer categoriaServicoId; 
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoriaServico; 
 	
-	@JoinColumn(referencedColumnName = "id", table = "prestador_tb", name = "prestador_id", nullable = false)
-	private Integer prestadorId;
+	@ManyToOne
+	@JoinColumn(name = "prestador_id")
+	private Prestador prestador;
 
-	@JoinColumn(referencedColumnName = "id", table = "endereco_tb", name = "endereco_id", nullable = false)
-	private Integer enderecoId;
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
 	
 	public void cancelar() {
 		this.status = StatusOrcamento.NEGADO;

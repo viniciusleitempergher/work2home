@@ -1,22 +1,18 @@
 package com.work2home.publica.project.model;
 
 import java.time.LocalDate;
-import java.util.Collection;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -44,4 +40,19 @@ public class Usuario {
 	
 	@Column(name = "data_nascimento", nullable = true)
 	private LocalDate dtNascimento;
+	
+	@OneToMany(mappedBy = "avaliado")
+	private List<Avaliacao> avaliacoesRecebidas;
+	
+	@OneToMany(mappedBy = "avaliador")
+	private List<Avaliacao> avaliacoesFeitas;
+	
+	public Double getMediaAvaliacao() {
+		
+		double cont = 0.0;
+		for(Avaliacao a : avaliacoesRecebidas) {
+			cont += a.getNota();
+		}
+		return cont/avaliacoesRecebidas.size();
+	}
 }
