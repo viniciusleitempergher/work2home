@@ -15,12 +15,6 @@ public class AvaliacaoController {
 	@Autowired
 	private OrdemServicoService service;
 
-	@GetMapping("avaliacao/teste")
-	public String avaliation() {
-		
-		Avaliacao a = new Avaliacao();
-		
-		return "testee";
-	}
+
 
 }
