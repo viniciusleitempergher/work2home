@@ -8,6 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.LoginRequest;
 import com.work2home.publica.project.dto.LoginResponse;
+import com.work2home.publica.project.dto.refresh.RefreshRequest;
+import com.work2home.publica.project.dto.refresh.RefreshResponse;
 import com.work2home.publica.project.model.RefreshToken;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.RefreshTokenRepository;
@@ -55,5 +57,17 @@ public class LoginService {
 				.refreshToken(refreshToken.getToken()).build();
 		
 		return response;
+	}
+	
+	public RefreshResponse refresh(RefreshRequest request) {
+		String refreshToken = request.getRefreshToken();
+		
+		RefreshToken dbRefreshToken = refreshRepository.findByToken(refreshToken);
+		
+		if (dbRefreshToken == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		
+		String accessToken = jwt.generateAccessToken(dbRefreshToken);
+		
+		return RefreshResponse.builder().accessToken(accessToken).build();
 	}
 }

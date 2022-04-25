@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.dto.LoginRequest;
 import com.work2home.publica.project.dto.LoginResponse;
+import com.work2home.publica.project.dto.refresh.RefreshRequest;
+import com.work2home.publica.project.dto.refresh.RefreshResponse;
 import com.work2home.publica.project.service.LoginService;
 
 @RestController
@@ -20,5 +22,10 @@ public class LoginController {
 	@PostMapping("/login")
 	public LoginResponse logar(@RequestBody LoginRequest request) {
 		return loginService.logar(request);
+	}
+	
+	@PostMapping("/refresh")
+	public RefreshResponse refresh(@RequestBody RefreshRequest request) {
+		return loginService.refresh(request);
 	}
 }
