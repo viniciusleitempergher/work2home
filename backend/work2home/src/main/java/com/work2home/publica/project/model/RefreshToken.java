@@ -1,6 +1,6 @@
 package com.work2home.publica.project.model;
 
-import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,21 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Data
 @Table(name="refresh_token_tb")
 public class RefreshToken {
 	@Id
@@ -37,4 +32,5 @@ public class RefreshToken {
 	@OneToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuario usuario;
+	
 }

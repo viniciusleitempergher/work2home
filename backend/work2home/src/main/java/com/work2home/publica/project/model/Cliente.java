@@ -1,7 +1,9 @@
 package com.work2home.publica.project.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -9,18 +11,17 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@Data
 @Table(name="cliente_tb")
 public class Cliente{
 	@Id
@@ -29,9 +30,10 @@ public class Cliente{
 	@MapsId
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
+	@Column(name = "cpf", nullable = false)
 	private String cpf;
-	
 	
 }

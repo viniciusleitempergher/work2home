@@ -1,10 +1,5 @@
 package com.work2home.publica.project.dto;
 
-
-
-
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
