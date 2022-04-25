@@ -42,6 +42,11 @@ public class PrestadorService {
 	}
 
 	public Prestador cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
+		usuarioRepository.findAll().forEach(usuario -> {
+			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
+				throw new ResponseStatusException(HttpStatus.CONFLICT);
+		});
+		
 		Prestador prestador = prestadorDto.converter();
 		
 		usuarioRepository.save(prestadorDto.getUsuarioDto().converter());
