@@ -37,7 +37,7 @@ public class OrdemServicoService {
 	}
 
 	public List<OrdemServico> findSolicitadosByPrestadorId() {
-		return repository.findByNomePrestador();
+		return null;
 	}
 
 	public Optional<OrdemServico> findById(Integer id) {
