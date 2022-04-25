@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,35 +18,36 @@ import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.service.OrdemServicoService;
 
-@RestController("/main-services/ordem-servico")
+@RestController
+@RequestMapping("/ordem-servico")
 public class OrdemServicoController {
 
 	@Autowired
 	private OrdemServicoService service;
 
-	@GetMapping("ordem-servico/all")
+	@GetMapping("/all")
 	public List<OrdemServico> findAll() {
 		return service.findAll();
 	}
 
-	@GetMapping("ordem-servico/orcamentos-solicitados/{prestadorId}")
+	@GetMapping("/orcamentos-solicitados/{prestadorId}")
 	public List<OrdemServico> findSolicitadosByPrestadorId() {
 
 		return service.findSolicitadosByPrestadorId();
 	}
 
-	@GetMapping("ordem-servico/{id}")
+	@GetMapping("/{id}")
 	public OrdemServico findById(@PathVariable Integer id) {
 
 		return service.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
-	@PostMapping("ordem-servico/{clienteId}/add")
+	@PostMapping("/{clienteId}/add")
 	public OrdemServico criarSolicitacao(@RequestBody @PathVariable Integer clienteId, SolicitacaoRequest sr) {
 		return service.criarSolicitacao(sr);
 	}
 
-	@PatchMapping("ordem-servico/{id}/aceitar")
+	@PatchMapping("/{id}/aceitar")
 	public void createOrdemServico(@RequestBody @PathVariable Integer id, SolicitacaoAcceptRequest acceptRequest) {
 
 		OrdemServico os = service.findById(id)
@@ -54,7 +56,5 @@ public class OrdemServicoController {
 		service.aceitarSolicitacao(acceptRequest, os);
 	}
 	
-	@GetMapping("")
-	public List<PrestadorDto>
 
 }

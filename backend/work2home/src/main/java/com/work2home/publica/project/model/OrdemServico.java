@@ -3,7 +3,6 @@ package com.work2home.publica.project.model;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +13,7 @@ import com.work2home.publica.project.enums.StatusOrcamento;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -56,15 +52,15 @@ public class OrdemServico {
 	private LocalDate dataSolicitada;
 	
 	@ManyToOne
-	@JoinColumn(table = "categoria_servico_tb")
+	@JoinColumn(name = "categoria_id")
 	private Categoria categoriaServico; 
 	
 	@ManyToOne
-	@JoinColumn(table = "prestador_tb")
+	@JoinColumn(name = "prestador_id")
 	private Prestador prestador;
 
 	@ManyToOne
-	@JoinColumn(table = "endereco_tb")
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 	
 	public void cancelar() {

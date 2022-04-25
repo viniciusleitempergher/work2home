@@ -10,6 +10,5 @@ import com.work2home.publica.project.model.OrdemServico;
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Integer>{
 
-	List<OrdemServico> findByNomePrestador();
 
 }
