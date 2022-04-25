@@ -10,7 +10,6 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.Valid;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,6 +38,5 @@ public class Prestador {
 	private String nomeFantasia;
 	
 	@ManyToMany
-	@JoinColumn(name = "cidade_id")
 	private List<Cidade> cidades;
 }

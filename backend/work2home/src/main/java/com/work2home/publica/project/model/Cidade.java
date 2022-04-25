@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +34,9 @@ public class Cidade {
 	private String nome;
 	private String estado;
 
+	@ManyToMany
+	private List<Prestador> prestadores;
+	
+	@OneToMany
+	private List<Endereco> enderecos;
 }
