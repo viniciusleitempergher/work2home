@@ -1,6 +1,7 @@
 package com.work2home.publica.project.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,10 +49,10 @@ public class Usuario {
 	private RefreshToken refreshToken;
 
 	@OneToMany(mappedBy = "avaliado")
-	private List<Avaliacao> avaliacoesRecebidas;
+	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "avaliador")
-	private List<Avaliacao> avaliacoesFeitas;
+	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 	
 	public Double getMediaAvaliacao() {
 		
