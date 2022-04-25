@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -44,4 +46,8 @@ public class Usuario {
 	
 	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate dtNascimento;
+	
+	@OneToOne
+	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
+	private RefreshToken refreshToken;
 }

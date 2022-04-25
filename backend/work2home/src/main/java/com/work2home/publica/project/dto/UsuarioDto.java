@@ -1,10 +1,12 @@
 package com.work2home.publica.project.dto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
 import com.work2home.publica.project.model.Usuario;
+import com.work2home.publica.project.utils.Formatador;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +26,7 @@ public class UsuarioDto {
 	private String senha;
 	private String nome;
 	private String telefone;
-	private LocalDate dtNascimento;
+	private String dtNascimento;
 	
 	public Usuario converter() {
 		Usuario user = new  Usuario();
@@ -32,7 +34,7 @@ public class UsuarioDto {
 		user.setNome(nome);
 		user.setEmail(email);
 		user.setSenha(senha);
-		user.setDtNascimento(dtNascimento);
+		user.setDtNascimento(LocalDate.parse(dtNascimento, Formatador.getFormatter()));
 		user.setTelefone(telefone);
 		
 		return user;
