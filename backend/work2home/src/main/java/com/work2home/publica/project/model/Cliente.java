@@ -36,4 +36,7 @@ public class Cliente{
 	@Column(name = "cpf", nullable = false)
 	private String cpf;
 	
+	@OneToOne
+	private Endereco endereco; 
+	
 }
