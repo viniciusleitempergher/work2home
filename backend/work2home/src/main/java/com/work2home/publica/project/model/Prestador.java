@@ -1,7 +1,11 @@
 package com.work2home.publica.project.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -33,4 +37,8 @@ public class Prestador {
 	private Usuario usuario;
 	private String cnpj;
 	private String nomeFantasia;
+	
+	@ManyToMany
+	@JoinColumn(name = "cidade_id")
+	private List<Cidade> cidades;
 }

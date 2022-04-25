@@ -3,11 +3,13 @@ package com.work2home.publica.project.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.work2home.publica.project.dto.EnderecoDto;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.repositores.EnderecoRepository;
 
+@Service
 public class EnderecoService {
 
 	@Autowired

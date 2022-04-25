@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
@@ -39,5 +40,23 @@ public class PrestadorService {
 		prestador.setNomeFantasia(prestadorDto.getNomeFantasia());
 		
 		return prestadorRepository.save(prestador);
+	}
+
+	public void adicionarCidades(Integer prestador_id, Cidade cidade) {
+		boolean contemNaLista=false;
+		Prestador prestador = prestadorRepository.getById(prestador_id);
+		List<Cidade> cidades = prestador.getCidades();
+		for(Cidade c :cidades) {
+			if(c.getId()==cidade.getId()) {
+				contemNaLista=true;
+			}
+		}
+		if(!contemNaLista) {
+			cidades.add(cidade);
+			prestador.setCidades(cidades);
+			prestadorRepository.save(prestador);
+		}else {
+			System.out.println("Essa cidade já existe na lista");
+		}
 	}
 }
