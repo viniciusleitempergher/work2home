@@ -32,11 +32,13 @@ public class Avaliacao {
 	@Column(name = "comentario_id")
 	private String comentario;
 	
-	@JoinColumn(table = "usuario_tb", name = "usuario_id")
-	private Integer avaliador;
+	@JoinColumn(name = "avaliador_id")
+	@ManyToOne
+	private Usuario avaliador;
 	
-	@JoinColumn(table = "usuario_tb", name = "usuario_id")
-	private Integer avaliado;
+	@JoinColumn(name = "avaliado_id")
+	@ManyToOne
+	private Usuario avaliado;
 	
 	@ManyToOne
 	@JoinColumn(name = "ordem_servico_id")

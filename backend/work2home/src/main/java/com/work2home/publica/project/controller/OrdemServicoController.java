@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.work2home.publica.project.dto.PrestadorDto;
 import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
 import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
 import com.work2home.publica.project.model.OrdemServico;
@@ -24,7 +25,6 @@ public class OrdemServicoController {
 
 	@GetMapping("ordem-servico/all")
 	public List<OrdemServico> findAll() {
-		System.out.print("olaa");
 		return service.findAll();
 	}
 
@@ -53,5 +53,8 @@ public class OrdemServicoController {
 		
 		service.aceitarSolicitacao(acceptRequest, os);
 	}
+	
+	@GetMapping("")
+	public List<PrestadorDto>
 
 }

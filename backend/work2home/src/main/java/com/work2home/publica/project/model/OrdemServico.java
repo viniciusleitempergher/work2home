@@ -10,9 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.work2home.publica.project.enums.StatusOrcamento;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
