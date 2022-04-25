@@ -57,14 +57,17 @@ public class OrdemServico {
 	@Column(name = "data_solicitada", nullable = false)
 	private LocalDate dataSolicitada;
 	
-	@JoinColumn(table = "categoria_servico_tb", name = "categoria_id", nullable = false)
-	private Integer categoriaServicoId; 
+	@ManyToOne
+	@JoinColumn(table = "categoria_servico_tb")
+	private Categoria categoriaServico; 
 	
-	@JoinColumn(referencedColumnName = "id", table = "prestador_tb", name = "prestador_id", nullable = false)
-	private Integer prestadorId;
+	@ManyToOne
+	@JoinColumn(table = "prestador_tb")
+	private Prestador prestador;
 
-	@JoinColumn(referencedColumnName = "id", table = "endereco_tb", name = "endereco_id", nullable = false)
-	private Integer enderecoId;
+	@ManyToOne
+	@JoinColumn(table = "endereco_tb")
+	private Endereco endereco;
 	
 	public void cancelar() {
 		this.status = StatusOrcamento.NEGADO;

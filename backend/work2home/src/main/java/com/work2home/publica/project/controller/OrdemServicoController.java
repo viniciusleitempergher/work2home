@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.SolicitacaoAcceptRequest;
-import com.work2home.publica.project.dto.SolicitacaoRequest;
+import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
+import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.service.OrdemServicoService;
 

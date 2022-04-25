@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.work2home.publica.project.dto.SolicitacaoAcceptRequest;
-import com.work2home.publica.project.dto.SolicitacaoRequest;
+import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
+import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.repositores.OrdemServicoRepository;

@@ -1,4 +1,4 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.main_service;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
