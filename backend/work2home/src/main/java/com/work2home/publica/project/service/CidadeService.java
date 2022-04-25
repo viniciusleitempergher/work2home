@@ -1,5 +1,7 @@
 package com.work2home.publica.project.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,11 @@ public class CidadeService {
 			cidade = cidadeRepository.save(Cidade.builder().estado(estado).nome(cdd).build());
 		}
 		return cidade;
+	}
+
+	public List<Cidade> buscarCidades() {
+		
+		return cidadeRepository.findAll();
 	}
 	
 }

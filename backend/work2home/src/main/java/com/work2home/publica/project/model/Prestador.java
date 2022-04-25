@@ -1,6 +1,8 @@
+
 package com.work2home.publica.project.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +17,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -42,6 +41,11 @@ public class Prestador {
 	@Column(name = "nome_fantasia", nullable = false)
 	private String nomeFantasia;
 	
-	@ManyToMany
+	@ManyToMany()
 	private List<Cidade> cidades;
+	
+	@ManyToMany()
+	private Set<Categoria> categorias;
+	
+	
 }

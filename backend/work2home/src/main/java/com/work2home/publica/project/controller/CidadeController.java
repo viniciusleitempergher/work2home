@@ -1,5 +1,7 @@
 package com.work2home.publica.project.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.dto.CidadesPretadorDto;
 import com.work2home.publica.project.model.Cidade;
+import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.service.CidadeService;
 
 @RestController
@@ -23,9 +26,9 @@ public class CidadeController {
 	@Autowired
 	CidadeService cidadeService;
 	
-	@GetMapping("/error")
-	public String retornaErro() {
-		return "oi";
+	@GetMapping
+	public List<Cidade> buscaListaCidade() {
+		return cidadeService.buscarCidades();
 	}
 	
 

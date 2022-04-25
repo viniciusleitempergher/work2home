@@ -7,10 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +34,8 @@ public class Cidade {
 	@Column(name = "estado", nullable = false)
 	private String estado;
 
-	@ManyToMany
+	@ManyToMany()
+	@JsonIgnore()
 	private List<Prestador> prestadores;
 	
-	@OneToMany
-	private List<Endereco> enderecos;
 }

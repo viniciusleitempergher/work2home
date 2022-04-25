@@ -42,6 +42,6 @@ public class Usuario {
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 	
-	@Column(name = "data_nascimento", nullable = false)
+	@Column(name = "data_nascimento", nullable = true)
 	private LocalDate dtNascimento;
 }

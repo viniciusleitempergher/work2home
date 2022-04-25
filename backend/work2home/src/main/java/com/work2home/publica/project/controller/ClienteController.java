@@ -30,8 +30,8 @@ public class ClienteController {
 	ClienteService clienteService;
 
 	@GetMapping
-	public List<Cliente> buscaListaContas() {
-		return clienteService.buscarContas();
+	public List<Cliente> buscaListaCliente() {
+		return clienteService.buscarCliente();
 	}
 	
 	@GetMapping("/{id}")
