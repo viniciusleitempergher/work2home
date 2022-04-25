@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.work2home.publica.project.model.RefreshToken;
 import com.work2home.publica.project.model.Usuario;
@@ -19,6 +20,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+@Component
 public class JwtUtil {
 	@Autowired
 	private RefreshTokenRepository refreshTokenRepository;
@@ -90,7 +92,7 @@ public class JwtUtil {
 	 * @param refreshToken - the refreshtoken object
 	 */
 	public String generateAccessToken(RefreshToken refreshToken) {
-		return doGenerateToken(refreshToken.getId().toString(), JWT_TOKEN_VALIDITY);
+		return doGenerateToken(refreshToken.getId() + "", JWT_TOKEN_VALIDITY);
 	}
 
 	/**
@@ -111,23 +113,23 @@ public class JwtUtil {
 	 * Checks if the refresh token is valid
 	 * 
 	 * @param token    - the refresh token
-	 * @param usuario - the customer's object
+	 * @param usuario - the customers object
 	 */
 	public Boolean validateRefreshToken(String token, Usuario usuario) {
 		final Integer id = getIdFromToken(token);
 
-		return (id.equals(usuario.getId().toString()) && !isTokenExpired(token));
+		return (id == usuario.getId() && !isTokenExpired(token));
 	}
 
 	/**
 	 * Checks if the token is valid for this customer
 	 * 
 	 * @param token        - the access token
-	 * @param refreshToken - the refresh token's object
+	 * @param refreshToken - the refresh tokens object
 	 */
 	public Boolean validateAccessToken(String token, RefreshToken refreshToken) {
 		final Integer id = getIdFromToken(token);
-		return (id.equals(refreshToken.getId().toString()) && !isTokenExpired(token));
+		return (id == refreshToken.getId() && !isTokenExpired(token));
 	}
 
 	/**
@@ -163,7 +165,7 @@ public class JwtUtil {
 	 * @throws EntityNotFoundException - case customer from refresh token doesn't
 	 *                                 exists
 	 * @param token - the refresh token
-	 * @return customer - the customer's object from db
+	 * @return customer - the customers object from db
 	 */
 	public Usuario getUserFromRefreshToken(String token) {
 		Integer usuarioId = getIdFromToken(token);

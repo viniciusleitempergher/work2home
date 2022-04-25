@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.ClienteDto;
 import com.work2home.publica.project.model.Cliente;
+import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.ClienteRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 
@@ -38,6 +40,11 @@ public class ClienteService {
 		});
 		
 		Cliente cliente = clienteDto.converter();
+		
+		Usuario usuario = cliente.getUsuario();
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		usuario.setSenha(bcrypt.encode(usuario.getSenha()));
 		
 		usuarioRepository.save(cliente.getUsuario());
 		
