@@ -24,7 +24,7 @@ public class ClienteService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
-	public List<Cliente> buscarContas() {
+	public List<Cliente> buscarCliente() {
 		return clienteRepository.findAll();
 	}
 
