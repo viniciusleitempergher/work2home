@@ -51,7 +51,7 @@ public class PrestadorService {
 		Prestador prestador = prestadorDto.converter();
 		prestador.getUsuario().setRole(Roles.PRESTADOR);
 		
-		usuarioRepository.save(prestadorDto.getUsuarioDto().converter());
+		usuarioRepository.save(prestador.getUsuario());
 		prestador.setCnpj(prestadorDto.getCnpj());
 		prestador.setNomeFantasia(prestadorDto.getNomeFantasia());
 		
