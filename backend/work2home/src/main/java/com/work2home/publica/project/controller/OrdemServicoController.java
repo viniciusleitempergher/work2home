@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.PrestadorDto;
 import com.work2home.publica.project.dto.main_service.OrcamentoAcceptRequest;
+import com.work2home.publica.project.dto.main_service.OrdemServicoResponse;
 import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
 import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
 import com.work2home.publica.project.model.OrdemServico;
@@ -40,9 +41,9 @@ public class OrdemServicoController {
 	}
 
 	@GetMapping("/{id}")
-	public OrdemServico findById(@PathVariable Integer id) {
+	public OrdemServicoResponse findById(@PathVariable Integer id) {
 
-		return service.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return service.buscarDtoPorId(id);
 	}
 
 	@PostMapping("/add")
@@ -54,26 +55,20 @@ public class OrdemServicoController {
 	@PatchMapping("/{id}/aceitar-solicitacao")
 	public OrdemServico aceitarSolicitacao( @PathVariable Integer id, @RequestBody SolicitacaoAcceptRequest acceptRequest) {
 
-		OrdemServico os = service.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		
-		return service.aceitarSolicitacao(acceptRequest, os);
+		return service.aceitarSolicitacao(acceptRequest, id);
 	}
 	
 	@PatchMapping("/{id}/aceitar-orcamento")
 	public OrdemServico aceitarOrcamento( @PathVariable Integer id, @RequestBody OrcamentoAcceptRequest orcamentoAcceptRequest) {
 
-		OrdemServico os = service.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		
-		return service.aceitarOrcamento(orcamentoAcceptRequest, os);
+		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
 	
 	@PatchMapping("/{id}/finalizar-os")
 	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
-		OrdemServico os = service.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		return service.finalizarOrdemServico(os);
+	
+		return service.finalizarOrdemServico(id);
 	}
 	
 	
