@@ -1,6 +1,7 @@
 package com.work2home.publica.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class LoginController {
 		return loginService.logar(request);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/refresh")
 	public RefreshResponse refresh(@RequestBody RefreshRequest request) {
 		return loginService.refresh(request);

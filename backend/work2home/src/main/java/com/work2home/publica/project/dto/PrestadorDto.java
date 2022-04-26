@@ -1,5 +1,6 @@
 package com.work2home.publica.project.dto;
 
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Prestador;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class PrestadorDto {
 		prestador.setUsuario(usuarioDto.converter());
 		prestador.setCnpj(cnpj);
 		prestador.setNomeFantasia(nomeFantasia);
+		prestador.getUsuario().setRole(Roles.PRESTADOR);
 		
 		return prestador;
 	}
