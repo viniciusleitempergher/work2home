@@ -1,5 +1,6 @@
 package com.work2home.publica.project.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,9 +21,11 @@ import com.work2home.publica.project.dto.PrestadorResponseDto;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
+import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
+import com.work2home.publica.project.utils.Formatador;
 
 @Service
 public class PrestadorService {
@@ -48,25 +52,34 @@ public class PrestadorService {
 		return new PrestadorResponseDto(prestador);
 	}
 
-	public Prestador cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
+	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
 		});
 		
 		Prestador prestador = prestadorDto.converter();
-		prestador.getUsuario().setRole(Roles.PRESTADOR);
 		
-		usuarioRepository.save(prestadorDto.getUsuarioDto().converter());
+		Usuario usuario = prestador.getUsuario();
+		
+		usuario.setRole(Roles.PRESTADOR);
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		usuario.setSenha(bcrypt.encode(usuario.getSenha()));
+		
+		usuarioRepository.save(usuario);
 		prestador.setCnpj(prestadorDto.getCnpj());
 		prestador.setNomeFantasia(prestadorDto.getNomeFantasia());
 		
-		return prestadorRepository.save(prestador);
+		prestadorRepository.save(prestador);
+		return new PrestadorResponseDto(prestador);
 	}
 
 	public void adicionarCidades(Integer prestadorId, Cidade cidade) {
 		boolean contemNaLista=false;
-		Prestador prestador = prestadorRepository.findById(prestadorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		Prestador prestador = prestadorRepository
+				.findById(prestadorId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		List<Cidade> cidades = prestador.getCidades();
 		for(Cidade c :cidades) {
 			if(c.getId()==cidade.getId()) {
@@ -95,5 +108,30 @@ public class PrestadorService {
 		prestador.getCategorias().add(categoria);
 		return prestadorRepository.save(prestador);
 		
+	}
+
+	public void alterarPrestador(Integer id, @Valid PrestadorDto dto) {
+		
+		Prestador prestador = prestadorRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
+		
+        Usuario usuario = prestador.getUsuario();
+		
+		usuario.setRole(Roles.PRESTADOR);
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));
+		
+		prestador.setCnpj(dto.getCnpj());
+		prestador.setNomeFantasia(dto.getNomeFantasia());
+		usuario.setNome(dto.getUsuarioDto().getNome());
+		usuario.setTelefone(dto.getUsuarioDto().getTelefone());
+		usuario.setDtNascimento(LocalDate.parse(dto.getUsuarioDto().getDtNascimento(), Formatador.getFormatter()));
+		
+		usuarioRepository.save(usuario);
+		prestadorRepository.save(prestador);
+
 	}
 }

@@ -2,6 +2,7 @@ package com.work2home.publica.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ public class CategoriaController {
 		return categoriaService.buscarCategorias();
 	}
 	
+	@RolesAllowed("ROLES_ADMIN")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Categoria cadastrarCategoria(@RequestBody @Valid Categoria categoria) {
 		return categoriaService.cadastrarCategoria(categoria);
 	}
 	
+	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping("/prestador")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Prestador cadastrarCategoriaPrestador(@RequestBody @Valid CategoriaPrestadorDto categoriaPrestadorDto) {

@@ -24,8 +24,7 @@ public class LoginController {
 	public LoginResponse logar(@RequestBody LoginRequest request) {
 		return loginService.logar(request);
 	}
-	
-	@Secured("ROLE_ADMIN")
+
 	@PostMapping("/refresh")
 	public RefreshResponse refresh(@RequestBody RefreshRequest request) {
 		return loginService.refresh(request);

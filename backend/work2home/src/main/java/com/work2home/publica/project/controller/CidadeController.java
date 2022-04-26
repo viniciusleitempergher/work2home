@@ -31,12 +31,10 @@ public class CidadeController {
 		return cidadeService.buscarCidades();
 	}
 	
-
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Cidade cadastrarPrestador(@RequestBody @Valid CidadesPretadorDto cidadesPretadorDto) {
+	public Cidade cadastrarCidade(@RequestBody @Valid CidadesPretadorDto cidadesPretadorDto) {
 		return cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
 	}
-
 
 }
