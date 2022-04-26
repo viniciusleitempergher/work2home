@@ -29,15 +29,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.cors().and().csrf().disable()
-			.authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
-			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
-			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
-			.anyRequest().authenticated()
-		.and()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+			.authorizeRequests().anyRequest().permitAll();
+//			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+//			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
+//			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+//			.anyRequest().authenticated()
+//		.and()
+//			.sessionManagement()
+//			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//		
+//		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }
