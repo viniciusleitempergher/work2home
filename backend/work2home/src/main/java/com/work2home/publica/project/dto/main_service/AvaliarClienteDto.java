@@ -1,0 +1,34 @@
+package com.work2home.publica.project.dto.main_service;
+
+import javax.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+import com.work2home.publica.project.model.Avaliacao;
+import com.work2home.publica.project.model.OrdemServico;
+import com.work2home.publica.project.model.Usuario;
+import com.work2home.publica.project.repositores.OrdemServicoRepository;
+import com.work2home.publica.project.repositores.UsuarioRepository;
+import lombok.Data;
+
+@Data
+public class AvaliarClienteDto {
+
+	@NotNull
+	private Integer nota;
+	@NotNull
+	private Integer ordemServicoId;
+	
+	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServicoRepository ordemServicoRepository) {
+		
+		OrdemServico ordemServico = ordemServicoRepository
+				.findById(ordemServicoId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		
+		return Avaliacao.builder()
+				.nota(nota)
+				.avaliado(ordemServico.getEndereco().getCliente().getUsuario())
+				.avaliador(ordemServico.getPrestador().getUsuario())
+				.ordemServico(ordemServico).build();
+	}
+	
+}

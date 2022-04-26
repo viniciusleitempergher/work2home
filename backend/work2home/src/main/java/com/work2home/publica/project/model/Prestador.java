@@ -41,10 +41,10 @@ public class Prestador {
 	@Column(name = "nome_fantasia", nullable = false)
 	private String nomeFantasia;
 	
-	@ManyToMany()
+	@ManyToMany
 	private List<Cidade> cidades;
 	
-	@ManyToMany()
+	@ManyToMany
 	private Set<Categoria> categorias;
 	
 	

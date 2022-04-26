@@ -3,11 +3,9 @@ package com.work2home.publica.project.dto.main_service;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Endereco;
@@ -16,25 +14,25 @@ import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.EnderecoRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
-
 import lombok.Data;
 
 @Data
 public class SolicitacaoRequest {
 
-	@NotBlank
-	@Length(min = 20)
 	private String descricao; 
 	private String imagemUrl;
-	@NotNull
+
 	private Integer categoriaServicoId;
-	@NotNull
+
 	private Integer prestadorId;
-	@NotNull
+
 	private Integer enderecoId;
 	
 	public OrdemServico converter(CategoriaRepository categoriaRepository,
 			PrestadorRepository prestadorRepository, EnderecoRepository enderecoRepository) {
+		
+		
+		System.out.println(this.getCategoriaServicoId());
 		
 		Categoria categoria = categoriaRepository
 				.findById(categoriaServicoId)
@@ -51,6 +49,7 @@ public class SolicitacaoRequest {
 		return OrdemServico.builder()
 		.dataSolicitada(LocalDate.now())
 		.status(StatusOrcamento.SOLICITADO)
+		.descricao(descricao)
 		.imagemUrl(imagemUrl)
 		.categoriaServico(categoria)
 		.prestador(prestador)

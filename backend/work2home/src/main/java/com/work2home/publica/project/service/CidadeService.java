@@ -27,7 +27,7 @@ public class CidadeService {
 
 	public Cidade cadastrarCidadePrestador(@Valid CidadesPretadorDto cidadesPretadorDto) {
 		Cidade cidade = verificaECadastra(cidadesPretadorDto.getEstado(), cidadesPretadorDto.getCidade());
-		prestadorService.adicionarCidades(cidadesPretadorDto.getPrestador_id(),cidade);
+		prestadorService.adicionarCidades(cidadesPretadorDto.getPrestadorId(),cidade);
 		return cidade;
 	}
 	

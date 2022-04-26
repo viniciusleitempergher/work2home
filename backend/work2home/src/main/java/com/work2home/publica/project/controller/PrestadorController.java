@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.dto.PrestadorResponseDto;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.service.PrestadorService;
@@ -35,7 +36,7 @@ public class PrestadorController {
 	}
 	
 	@GetMapping("/{id}")
-	public Prestador buscaConta(@PathVariable Integer id) {
+	public PrestadorResponseDto buscaConta(@PathVariable Integer id) {
 		return prestadorService.buscarPrestadorId(id);
 	}
 	
