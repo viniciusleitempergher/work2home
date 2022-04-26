@@ -134,4 +134,10 @@ public class PrestadorService {
 		prestadorRepository.save(prestador);
 
 	}
+
+	public void removerCidadePrestador(Integer prestadorId, Integer cidadeId) {
+		
+		
+		
+	}
 }
