@@ -1,4 +1,3 @@
-
 package com.work2home.publica.project.model;
 
 import java.util.List;
@@ -10,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -47,5 +47,7 @@ public class Prestador {
 	@ManyToMany
 	private Set<Categoria> categorias;
 	
+	@OneToMany(mappedBy = "prestador")
+	private List<OrdemServico> servicos;
 	
 }

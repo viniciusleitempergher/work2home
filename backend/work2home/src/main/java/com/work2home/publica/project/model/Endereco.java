@@ -1,5 +1,7 @@
 package com.work2home.publica.project.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,6 +50,9 @@ public class Endereco {
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
+	
+	@OneToMany(mappedBy = "endereco")
+	private List<OrdemServico> servicos;
 	
 	@OneToOne
 	@JsonIgnore
