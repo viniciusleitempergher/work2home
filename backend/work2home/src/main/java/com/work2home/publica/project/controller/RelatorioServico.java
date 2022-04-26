@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.repositores.UsuarioRepository;
+import com.work2home.publica.project.service.UsuarioService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -30,19 +33,22 @@ public class RelatorioServico {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 
 	@GetMapping()
 	public ResponseEntity<byte[]> downloadInvoice() throws JRException, IOException {
-		
-		
+		int qdtUsuario = usuarioService.quantidadeUsuario();
 		JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(usuarioRepository.findAll(), false);
 
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("total", "7000");
+		parameters.put("totalUsuarios",Integer.toString(qdtUsuario));
 
 		JasperReport compileReport = JasperCompileManager
-				.compileReport(new FileInputStream("src/main/resources/relatorioServico/relatorioServico2.jrxml"));
+				.compileReport(new FileInputStream("src/main/resources/relatorioServico/relatorioServico.jrxml"));
 
 		JasperPrint jasperPrint = JasperFillManager.fillReport(compileReport, parameters, beanCollectionDataSource);
 
