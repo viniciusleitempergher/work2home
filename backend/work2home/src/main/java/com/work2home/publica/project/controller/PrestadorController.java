@@ -56,10 +56,10 @@ public class PrestadorController {
 		prestadorService.alterarPrestador(id, prestadorDto);
 	}
 	
-	@DeleteMapping("/{id}/cidade/")
-	public void alterarPrestador(@PathVariable Integer id, @RequestBody @Valid PrestadorDto prestadorDto) {
+	@DeleteMapping("/{prestadorId}/cidade/{cidadeId}")
+	public void removerCidadePrestador(@PathVariable Integer prestadorId, @PathVariable Integer cidadeId) {
 		
-		prestadorService.alterarPrestador(id, prestadorDto);
+		prestadorService.removerCidadePrestador(prestadorId, cidadeId);
 	}
 
 }
