@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.ClienteDto;
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.ClienteRepository;
@@ -42,6 +43,7 @@ public class ClienteService {
 		Cliente cliente = clienteDto.converter();
 		
 		Usuario usuario = cliente.getUsuario();
+		usuario.setRole(Roles.CLIENTE);
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(usuario.getSenha()));

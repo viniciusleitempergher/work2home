@@ -1,6 +1,7 @@
 package com.work2home.publica.project.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.work2home.publica.project.enums.Roles;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +37,7 @@ public class Usuario {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@JsonIgnore
 	@Column(name = "senha", nullable = false)
 	private String senha;
 	
@@ -43,6 +49,9 @@ public class Usuario {
 	
 	@Column(name = "data_nascimento", nullable = true)
 	private LocalDate dtNascimento;
+	
+	@Column(name = "role", nullable = false)
+	private Roles role;
 
 	@PrimaryKeyJoinColumn
 	@OneToOne
@@ -50,10 +59,10 @@ public class Usuario {
 	private RefreshToken refreshToken;
 
 	@OneToMany(mappedBy = "avaliado")
-	private List<Avaliacao> avaliacoesRecebidas;
+	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "avaliador")
-	private List<Avaliacao> avaliacoesFeitas;
+	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 	
 	public Double getMediaAvaliacao() {
 		

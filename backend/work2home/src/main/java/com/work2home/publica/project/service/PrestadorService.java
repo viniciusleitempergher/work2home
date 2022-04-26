@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.CategoriaPrestadorDto;
 import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
@@ -48,6 +49,7 @@ public class PrestadorService {
 		});
 		
 		Prestador prestador = prestadorDto.converter();
+		prestador.getUsuario().setRole(Roles.PRESTADOR);
 		
 		usuarioRepository.save(prestadorDto.getUsuarioDto().converter());
 		prestador.setCnpj(prestadorDto.getCnpj());
