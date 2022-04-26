@@ -53,14 +53,14 @@ public class OrdemServicoService {
 		return repository.save(or.converter(categoriaRepository, prestadorRepository, enderecoRepository));
 	}
 	
-	
-	
 	public OrdemServico aceitarSolicitacao(SolicitacaoAcceptRequest acceptRequest, OrdemServico os) {
 	
-	LocalDate data = LocalDate.parse(acceptRequest.getDataInicio() , Formatador.getFormatter());
-	LocalDate agora = LocalDate.now();	
-			
-	if(data.isBefore(agora) || data.isEqual(agora)) {
+	LocalDate data = LocalDate.parse(acceptRequest.getDataInicio(), Formatador.getFormatter());
+	LocalDate agora = LocalDate.now();
+	
+	if(os.getStatus() != StatusOrcamento.SOLICITADO) {
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+	}else if(data.isBefore(agora) || data.isEqual(agora)) {
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 	}
 			
@@ -72,14 +72,29 @@ public class OrdemServicoService {
 	}
 
 	public OrdemServico aceitarOrcamento(OrcamentoAcceptRequest orcamentoAcceptRequest, OrdemServico os) {
+		
+		if(os.getStatus() != StatusOrcamento.EM_ORCAMENTO) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		else if(LocalDate.now().isAfter(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
+			throw new ResponseStatusException(HttpStatus.GONE);
+		}
+		
 		if(orcamentoAcceptRequest.isAceitar()) {
 			os.setStatus(StatusOrcamento.EM_ANDAMENTO);
 		}else {
 			os.setStatus(StatusOrcamento.NEGADO);
 		}
-		
-		return os;
+		return repository.save(os);
+	}
 
+	public OrdemServico finalizarOrdemServico(OrdemServico os) {
+		if(os.getStatus() != StatusOrcamento.EM_ANDAMENTO) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		os.setStatus(StatusOrcamento.FINALIZADO);
+		os.setDataFim(LocalDate.now());
+		return repository.save(os);
 	}
 	
 }

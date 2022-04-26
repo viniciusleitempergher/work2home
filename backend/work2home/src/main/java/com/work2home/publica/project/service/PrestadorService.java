@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.CategoriaPrestadorDto;
 import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.dto.PrestadorResponseDto;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
@@ -37,8 +38,13 @@ public class PrestadorService {
 		return prestadorRepository.findAll();
 	}
 
-	public Prestador buscarPrestadorId(Integer id) {
-		return prestadorRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public PrestadorResponseDto buscarPrestadorId(Integer id) {
+		
+		Prestador prestador = prestadorRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
+		return new PrestadorResponseDto(prestador);
 	}
 
 	public Prestador cadastrarPrestador(@Valid PrestadorDto prestadorDto) {

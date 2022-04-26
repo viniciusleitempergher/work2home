@@ -16,21 +16,9 @@ public class AvaliarClienteDto {
 	@NotNull
 	private Integer nota;
 	@NotNull
-	private Integer prestadorId;
-	@NotNull
-	private Integer clienteId;
-	@NotNull
 	private Integer ordemServicoId;
 	
 	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServicoRepository ordemServicoRepository) {
-		
-		Usuario prestador = usuarioRepository
-				.findById(prestadorId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		
-		Usuario cliente = usuarioRepository
-				.findById(clienteId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		OrdemServico ordemServico = ordemServicoRepository
 				.findById(ordemServicoId)
@@ -38,8 +26,8 @@ public class AvaliarClienteDto {
 		
 		return Avaliacao.builder()
 				.nota(nota)
-				.avaliado(cliente)
-				.avaliador(prestador)
+				.avaliado(ordemServico.getEndereco().getCliente().getUsuario())
+				.avaliador(ordemServico.getPrestador().getUsuario())
 				.ordemServico(ordemServico).build();
 	}
 	

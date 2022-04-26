@@ -30,6 +30,8 @@ public class AvaliacaoService {
 
 	public void avaliarPrestador(@Valid AvaliarPrestadorDto avaliacaoDto) {
 		avaliacaoRepository.save(avaliacaoDto.converter(usuarioRepository, ordemServicoRepository));
+		
+		System.out.println("OLaaaaa");
 	}
 	
 	

@@ -17,31 +17,23 @@ public class AvaliarPrestadorDto {
 	private Integer nota;
 	private String comentario;
 	@NotNull
-	private Integer prestadorId;
-	@NotNull
-	private Integer clienteId;
-	@NotNull
-	private Integer ordemServicoId;
+	private Integer ordemServicoId = -1;
 	
 	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServicoRepository ordemServicoRepository) {
 		
-		Usuario prestador = usuarioRepository
-				.findById(prestadorId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		
-		Usuario cliente = usuarioRepository
-				.findById(clienteId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		OrdemServico ordemServico = ordemServicoRepository
 				.findById(ordemServicoId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
+		System.out.println("OLaaaaa");
+		System.out.println(ordemServico.getImagemUrl());
+		
 		return Avaliacao.builder()
 				.nota(nota)
 				.comentario(comentario)
-				.avaliado(prestador)
-				.avaliador(cliente)
+				.avaliado(ordemServico.getPrestador().getUsuario())
+				.avaliador(ordemServico.getEndereco().getCliente().getUsuario())
 				.ordemServico(ordemServico).build();
 	}
 

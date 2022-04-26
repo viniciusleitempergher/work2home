@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -45,6 +46,7 @@ public class OrdemServicoController {
 	}
 
 	@PostMapping("/add")
+	@ResponseStatus(HttpStatus.CREATED)
 	public OrdemServico criarSolicitacao(@RequestBody SolicitacaoRequest sr) {
 		return service.criarSolicitacao(sr);
 	}
@@ -64,11 +66,15 @@ public class OrdemServicoController {
 		OrdemServico os = service.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		
-		if(LocalDate.now().isAfter(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
-			throw new ResponseStatusException(HttpStatus.GONE);
-		}
-		
 		return service.aceitarOrcamento(orcamentoAcceptRequest, os);
 	}
+	
+	@PatchMapping("/{id}/finalizar-os")
+	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
+		OrdemServico os = service.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return service.finalizarOrdemServico(os);
+	}
+	
 	
 }

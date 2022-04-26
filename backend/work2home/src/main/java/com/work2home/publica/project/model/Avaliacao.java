@@ -27,29 +27,24 @@ public class Avaliacao implements Serializable{
 	
 	private static final long serialVersionUID = -3259431626478556888L;
 
-//	@Id
-//    @Column(name = "avaliacao_id")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Integer id;
-    
-
-	@Column(name = "nota_id", nullable = false)
+	@Column(name = "nota", nullable = false)
 	private Integer nota;
 	
-	@Column(name = "comentario_id")
+	@Column(name = "comentario")
 	private String comentario;
 	
 	@Id
-	@JoinColumn(name = "avaliador_id")
+	@JoinColumn(name = "avaliador_id", nullable = false)
 	@ManyToOne
 	private Usuario avaliador;
 	
 	@Id
-	@JoinColumn(name = "avaliado_id")
+	@JoinColumn(name = "avaliado_id", nullable = false)
 	@ManyToOne
 	private Usuario avaliado;
 	
+	@Id
+	@JoinColumn(name = "ordem_servico_id", nullable = false)
 	@ManyToOne
-	@JoinColumn(name = "ordem_servico_id")
 	private OrdemServico ordemServico;	
 }
