@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,6 @@ import lombok.NoArgsConstructor;
 @Table(name="refresh_token_tb")
 public class RefreshToken {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name = "token", nullable = false, unique = true)
@@ -31,6 +32,7 @@ public class RefreshToken {
 
 	@OneToOne
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
+	@MapsId
 	private Usuario usuario;
 	
 }
