@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.dto.ClienteDto;
+import com.work2home.publica.project.dto.PrestadorDto;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.repositores.ClienteRepository;
 import com.work2home.publica.project.service.ClienteService;
@@ -43,6 +45,12 @@ public class ClienteController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Cliente cadastrarCliente(@RequestBody @Valid ClienteDto clienteDto) {
 		return clienteService.cadastrarCliente(clienteDto);
+	}
+	
+	@PutMapping("/{id}")
+	public void alterarCliente(@PathVariable Integer id, @RequestBody @Valid ClienteDto clienteDto) {
+		
+		clienteService.alterarCliente(id, clienteDto);
 	}
 
 }
