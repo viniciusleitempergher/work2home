@@ -40,10 +40,6 @@ public class OrdemServicoService {
 		return repository.findAll();
 	}
 
-	public List<OrdemServico> findSolicitadosByPrestadorId() {
-		return null;
-	}
-
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {
 		
 		OrdemServico os = repository

@@ -2,6 +2,7 @@ package com.work2home.publica.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,17 @@ public class EnderecoController {
 
 	@GetMapping
 	public List<Endereco> buscaListaContas() {
-
 		return enderecoService.buscarEndereco();
 	}
 	@GetMapping("/{id}")
 	public Endereco buscaCliente(@PathVariable Integer id) {
 		return enderecoService.buscarClienteId(id);
 	}
+	
+	@RolesAllowed("ROLES_CLIENTE")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Endereco cadastrarCliente(@RequestBody @Valid EnderecoDto enderecoDto) {
+	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
 		return enderecoService.cadastrar(enderecoDto);
 	}
 }
