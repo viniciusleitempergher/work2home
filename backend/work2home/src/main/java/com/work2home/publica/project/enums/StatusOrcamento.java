@@ -6,5 +6,7 @@ public enum StatusOrcamento {
 	EM_ORCAMENTO,
 	EM_ANDAMENTO,
 	FINALIZADO,
-	NEGADO
+	NEGADO,
+	PAGO
+	
 }

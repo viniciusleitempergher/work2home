@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AvaliacaoId implements Serializable{
 
+	private static final long serialVersionUID = -7730069734989414339L;
+
 	private Integer avaliador;
 	
 	private Integer avaliado;
+	
+	private Integer ordemServico;
 }
