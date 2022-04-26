@@ -41,7 +41,7 @@ public class Endereco {
 	
 	@Column(name = "complemento")
 	private String complemento;
-	
+		
 	@Column(name = "bairro", nullable = false)
 	private String bairro;
 	
