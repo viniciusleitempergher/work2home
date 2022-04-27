@@ -1,5 +1,6 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.prestador;
 
+import com.work2home.publica.project.dto.usuario.UsuarioDto;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Prestador;
 

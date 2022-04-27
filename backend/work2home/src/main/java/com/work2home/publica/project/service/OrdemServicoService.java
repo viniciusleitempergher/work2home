@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.main_service.OrcamentoAcceptRequest;
-import com.work2home.publica.project.dto.main_service.OrdemServicoResponse;
-import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
-import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
+import com.work2home.publica.project.dto.ordem_servico.OrcamentoAcceptRequest;
+import com.work2home.publica.project.dto.ordem_servico.OrdemServicoResponse;
+import com.work2home.publica.project.dto.ordem_servico.SolicitacaoAcceptRequest;
+import com.work2home.publica.project.dto.ordem_servico.SolicitacaoRequest;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.OrdemServico;
@@ -131,6 +131,19 @@ public class OrdemServicoService {
 		os.setStatus(StatusOrcamento.FINALIZADO);
 		os.setDataFim(LocalDate.now());
 		return repository.save(os);
+	}
+
+	public void negarSolicitacao(Integer id) {
+		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		if (os.getPrestador().getId() != usuario.getId()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		os.cancelar();	
+		repository.delete(os);
 	}
 
 }

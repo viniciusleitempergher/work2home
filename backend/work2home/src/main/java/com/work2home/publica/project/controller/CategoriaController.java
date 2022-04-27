@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.CategoriaPrestadorDto;
+import com.work2home.publica.project.dto.categoria.CategoriaPrestadorDto;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.service.CategoriaService;

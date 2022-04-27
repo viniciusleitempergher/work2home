@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.EnderecoDto;
+import com.work2home.publica.project.dto.endereco.EnderecoDto;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.model.Usuario;
@@ -29,7 +29,7 @@ public class EnderecoService {
 	ClienteRepository clienteRepository;
 	
 	@Autowired
-	JwtUtil jwt;
+	private JwtUtil jwt;
 
 	public List<Endereco> buscarEndereco() {
 		return enderecoRepository.findAll();
@@ -37,14 +37,14 @@ public class EnderecoService {
 
 
 	public Endereco cadastrar(EnderecoDto enderecoDto) {
-		Endereco endereco = new Endereco();
-		
+		Endereco endereco = new Endereco();	
 		Usuario user = jwt.getUserFromHeaderToken();
 		
 
 		 Cliente cliente = clienteRepository
 				 .findById(user.getId())
 				 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
 		
 		if( cliente.getEndereco() != null) {
 			endereco = cliente.getEndereco();

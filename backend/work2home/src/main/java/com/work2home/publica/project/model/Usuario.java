@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.work2home.publica.project.dto.UsuarioResponse;
 import com.work2home.publica.project.enums.Roles;
 
 import lombok.AllArgsConstructor;

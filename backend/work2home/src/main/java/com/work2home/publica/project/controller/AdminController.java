@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.UsuarioDto;
+import com.work2home.publica.project.dto.usuario.UsuarioDto;
 import com.work2home.publica.project.service.AdminService;
 
 @RolesAllowed("ROLES_ADMIN")

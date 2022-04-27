@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.main_service.AvaliarPrestadorDto;
+import com.work2home.publica.project.dto.avaliacao.AvaliarClienteDto;
+import com.work2home.publica.project.dto.avaliacao.AvaliarPrestadorDto;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.model.Usuario;
-import com.work2home.publica.project.dto.main_service.AvaliarClienteDto;
 import com.work2home.publica.project.repositores.AvaliacaoRepository;
 import com.work2home.publica.project.repositores.OrdemServicoRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;

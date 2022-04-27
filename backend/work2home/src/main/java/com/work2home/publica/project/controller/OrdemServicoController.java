@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.PrestadorDto;
-import com.work2home.publica.project.dto.main_service.OrcamentoAcceptRequest;
-import com.work2home.publica.project.dto.main_service.OrdemServicoResponse;
-import com.work2home.publica.project.dto.main_service.SolicitacaoAcceptRequest;
-import com.work2home.publica.project.dto.main_service.SolicitacaoRequest;
+import com.work2home.publica.project.dto.ordem_servico.OrcamentoAcceptRequest;
+import com.work2home.publica.project.dto.ordem_servico.OrdemServicoResponse;
+import com.work2home.publica.project.dto.ordem_servico.SolicitacaoAcceptRequest;
+import com.work2home.publica.project.dto.ordem_servico.SolicitacaoRequest;
+import com.work2home.publica.project.dto.prestador.PrestadorDto;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.service.OrdemServicoService;
 
@@ -51,25 +51,32 @@ public class OrdemServicoController {
 
 	@RolesAllowed("ROLES_PRESTADOR")
 	@PatchMapping("/{id}/aceitar-solicitacao")
-	public OrdemServico aceitarSolicitacao( @PathVariable Integer id, @RequestBody SolicitacaoAcceptRequest acceptRequest) {
+	public OrdemServico aceitarSolicitacao(@PathVariable Integer id,
+			@RequestBody SolicitacaoAcceptRequest acceptRequest) {
 
 		return service.aceitarSolicitacao(acceptRequest, id);
 	}
-	
+
+	@RolesAllowed("ROLES_PRESTADOR")
+	@PatchMapping("/{id}/negar-solicitacao")
+	public void negarSolicitacao(@PathVariable Integer id) {
+
+		service.negarSolicitacao(id);
+	}
+
 	@RolesAllowed("ROLES_CLIENTE")
 	@PatchMapping("/{id}/aceitar-orcamento")
-	public OrdemServico aceitarOrcamento( @PathVariable Integer id, @RequestBody OrcamentoAcceptRequest orcamentoAcceptRequest) {
+	public OrdemServico aceitarOrcamento(@PathVariable Integer id,
+			@RequestBody OrcamentoAcceptRequest orcamentoAcceptRequest) {
 
-		
 		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
-	
+
 	@RolesAllowed("ROLES_PRESTADOR")
 	@PatchMapping("/{id}/finalizar-os")
 	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
-	
+
 		return service.finalizarOrdemServico(id);
 	}
-	
-	
+
 }

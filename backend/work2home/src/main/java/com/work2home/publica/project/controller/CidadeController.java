@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.CidadesPretadorDto;
+import com.work2home.publica.project.dto.endereco.CidadesPretadorDto;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.service.CidadeService;

@@ -1,4 +1,4 @@
-package com.work2home.publica.project.dto.main_service;
+package com.work2home.publica.project.dto.ordem_servico;
 
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.utils.Formatador;
@@ -15,7 +15,7 @@ public class OrdemServicoResponse {
 	private String dataInicio;
 	private String dataFim;
 	private Integer tempoEstimado;
-	private double valor;
+	private Double valor;
 	private String status;
 	
 	public OrdemServicoResponse(OrdemServico os) {

@@ -29,17 +29,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.cors().and().csrf().disable()
-			.authorizeRequests().anyRequest().permitAll();
-
-//			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
-//			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
-//			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
-//			.anyRequest().authenticated()
-//		.and()
-//			.sessionManagement()
-//			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//		
-//		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+			.authorizeRequests()	
+			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
+			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
+			.antMatchers("/swagger-ui.html").permitAll().antMatchers("/v3/api-docs").permitAll()
+			.antMatchers("/v2/api-docs").permitAll().antMatchers("/webjars/**").permitAll()
+			.anyRequest().authenticated()
+		.and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 	}
 }

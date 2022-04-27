@@ -1,8 +1,9 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.prestador;
 
 import java.util.List;
 import java.util.Set;
-import com.work2home.publica.project.dto.main_service.AvaliacaoResponse;
+
+import com.work2home.publica.project.dto.avaliacao.AvaliacaoResponse;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
@@ -16,7 +17,7 @@ public class PrestadorResponseDto {
 	private String telefone;
 	private Double mediaAvaliacao;
 	private Set<Categoria> categorias;
-	private List<Cidade> cidades;
+	private Set<Cidade> cidades;
 	private List<AvaliacaoResponse> avaliacoes;
 	
 	public PrestadorResponseDto(Prestador prestador) {
