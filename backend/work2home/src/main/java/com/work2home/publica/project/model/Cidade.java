@@ -34,8 +34,8 @@ public class Cidade {
 	@Column(name = "estado", nullable = false)
 	private String estado;
 
-	@ManyToMany()
-	@JsonIgnore()
+	@ManyToMany
+	@JsonIgnore
 	private List<Prestador> prestadores;
 	
 }

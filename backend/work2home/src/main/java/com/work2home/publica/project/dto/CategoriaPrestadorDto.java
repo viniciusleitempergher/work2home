@@ -17,4 +17,5 @@ public class CategoriaPrestadorDto {
 
 	private Integer prestadorId;
 	private Integer categoriaId;
+	
 }

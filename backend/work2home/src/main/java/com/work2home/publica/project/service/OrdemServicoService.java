@@ -1,9 +1,7 @@
 package com.work2home.publica.project.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -93,7 +91,7 @@ public class OrdemServicoService {
 		if(orcamentoAcceptRequest.isAceitar()) {
 			os.setStatus(StatusOrcamento.EM_ANDAMENTO);
 		}else {
-			os.setStatus(StatusOrcamento.NEGADO);
+			os.cancelar();
 		}
 		return repository.save(os);
 	}
