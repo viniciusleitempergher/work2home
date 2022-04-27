@@ -2,6 +2,7 @@ package com.work2home.publica.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class CidadeController {
 		return cidadeService.buscarCidades();
 	}
 	
+	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Cidade cadastrarCidade(@RequestBody @Valid CidadesPretadorDto cidadesPretadorDto) {

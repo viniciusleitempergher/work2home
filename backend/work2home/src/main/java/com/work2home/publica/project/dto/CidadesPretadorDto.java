@@ -14,8 +14,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CidadesPretadorDto {
-
 	private String estado;
 	private String cidade;
-	private Integer prestadorId;
 }

@@ -21,15 +21,19 @@ import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.ClienteRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.Formatador;
+import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class ClienteService {
 
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private JwtUtil jwt;
 
 	public List<Cliente> buscarCliente() {
 		return clienteRepository.findAll();
@@ -61,14 +65,12 @@ public class ClienteService {
 	}
 
 	@Transactional
-	public void alterarCliente(Integer id, @Valid ClienteDto dto) {
+	public void alterarCliente(@Valid ClienteDto dto) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		Cliente cliente = clienteRepository.findById(id)
+		Cliente cliente = clienteRepository.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-		Usuario usuario = cliente.getUsuario();
-
-		usuario.setRole(Roles.PRESTADOR);
 
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));

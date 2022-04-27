@@ -26,11 +26,9 @@ public class SolicitacaoRequest {
 	private Integer categoriaServicoId;
 	@NotNull
 	private Integer prestadorId;
-	@NotNull
-	private Integer enderecoId;
 	
 	public OrdemServico converter(CategoriaRepository categoriaRepository,
-			PrestadorRepository prestadorRepository, EnderecoRepository enderecoRepository) {
+			PrestadorRepository prestadorRepository, Endereco endereco) {
 		
 		Categoria categoria = categoriaRepository
 				.findById(categoriaServicoId)
@@ -38,10 +36,6 @@ public class SolicitacaoRequest {
 		
 		Prestador prestador = prestadorRepository
 				.findById(prestadorId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		
-		Endereco endereco = enderecoRepository
-				.findById(enderecoId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		return OrdemServico.builder()

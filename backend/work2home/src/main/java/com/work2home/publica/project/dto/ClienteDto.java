@@ -1,13 +1,6 @@
 package com.work2home.publica.project.dto;
 
-import java.time.LocalDate;
-
-import javax.validation.Valid;
-
-import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Cliente;
-import com.work2home.publica.project.model.Prestador;
-import com.work2home.publica.project.model.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

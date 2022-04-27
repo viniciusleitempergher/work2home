@@ -21,10 +21,8 @@ public class UsuarioController {
 	
 	@GetMapping("/me")
 	public UsuarioResponse getMe() throws IllegalAccessException, InvocationTargetException {
-		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
 
-		Usuario user = jwt.getUserFromAccessToken(token);
-		
+		Usuario user = jwt.getUserFromHeaderToken();
 		UsuarioResponse ur = new UsuarioResponse();
 		BeanUtils.copyProperties(ur, user);
 		

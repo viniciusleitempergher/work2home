@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ import com.work2home.publica.project.repositores.CidadeRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.Formatador;
+import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class PrestadorService {
@@ -43,6 +45,9 @@ public class PrestadorService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private JwtUtil jwt;
 
 	public List<Prestador> buscarPrestador() {
 		return prestadorRepository.findAll();
@@ -82,10 +87,14 @@ public class PrestadorService {
 	}
 
 	public void adicionarCidades(Integer prestadorId, Cidade cidade) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		boolean contemNaLista=false;
 		Prestador prestador = prestadorRepository
-				.findById(prestadorId)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
 		List<Cidade> cidades = prestador.getCidades();
 		for(Cidade c :cidades) {
 			if(c.getId()==cidade.getId()) {
@@ -102,31 +111,31 @@ public class PrestadorService {
 		}
 	}
 
-	public Prestador adicionarCategoria(@Valid CategoriaPrestadorDto categoriaPrestadorDto) {
-		Prestador prestador = prestadorRepository.findById(categoriaPrestadorDto.getPrestadorId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		Categoria categoria = categoriaRepository.findById(categoriaPrestadorDto.getCategoriaId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+	public Prestador adicionarCategoria(Integer categoriaId) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+	
+		Prestador prestador = prestadorRepository.findById(usuario.getId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		Categoria categoria = categoriaRepository.findById(categoriaId).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		
 		if (prestador.getCategorias() == null) prestador.setCategorias(new HashSet<Categoria>());
 		for(Categoria c : prestador.getCategorias()) {
-			if(c.getId()==categoriaPrestadorDto.getCategoriaId()) {
+			if(c.getId()==categoriaId) {
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
 			}
 		}		
 		prestador.getCategorias().add(categoria);
-		return prestadorRepository.save(prestador);
-		
+		return prestadorRepository.save(prestador);	
 	}
 
 	@Transactional
-	public void alterarPrestador(Integer id, @Valid PrestadorDto dto) {
+	public void alterarPrestador(@Valid PrestadorDto dto) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		Prestador prestador = prestadorRepository
-				.findById(id)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		
-		
-        Usuario usuario = prestador.getUsuario();
-		
-		usuario.setRole(Roles.PRESTADOR);
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));
@@ -142,10 +151,12 @@ public class PrestadorService {
 
 	}
 
-	public void removerCidadePrestador(Integer prestadorId, Integer cidadeId) {
+	public void removerCidadePrestador(Integer cidadeId) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		Prestador prestador = prestadorRepository
-				.findById(prestadorId)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		for(Cidade c : prestador.getCidades()) {
@@ -158,9 +169,12 @@ public class PrestadorService {
 		prestadorRepository.save(prestador);
 	}
 
-	public void removerCategoriaPrestador(Integer prestadorId, Integer categoriaId) {
+	public void removerCategoriaPrestador(Integer categoriaId) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		Prestador prestador = prestadorRepository
-				.findById(prestadorId)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		for(Categoria c : prestador.getCategorias()) {
@@ -171,7 +185,5 @@ public class PrestadorService {
 		}
 		
 		prestadorRepository.save(prestador);
-		
-		
 	}
 }

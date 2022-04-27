@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.work2home.publica.project.model.RefreshToken;
@@ -112,7 +113,7 @@ public class JwtUtil {
 	/**
 	 * Checks if the refresh token is valid
 	 * 
-	 * @param token    - the refresh token
+	 * @param token   - the refresh token
 	 * @param usuario - the customers object
 	 */
 	public Boolean validateRefreshToken(String token, Usuario usuario) {
@@ -170,8 +171,7 @@ public class JwtUtil {
 	public Usuario getUserFromRefreshToken(String token) {
 		Integer usuarioId = getIdFromToken(token);
 
-		Usuario usuario = userRepository.findById(usuarioId)
-				.orElseThrow(() -> new EntityNotFoundException());
+		Usuario usuario = userRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException());
 
 		return usuario;
 	}
@@ -183,5 +183,11 @@ public class JwtUtil {
 	 */
 	public Integer getIdFromToken(String token) {
 		return Integer.parseInt(getClaimFromToken(token, Claims::getSubject));
+	}
+
+	public Usuario getUserFromHeaderToken() {
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		return getUserFromAccessToken(token);
+
 	}
 }

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +40,10 @@ public class CategoriaController {
 	}
 	
 	@RolesAllowed("ROLES_PRESTADOR")
-	@PostMapping("/prestador")
+	@PostMapping("/{id}/prestador")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Prestador cadastrarCategoriaPrestador(@RequestBody @Valid CategoriaPrestadorDto categoriaPrestadorDto) {
+	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
 		
-		return categoriaService.cadastrarCategoriaPrestador(categoriaPrestadorDto);
+		return categoriaService.cadastrarCategoriaPrestador(id);
 	}
 }	

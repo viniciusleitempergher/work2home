@@ -2,6 +2,7 @@ package com.work2home.publica.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,22 +52,24 @@ public class PrestadorController {
 		return prestadorService.cadastrarPrestador(prestadorDto);
 	}
 	
-	@PutMapping("/{id}")
-	public void alterarPrestador(@PathVariable Integer id, @RequestBody @Valid PrestadorDto prestadorDto) {
-		
-		prestadorService.alterarPrestador(id, prestadorDto);
+	@RolesAllowed("ROLES_PRESTADOR")
+	@PutMapping
+	public void alterarPrestador(@RequestBody @Valid PrestadorDto prestadorDto) {
+		prestadorService.alterarPrestador(prestadorDto);
 	}
 	
-	@DeleteMapping("/{prestadorId}/cidade/{cidadeId}")
-	public void removerCidadePrestador(@PathVariable Integer prestadorId, @PathVariable Integer cidadeId) {
+	@RolesAllowed("ROLES_PRESTADOR")
+	@DeleteMapping("/cidade/{cidadeId}")
+	public void removerCidadePrestador(@PathVariable Integer cidadeId) {
 		
-		prestadorService.removerCidadePrestador(prestadorId, cidadeId);
+		prestadorService.removerCidadePrestador(cidadeId);
 	}
 	
-	@DeleteMapping("/{prestadorId}/categoria/{categoriaId}")
-	public void removerCategoriaPrestador(@PathVariable Integer prestadorId, @PathVariable Integer categoriaId) {
+	@RolesAllowed("ROLES_PRESTADOR")
+	@DeleteMapping("/categoria/{categoriaId}")
+	public void removerCategoriaPrestador(@PathVariable Integer categoriaId) {
 		
-		prestadorService.removerCategoriaPrestador(prestadorId, categoriaId);
+		prestadorService.removerCategoriaPrestador(categoriaId);
 	}
 
 }

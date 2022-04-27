@@ -15,7 +15,6 @@ import lombok.ToString;
 @ToString
 public class CategoriaPrestadorDto {
 
-	private Integer prestadorId;
 	private Integer categoriaId;
 	
 }

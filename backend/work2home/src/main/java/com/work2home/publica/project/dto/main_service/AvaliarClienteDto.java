@@ -15,20 +15,14 @@ public class AvaliarClienteDto {
 
 	@NotNull
 	private Integer nota;
-	@NotNull
-	private Integer ordemServicoId;
 	
-	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServicoRepository ordemServicoRepository) {
-		
-		OrdemServico ordemServico = ordemServicoRepository
-				.findById(ordemServicoId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		
+	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServico os) {
+				
 		return Avaliacao.builder()
 				.nota(nota)
-				.avaliado(ordemServico.getEndereco().getCliente().getUsuario())
-				.avaliador(ordemServico.getPrestador().getUsuario())
-				.ordemServico(ordemServico).build();
+				.avaliado(os.getEndereco().getCliente().getUsuario())
+				.avaliador(os.getPrestador().getUsuario())
+				.ordemServico(os).build();
 	}
 	
 }
