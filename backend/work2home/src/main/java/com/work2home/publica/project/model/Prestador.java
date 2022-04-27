@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,12 +44,13 @@ public class Prestador {
 	private String nomeFantasia;
 	
 	@ManyToMany
-	private List<Cidade> cidades;
+	private Set<Cidade> cidades;
 	
 	@ManyToMany
 	private Set<Categoria> categorias;
 	
 	@OneToMany(mappedBy = "prestador")
+	@JsonIgnore
 	private List<OrdemServico> servicos;
 	
 }

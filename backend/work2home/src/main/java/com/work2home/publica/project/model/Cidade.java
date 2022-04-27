@@ -1,6 +1,6 @@
 package com.work2home.publica.project.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +36,6 @@ public class Cidade {
 
 	@ManyToMany
 	@JsonIgnore
-	private List<Prestador> prestadores;
+	private Set<Prestador> prestadores;
 	
 }
