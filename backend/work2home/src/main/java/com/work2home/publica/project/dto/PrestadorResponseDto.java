@@ -16,7 +16,7 @@ public class PrestadorResponseDto {
 	private String telefone;
 	private Double mediaAvaliacao;
 	private Set<Categoria> categorias;
-	private List<Cidade> cidades;
+	private Set<Cidade> cidades;
 	private List<AvaliacaoResponse> avaliacoes;
 	
 	public PrestadorResponseDto(Prestador prestador) {

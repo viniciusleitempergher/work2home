@@ -30,8 +30,8 @@ public class CategoriaService {
 		return categoriaRepository.findAll();
 	}
 
-	public Prestador cadastrarCategoriaPrestador(@Valid CategoriaPrestadorDto categoriaPrestadorDto) {
-		return prestadorService.adicionarCategoria(categoriaPrestadorDto);
+	public Prestador cadastrarCategoriaPrestador(Integer categoriaId) {
+		return prestadorService.adicionarCategoria(categoriaId);
 		
 	}
 	

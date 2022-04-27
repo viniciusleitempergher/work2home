@@ -20,7 +20,5 @@ public class EnderecoDto {
 	private Integer numero;
 	private String complemento;
 	private String bairro;
-	private Integer idCliente;
-
 
 }

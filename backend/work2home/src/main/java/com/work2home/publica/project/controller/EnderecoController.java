@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,20 +24,13 @@ import com.work2home.publica.project.service.EnderecoService;
 @RestController
 @RequestMapping("/endereco")
 public class EnderecoController {
-	
-	@Autowired
-	EnderecoRepository enderecoRepository;
 
 	@Autowired
-	EnderecoService enderecoService;
+	private EnderecoService enderecoService;
 
 	@GetMapping
 	public List<Endereco> buscaListaContas() {
 		return enderecoService.buscarEndereco();
-	}
-	@GetMapping("/{id}")
-	public Endereco buscaCliente(@PathVariable Integer id) {
-		return enderecoService.buscarClienteId(id);
 	}
 	
 	@RolesAllowed("ROLES_CLIENTE")
@@ -44,5 +38,11 @@ public class EnderecoController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
 		return enderecoService.cadastrar(enderecoDto);
+	}
+	
+	@RolesAllowed("ROLES_CLIENTE")
+	@PutMapping
+	public void alterarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
+		enderecoService.cadastrar(enderecoDto);
 	}
 }

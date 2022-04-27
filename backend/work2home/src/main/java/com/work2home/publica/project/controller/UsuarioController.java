@@ -1,11 +1,15 @@
 package com.work2home.publica.project.controller;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.work2home.publica.project.dto.UsuarioResponse;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.JwtUtil;
 
@@ -16,11 +20,12 @@ public class UsuarioController {
 	private JwtUtil jwt;
 	
 	@GetMapping("/me")
-	public Usuario getMe() {
-		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+	public UsuarioResponse getMe() throws IllegalAccessException, InvocationTargetException {
 
-		Usuario user = jwt.getUserFromAccessToken(token);
+		Usuario user = jwt.getUserFromHeaderToken();
+		UsuarioResponse ur = new UsuarioResponse();
+		BeanUtils.copyProperties(ur, user);
 		
-		return user;
+		return ur;
 	}
 }

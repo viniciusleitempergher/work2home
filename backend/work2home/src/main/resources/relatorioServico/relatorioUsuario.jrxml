@@ -49,7 +49,7 @@
 		<band height="165">
 			<image>
 				<reportElement x="0" y="0" width="553" height="159" uuid="6ef7651c-c9b3-44ea-8601-d144a40a3c18"/>
-				<imageExpression><![CDATA["src/main/resources/relatorioServico/cabecalho-relatorio-servicos.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/resources/relatorioServico/cabecalho-relatorio-usuarios.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

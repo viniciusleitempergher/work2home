@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import com.work2home.publica.project.dto.main_service.AvaliarPrestadorDto;
 import com.work2home.publica.project.dto.main_service.AvaliarClienteDto;
 import com.work2home.publica.project.service.AvaliacaoService;
 
-
 @RestController
 @RequestMapping("/avaliacao")
 public class AvaliacaoController {
@@ -24,18 +24,16 @@ public class AvaliacaoController {
 	private AvaliacaoService service;
 	
 	@RolesAllowed("ROLES_PRESTADOR")
-	@PostMapping("/prestador-avalia-cliente")
+	@PostMapping("/prestador-avalia-cliente/{ordemServicoId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void avaliarCliente(@RequestBody @Valid AvaliarClienteDto avaliacaoDto) {
-		service.avaliarCliente(avaliacaoDto);
+	public void avaliarCliente(@PathVariable Integer ordemServicoId,  @RequestBody @Valid AvaliarClienteDto avaliacaoDto) {
+		service.avaliarCliente(ordemServicoId, avaliacaoDto);
 	}
 	
 	@RolesAllowed("ROLES_CLIENTE")
-	@PostMapping("/cliente-avalia-prestador")
+	@PostMapping("/cliente-avalia-prestador/{ordemServicoId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void avaliarPrestador(@RequestBody @Valid AvaliarPrestadorDto avaliacaoDto) {
-		service.avaliarPrestador(avaliacaoDto);
+	public void avaliarPrestador(@PathVariable Integer ordemServicoId, @RequestBody @Valid AvaliarPrestadorDto avaliacaoDto) {
+		service.avaliarPrestador(ordemServicoId, avaliacaoDto);
 	}
-	
-
 }

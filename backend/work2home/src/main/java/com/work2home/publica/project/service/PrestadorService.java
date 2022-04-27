@@ -10,8 +10,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.CategoriaPrestadorDto;
@@ -23,21 +25,29 @@ import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
+import com.work2home.publica.project.repositores.CidadeRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.Formatador;
+import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class PrestadorService {
 
 	@Autowired
-	PrestadorRepository prestadorRepository;
+	private PrestadorRepository prestadorRepository;
 	
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private JwtUtil jwt;
 
 	public List<Prestador> buscarPrestador() {
 		return prestadorRepository.findAll();
@@ -52,6 +62,7 @@ public class PrestadorService {
 		return new PrestadorResponseDto(prestador);
 	}
 
+	@Transactional
 	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
@@ -76,18 +87,22 @@ public class PrestadorService {
 	}
 
 	public void adicionarCidades(Integer prestadorId, Cidade cidade) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		boolean contemNaLista=false;
 		Prestador prestador = prestadorRepository
-				.findById(prestadorId)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		List<Cidade> cidades = prestador.getCidades();
+		
+		Set<Cidade> cidades = prestador.getCidades();
 		for(Cidade c :cidades) {
 			if(c.getId()==cidade.getId()) {
 				contemNaLista=true;
 			}
 		}
 		if(!contemNaLista) {
-			if (prestador.getCidades() == null) prestador.setCidades(new ArrayList<Cidade>());
+			if (prestador.getCidades() == null) prestador.setCidades(new HashSet<Cidade>());
 			prestador.getCidades().add(cidade);
 			prestadorRepository.save(prestador);
 			
@@ -96,30 +111,31 @@ public class PrestadorService {
 		}
 	}
 
-	public Prestador adicionarCategoria(@Valid CategoriaPrestadorDto categoriaPrestadorDto) {
-		Prestador prestador = prestadorRepository.findById(categoriaPrestadorDto.getPrestadorId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		Categoria categoria = categoriaRepository.findById(categoriaPrestadorDto.getCategoriaId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+	public Prestador adicionarCategoria(Integer categoriaId) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+	
+		Prestador prestador = prestadorRepository.findById(usuario.getId()).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		Categoria categoria = categoriaRepository.findById(categoriaId).orElseThrow(()->new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		
 		if (prestador.getCategorias() == null) prestador.setCategorias(new HashSet<Categoria>());
 		for(Categoria c : prestador.getCategorias()) {
-			if(c.getId()==categoriaPrestadorDto.getCategoriaId()) {
+			if(c.getId()==categoriaId) {
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
 			}
 		}		
 		prestador.getCategorias().add(categoria);
-		return prestadorRepository.save(prestador);
-		
+		return prestadorRepository.save(prestador);	
 	}
 
-	public void alterarPrestador(Integer id, @Valid PrestadorDto dto) {
+	@Transactional
+	public void alterarPrestador(@Valid PrestadorDto dto) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		Prestador prestador = prestadorRepository
-				.findById(id)
+				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		
-		
-        Usuario usuario = prestador.getUsuario();
-		
-		usuario.setRole(Roles.PRESTADOR);
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));
@@ -135,9 +151,39 @@ public class PrestadorService {
 
 	}
 
-	public void removerCidadePrestador(Integer prestadorId, Integer cidadeId) {
+	public void removerCidadePrestador(Integer cidadeId) {
 		
+		Usuario usuario = jwt.getUserFromHeaderToken();
 		
+		Prestador prestador = prestadorRepository
+				.findById(usuario.getId())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
+		for(Cidade c : prestador.getCidades()) {
+			if(c.getId() == cidadeId) {
+				prestador.getCidades().remove(c);
+				break;
+			}
+		}
+		
+		prestadorRepository.save(prestador);
+	}
+
+	public void removerCategoriaPrestador(Integer categoriaId) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
+		Prestador prestador = prestadorRepository
+				.findById(usuario.getId())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		
+		for(Categoria c : prestador.getCategorias()) {
+			if(c.getId() == categoriaId) {
+				prestador.getCidades().remove(c);
+				break;
+			}
+		}
+		
+		prestadorRepository.save(prestador);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -34,17 +35,16 @@ public class EnderecoService {
 		return enderecoRepository.findAll();
 	}
 
-	public Endereco buscarClienteId(Integer id) {
-		return enderecoRepository.findById(id).orElseThrow(() -> new RuntimeException());
-	}
 
 	public Endereco cadastrar(EnderecoDto enderecoDto) {
-		Endereco endereco = new Endereco();
-		Cliente cliente = new Cliente();
+		Endereco endereco = new Endereco();	
+		Usuario user = jwt.getUserFromHeaderToken();
 		
-	//	Usuario usuario = jwt.get
-		
-		cliente=clienteRepository.findById(enderecoDto.getIdCliente()).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		 Cliente cliente = clienteRepository
+				 .findById(user.getId())
+				 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+
 		
 		if( cliente.getEndereco() != null) {
 			endereco = cliente.getEndereco();
@@ -63,4 +63,5 @@ public class EnderecoService {
 		clienteRepository.save(cliente);
 		return endereco;
 	}
+
 }

@@ -19,20 +19,16 @@ import lombok.Data;
 @Data
 public class SolicitacaoRequest {
 
-	private String descricao; 
+	@NotBlank
+	private String descricao;
 	private String imagemUrl;
-
+	@NotNull
 	private Integer categoriaServicoId;
-
+	@NotNull
 	private Integer prestadorId;
-
-	private Integer enderecoId;
 	
 	public OrdemServico converter(CategoriaRepository categoriaRepository,
-			PrestadorRepository prestadorRepository, EnderecoRepository enderecoRepository) {
-		
-		
-		System.out.println(this.getCategoriaServicoId());
+			PrestadorRepository prestadorRepository, Endereco endereco) {
 		
 		Categoria categoria = categoriaRepository
 				.findById(categoriaServicoId)
@@ -40,10 +36,6 @@ public class SolicitacaoRequest {
 		
 		Prestador prestador = prestadorRepository
 				.findById(prestadorId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		
-		Endereco endereco = enderecoRepository
-				.findById(enderecoId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		return OrdemServico.builder()

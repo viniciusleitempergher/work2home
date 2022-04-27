@@ -14,6 +14,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.work2home.publica.project.enums.Roles;
 
@@ -53,6 +55,7 @@ public class Usuario {
 	@Column(name = "role", nullable = false)
 	private Roles role;
 
+	@JsonIgnore
 	@PrimaryKeyJoinColumn
 	@OneToOne
 	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
@@ -70,6 +73,10 @@ public class Usuario {
 		for(Avaliacao a : avaliacoesRecebidas) {
 			cont += a.getNota();
 		}
-		return cont/avaliacoesRecebidas.size();
+		
+		if(avaliacoesRecebidas.size() == 0) {
+			return 5.0;
+		}else {
+		return cont/avaliacoesRecebidas.size();}
 	}
 }

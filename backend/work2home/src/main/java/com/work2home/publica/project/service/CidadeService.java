@@ -10,15 +10,20 @@ import org.springframework.stereotype.Service;
 import com.work2home.publica.project.dto.CidadesPretadorDto;
 import com.work2home.publica.project.dto.EnderecoDto;
 import com.work2home.publica.project.model.Cidade;
+import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CidadeRepository;
+import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class CidadeService {
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 	
 	@Autowired
-	PrestadorService prestadorService;
+	private PrestadorService prestadorService;
+	
+	@Autowired
+	private JwtUtil jwt;
 	
 	public Cidade converter(EnderecoDto enderecoDto) {
 	
@@ -26,8 +31,11 @@ public class CidadeService {
 	}
 
 	public Cidade cadastrarCidadePrestador(@Valid CidadesPretadorDto cidadesPretadorDto) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		Cidade cidade = verificaECadastra(cidadesPretadorDto.getEstado(), cidadesPretadorDto.getCidade());
-		prestadorService.adicionarCidades(cidadesPretadorDto.getPrestadorId(),cidade);
+		prestadorService.adicionarCidades(usuario.getId() ,cidade);
 		return cidade;
 	}
 	
@@ -40,7 +48,6 @@ public class CidadeService {
 	}
 
 	public List<Cidade> buscarCidades() {
-		
 		return cidadeRepository.findAll();
 	}
 	

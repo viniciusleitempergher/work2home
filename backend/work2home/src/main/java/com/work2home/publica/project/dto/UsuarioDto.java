@@ -22,6 +22,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class UsuarioDto {
+	
 	private String email;
 	private String senha;
 	private String nome;

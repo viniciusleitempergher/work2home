@@ -2,6 +2,7 @@ package com.work2home.publica.project.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,11 @@ public class ClienteController {
 		return clienteService.cadastrarCliente(clienteDto);
 	}
 	
-	@PutMapping("/{id}")
-	public void alterarCliente(@PathVariable Integer id, @RequestBody @Valid ClienteDto clienteDto) {
+	@RolesAllowed("ROLES_CLIENTE")
+	@PutMapping
+	public void alterarCliente(@RequestBody @Valid ClienteDto clienteDto) {
 		
-		clienteService.alterarCliente(id, clienteDto);
+		clienteService.alterarCliente(clienteDto);
 	}
 
 }

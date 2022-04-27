@@ -23,9 +23,16 @@ public class OrdemServicoResponse {
 		this.nomePrestador = os.getPrestador().getUsuario().getNome();
 		this.area = os.getCategoriaServico().getNome();
 		this.descricao = os.getDescricao();
-		this.dataSolicitada = os.getDataSolicitada().format(Formatador.getFormatter());
-		this.dataInicio = os.getDataInicio().format(Formatador.getFormatter());
-		this.dataFim = os.getDataFim().format(Formatador.getFormatter());
+		
+		if(os.getDataSolicitada() != null) {
+			this.dataSolicitada = os.getDataSolicitada().format(Formatador.getFormatter());
+		}
+		if(os.getDataInicio() != null) {
+			this.dataInicio = os.getDataInicio().format(Formatador.getFormatter());
+		}
+		if(os.getDataFim() != null) {
+			this.dataFim = os.getDataFim().format(Formatador.getFormatter());
+		}
 		this.tempoEstimado = os.getTempoEstimado();
 		this.valor = os.getValor();
 		this.status = os.getStatus().toString();
