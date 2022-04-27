@@ -15,7 +15,7 @@ public class OrdemServicoResponse {
 	private String dataInicio;
 	private String dataFim;
 	private Integer tempoEstimado;
-	private double valor;
+	private Double valor;
 	private String status;
 	
 	public OrdemServicoResponse(OrdemServico os) {
