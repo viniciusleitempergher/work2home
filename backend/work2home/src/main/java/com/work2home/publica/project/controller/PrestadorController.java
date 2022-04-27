@@ -41,6 +41,7 @@ public class PrestadorController {
 	
 	@GetMapping("/{id}")
 	public PrestadorResponseDto buscaConta(@PathVariable Integer id) {
+		
 		return prestadorService.buscarPrestadorId(id);
 	}
 	
@@ -65,7 +66,7 @@ public class PrestadorController {
 	@DeleteMapping("/{prestadorId}/categoria/{categoriaId}")
 	public void removerCategoriaPrestador(@PathVariable Integer prestadorId, @PathVariable Integer categoriaId) {
 		
-		prestadorService.removerCidadePrestador(prestadorId, prestadorId);
+		prestadorService.removerCategoriaPrestador(prestadorId, categoriaId);
 	}
 
 }

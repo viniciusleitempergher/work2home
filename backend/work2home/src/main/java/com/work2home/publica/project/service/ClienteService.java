@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.ClienteDto;
@@ -38,6 +39,7 @@ public class ClienteService {
 		return clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
+	@Transactional
 	public Cliente cadastrarCliente(ClienteDto clienteDto) {
 
 		usuarioRepository.findAll().forEach(usuario -> {
@@ -58,6 +60,7 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
+	@Transactional
 	public void alterarCliente(Integer id, @Valid ClienteDto dto) {
 
 		Cliente cliente = clienteRepository.findById(id)
