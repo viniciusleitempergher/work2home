@@ -7,8 +7,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.work2home.publica.project.dto.CidadesPretadorDto;
-import com.work2home.publica.project.dto.EnderecoDto;
+import com.work2home.publica.project.dto.endereco.CidadesPretadorDto;
+import com.work2home.publica.project.dto.endereco.EnderecoDto;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CidadeRepository;

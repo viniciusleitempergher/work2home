@@ -1,4 +1,4 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.usuario;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

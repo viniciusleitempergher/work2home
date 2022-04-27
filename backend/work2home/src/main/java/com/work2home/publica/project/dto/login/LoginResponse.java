@@ -1,4 +1,4 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,12 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class EnderecoDto {
-	private String endereco;
-	private String estado;
-	private String cidade;
-	private Integer numero;
-	private String complemento;
-	private String bairro;
-
+public class LoginResponse {
+	private String accessToken;
+	private String refreshToken;
 }

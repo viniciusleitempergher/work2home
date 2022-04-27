@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.EnderecoDto;
+import com.work2home.publica.project.dto.endereco.EnderecoDto;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.model.Usuario;

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.ClienteDto;
-import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.dto.cliente.ClienteDto;
+import com.work2home.publica.project.dto.prestador.PrestadorDto;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Prestador;

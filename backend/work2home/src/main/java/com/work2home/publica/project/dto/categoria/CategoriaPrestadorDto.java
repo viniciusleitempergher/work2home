@@ -1,5 +1,4 @@
-package com.work2home.publica.project.dto;
-
+package com.work2home.publica.project.dto.categoria;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class LoginRequest {
-	private String email;
-	private String senha;
+public class CategoriaPrestadorDto {
+
+	private Integer categoriaId;
+	
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.main_service.AvaliarPrestadorDto;
-import com.work2home.publica.project.dto.main_service.AvaliarClienteDto;
+import com.work2home.publica.project.dto.avaliacao.AvaliarClienteDto;
+import com.work2home.publica.project.dto.avaliacao.AvaliarPrestadorDto;
 import com.work2home.publica.project.service.AvaliacaoService;
 
 @RestController

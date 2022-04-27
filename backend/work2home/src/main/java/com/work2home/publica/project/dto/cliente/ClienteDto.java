@@ -1,5 +1,6 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.cliente;
 
+import com.work2home.publica.project.dto.usuario.UsuarioDto;
 import com.work2home.publica.project.model.Cliente;
 
 import lombok.AllArgsConstructor;
