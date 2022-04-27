@@ -56,6 +56,7 @@ public class Usuario {
 	@Column(name = "role", nullable = false)
 	private Roles role;
 
+	@JsonIgnore
 	@PrimaryKeyJoinColumn
 	@OneToOne
 	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
