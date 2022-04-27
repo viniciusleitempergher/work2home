@@ -23,6 +23,7 @@ import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
+import com.work2home.publica.project.repositores.CidadeRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.Formatador;
@@ -31,13 +32,16 @@ import com.work2home.publica.project.utils.Formatador;
 public class PrestadorService {
 
 	@Autowired
-	PrestadorRepository prestadorRepository;
+	private PrestadorRepository prestadorRepository;
 	
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public List<Prestador> buscarPrestador() {
 		return prestadorRepository.findAll();
@@ -137,7 +141,17 @@ public class PrestadorService {
 
 	public void removerCidadePrestador(Integer prestadorId, Integer cidadeId) {
 		
+		Prestador prestador = prestadorRepository
+				.findById(prestadorId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
+		for(Cidade c : prestador.getCidades()) {
+			if(c.getId() == cidadeId) {
+				prestador.getCidades().remove(c);
+				break;
+			}
+		}
 		
+		prestadorRepository.save(prestador);
 	}
 }

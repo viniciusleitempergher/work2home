@@ -61,5 +61,11 @@ public class PrestadorController {
 		
 		prestadorService.removerCidadePrestador(prestadorId, cidadeId);
 	}
+	
+	@DeleteMapping("/{prestadorId}/categoria/{categoriaId}")
+	public void removerCategoriaPrestador(@PathVariable Integer prestadorId, @PathVariable Integer categoriaId) {
+		
+		prestadorService.removerCidadePrestador(prestadorId, prestadorId);
+	}
 
 }
