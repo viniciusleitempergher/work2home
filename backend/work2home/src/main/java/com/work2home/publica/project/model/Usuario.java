@@ -14,7 +14,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.work2home.publica.project.dto.UsuarioResponse;
 import com.work2home.publica.project.enums.Roles;
 
 import lombok.AllArgsConstructor;
@@ -70,6 +73,10 @@ public class Usuario {
 		for(Avaliacao a : avaliacoesRecebidas) {
 			cont += a.getNota();
 		}
-		return cont/avaliacoesRecebidas.size();
+		
+		if(avaliacoesRecebidas.size() == 0) {
+			return 5.0;
+		}else {
+		return cont/avaliacoesRecebidas.size();}
 	}
 }

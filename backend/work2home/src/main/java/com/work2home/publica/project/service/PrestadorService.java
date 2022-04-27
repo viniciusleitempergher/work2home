@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.dto.CategoriaPrestadorDto;
@@ -56,6 +57,7 @@ public class PrestadorService {
 		return new PrestadorResponseDto(prestador);
 	}
 
+	@Transactional
 	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
@@ -114,6 +116,7 @@ public class PrestadorService {
 		
 	}
 
+	@Transactional
 	public void alterarPrestador(Integer id, @Valid PrestadorDto dto) {
 		
 		Prestador prestador = prestadorRepository
@@ -153,5 +156,22 @@ public class PrestadorService {
 		}
 		
 		prestadorRepository.save(prestador);
+	}
+
+	public void removerCategoriaPrestador(Integer prestadorId, Integer categoriaId) {
+		Prestador prestador = prestadorRepository
+				.findById(prestadorId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		
+		for(Categoria c : prestador.getCategorias()) {
+			if(c.getId() == categoriaId) {
+				prestador.getCidades().remove(c);
+				break;
+			}
+		}
+		
+		prestadorRepository.save(prestador);
+		
+		
 	}
 }
