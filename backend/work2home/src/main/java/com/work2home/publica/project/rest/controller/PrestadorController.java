@@ -58,7 +58,7 @@ public class PrestadorController {
 	}
 	
 	@RolesAllowed("ROLES_PRESTADOR")
-	@PostMapping("/{id}/prestador")
+	@PostMapping("/{id}/categoria")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
 		
