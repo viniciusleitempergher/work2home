@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+* {
+    --background-primary: #F4EEE8;
+    --background-secondary: #FFEBC3;
+    --font-primary: #926D0F;
+    --font-secondary: #FCC129;
+    --font-thirdy: #D1A126;
+    --font-fourth: #FFFFFF;
+    
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    color: var(--font-primary);
+}
+
+.logo {
+    width: 100px;
+}
+
+body {
+    background-color: var(--background-primary) !important;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    padding: 45px;
+}
+
+.form__input {
+    background-color: var(--background-secondary) !important;
+    border: 1px solid var(--font-thirdy) !important;
+    max-width: 600px;
+}
+
+.form__button {
+    background-color: var(--font-thirdy) !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.form__button-secondary {
+    background-color: var(--font-fourth) !important;
+    border: none !important;
+    color: var(--font-primary) !important;
+    align-self: stretch;
+}

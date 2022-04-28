@@ -13,7 +13,6 @@ export class ConsumerTestComponent implements OnInit {
 
   ngOnInit(): void {
     
-    
   }
 
 }

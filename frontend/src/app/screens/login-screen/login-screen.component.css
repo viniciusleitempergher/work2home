@@ -1,0 +1,30 @@
+.form-login {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 550px;
+    gap: 20px;
+}
+
+.form-login .logo {
+    align-self: center;
+}
+
+main {
+    height: 100vh;
+    justify-content: space-between !important;
+}
+
+.btn__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    width: 100%;
+}
+
+a {
+    color: var(--font-primary);
+    align-self: center;
+}

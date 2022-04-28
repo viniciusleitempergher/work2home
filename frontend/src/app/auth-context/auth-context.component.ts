@@ -8,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class AuthContextComponent implements OnInit {
 
   testVar:string = "FUNCIONA KKK";
+  user = {};
 
   constructor() { }
 
   ngOnInit(): void {
+
+
+    if (!this.user) {
+
+    }
   }
 
+  getCurrentUser():any {
+     let accessToken = localStorage.getItem("accessToken");
+
+     if (!accessToken) return null;
+
+
+  }
 }
