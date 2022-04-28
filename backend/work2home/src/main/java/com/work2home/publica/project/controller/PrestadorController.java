@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +23,6 @@ import com.work2home.publica.project.dto.prestador.PrestadorResponseDto;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.service.PrestadorService;
-
-import lombok.Delegate;
 
 @RestController
 @RequestMapping(value = "/prestador")
@@ -58,7 +57,7 @@ public class PrestadorController {
 		prestadorService.alterarPrestador(prestadorDto);
 	}
 	
-	@RolesAllowed("ROLES_PRESTADOR")
+	@Secured("ROLES_PRESTADOR")
 	@DeleteMapping("/cidade/{cidadeId}")
 	public void removerCidadePrestador(@PathVariable Integer cidadeId) {
 		
