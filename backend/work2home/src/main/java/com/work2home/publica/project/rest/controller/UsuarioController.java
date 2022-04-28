@@ -28,14 +28,13 @@ public class UsuarioController {
 		Usuario user = jwt.getUserFromHeaderToken();
 		UsuarioResponse ur = new UsuarioResponse();
 		BeanUtils.copyProperties(ur, user);
-		
 		return ur;
 	}
 
-	@PostMapping("/{id}/imagem")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public void cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
-		service.cadastrarImagem(id, multipartFile);
+	@PostMapping("/imagem")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void cadastrarImagem(@RequestParam("image") MultipartFile multipartFile) {
+		service.cadastrarImagem(multipartFile);
 
 	}
 }

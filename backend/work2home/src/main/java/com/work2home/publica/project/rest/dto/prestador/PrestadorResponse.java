@@ -11,7 +11,7 @@ import com.work2home.publica.project.model.Prestador;
 import lombok.Data;
 
 @Data
-public class PrestadorResponseDto {
+public class PrestadorResponse {
 
 	private String nome;
 	private String email;
@@ -21,7 +21,7 @@ public class PrestadorResponseDto {
 	private Set<Cidade> cidades;
 	private List<AvaliacaoResponse> avaliacoes;
 	
-	public PrestadorResponseDto(Prestador prestador) {
+	public PrestadorResponse(Prestador prestador) {
 		this.nome = prestador.getUsuario().getNome();
 		this.email = prestador.getUsuario().getEmail();
 		this.telefone = prestador.getUsuario().getTelefone();

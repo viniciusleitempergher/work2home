@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarClienteDto;
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarPrestadorDto;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ public class AvaliacaoController {
 
 	@Autowired
 	private AvaliacaoService service;
-	
+
 	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping("/prestador-avalia-cliente/{ordemServicoId}")
 	@ResponseStatus(HttpStatus.CREATED)

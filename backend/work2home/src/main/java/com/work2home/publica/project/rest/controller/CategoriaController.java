@@ -34,23 +34,17 @@ public class CategoriaController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public Categoria cadastrarCategoria(@RequestBody @Valid Categoria categoria) {
 		return categoriaService.cadastrarCategoria(categoria);
 	}
 	
 	@PostMapping("/{id}/imagem")
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public void cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
 		categoriaService.cadastrarImagem(id, multipartFile);
 		
 	}
 	
-	@RolesAllowed("ROLES_PRESTADOR")
-	@PostMapping("/{id}/prestador")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
-		
-		return categoriaService.cadastrarCategoriaPrestador(id);
-	}
+	
 }	

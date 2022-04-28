@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,12 +34,17 @@ public class ClienteService {
 	@Autowired
 	private JwtUtil jwt;
 
-	public List<Cliente> buscarCliente() {
-		return clienteRepository.findAll();
+	public List<ClienteResponse> buscarCliente() {
+		return clienteRepository
+				.findAll()
+				.stream()
+				.map(c -> new ClienteResponse(c))
+				.toList();
 	}
 
-	public Cliente buscarClienteId(Integer id) {
-		return clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public ClienteResponse buscarClienteId(Integer id) {
+		Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return new ClienteResponse(cliente);
 	}
 
 	@Transactional

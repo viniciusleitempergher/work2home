@@ -42,7 +42,7 @@ public class OrdemServicoController {
 	}
 
 	@PostMapping("/{id}/imagem")
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public void cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
 		service.cadastrarImagem(id, multipartFile);
 
@@ -70,7 +70,7 @@ public class OrdemServicoController {
 
 		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
-
+	
 	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/finalizar-os")
 	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {

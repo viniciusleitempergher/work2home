@@ -33,7 +33,7 @@ public class EnderecoController {
 	
 	@RolesAllowed("ROLES_CLIENTE")
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
 		return enderecoService.cadastrar(enderecoDto);
 	}

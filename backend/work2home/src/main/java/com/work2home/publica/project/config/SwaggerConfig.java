@@ -1,6 +1,7 @@
 package com.work2home.publica.project.config;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +26,10 @@ public class SwaggerConfig {
 	                .useDefaultResponseMessages(false)
 	                .select()
 	                .apis(RequestHandlerSelectors
-	                        .basePackage("com.work2home.publica.project.controller"))
+	                        .basePackage("com.work2home.publica.project.rest.controller"))
 	                .paths(PathSelectors.any())
 	                .build()
-	                .securitySchemes(Arrays.asList(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
+	                .securitySchemes(List.of(new ApiKey("Token Access", HttpHeaders.AUTHORIZATION, In.HEADER.name())))
 	                .apiInfo(apiInfo());
 	    }
 

@@ -6,6 +6,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import com.work2home.publica.project.rest.dto.cliente.ClienteRequest;
+import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping(value = "/cliente")
 public class ClienteController {
-	
-	@Autowired
-	private ClienteRepository clienteRepository;
 
 	@Autowired
 	private ClienteService clienteService;
 
 	@GetMapping
-	public List<Cliente> buscaListaCliente() {
+	public List<ClienteResponse> buscaListaCliente() {
 		return clienteService.buscarCliente();
 	}
 	
 	@GetMapping("/{id}")
-	public Cliente buscaCliente(@PathVariable Integer id) {
+	public ClienteResponse buscaCliente(@PathVariable Integer id) {
 		return clienteService.buscarClienteId(id);
 	}
 	

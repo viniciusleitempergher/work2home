@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
-import com.work2home.publica.project.rest.dto.prestador.PrestadorResponseDto;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorResponse;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
@@ -42,21 +42,25 @@ public class PrestadorService {
 	@Autowired
 	private JwtUtil jwt;
 
-	public List<Prestador> buscarPrestador() {
-		return prestadorRepository.findAll();
+	public List<PrestadorResponse> buscarPrestador() {
+		return prestadorRepository
+				.findAll()
+				.stream()
+				.map(p -> new PrestadorResponse(p))
+				.toList();
 	}
 
-	public PrestadorResponseDto buscarPrestadorId(Integer id) {
+	public PrestadorResponse buscarPrestadorId(Integer id) {
 		
 		Prestador prestador = prestadorRepository
 				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		
-		return new PrestadorResponseDto(prestador);
+		return new PrestadorResponse(prestador);
 	}
 
 	@Transactional
-	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorRequest prestadorDto) {
+	public PrestadorResponse cadastrarPrestador(@Valid PrestadorRequest prestadorDto) {
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
@@ -75,7 +79,7 @@ public class PrestadorService {
 		prestador.setNomeFantasia(prestadorDto.getNomeFantasia());
 		
 		prestadorRepository.save(prestador);
-		return new PrestadorResponseDto(prestador);
+		return new PrestadorResponse(prestador);
 	}
 
 	public void adicionarCidades(Integer prestadorId, Cidade cidade) {

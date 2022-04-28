@@ -32,7 +32,7 @@ public class CidadeController {
 	
 	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public Cidade cadastrarCidade(@RequestBody @Valid CidadesPretadorRequest cidadesPretadorDto) {
 		return cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
 	}

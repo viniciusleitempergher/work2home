@@ -6,7 +6,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
-import com.work2home.publica.project.rest.dto.prestador.PrestadorResponseDto;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -21,29 +21,33 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work2home.publica.project.model.Prestador;
+import com.work2home.publica.project.service.CategoriaService;
 import com.work2home.publica.project.service.PrestadorService;
 
 @RestController
-@RequestMapping(value = "/prestador")
+@RequestMapping("/prestador")
 public class PrestadorController {
 
 	@Autowired
 	private PrestadorService prestadorService;
+	
+	@Autowired
+	private CategoriaService categoriaService;
 
 	@GetMapping
-	public List<Prestador> buscaListaPrestador() {
+	public List<PrestadorResponse> buscaListaPrestador() {
 		return prestadorService.buscarPrestador();
 	}
 	
 	@GetMapping("/{id}")
-	public PrestadorResponseDto buscaConta(@PathVariable Integer id) {
+	public PrestadorResponse buscaConta(@PathVariable Integer id) {
 		
 		return prestadorService.buscarPrestadorId(id);
 	}
 	
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public PrestadorResponseDto cadastrarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public PrestadorResponse cadastrarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		return prestadorService.cadastrarPrestador(prestadorDto);
 	}
 	
@@ -51,6 +55,14 @@ public class PrestadorController {
 	@PutMapping
 	public void alterarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		prestadorService.alterarPrestador(prestadorDto);
+	}
+	
+	@RolesAllowed("ROLES_PRESTADOR")
+	@PostMapping("/{id}/prestador")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
+		
+		return categoriaService.cadastrarCategoriaPrestador(id);
 	}
 	
 	@Secured("ROLES_PRESTADOR")

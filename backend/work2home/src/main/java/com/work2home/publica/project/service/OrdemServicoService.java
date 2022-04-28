@@ -16,6 +16,7 @@ import com.work2home.publica.project.rest.dto.ordem_servico.OrcamentoAcceptReque
 import com.work2home.publica.project.rest.dto.ordem_servico.OrdemServicoResponse;
 import com.work2home.publica.project.rest.dto.ordem_servico.SolicitacaoAcceptRequest;
 import com.work2home.publica.project.rest.dto.ordem_servico.SolicitacaoRequest;
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.OrdemServico;
@@ -51,13 +52,18 @@ public class OrdemServicoService {
 
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {
 
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
+		if(os.getPrestador().getId() != usuario.getId() && os.getEndereco().getCliente().getId() != usuario.getId() 
+				&& usuario.getRole() != Roles.ADMIN ) {
+		  throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
 
 		return new OrdemServicoResponse(os);
 	}
 	
-	
-
 	public OrdemServico criarSolicitacao(SolicitacaoRequest or) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
@@ -158,6 +164,10 @@ public class OrdemServicoService {
 				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
+		if(os.getEndereco().getCliente().getId() != jwt.getUserFromHeaderToken().getId()) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+		
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/ordem_servico";
 
