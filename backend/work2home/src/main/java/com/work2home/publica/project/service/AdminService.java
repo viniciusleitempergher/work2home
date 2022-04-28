@@ -3,7 +3,7 @@ package com.work2home.publica.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.work2home.publica.project.dto.usuario.UsuarioDto;
+import com.work2home.publica.project.dto.usuario.UsuarioRequest;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.UsuarioRepository;
@@ -11,9 +11,9 @@ import com.work2home.publica.project.repositores.UsuarioRepository;
 @Service
 public class AdminService {
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 	
-	public void cadastrar(UsuarioDto dto) {
+	public void cadastrar(UsuarioRequest dto) {
 		Usuario usuario = dto.converter();
 		
 		usuario.setRole(Roles.ADMIN);

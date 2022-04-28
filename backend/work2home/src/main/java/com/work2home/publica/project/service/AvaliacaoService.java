@@ -29,7 +29,7 @@ public class AvaliacaoService {
 	private OrdemServicoRepository ordemServicoRepository;
 	
 	@Autowired
-	JwtUtil jwt;
+	private JwtUtil jwt;
 
 	public void avaliarCliente(Integer OrdemServicoId, @Valid AvaliarClienteDto avaliacaoDto) {
 		

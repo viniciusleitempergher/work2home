@@ -1,5 +1,6 @@
 package com.work2home.publica.project.controller;
 
+import java.lang.annotation.Documented;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.dto.prestador.PrestadorResponseDto;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.PrestadorRepository;
@@ -27,9 +28,6 @@ import com.work2home.publica.project.service.PrestadorService;
 @RestController
 @RequestMapping(value = "/prestador")
 public class PrestadorController {
-
-	@Autowired
-	private PrestadorRepository prestadorRepository;
 
 	@Autowired
 	private PrestadorService prestadorService;
@@ -47,13 +45,13 @@ public class PrestadorController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PrestadorResponseDto cadastrarPrestador(@RequestBody @Valid PrestadorDto prestadorDto) {
+	public PrestadorResponseDto cadastrarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		return prestadorService.cadastrarPrestador(prestadorDto);
 	}
 	
 	@RolesAllowed("ROLES_PRESTADOR")
 	@PutMapping
-	public void alterarPrestador(@RequestBody @Valid PrestadorDto prestadorDto) {
+	public void alterarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		prestadorService.alterarPrestador(prestadorDto);
 	}
 	
@@ -63,6 +61,7 @@ public class PrestadorController {
 		
 		prestadorService.removerCidadePrestador(cidadeId);
 	}
+	
 	
 	@RolesAllowed("ROLES_PRESTADOR")
 	@DeleteMapping("/categoria/{categoriaId}")

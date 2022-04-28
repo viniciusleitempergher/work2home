@@ -11,7 +11,7 @@ import com.work2home.publica.project.repositores.UsuarioRepository;
 public class UsuarioService {
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	public long quantidadeUsuario() {
 		

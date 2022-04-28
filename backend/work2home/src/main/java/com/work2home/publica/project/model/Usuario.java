@@ -29,29 +29,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-@Table(name="usuario_tb")
+@Table(name = "usuario_tb")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "email", nullable = false)
 	private String email;
-	
+
 	@JsonIgnore
 	@Column(name = "senha", nullable = false)
 	private String senha;
-	
+
 	@Column(name = "nome", nullable = false)
 	private String nome;
-	
+
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
-	
+
+	@Column(name = "imagem_url")
+	private String imagemUrl;
+
 	@Column(name = "data_nascimento", nullable = true)
 	private LocalDate dtNascimento;
-	
+
 	@Column(name = "role", nullable = false)
 	private Roles role;
 
@@ -63,20 +66,20 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "avaliado")
 	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
-	
+
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
-	
+
 	public Double getMediaAvaliacao() {
-		
-		double cont = 0.0;
-		for(Avaliacao a : avaliacoesRecebidas) {
-			cont += a.getNota();
-		}
-		
-		if(avaliacoesRecebidas.size() == 0) {
+
+		if (avaliacoesRecebidas == null) {
 			return 5.0;
-		}else {
-		return cont/avaliacoesRecebidas.size();}
+		} else {
+			double cont = 0.0;
+			for (Avaliacao a : avaliacoesRecebidas) {
+				cont += a.getNota();
+			}
+			return cont / avaliacoesRecebidas.size();
+		}
 	}
 }

@@ -36,6 +36,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+			.antMatchers("/images/**").permitAll()
+			
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
+			
+			
+			
+			
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
 			.antMatchers("/swagger-ui.html").permitAll().antMatchers("/v3/api-docs").permitAll()
 			.antMatchers("/v2/api-docs").permitAll().antMatchers("/webjars/**").permitAll()
