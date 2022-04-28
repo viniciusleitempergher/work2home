@@ -20,13 +20,13 @@ import com.work2home.publica.project.utils.JwtUtil;
 public class EnderecoService {
 
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired	
-	CidadeService cidadeService;
+	private CidadeService cidadeService;
 	
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private JwtUtil jwt;
@@ -61,6 +61,7 @@ public class EnderecoService {
 		
 		cliente.setEndereco(endereco);
 		clienteRepository.save(cliente);
+		
 		return endereco;
 	}
 

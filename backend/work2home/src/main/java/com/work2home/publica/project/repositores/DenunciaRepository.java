@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.work2home.publica.project.model.Denuncia;
 import com.work2home.publica.project.model.DenunciaId;
+
 @Repository
 public interface DenunciaRepository extends JpaRepository<Denuncia, DenunciaId> {
 

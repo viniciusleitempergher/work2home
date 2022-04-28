@@ -1,7 +1,9 @@
 package com.work2home.publica.project.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -19,7 +21,11 @@ public class Denuncia implements Serializable {
 
 	private static final long serialVersionUID = 6691799932343781245L;
 
+	@Column(name = "descricao", nullable = false)
 	private String descricao;
+	
+	@Column(name = "data_denuncia")
+	private LocalDateTime dataDeduncia;
 	
 	@Id
 	@JoinColumn(name = "denunciador_id", nullable = false)

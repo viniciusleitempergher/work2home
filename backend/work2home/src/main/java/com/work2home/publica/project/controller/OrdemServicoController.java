@@ -7,6 +7,7 @@ import javax.annotation.security.RolesAllowed;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,14 +43,14 @@ public class OrdemServicoController {
 		return service.buscarDtoPorId(id);
 	}
 
-	@RolesAllowed("ROLES_CLIENTE")
+	@RolesAllowed("ROLE_CLIENTE")
 	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
 	public OrdemServico criarSolicitacao(@RequestBody SolicitacaoRequest sr) {
 		return service.criarSolicitacao(sr);
 	}
 
-	@RolesAllowed("ROLES_PRESTADOR")
+	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/aceitar-solicitacao")
 	public OrdemServico aceitarSolicitacao(@PathVariable Integer id,
 			@RequestBody SolicitacaoAcceptRequest acceptRequest) {
@@ -57,14 +58,14 @@ public class OrdemServicoController {
 		return service.aceitarSolicitacao(acceptRequest, id);
 	}
 
-	@RolesAllowed("ROLES_PRESTADOR")
+	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/negar-solicitacao")
 	public void negarSolicitacao(@PathVariable Integer id) {
 
 		service.negarSolicitacao(id);
 	}
 
-	@RolesAllowed("ROLES_CLIENTE")
+	@RolesAllowed("ROLE_CLIENTE")
 	@PatchMapping("/{id}/aceitar-orcamento")
 	public OrdemServico aceitarOrcamento(@PathVariable Integer id,
 			@RequestBody OrcamentoAcceptRequest orcamentoAcceptRequest) {
@@ -72,7 +73,7 @@ public class OrdemServicoController {
 		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
 
-	@RolesAllowed("ROLES_PRESTADOR")
+	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/finalizar-os")
 	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
 

@@ -20,13 +20,13 @@ import com.work2home.publica.project.utils.JwtUtil;
 public class LoginService {
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	RefreshTokenRepository refreshRepository;
+	private RefreshTokenRepository refreshRepository;
 	
 	@Autowired
-	JwtUtil jwt;
+	private JwtUtil jwt;
 
 	public LoginResponse logar(LoginRequest request) {
 		

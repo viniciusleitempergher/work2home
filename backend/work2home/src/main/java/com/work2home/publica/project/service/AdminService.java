@@ -11,7 +11,7 @@ import com.work2home.publica.project.repositores.UsuarioRepository;
 @Service
 public class AdminService {
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 	
 	public void cadastrar(UsuarioRequest dto) {
 		Usuario usuario = dto.converter();

@@ -1,5 +1,6 @@
 package com.work2home.publica.project.dto.prestador;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,12 +28,15 @@ public class PrestadorResponseDto {
 		this.mediaAvaliacao = prestador.getUsuario().getMediaAvaliacao();
 		this.categorias = prestador.getCategorias();
 		this.cidades = prestador.getCidades();
-		this.avaliacoes = prestador.getUsuario()
-				.getAvaliacoesRecebidas()
-				.stream()
-				.map(a -> new AvaliacaoResponse(a))
-				.toList();
 		
-		
+		if(prestador.getUsuario().getAvaliacoesRecebidas() != null) {
+			this.avaliacoes = prestador.getUsuario()
+					.getAvaliacoesRecebidas()
+					.stream()
+					.map(a -> new AvaliacaoResponse(a))
+					.toList();
+		}else {
+			this.avaliacoes = new ArrayList<>();
+		}
 	}
 }
