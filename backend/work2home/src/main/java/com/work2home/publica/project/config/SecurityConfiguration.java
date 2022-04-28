@@ -1,12 +1,8 @@
 package com.work2home.publica.project.config;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,17 +28,44 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.cors().and().csrf().disable()
-			.authorizeRequests()	
+			.authorizeRequests()
+			//requisicoes da ordem de servico
+			.antMatchers(HttpMethod.GET, "/ordem-servico/all").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/ordem-servico/*").hasAnyRole("CLIENTE", "ADMIN", "PRESTADOR")
+			.antMatchers(HttpMethod.POST, "/ordem-servico/solicitar").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.POST, "/ordem-servico/*/imagem").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-solicitacao").hasAnyRole("PRESTADOR")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/negar-solicitacao").hasAnyRole("PRESTADOR")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
+			
+			// requisicoes do cliente
+			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PUT, "/endereco").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PUT, "/cliente").hasAnyRole("CLIENTE")
+			
+			// requisicoes do prestador
+			.antMatchers("/prestador/*").hasAnyRole("PRESTADOR")
+			
+			// requisicoes de qualquer usuario
+			.antMatchers(HttpMethod.GET, "/cliente/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")	
+			.antMatchers(HttpMethod.GET, "/prestador/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
+			.antMatchers("/usuario/imagem").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
+			
+			// requisicoes do admin
+			.antMatchers(HttpMethod.GET, "/endereco").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
+			.antMatchers("/admin/**").hasAnyRole("ADMIN")
+			.antMatchers("/categoria/**").hasAnyRole("ADMIN")
+			
+			// requisicoes abertas
 			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+			.antMatchers("/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
-			.antMatchers("/images/**").permitAll()
 			
-			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
-			
-			
-			
-			
+			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
 			.antMatchers("/swagger-ui.html").permitAll().antMatchers("/v3/api-docs").permitAll()
 			.antMatchers("/v2/api-docs").permitAll().antMatchers("/webjars/**").permitAll()

@@ -1,23 +1,28 @@
 package com.work2home.publica.project.service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
+import com.work2home.publica.project.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.ordem_servico.OrcamentoAcceptRequest;
-import com.work2home.publica.project.dto.ordem_servico.OrdemServicoResponse;
-import com.work2home.publica.project.dto.ordem_servico.SolicitacaoAcceptRequest;
-import com.work2home.publica.project.dto.ordem_servico.SolicitacaoRequest;
+import com.work2home.publica.project.rest.dto.ordem_servico.OrcamentoAcceptRequest;
+import com.work2home.publica.project.rest.dto.ordem_servico.OrdemServicoResponse;
+import com.work2home.publica.project.rest.dto.ordem_servico.SolicitacaoAcceptRequest;
+import com.work2home.publica.project.rest.dto.ordem_servico.SolicitacaoRequest;
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.ClienteRepository;
-import com.work2home.publica.project.repositores.EnderecoRepository;
 import com.work2home.publica.project.repositores.OrdemServicoRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.utils.Formatador;
@@ -47,13 +52,18 @@ public class OrdemServicoService {
 
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {
 
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
+		if(os.getPrestador().getId() != usuario.getId() && os.getEndereco().getCliente().getId() != usuario.getId() 
+				&& usuario.getRole() != Roles.ADMIN ) {
+		  throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
 
 		return new OrdemServicoResponse(os);
 	}
 	
-	
-
 	public OrdemServico criarSolicitacao(SolicitacaoRequest or) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
@@ -148,4 +158,28 @@ public class OrdemServicoService {
 		repository.delete(os);
 	}
 
+	public void cadastrarImagem(Integer id, MultipartFile multipartFile) {
+
+		OrdemServico os = repository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+		if(os.getEndereco().getCliente().getId() != jwt.getUserFromHeaderToken().getId()) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+		
+		String uuid = UUID.randomUUID().toString();
+		String dir = "../images/ordem_servico";
+
+		os.setImagemUrl(dir + uuid);
+		repository.save(os);
+
+		try {
+			FileUploadUtil.saveFile(dir, uuid , multipartFile);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

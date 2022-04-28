@@ -6,10 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.login.LoginRequest;
-import com.work2home.publica.project.dto.login.LoginResponse;
-import com.work2home.publica.project.dto.refresh.RefreshRequest;
-import com.work2home.publica.project.dto.refresh.RefreshResponse;
+import com.work2home.publica.project.rest.dto.login.LoginRequest;
+import com.work2home.publica.project.rest.dto.login.LoginResponse;
+import com.work2home.publica.project.rest.dto.refresh.RefreshRequest;
+import com.work2home.publica.project.rest.dto.refresh.RefreshResponse;
 import com.work2home.publica.project.model.RefreshToken;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.RefreshTokenRepository;

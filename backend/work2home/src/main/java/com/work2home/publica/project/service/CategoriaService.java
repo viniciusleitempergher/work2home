@@ -51,6 +51,7 @@ public class CategoriaService {
 		String dir = "../images/categoria";
 		
 		categoria.setImagemUrl(dir + uuid);
+		categoriaRepository.save(categoria);
 		
 		try {
 			FileUploadUtil.saveFile(dir, uuid , multipartFile);
