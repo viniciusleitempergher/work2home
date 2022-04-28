@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.cliente.ClienteDto;
-import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.cliente.ClienteRequest;
+import com.work2home.publica.project.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.repositores.ClienteRepository;
 import com.work2home.publica.project.service.ClienteService;
@@ -44,13 +44,13 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Cliente cadastrarCliente(@RequestBody @Valid ClienteDto clienteDto) {
+	public Cliente cadastrarCliente(@RequestBody @Valid ClienteRequest clienteDto) {
 		return clienteService.cadastrarCliente(clienteDto);
 	}
 	
 	@RolesAllowed("ROLES_CLIENTE")
 	@PutMapping
-	public void alterarCliente(@RequestBody @Valid ClienteDto clienteDto) {
+	public void alterarCliente(@RequestBody @Valid ClienteRequest clienteDto) {
 		
 		clienteService.alterarCliente(clienteDto);
 	}

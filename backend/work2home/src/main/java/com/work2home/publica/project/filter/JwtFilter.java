@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.model.SecurityUser;
+import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.JwtUtil;
 
 @Component
@@ -44,8 +45,12 @@ public class JwtFilter extends OncePerRequestFilter {
 			chain.doFilter(request, response);
 			return;
 		}
+		
+		Usuario user = jwtTokenUtil.getUserFromAccessToken(token);
+		
+		System.out.println(user.getRole().toString());
 
-		SecurityUser usuario = new SecurityUser(token, "CLIENTE");
+		SecurityUser usuario = new SecurityUser(token, user.getRole().toString());
 		
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, token, usuario.getAuthorities());
 

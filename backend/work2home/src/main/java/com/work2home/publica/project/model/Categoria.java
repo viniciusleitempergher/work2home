@@ -28,6 +28,9 @@ public class Categoria {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@Column(name = "imagem_url")
+	private String imagemUrl;
+	
 	@ManyToMany
 	@JsonIgnore
 	private Set<Prestador> prestadores;

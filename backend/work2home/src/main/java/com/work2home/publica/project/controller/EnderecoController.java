@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.endereco.EnderecoDto;
+import com.work2home.publica.project.dto.endereco.EnderecoRequest;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.repositores.EnderecoRepository;
 import com.work2home.publica.project.service.EnderecoService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/endereco")
@@ -36,13 +38,13 @@ public class EnderecoController {
 	@RolesAllowed("ROLES_CLIENTE")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
+	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
 		return enderecoService.cadastrar(enderecoDto);
 	}
 	
 	@RolesAllowed("ROLES_CLIENTE")
 	@PutMapping
-	public void alterarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
+	public void alterarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
 		enderecoService.cadastrar(enderecoDto);
 	}
 }

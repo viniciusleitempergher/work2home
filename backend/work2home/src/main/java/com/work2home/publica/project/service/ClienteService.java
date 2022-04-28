@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.cliente.ClienteDto;
-import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.cliente.ClienteRequest;
+import com.work2home.publica.project.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Prestador;
@@ -44,7 +44,7 @@ public class ClienteService {
 	}
 
 	@Transactional
-	public Cliente cadastrarCliente(ClienteDto clienteDto) {
+	public Cliente cadastrarCliente(ClienteRequest clienteDto) {
 
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(clienteDto.getUsuarioDto().getEmail()))
@@ -65,7 +65,7 @@ public class ClienteService {
 	}
 
 	@Transactional
-	public void alterarCliente(@Valid ClienteDto dto) {
+	public void alterarCliente(@Valid ClienteRequest dto) {
 		
 		Usuario usuario = jwt.getUserFromHeaderToken();
 

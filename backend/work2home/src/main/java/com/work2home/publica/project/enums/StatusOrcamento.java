@@ -8,5 +8,4 @@ public enum StatusOrcamento {
 	FINALIZADO,
 	NEGADO,
 	PAGO
-	
 }
