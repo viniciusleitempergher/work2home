@@ -19,12 +19,10 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	// ADMI
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createAdmin(@RequestBody @Valid UsuarioRequest requestBody) {
 		adminService.cadastrar(requestBody);
 	}
 	
-
 }
