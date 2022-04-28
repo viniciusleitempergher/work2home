@@ -4,11 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.endereco.EnderecoRequest;
+import com.work2home.publica.project.rest.dto.endereco.EnderecoRequest;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.model.Usuario;

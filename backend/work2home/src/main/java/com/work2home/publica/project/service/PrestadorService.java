@@ -1,7 +1,6 @@
 package com.work2home.publica.project.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,14 +9,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.prestador.PrestadorRequest;
-import com.work2home.publica.project.dto.prestador.PrestadorResponseDto;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorResponseDto;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;

@@ -3,7 +3,7 @@ package com.work2home.publica.project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.work2home.publica.project.dto.usuario.UsuarioRequest;
+import com.work2home.publica.project.rest.dto.usuario.UsuarioRequest;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.UsuarioRepository;
