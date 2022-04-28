@@ -10,18 +10,14 @@ import com.work2home.publica.project.utils.Formatador;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
-public class UsuarioDto {
+@Data
+public class UsuarioRequest {
 	
 	private String email;
 	private String senha;
@@ -30,14 +26,13 @@ public class UsuarioDto {
 	private String dtNascimento;
 	
 	public Usuario converter() {
-		Usuario user = new  Usuario();
 		
-		user.setNome(nome);
-		user.setEmail(email);
-		user.setSenha(senha);
-		user.setDtNascimento(LocalDate.parse(dtNascimento, Formatador.getFormatter()));
-		user.setTelefone(telefone);
-		
-		return user;
+		return Usuario.builder()
+				.nome(nome)
+				.email(email)
+				.senha(senha)
+				.dtNascimento(LocalDate.parse(dtNascimento, Formatador.getFormatter()))
+				.telefone(telefone)
+				.build();
 	}
 }

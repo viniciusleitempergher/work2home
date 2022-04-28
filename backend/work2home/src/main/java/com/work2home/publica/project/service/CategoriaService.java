@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.work2home.publica.project.dto.categoria.CategoriaPrestadorDto;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.CategoriaRepository;

@@ -16,8 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.categoria.CategoriaPrestadorDto;
-import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.dto.prestador.PrestadorResponseDto;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Categoria;
@@ -25,7 +24,6 @@ import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
-import com.work2home.publica.project.repositores.CidadeRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.Formatador;
@@ -39,9 +37,6 @@ public class PrestadorService {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
-	@Autowired
-	private CidadeRepository cidadeRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -63,7 +58,7 @@ public class PrestadorService {
 	}
 
 	@Transactional
-	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorDto prestadorDto) {
+	public PrestadorResponseDto cadastrarPrestador(@Valid PrestadorRequest prestadorDto) {
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(prestadorDto.getUsuarioDto().getEmail())) 
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
@@ -72,7 +67,6 @@ public class PrestadorService {
 		Prestador prestador = prestadorDto.converter();
 		
 		Usuario usuario = prestador.getUsuario();
-		
 		usuario.setRole(Roles.PRESTADOR);
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
@@ -129,7 +123,7 @@ public class PrestadorService {
 	}
 
 	@Transactional
-	public void alterarPrestador(@Valid PrestadorDto dto) {
+	public void alterarPrestador(@Valid PrestadorRequest dto) {
 		
 		Usuario usuario = jwt.getUserFromHeaderToken();
 		

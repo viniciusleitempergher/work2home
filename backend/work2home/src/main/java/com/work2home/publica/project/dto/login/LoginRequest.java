@@ -1,19 +1,8 @@
 package com.work2home.publica.project.dto.login;
 
+import lombok.Data;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@ToString
+@Data
 public class LoginRequest {
 	private String email;
 	private String senha;

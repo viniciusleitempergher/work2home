@@ -21,7 +21,7 @@ import com.work2home.publica.project.dto.ordem_servico.OrcamentoAcceptRequest;
 import com.work2home.publica.project.dto.ordem_servico.OrdemServicoResponse;
 import com.work2home.publica.project.dto.ordem_servico.SolicitacaoAcceptRequest;
 import com.work2home.publica.project.dto.ordem_servico.SolicitacaoRequest;
-import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.service.OrdemServicoService;
 
