@@ -1,4 +1,4 @@
-package com.work2home.publica.project.dto.main_service;
+package com.work2home.publica.project.dto.avaliacao;
 
 import javax.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;

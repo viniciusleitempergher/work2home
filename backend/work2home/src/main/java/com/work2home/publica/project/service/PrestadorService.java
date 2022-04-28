@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.dto.CategoriaPrestadorDto;
-import com.work2home.publica.project.dto.PrestadorDto;
+import com.work2home.publica.project.dto.categoria.CategoriaPrestadorDto;
+import com.work2home.publica.project.dto.prestador.PrestadorDto;
+import com.work2home.publica.project.dto.prestador.PrestadorResponseDto;
 import com.work2home.publica.project.enums.Roles;
-import com.work2home.publica.project.dto.PrestadorResponseDto;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Cidade;
 import com.work2home.publica.project.model.Prestador;
@@ -95,14 +95,14 @@ public class PrestadorService {
 				.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		
-		List<Cidade> cidades = prestador.getCidades();
+		Set<Cidade> cidades = prestador.getCidades();
 		for(Cidade c :cidades) {
 			if(c.getId()==cidade.getId()) {
 				contemNaLista=true;
 			}
 		}
 		if(!contemNaLista) {
-			if (prestador.getCidades() == null) prestador.setCidades(new ArrayList<Cidade>());
+			if (prestador.getCidades() == null) prestador.setCidades(new HashSet<Cidade>());
 			prestador.getCidades().add(cidade);
 			prestadorRepository.save(prestador);
 			

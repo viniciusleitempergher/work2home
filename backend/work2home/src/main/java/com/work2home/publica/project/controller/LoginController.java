@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.dto.LoginRequest;
-import com.work2home.publica.project.dto.LoginResponse;
+import com.work2home.publica.project.dto.login.LoginRequest;
+import com.work2home.publica.project.dto.login.LoginResponse;
 import com.work2home.publica.project.dto.refresh.RefreshRequest;
 import com.work2home.publica.project.dto.refresh.RefreshResponse;
 import com.work2home.publica.project.service.LoginService;

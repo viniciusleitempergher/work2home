@@ -52,6 +52,7 @@ public class Endereco {
 	private Cidade cidade;
 	
 	@OneToMany(mappedBy = "endereco")
+	@JsonIgnore
 	private List<OrdemServico> servicos;
 	
 	@OneToOne

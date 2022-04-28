@@ -1,4 +1,5 @@
-package com.work2home.publica.project.dto;
+package com.work2home.publica.project.dto.login;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class LoginResponse {
-	private String accessToken;
-	private String refreshToken;
+public class LoginRequest {
+	private String email;
+	private String senha;
 }
