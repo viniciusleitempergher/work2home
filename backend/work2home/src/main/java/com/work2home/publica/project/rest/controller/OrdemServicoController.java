@@ -34,7 +34,6 @@ public class OrdemServicoController {
 		return service.buscarDtoPorId(id);
 	}
 
-	@RolesAllowed("ROLE_CLIENTE")
 	@PostMapping("/solicitar")
 	@ResponseStatus(HttpStatus.CREATED)
 	public OrdemServico criarSolicitacao(@RequestBody @Valid SolicitacaoRequest sr) {
@@ -48,7 +47,6 @@ public class OrdemServicoController {
 
 	}
 
-	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/aceitar-solicitacao")
 	public OrdemServico aceitarSolicitacao(@PathVariable Integer id,
 			@RequestBody @Valid SolicitacaoAcceptRequest acceptRequest) {
@@ -56,14 +54,12 @@ public class OrdemServicoController {
 		return service.aceitarSolicitacao(acceptRequest, id);
 	}
 
-	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/negar-solicitacao")
 	public void negarSolicitacao(@PathVariable Integer id) {
 
 		service.negarSolicitacao(id);
 	}
 
-	@RolesAllowed("ROLE_CLIENTE")
 	@PatchMapping("/{id}/aceitar-orcamento")
 	public OrdemServico aceitarOrcamento(@PathVariable Integer id,
 			@RequestBody @Valid OrcamentoAcceptRequest orcamentoAcceptRequest) {
@@ -71,7 +67,6 @@ public class OrdemServicoController {
 		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
 	
-	@RolesAllowed("ROLE_PRESTADOR")
 	@PatchMapping("/{id}/finalizar-os")
 	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
 

@@ -31,14 +31,12 @@ public class EnderecoController {
 		return enderecoService.buscarEndereco();
 	}
 	
-	@RolesAllowed("ROLES_CLIENTE")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
 		return enderecoService.cadastrar(enderecoDto);
 	}
 	
-	@RolesAllowed("ROLES_CLIENTE")
 	@PutMapping
 	public void alterarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
 		enderecoService.cadastrar(enderecoDto);

@@ -30,7 +30,6 @@ public class CidadeController {
 		return cidadeService.buscarCidades();
 	}
 	
-	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cidade cadastrarCidade(@RequestBody @Valid CidadesPretadorRequest cidadesPretadorDto) {

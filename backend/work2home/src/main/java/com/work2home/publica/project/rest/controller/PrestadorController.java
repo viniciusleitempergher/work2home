@@ -51,33 +51,30 @@ public class PrestadorController {
 		return prestadorService.cadastrarPrestador(prestadorDto);
 	}
 	
-	@RolesAllowed("ROLES_PRESTADOR")
 	@PutMapping
 	public void alterarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		prestadorService.alterarPrestador(prestadorDto);
 	}
-	
-	@RolesAllowed("ROLES_PRESTADOR")
+
 	@PostMapping("/{id}/categoria")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
 		
 		return categoriaService.cadastrarCategoriaPrestador(id);
 	}
-	
-	@Secured("ROLES_PRESTADOR")
+
 	@DeleteMapping("/cidade/{cidadeId}")
 	public void removerCidadePrestador(@PathVariable Integer cidadeId) {
 		
 		prestadorService.removerCidadePrestador(cidadeId);
 	}
 	
-	
-	@RolesAllowed("ROLES_PRESTADOR")
 	@DeleteMapping("/categoria/{categoriaId}")
 	public void removerCategoriaPrestador(@PathVariable Integer categoriaId) {
 		
 		prestadorService.removerCategoriaPrestador(categoriaId);
 	}
+	
+	
 
 }
