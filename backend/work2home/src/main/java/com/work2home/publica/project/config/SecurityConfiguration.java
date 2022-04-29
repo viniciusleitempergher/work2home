@@ -39,17 +39,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
 			
+			//avaliacao
+			.antMatchers("/avaliacao/**").permitAll()
+			
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PUT, "/endereco").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PUT, "/cliente").hasAnyRole("CLIENTE")
 			
 			// requisicoes do prestador
-			.antMatchers("/prestador/*").hasAnyRole("PRESTADOR")
+		//	.antMatchers("/prestador/*").hasAnyRole("PRESTADOR")
 			
 			// requisicoes de qualquer usuario
 			.antMatchers(HttpMethod.GET, "/cliente/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")	
-			.antMatchers(HttpMethod.GET, "/prestador/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
+		//	.antMatchers(HttpMethod.GET, "/prestador/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
 			.antMatchers("/usuario/imagem").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
 			
 			// requisicoes do admin
@@ -64,6 +67,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+			
+			//Tests
+			.antMatchers(HttpMethod.GET, "/prestador/**").permitAll()
 			
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()

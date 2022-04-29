@@ -1,5 +1,7 @@
 package com.work2home.publica.project.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarClienteDto;
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarPrestadorDto;
+import com.work2home.publica.project.model.Avaliacao;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.AvaliacaoRepository;
@@ -37,7 +40,20 @@ public class AvaliacaoService {
 				.findById(OrdemServicoId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
-		Usuario usuario = jwt.getUserFromHeaderToken(); 
+		List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
+		
+		
+		
+//		for(Avaliacao a : avaliacoes) {
+//			if(a.getAvaliador() ==)
+//		}
+//		
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
+		if(avaliacaoRepository.findByAvaliadorIdAndOrdemServicoId(usuario.getId(), os.getId()).isPresent()){
+			throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
+		}
 		
 		if(usuario.getId() != os.getPrestador().getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

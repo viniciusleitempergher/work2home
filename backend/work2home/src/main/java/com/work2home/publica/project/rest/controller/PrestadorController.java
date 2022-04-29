@@ -1,10 +1,13 @@
 package com.work2home.publica.project.rest.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
+import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroRequest;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroResponse;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +78,8 @@ public class PrestadorController {
 		prestadorService.removerCategoriaPrestador(categoriaId);
 	}
 	
-	
-
+	@GetMapping("/filtro")
+	public List<PrestadorFiltroResponse> filtrarPrestadores(@Valid @RequestBody PrestadorFiltroRequest pfr) {
+		return prestadorService.filtrarPrestadores(pfr);
+	}
 }
