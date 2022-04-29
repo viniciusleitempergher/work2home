@@ -33,12 +33,22 @@ main {
     background-color: var(--background-secondary) !important;
     border: 1px solid var(--font-thirdy) !important;
     max-width: 600px;
+    color: var(--font-primary) !important;
+}
+.form__input:focus {
+    box-shadow: 0 0 0 0.06rem var(--font-thirdy) !important;
 }
 
 .form__button {
     background-color: var(--font-thirdy) !important;
-    outline: none !important;
     border: none !important;
+}
+.form__button:focus {
+    box-shadow: none !important;
+}
+.form__button:active {
+    opacity: 0.8;
+    transition: all .4s;
 }
 
 .form__button-secondary {
@@ -46,4 +56,11 @@ main {
     border: none !important;
     color: var(--font-primary) !important;
     align-self: stretch;
+}
+.form__button-secondary:focus {
+    box-shadow: none !important;
+}
+.form__button-secondary:active {
+    background-color: rgba(0, 0, 0, .1) !important;
+    transition: all .4s;
 }

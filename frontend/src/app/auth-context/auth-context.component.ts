@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/models/Usuario';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-auth-context',
@@ -6,25 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-context.component.css']
 })
 export class AuthContextComponent implements OnInit {
+  user:Usuario = {} as Usuario;
 
-  testVar:string = "FUNCIONA KKK";
-  user = {};
+  constructor(private usuarioService:UserService) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
-
-
-    if (!this.user) {
-
+  async ngOnInit(): Promise<void> {
+    if (!this.user.email) {
+      this.user = await this.usuarioService.getUserFromAccessToken();
     }
-  }
-
-  getCurrentUser():any {
-     let accessToken = localStorage.getItem("accessToken");
-
-     if (!accessToken) return null;
-
-
   }
 }

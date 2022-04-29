@@ -29,6 +29,8 @@ public class LoginService {
 	private JwtUtil jwt;
 
 	public LoginResponse logar(LoginRequest request) {
+		System.out.println(request.getEmail());
+		System.out.println(request.getSenha());
 		
 		Usuario usuario = usuarioRepository.findByEmail(request.getEmail());
 		

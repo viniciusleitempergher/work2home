@@ -23,7 +23,9 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	public LoginResponse logar(@RequestBody @Valid LoginRequest request) {
-		return loginService.logar(request);
+		LoginResponse response = loginService.logar(request);
+		System.out.println(response);
+		return response;
 	}
 
 	@PostMapping("/refresh")

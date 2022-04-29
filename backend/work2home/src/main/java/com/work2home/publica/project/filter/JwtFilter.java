@@ -31,7 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		// Get authorization header and validate
 		final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-
+		
 		if (header == null || !header.startsWith("Bearer ")) {
 			chain.doFilter(request, response);
 			return;
@@ -40,16 +40,17 @@ public class JwtFilter extends OncePerRequestFilter {
 		// Get jwt token and validate
 		final String token = header.split(" ")[1].trim();
 
-		if (!jwtTokenUtil.validateAccessToken(token)) {
-//			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		try {
+			jwtTokenUtil.validateAccessToken(token);
+		} catch (Exception e) {
 			chain.doFilter(request, response);
 			return;
 		}
 		
-		Usuario user = jwtTokenUtil.getUserFromAccessToken(token);
+		System.out.println(token);
 		
-		System.out.println(user.getRole().toString());
-
+		Usuario user = jwtTokenUtil.getUserFromAccessToken(token);
+	
 		SecurityUser usuario = new SecurityUser(token, user.getRole().toString());
 		
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, token, usuario.getAuthorities());

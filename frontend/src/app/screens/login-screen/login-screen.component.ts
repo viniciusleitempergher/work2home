@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/models/Usuario';
+
+type LoginResponse = {
+  accessToken:string,
+  refreshToken:string
+}
 
 @Component({
   selector: 'app-login-screen',
@@ -8,14 +16,29 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginScreenComponent implements OnInit {
 
-  usuarioForm = new FormGroup({
+  @Input() user = {} as Usuario;
+
+  loginForm = new FormGroup({
     email: new FormControl(),
     senha: new FormControl(),
   });
 
-  constructor() { }
+  constructor(private usuarioService:UserService, private router: Router) { }
 
   ngOnInit(): void {
+    
+  }
+  
+  async handleLogin() {    
+    let response:LoginResponse = await this.usuarioService.login(this.loginForm.value.email, this.loginForm.value.senha) as LoginResponse;
+    console.log(response);
+    
+    localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
+    localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
+    
+    this.user = await this.usuarioService.getUserFromAccessToken();
+
+    this.router.navigate(['admin']);
   }
 
 }
