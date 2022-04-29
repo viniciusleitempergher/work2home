@@ -20,6 +20,7 @@ import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.OrdemServico;
+import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.ClienteRepository;
@@ -46,8 +47,32 @@ public class OrdemServicoService {
 	@Autowired
 	private JwtUtil jwt;
 
-	public List<OrdemServico> findAll() {
-		return repository.findAll();
+	public List<OrdemServicoResponse> findAll(Integer status) {	
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
+		if(usuario.getRole() == Roles.CLIENTE) {
+			
+			Cliente cliente = clienteRepository
+					.findById(usuario.getId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+			
+			return repository
+					.findByStatusOrcamentoAndEnderecoId(status, cliente.getEndereco().getId())
+					.stream()
+					.map(OrdemServicoResponse::new)
+					.toList();
+			
+		}else if(usuario.getRole() == Roles.PRESTADOR) {
+			
+			return repository
+					.findByStatusOrcamentoAndPrestadorId(status, usuario.getId())
+					.stream()
+					.map(OrdemServicoResponse::new)
+					.toList();
+		}else {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {

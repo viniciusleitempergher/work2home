@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.CategoriaRepository;
+import com.work2home.publica.project.rest.dto.categoria.CategoriaRequest;
 import com.work2home.publica.project.utils.FileUploadUtil;
 
 @Service
@@ -27,9 +28,9 @@ public class CategoriaService {
 	@Autowired
 	private PrestadorService prestadorService;
 
-	public Categoria cadastrarCategoria(@Valid Categoria categoria) {
+	public Categoria cadastrarCategoria(@Valid CategoriaRequest categoria) {
 		
-		return categoriaRepository.save(categoria);
+		return categoriaRepository.save(new Categoria(categoria.getNome()));
 	}
 
 	public List<Categoria> buscarCategorias() {

@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			//avaliacao
 			.antMatchers("/avaliacao/**").permitAll()
+			.antMatchers("ordem-servico/filtro/**").permitAll()
 			
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
