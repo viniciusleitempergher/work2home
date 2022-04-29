@@ -1,11 +1,8 @@
 package com.work2home.publica.project.rest.controller;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
-
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarClienteDto;
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarPrestadorDto;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +21,12 @@ public class AvaliacaoController {
 	@Autowired
 	private AvaliacaoService service;
 
-	@RolesAllowed("ROLES_PRESTADOR")
 	@PostMapping("/prestador-avalia-cliente/{ordemServicoId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void avaliarCliente(@PathVariable Integer ordemServicoId, @RequestBody @Valid AvaliarClienteDto avaliacaoDto) {
 		service.avaliarCliente(ordemServicoId, avaliacaoDto);
 	}
 	
-	@RolesAllowed("ROLES_CLIENTE")
 	@PostMapping("/cliente-avalia-prestador/{ordemServicoId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void avaliarPrestador(@PathVariable Integer ordemServicoId, @RequestBody @Valid AvaliarPrestadorDto avaliacaoDto) {
