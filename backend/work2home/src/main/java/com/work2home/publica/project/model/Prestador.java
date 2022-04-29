@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -49,7 +50,7 @@ public class Prestador {
 	@ManyToMany
 	private Set<Categoria> categorias;
 	
-	@OneToMany(mappedBy = "prestador")
+	@OneToMany(mappedBy = "prestador", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<OrdemServico> servicos;
 	

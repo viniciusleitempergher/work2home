@@ -1,6 +1,8 @@
 package com.work2home.publica.project.rest.dto.usuario;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -40,6 +42,7 @@ public class UsuarioRequest {
 				.senha(senha)
 				.dtNascimento(LocalDate.parse(dtNascimento, Formatador.getFormatter()))
 				.telefone(telefone)
+				.dataCriacao(LocalDate.now())
 				.build();
 	}
 }
