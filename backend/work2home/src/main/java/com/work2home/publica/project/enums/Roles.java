@@ -4,5 +4,6 @@ public enum Roles {
 	BANIDO,
 	CLIENTE,
 	PRESTADOR,
-	ADMIN
+	ADMIN,
+	INATIVO
 }

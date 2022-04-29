@@ -1,6 +1,7 @@
 package com.work2home.publica.project.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,10 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.work2home.publica.project.enums.Roles;
@@ -31,14 +28,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-@Table(name = "usuario_tb", uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "usuario_tb")
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@UniqueElements
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
@@ -55,8 +51,11 @@ public class Usuario {
 	@Column(name = "imagem_url")
 	private String imagemUrl;
 
-	@Column(name = "data_nascimento", nullable = true)
+	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate dtNascimento;
+	
+	@Column(name = "data_criacao")
+	private LocalDate dataCriacao;
 
 	@Column(name = "role", nullable = false)
 	private Roles role;
