@@ -1,0 +1,11 @@
+<main>
+    <form [formGroup]="categoriaForm" class="form form-categoria">
+        <h2>Cadastro de Categorias</h2>
+        <input type="text" name="nome" formControlName="nome" class="form-control form__input">
+
+        <label>Adicione uma imagem:</label>
+        <input type="file" name="imagem" formControlName="imagem" class="btn btn-primary form__button">
+
+        <button class="btn btn-primary form__button" (click)="handleAddCategoria()">Cadastrar</button>
+    </form>
+</main>

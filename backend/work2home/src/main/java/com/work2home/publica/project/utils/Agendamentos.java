@@ -33,36 +33,36 @@ public class Agendamentos {
 	private static final long HORA = 60L * MINUTO;
 	private static final long DIA = 24L * HORA;
 
-	@Scheduled(fixedDelay = MINUTO)
-	public void desativarPrestador() {
-		List<Prestador> prestadors = prestadorRepository.findAll();
-		
-	
-		for (Prestador p : prestadors) {
-
-			List<OrdemServico> servicos = p.getServicos();
-
-			if (servicos.isEmpty()) {
-				if (p.getUsuario().getDataCriacao().plusDays(30).isBefore(LocalDate.now())) {
-					desativarPrestador(p);
-				}
-			} else {
-
-				OrdemServico os = servicos.get(servicos.size() - 1);
-
-				if (os.getStatus() == StatusOrcamento.FINALIZADO) {
-
-					if (os.getDataFim().plusDays(30).isBefore(LocalDate.now())) {
-						desativarPrestador(p);
-					}
-				}
-			}
-		}
-	}
-	
-	private void desativarPrestador(Prestador p) {
-		p.getUsuario().setRole(Roles.INATIVO);
-		prestadorRepository.save(p);
-		usuarioRepository.save(p.getUsuario());
-	}
+//	@Scheduled(fixedDelay = MINUTO)
+//	public void desativarPrestador() {
+//		List<Prestador> prestadors = prestadorRepository.findAll();
+//		
+//	
+//		for (Prestador p : prestadors) {
+//
+//			List<OrdemServico> servicos = p.getServicos();
+//
+//			if (servicos.isEmpty()) {
+//				if (p.getUsuario().getDataCriacao().plusDays(30).isBefore(LocalDate.now())) {
+//					desativarPrestador(p);
+//				}
+//			} else {
+//
+//				OrdemServico os = servicos.get(servicos.size() - 1);
+//
+//				if (os.getStatus() == StatusOrcamento.FINALIZADO) {
+//
+//					if (os.getDataFim().plusDays(30).isBefore(LocalDate.now())) {
+//						desativarPrestador(p);
+//					}
+//				}
+//			}
+//		}
+//	}
+//	
+//	private void desativarPrestador(Prestador p) {
+//		p.getUsuario().setRole(Roles.INATIVO);
+//		prestadorRepository.save(p);
+//		usuarioRepository.save(p.getUsuario());
+//	}
 }

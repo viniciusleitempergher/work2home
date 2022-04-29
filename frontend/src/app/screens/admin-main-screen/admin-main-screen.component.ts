@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/models/Usuario';
 
 @Component({
@@ -10,10 +11,13 @@ export class AdminMainScreenComponent implements OnInit {
 
   @Input() user:Usuario = {} as Usuario;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.user);
+
   }
 
+  redirectCategoriasPage() {
+    this.router.navigate(["cadastrar-categoria"]);
+  }
 }

@@ -13,6 +13,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddTokenInterceptor } from './interceptors/AddTokenInterceptor';
 import { AdminMainScreenComponent } from './screens/admin-main-screen/admin-main-screen.component';
+import { CadastrarCategoriaComponent } from './screens/cadastrar-categoria/cadastrar-categoria.component';
 
 @NgModule({
   
@@ -20,7 +21,8 @@ import { AdminMainScreenComponent } from './screens/admin-main-screen/admin-main
     AppComponent,
     AuthContextComponent,
     LoginScreenComponent,
-    AdminMainScreenComponent
+    AdminMainScreenComponent,
+    CadastrarCategoriaComponent
   ],
   imports: [
     BrowserModule,
