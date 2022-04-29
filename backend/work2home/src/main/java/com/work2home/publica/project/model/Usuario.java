@@ -73,7 +73,7 @@ public class Usuario {
 	public Double getMediaAvaliacao() {
 
 		if (avaliacoesRecebidas == null || avaliacoesRecebidas.isEmpty()) {
-			return 2.0;
+			return 5.0;
 		} else {
 			double cont = 0.0;
 			for (Avaliacao a : avaliacoesRecebidas) {

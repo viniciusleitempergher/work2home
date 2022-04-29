@@ -36,4 +36,8 @@ public class Categoria {
 
 	@ManyToMany
 	private Set<Prestador> prestadores;
+
+	public Categoria(String nome) {
+		this.nome = nome;
+	}
 }

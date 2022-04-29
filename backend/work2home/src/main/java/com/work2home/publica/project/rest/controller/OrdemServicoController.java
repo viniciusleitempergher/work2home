@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.OrdemServico;
 import com.work2home.publica.project.service.OrdemServicoService;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +25,9 @@ public class OrdemServicoController {
 	@Autowired
 	private OrdemServicoService service;
 
-	@GetMapping("/all")
-	public List<OrdemServico> findAll() {
-		return service.findAll();
+	@GetMapping("/filtro/{status}")
+	public List<OrdemServicoResponse> findAll(@PathVariable Integer status) {
+		return service.findAll(status);
 	}
 
 	@GetMapping("/{id}")
