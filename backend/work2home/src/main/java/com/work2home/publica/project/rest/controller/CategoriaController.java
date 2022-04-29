@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Prestador;
+import com.work2home.publica.project.rest.dto.categoria.CategoriaRequest;
 import com.work2home.publica.project.service.CategoriaService;
 
 @RestController
@@ -35,7 +36,7 @@ public class CategoriaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Categoria cadastrarCategoria(@RequestBody @Valid Categoria categoria) {
+	public Categoria cadastrarCategoria(@RequestBody @Valid CategoriaRequest categoria) {
 		return categoriaService.cadastrarCategoria(categoria);
 	}
 	

@@ -13,8 +13,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.work2home.publica.project.enums.Roles;
@@ -29,14 +31,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-@Table(name = "usuario_tb")
+@Table(name = "usuario_tb", uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "email", nullable = false)
+	@UniqueElements
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
 	@JsonIgnore

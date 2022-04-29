@@ -1,5 +1,6 @@
 package com.work2home.publica.project.rest.dto.prestador;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import com.work2home.publica.project.rest.dto.usuario.UsuarioRequest;
@@ -11,7 +12,8 @@ import lombok.Data;
 
 @Data
 public class PrestadorRequest {
-	
+
+	@Valid
 	private UsuarioRequest usuarioDto;
 	
 	@CNPJ(message = "{campo.cnpj.invalido}")
