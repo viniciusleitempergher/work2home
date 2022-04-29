@@ -45,6 +45,4 @@ public class CategoriaController {
 		categoriaService.cadastrarImagem(id, multipartFile);
 		
 	}
-	
-	
 }	

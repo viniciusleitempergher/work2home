@@ -34,12 +34,11 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente cadastrarCliente(@RequestBody @Valid ClienteRequest clienteDto) {
 		return clienteService.cadastrarCliente(clienteDto);
 	}
 	
-	@RolesAllowed("ROLES_CLIENTE")
 	@PutMapping
 	public void alterarCliente(@RequestBody @Valid ClienteRequest clienteDto) {
 		
