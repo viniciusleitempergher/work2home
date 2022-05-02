@@ -191,7 +191,9 @@ public class PrestadorService {
 	public List<PrestadorFiltroResponse> filtrarPrestadores(@Valid PrestadorFiltroRequest pfr) {
 
 		List<PrestadorFiltroResponse> prestadorResponses = prestadorRepository
-				.findByCategorias_IdAndCidades_Id(pfr.getCategoria(), pfr.getCidade()).stream()
+				.findByCategorias_IdAndCidades_Id(pfr.getCategoria(), pfr.getCidade())
+				.stream()
+				.filter(p -> p.getUsuario().getRole() == Roles.PRESTADOR)
 				.map(p -> new PrestadorFiltroResponse(p)).toList();
 
 
@@ -201,8 +203,6 @@ public class PrestadorService {
 	}
 
 	private static void ordenaPorMediaAvaliacao(List<PrestadorFiltroResponse> listaPessoas) {
-		
-		System.out.println(listaPessoas.get(0));
 		
 		Collections.sort(listaPessoas, new Comparator<PrestadorFiltroResponse>() {
 			@Override

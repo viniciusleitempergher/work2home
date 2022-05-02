@@ -10,6 +10,7 @@ import com.work2home.publica.project.rest.dto.login.LoginRequest;
 import com.work2home.publica.project.rest.dto.login.LoginResponse;
 import com.work2home.publica.project.rest.dto.refresh.RefreshRequest;
 import com.work2home.publica.project.rest.dto.refresh.RefreshResponse;
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.RefreshToken;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.RefreshTokenRepository;
@@ -38,6 +39,11 @@ public class LoginService {
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		if (!bcrypt.matches(request.getSenha(), usuario.getSenha())) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+			
+		if(usuario.getRole() == Roles.INATIVO) {
+			usuario.setRole(Roles.PRESTADOR);
+			usuarioRepository.save(usuario);
+		}
 		
 		RefreshToken refreshToken;
 		

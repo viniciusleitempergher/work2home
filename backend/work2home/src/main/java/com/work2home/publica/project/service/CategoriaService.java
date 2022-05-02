@@ -1,11 +1,13 @@
 package com.work2home.publica.project.service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import com.work2home.publica.project.model.Categoria;
 import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.rest.dto.categoria.CategoriaRequest;
+import com.work2home.publica.project.rest.dto.categoria.CategoriaResponse;
 import com.work2home.publica.project.utils.FileUploadUtil;
 
 @Service
@@ -33,13 +36,25 @@ public class CategoriaService {
 		return categoriaRepository.save(new Categoria(categoria.getNome()));
 	}
 
-	public List<Categoria> buscarCategorias() {
-		return categoriaRepository.findAll();
+	public List<CategoriaResponse> buscarCategorias() {
+		
+		return categoriaRepository
+				.findAll()
+				.stream()
+				.map(c -> {
+					CategoriaResponse cr = new CategoriaResponse();
+					try {
+						BeanUtils.copyProperties(cr, c);
+					} catch (Exception e) {				
+						e.printStackTrace();
+					} 
+					return cr;
+				})
+				.toList();
 	}
 
 	public Prestador cadastrarCategoriaPrestador(Integer categoriaId) {
 		return prestadorService.adicionarCategoria(categoriaId);
-		
 	}
 
 	public void cadastrarImagem(Integer id, MultipartFile multipartFile) {
@@ -55,14 +70,16 @@ public class CategoriaService {
 		categoriaRepository.save(categoria);
 		
 		try {
-			FileUploadUtil.saveFile(dir, uuid , multipartFile);
-			
-			
+			FileUploadUtil.saveFile(dir, uuid , multipartFile);		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
-	
+
+	public void deletarCategoria(Integer id) {
+		Categoria categoria = categoriaRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		categoriaRepository.delete(categoria);
+	}
 }

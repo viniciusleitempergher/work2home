@@ -17,6 +17,7 @@ import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.OrdemServicoRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
+import com.work2home.publica.project.service.OrdemServicoService;
 
 @EnableScheduling
 @Component
@@ -28,41 +29,62 @@ public class Agendamentos {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	private static final long SEGUNDO = 1000L;
-	private static final long MINUTO = 60L * SEGUNDO;
-	private static final long HORA = 60L * MINUTO;
-	private static final long DIA = 24L * HORA;
+	@Autowired
+	private OrdemServicoRepository osRepository;
 
-//	@Scheduled(fixedDelay = MINUTO)
-//	public void desativarPrestador() {
-//		List<Prestador> prestadors = prestadorRepository.findAll();
-//		
-//	
-//		for (Prestador p : prestadors) {
-//
-//			List<OrdemServico> servicos = p.getServicos();
-//
-//			if (servicos.isEmpty()) {
-//				if (p.getUsuario().getDataCriacao().plusDays(30).isBefore(LocalDate.now())) {
-//					desativarPrestador(p);
-//				}
-//			} else {
-//
-//				OrdemServico os = servicos.get(servicos.size() - 1);
-//
-//				if (os.getStatus() == StatusOrcamento.FINALIZADO) {
-//
-//					if (os.getDataFim().plusDays(30).isBefore(LocalDate.now())) {
-//						desativarPrestador(p);
-//					}
-//				}
-//			}
-//		}
-//	}
-//	
-//	private void desativarPrestador(Prestador p) {
-//		p.getUsuario().setRole(Roles.INATIVO);
-//		prestadorRepository.save(p);
-//		usuarioRepository.save(p.getUsuario());
-//	}
+	private static final long SEGUNDO = 1000;
+	private static final long MINUTO = 60 * SEGUNDO;
+	private static final long HORA = 60 * MINUTO;
+	private static final long DIA = 24 * HORA;
+
+	@Scheduled(fixedDelay = HORA)
+	public void desativarPrestador() {
+		List<Prestador> prestadors = prestadorRepository.findAll();
+
+		for (Prestador p : prestadors) {
+
+			List<OrdemServico> servicos = p.getServicos();
+
+			if (servicos.isEmpty() && plusThirdyBefore(p.getUsuario().getDataCriacao())) {
+				desativarPrestador(p);
+			} else {
+				OrdemServico os = servicos.get(servicos.size() - 1);
+
+				if ((os.getStatus() == StatusOrcamento.FINALIZADO || os.getStatus() == StatusOrcamento.PAGO)
+						&& plusThirdyBefore(os.getDataFim())) {
+					desativarPrestador(p);
+				}
+			}
+		}
+	}
+
+	private void desativarPrestador(Prestador p) {
+		p.getUsuario().setRole(Roles.INATIVO);
+		prestadorRepository.save(p);
+		usuarioRepository.save(p.getUsuario());
+	}
+
+	@Scheduled(fixedDelay = HORA)
+	public void cancelarOrcamento() {
+
+		List<OrdemServico> servicos = osRepository.findAll();
+
+		for (OrdemServico os : servicos) {
+
+			if (os.getStatus() == StatusOrcamento.SOLICITADO && plusThirdyBefore(os.getDataSolicitada())) {
+				os.setStatus(StatusOrcamento.NEGADO);
+				osRepository.save(os);
+
+			} else if (os.getStatus() == StatusOrcamento.FINALIZADO && plusThirdyBefore(os.getDataFim())) {
+				Usuario usuario = os.getEndereco().getCliente().getUsuario();
+				usuario.setRole(Roles.BANIDO);
+				usuarioRepository.save(usuario);
+			}
+
+		}
+	}
+
+	public boolean plusThirdyBefore(LocalDate dia) {
+		return dia.isBefore(LocalDate.now());
+  }
 }
