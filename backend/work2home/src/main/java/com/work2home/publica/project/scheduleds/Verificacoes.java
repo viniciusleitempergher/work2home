@@ -1,7 +1,6 @@
-package com.work2home.publica.project.utils;
+package com.work2home.publica.project.scheduleds;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,10 @@ import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.OrdemServicoRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
-import com.work2home.publica.project.service.OrdemServicoService;
 
 @EnableScheduling
 @Component
-public class Agendamentos {
+public class Verificacoes {
 
 	@Autowired
 	private PrestadorRepository prestadorRepository;
@@ -36,9 +34,14 @@ public class Agendamentos {
 	private static final long MINUTO = 60 * SEGUNDO;
 	private static final long HORA = 60 * MINUTO;
 	private static final long DIA = 24 * HORA;
-
-	@Scheduled(fixedDelay = HORA)
-	public void desativarPrestador() {
+	
+	@Scheduled(fixedDelay = DIA)
+	public void tarefasPorDia() {
+		verificarPrestadores();
+		verificarOrcamentos();
+	}
+	
+	private void verificarPrestadores() {
 		List<Prestador> prestadors = prestadorRepository.findAll();
 
 		for (Prestador p : prestadors) {
@@ -58,14 +61,7 @@ public class Agendamentos {
 		}
 	}
 
-	private void desativarPrestador(Prestador p) {
-		p.getUsuario().setRole(Roles.INATIVO);
-		prestadorRepository.save(p);
-		usuarioRepository.save(p.getUsuario());
-	}
-
-	@Scheduled(fixedDelay = HORA)
-	public void cancelarOrcamento() {
+	private void verificarOrcamentos() {
 
 		List<OrdemServico> servicos = osRepository.findAll();
 
@@ -75,16 +71,25 @@ public class Agendamentos {
 				os.setStatus(StatusOrcamento.NEGADO);
 				osRepository.save(os);
 
-			} else if (os.getStatus() == StatusOrcamento.FINALIZADO && plusThirdyBefore(os.getDataFim())) {
+			} else if(os.getStatus() == StatusOrcamento.EM_ORCAMENTO && os.getDataInicio().isBefore(LocalDate.now())) {
+				os.setStatus(StatusOrcamento.NEGADO);
+				osRepository.save(os);
+			} 
+			else if (os.getStatus() == StatusOrcamento.FINALIZADO && plusThirdyBefore(os.getDataFim())) {
 				Usuario usuario = os.getEndereco().getCliente().getUsuario();
 				usuario.setRole(Roles.BANIDO);
 				usuarioRepository.save(usuario);
 			}
-
 		}
 	}
 
-	public boolean plusThirdyBefore(LocalDate dia) {
+	private boolean plusThirdyBefore(LocalDate dia) {
 		return dia.isBefore(LocalDate.now());
+	}
+	
+	private  void desativarPrestador(Prestador p) {
+		p.getUsuario().setRole(Roles.INATIVO);
+		prestadorRepository.save(p);
+		usuarioRepository.save(p.getUsuario());
 	}
 }
