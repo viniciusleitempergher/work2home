@@ -18,6 +18,8 @@ import { EscolherTipoComponent } from './screens/escolher-tipo/escolher-tipo.com
 import { CadastrarPrestadorComponent } from './screens/cadastrar-prestador/cadastrar-prestador.component';
 import { CadastrarClienteComponent } from './screens/cadastrar-cliente/cadastrar-cliente.component';
 import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastrar-endereco.component';
+import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
+import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
 
 @NgModule({
   
@@ -30,7 +32,9 @@ import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastr
     EscolherTipoComponent,
     CadastrarPrestadorComponent,
     CadastrarClienteComponent,
-    CadastrarEnderecoComponent
+    CadastrarEnderecoComponent,
+    ClienteMainScreenComponent,
+    PrestadorMainScreenComponent
   ],
   imports: [
     BrowserModule,
