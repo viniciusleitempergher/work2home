@@ -30,13 +30,12 @@ public class CidadeService {
 		return verificaECadastra(enderecoDto.getEstado(), enderecoDto.getCidade());
 	}
 
-	public Cidade cadastrarCidadePrestador(@Valid CidadesPretadorRequest cidadesPretadorDto) {
+	public void cadastrarCidadePrestador(@Valid CidadesPretadorRequest cidadesPretadorDto) {
 		
 		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		Cidade cidade = verificaECadastra(cidadesPretadorDto.getEstado(), cidadesPretadorDto.getCidade());
 		prestadorService.adicionarCidades(usuario.getId() ,cidade);
-		return cidade;
 	}
 	
 	public Cidade verificaECadastra(String estado, String cdd) {

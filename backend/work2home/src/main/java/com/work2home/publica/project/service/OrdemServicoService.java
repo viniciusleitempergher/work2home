@@ -89,17 +89,18 @@ public class OrdemServicoService {
 		return new OrdemServicoResponse(os);
 	}
 	
-	public OrdemServico criarSolicitacao(SolicitacaoRequest or) {
+	public OrdemServicoResponse criarSolicitacao(SolicitacaoRequest sr) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
 		Cliente cliente = clienteRepository.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
-		return repository.save(or.converter(categoriaRepository, prestadorRepository, cliente.getEndereco()));
+		OrdemServico os = repository.save(sr.converter(categoriaRepository, prestadorRepository, cliente.getEndereco()));
+		return new OrdemServicoResponse(os);
 	}
 
-	public OrdemServico aceitarSolicitacao(SolicitacaoAcceptRequest acceptRequest, Integer id) {
+	public OrdemServicoResponse aceitarSolicitacao(SolicitacaoAcceptRequest acceptRequest, Integer id) {
 
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -122,10 +123,10 @@ public class OrdemServicoService {
 		os.setValor(acceptRequest.getValor());
 		os.setDataInicio(data);
 		os.setTempoEstimado(acceptRequest.getTempoEstimado());
-		return repository.save(os);
+		return new OrdemServicoResponse(repository.save(os));
 	}
 
-	public OrdemServico aceitarOrcamento(OrcamentoAcceptRequest orcamentoAcceptRequest, Integer id) {
+	public OrdemServicoResponse aceitarOrcamento(OrcamentoAcceptRequest orcamentoAcceptRequest, Integer id) {
 
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -146,10 +147,10 @@ public class OrdemServicoService {
 		} else {
 			os.cancelar();
 		}
-		return repository.save(os);
+		return new OrdemServicoResponse(repository.save(os));
 	}
 
-	public OrdemServico finalizarOrdemServico(Integer id) {
+	public OrdemServicoResponse finalizarOrdemServico(Integer id) {
 
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -167,10 +168,10 @@ public class OrdemServicoService {
 		}
 		os.setStatus(StatusOrcamento.FINALIZADO);
 		os.setDataFim(LocalDate.now());
-		return repository.save(os);
+		return new OrdemServicoResponse(repository.save(os));
 	}
 
-	public void negarSolicitacao(Integer id) {
+	public OrdemServicoResponse negarSolicitacao(Integer id) {
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
@@ -178,9 +179,8 @@ public class OrdemServicoService {
 		if (os.getPrestador().getId() != usuario.getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
-		
 		os.cancelar();	
-		repository.delete(os);
+		return new OrdemServicoResponse(repository.save(os));
 	}
 
 	public void cadastrarImagem(Integer id, MultipartFile multipartFile) {

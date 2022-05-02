@@ -44,7 +44,6 @@ public class PrestadorController {
 	
 	@GetMapping("/{id}")
 	public PrestadorResponse buscaConta(@PathVariable Integer id) {
-		
 		return prestadorService.buscarPrestadorId(id);
 	}
 	
@@ -59,11 +58,11 @@ public class PrestadorController {
 		prestadorService.alterarPrestador(prestadorDto);
 	}
 
-	@PostMapping("/{id}/categoria")
+	@PostMapping("/categoria/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Prestador cadastrarCategoriaPrestador(@PathVariable Integer id) {
+	public void cadastrarCategoriaPrestador(@PathVariable Integer id) {
 		
-		return categoriaService.cadastrarCategoriaPrestador(id);
+	   categoriaService.cadastrarCategoriaPrestador(id);
 	}
 
 	@DeleteMapping("/cidade/{cidadeId}")

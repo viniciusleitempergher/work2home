@@ -25,16 +25,11 @@ public class EnderecoController {
 
 	@Autowired
 	private EnderecoService enderecoService;
-
-	@GetMapping
-	public List<Endereco> buscaListaContas() {
-		return enderecoService.buscarEndereco();
-	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Endereco cadastrarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
-		return enderecoService.cadastrar(enderecoDto);
+	public void cadastrarEndereco(@RequestBody @Valid EnderecoRequest enderecoDto) {
+		enderecoService.cadastrar(enderecoDto);
 	}
 	
 	@PutMapping

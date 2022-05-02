@@ -31,9 +31,15 @@ public class CategoriaService {
 	@Autowired
 	private PrestadorService prestadorService;
 
-	public Categoria cadastrarCategoria(@Valid CategoriaRequest categoria) {
-		
-		return categoriaRepository.save(new Categoria(categoria.getNome()));
+	public CategoriaResponse cadastrarCategoria(@Valid CategoriaRequest categoriaRequest) {
+		Categoria categoria = categoriaRepository.save(new Categoria(categoriaRequest.getNome()));
+		CategoriaResponse cr = new CategoriaResponse();
+		try {
+			BeanUtils.copyProperties(cr, categoria);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return cr;
 	}
 
 	public List<CategoriaResponse> buscarCategorias() {
@@ -53,8 +59,8 @@ public class CategoriaService {
 				.toList();
 	}
 
-	public Prestador cadastrarCategoriaPrestador(Integer categoriaId) {
-		return prestadorService.adicionarCategoria(categoriaId);
+	public void cadastrarCategoriaPrestador(Integer categoriaId) {
+		prestadorService.adicionarCategoria(categoriaId);
 	}
 
 	public void cadastrarImagem(Integer id, MultipartFile multipartFile) {

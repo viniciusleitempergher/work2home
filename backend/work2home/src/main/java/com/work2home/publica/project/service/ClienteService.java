@@ -48,7 +48,7 @@ public class ClienteService {
 	}
 
 	@Transactional
-	public Cliente cadastrarCliente(ClienteRequest clienteDto) {
+	public void cadastrarCliente(ClienteRequest clienteDto) {
 
 		usuarioRepository.findAll().forEach(usuario -> {
 			if (usuario.getEmail().equalsIgnoreCase(clienteDto.getUsuarioDto().getEmail()))
@@ -64,8 +64,7 @@ public class ClienteService {
 		usuario.setSenha(bcrypt.encode(usuario.getSenha()));
 
 		usuarioRepository.save(usuario);
-
-		return clienteRepository.save(cliente);
+	    clienteRepository.save(cliente);
 	}
 
 	@Transactional

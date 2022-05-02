@@ -37,7 +37,7 @@ public class OrdemServicoController {
 
 	@PostMapping("/solicitar")
 	@ResponseStatus(HttpStatus.CREATED)
-	public OrdemServico criarSolicitacao(@RequestBody @Valid SolicitacaoRequest sr) {
+	public OrdemServicoResponse criarSolicitacao(@RequestBody @Valid SolicitacaoRequest sr) {
 		return service.criarSolicitacao(sr);
 	}
 
@@ -49,27 +49,27 @@ public class OrdemServicoController {
 	}
 
 	@PatchMapping("/{id}/aceitar-solicitacao")
-	public OrdemServico aceitarSolicitacao(@PathVariable Integer id,
+	public OrdemServicoResponse aceitarSolicitacao(@PathVariable Integer id,
 			@RequestBody @Valid SolicitacaoAcceptRequest acceptRequest) {
 
 		return service.aceitarSolicitacao(acceptRequest, id);
 	}
 
 	@PatchMapping("/{id}/negar-solicitacao")
-	public void negarSolicitacao(@PathVariable Integer id) {
+	public OrdemServicoResponse negarSolicitacao(@PathVariable Integer id) {
 
-		service.negarSolicitacao(id);
+		return service.negarSolicitacao(id);
 	}
 
 	@PatchMapping("/{id}/aceitar-orcamento")
-	public OrdemServico aceitarOrcamento(@PathVariable Integer id,
+	public OrdemServicoResponse aceitarOrcamento(@PathVariable Integer id,
 			@RequestBody @Valid OrcamentoAcceptRequest orcamentoAcceptRequest) {
 
 		return service.aceitarOrcamento(orcamentoAcceptRequest, id);
 	}
 	
 	@PatchMapping("/{id}/finalizar-os")
-	public OrdemServico finalizarOrdemServico(@PathVariable Integer id) {
+	public OrdemServicoResponse finalizarOrdemServico(@PathVariable Integer id) {
 
 		return service.finalizarOrdemServico(id);
 	}

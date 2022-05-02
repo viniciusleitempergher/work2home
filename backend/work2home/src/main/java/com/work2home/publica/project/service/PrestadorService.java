@@ -112,7 +112,7 @@ public class PrestadorService {
 		}
 	}
 
-	public Prestador adicionarCategoria(Integer categoriaId) {
+	public void adicionarCategoria(Integer categoriaId) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
@@ -129,7 +129,7 @@ public class PrestadorService {
 			}
 		}
 		prestador.getCategorias().add(categoria);
-		return prestadorRepository.save(prestador);
+		prestadorRepository.save(prestador);
 	}
 
 	@Transactional
@@ -194,8 +194,8 @@ public class PrestadorService {
 				.findByCategorias_IdAndCidades_Id(pfr.getCategoria(), pfr.getCidade())
 				.stream()
 				.filter(p -> p.getUsuario().getRole() == Roles.PRESTADOR)
-				.map(p -> new PrestadorFiltroResponse(p)).toList();
-
+				.map(p -> new PrestadorFiltroResponse(p))
+				.toList();
 
 		List<PrestadorFiltroResponse> list = new LinkedList<PrestadorFiltroResponse>(prestadorResponses);
 		ordenaPorMediaAvaliacao(list);

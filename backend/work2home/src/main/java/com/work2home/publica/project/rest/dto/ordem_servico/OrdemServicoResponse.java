@@ -37,8 +37,4 @@ public class OrdemServicoResponse {
 		this.valor = os.getValor();
 		this.status = os.getStatus().toString();
 	}
-	
-	
-	
-	
 }
