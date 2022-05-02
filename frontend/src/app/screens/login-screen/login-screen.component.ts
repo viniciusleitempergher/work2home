@@ -31,14 +31,22 @@ export class LoginScreenComponent implements OnInit {
   
   async handleLogin() {    
     let response:LoginResponse = await this.usuarioService.login(this.loginForm.value.email, this.loginForm.value.senha) as LoginResponse;
-    console.log(response);
     
     localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
     localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
     
     this.user = await this.usuarioService.getUserFromAccessToken();
 
-    this.router.navigate(['admin']);
+    if (this.user.role == 'ADMIN')
+      this.router.navigate(['admin']);
+      if (this.user.role == 'CLIENTE')
+      alert("Cliente Logado");
+    
+    
+  }
+
+  novoCadastro(){
+    this.router.navigate(['escolher-tipo']);
   }
 
 }

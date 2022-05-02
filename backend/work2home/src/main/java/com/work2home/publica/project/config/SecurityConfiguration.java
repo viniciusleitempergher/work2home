@@ -78,6 +78,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			//Tests
 		//	.antMatchers(HttpMethod.GET, "/prestador/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/relatorio/**").permitAll()
+
 			
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()

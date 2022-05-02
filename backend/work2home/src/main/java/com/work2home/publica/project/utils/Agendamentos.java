@@ -86,5 +86,5 @@ public class Agendamentos {
 
 	public boolean plusThirdyBefore(LocalDate dia) {
 		return dia.isBefore(LocalDate.now());
-	}
+  }
 }
