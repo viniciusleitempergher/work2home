@@ -1,1 +1,43 @@
-<p>cadastrar-endereco works!</p>
+<main>
+    <form class="form form-cadEndereco" [formGroup]="cadastroEnderecoForm">
+        <h1 class="form__title">Endereço:</h1>
+        <label for="input-text" class="form__label-endereco">
+            Estado:
+            <select class="form-control form__input form__input-endereco" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
+                <option value="">Selecione um Estado</option>
+                <option *ngFor="let estado of estados,let i = index" [value]="estado.sigla">
+                    {{estado.nome}}
+                </option>
+            </select>
+        </label>
+        <label for="input-text" class="form__label-endereco">
+            Cidade:
+            <select class="form-control form__input form__input-endereco" formControlName="cbxCidade" [class.form__input-invalid]="cidadeInvalida" name="cbxCidade">
+                <option value="">Selecione uma Cidade</option>
+                <option *ngFor="let cidade of cidades,let i = index" [value]="cidade.nome">
+                    {{cidade.nome}}
+                </option>
+            </select>
+        </label>        
+        <label for="input-text" class="form__label-endereco">
+            Bairro:
+            <input type="text" (change)="validaBairro()" [class.form__input-invalid]="bairroInvalida" name="bairro" formControlName="bairro" class="form-control form__input form__input-endereco" id="input-bairro">
+        </label>
+        <label for="input-text" class="form__label-endereco">
+            Rua:
+            <input type="text"  name="rua" formControlName="rua" [class.form__input-invalid]="ruaInvalida" class="form-control form__input form__input-endereco" id="rua">
+        </label>
+        <label for="input-text" class="form__label-endereco">
+            Numero:
+            <input type="text" mask="0*" name="numero" formControlName="numero" [class.form__input-invalid]="numeroInvalida" class="form-control form__input form__input-numero" id="input-numero">
+        </label>
+        <label for="input-text" class="form__label-endereco">
+            Complemento:
+            <input type="text"  name="complemento" formControlName="complemento" [class.form__input-invalid]="complementoInvalida" class="form-control form__input form__input-complemento" id="input-complemento">
+        </label>
+    </form>  
+    <div class="btn__wrapper">
+        <button (click)="cadastrar()" class="btn btn-primary form__button">Cadastrar</button>
+        <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
+    </div>    
+</main>

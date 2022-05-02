@@ -5,6 +5,8 @@ import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Prestador } from 'src/models/Prestador';
 import { PrestadorService } from 'src/app/services/prestador.service';
+import { LoginResponse } from '../login-screen/login-screen.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cadastrar-prestador',
@@ -15,6 +17,14 @@ import { PrestadorService } from 'src/app/services/prestador.service';
 export class CadastrarPrestadorComponent implements OnInit {
 
   prestador: Prestador = new Prestador();
+
+  emailInvalido = false;
+  nomeInvalido = false;
+  senhaInvalida = false;
+  cnpjInvalido = false;
+  telefoneInvalido = false;
+  dataNascimentoInvalida = false;
+  nomeEmpresaInvalido = false;
 
   cadastroPrestadorForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z0-9._-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -27,7 +37,7 @@ export class CadastrarPrestadorComponent implements OnInit {
     nomeEmpresa: new FormControl(null, [Validators.required])
   });
 
-  constructor(private prestadorService: PrestadorService, private router: Router, private datePipe: DatePipe) { }
+  constructor(private usuarioService: UserService,private prestadorService: PrestadorService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.cadastroPrestadorForm.reset();
@@ -52,6 +62,7 @@ export class CadastrarPrestadorComponent implements OnInit {
 
     if (this.cadastroPrestadorForm.valid) {
       await this.prestadorService.cadastrarPrestador(this.prestador);
+      this.logar();
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -59,18 +70,14 @@ export class CadastrarPrestadorComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-      //this.router.navigate(['cadastrar-endereco']);
+//      this.router.navigate(['cadastrar-endereco']);
     }
   }
-
-  emailInvalido = false;
-  nomeInvalido = false;
-  senhaInvalida = false;
-  cnpjInvalido = false;
-  telefoneInvalido = false;
-  dataNascimentoInvalida = false;
-  nomeEmpresaInvalido = false;
-
+  async logar(){
+    let response:LoginResponse = await this.usuarioService.login(this.prestador.usuarioDto.email, this.prestador.usuarioDto.senha) as LoginResponse;
+    localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
+    localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
+  }
   validaEmail() {
     if (!this.cadastroPrestadorForm.get('email')?.valid) {
       this.emailInvalido = true;
