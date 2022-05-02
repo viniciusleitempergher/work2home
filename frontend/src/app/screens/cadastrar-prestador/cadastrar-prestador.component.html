@@ -1,0 +1,44 @@
+<main>
+    <form class="form form-cadPrestador" [formGroup]="cadastroPrestadorForm">
+        <img src="../../../assets/logo.svg" class="logo">
+
+        <label for="input-email" class="form__label-login">
+            Email:
+            <input type="text" name="email" formControlName="email" class="form-control form__input form__input-login" id="input-email">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Nome:
+            <input type="text" name="nome" formControlName="nome" class="form-control form__input form__input-login" id="input-nome">
+        </label>
+        <label for="input-password" class="form__label-login">
+            Senha:
+            <input type="password" name="senha" formControlName="senha" class="form-control form__input form__input-login" id="input-senha">
+        </label>
+        <label for="input-password" class="form__label-login">
+            Repetir senha:
+            <input type="password" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-login" id="input-repetirSenha">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Data nascimento:
+            <input type="date" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-login" id="input-dataNascimento">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Cnpj:
+            <input type="text" name="cnpj" formControlName="cnpj" class="form-control form__input form__input-login" id="input-cnpj">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Telefone:
+            <input type="text" name="telefone" formControlName="telefone" class="form-control form__input form__input-login" id="input-telefone">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Nome da Empresa:
+            <input type="text" name="nomeEmpresa" formControlName="nomeEmpresa" class="form-control form__input form__input-login" id="input-nomeEmpresa">
+        </label>
+
+        
+    </form>  
+    <div class="btn__wrapper">
+        <button  (click)="cadastrar()"class="btn btn-primary form__button">Cadastrar</button>
+        <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
+    </div>    
+</main>

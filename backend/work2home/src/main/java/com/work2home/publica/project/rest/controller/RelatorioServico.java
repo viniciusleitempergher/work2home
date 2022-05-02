@@ -74,7 +74,6 @@ public class RelatorioServico {
 
 		byte data[] = JasperExportManager.exportReportToPdf(jasperPrint);
 
-		System.err.println(data);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "inline; filename=relatoriousuario.pdf");

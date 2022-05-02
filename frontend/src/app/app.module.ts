@@ -14,6 +14,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddTokenInterceptor } from './interceptors/AddTokenInterceptor';
 import { AdminMainScreenComponent } from './screens/admin-main-screen/admin-main-screen.component';
 import { CadastrarCategoriaComponent } from './screens/cadastrar-categoria/cadastrar-categoria.component';
+import { EscolherTipoComponent } from './screens/escolher-tipo/escolher-tipo.component';
+import { CadastrarPrestadorComponent } from './screens/cadastrar-prestador/cadastrar-prestador.component';
+import { CadastrarClienteComponent } from './screens/cadastrar-cliente/cadastrar-cliente.component';
+import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastrar-endereco.component';
 
 @NgModule({
   
@@ -22,7 +26,11 @@ import { CadastrarCategoriaComponent } from './screens/cadastrar-categoria/cadas
     AuthContextComponent,
     LoginScreenComponent,
     AdminMainScreenComponent,
-    CadastrarCategoriaComponent
+    CadastrarCategoriaComponent,
+    EscolherTipoComponent,
+    CadastrarPrestadorComponent,
+    CadastrarClienteComponent,
+    CadastrarEnderecoComponent
   ],
   imports: [
     BrowserModule,

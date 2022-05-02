@@ -39,6 +39,14 @@ export class LoginScreenComponent implements OnInit {
 
     if (this.user.role == 'ADMIN')
       this.router.navigate(['admin']);
+      if (this.user.role == 'CLIENTE')
+      alert("Cliente Logado");
+    
+    
+  }
+
+  novoCadastro(){
+    this.router.navigate(['escolher-tipo']);
   }
 
 }

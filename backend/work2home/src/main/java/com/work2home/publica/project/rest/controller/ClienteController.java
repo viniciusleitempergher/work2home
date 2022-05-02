@@ -36,6 +36,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente cadastrarCliente(@RequestBody @Valid ClienteRequest clienteDto) {
+		System.out.println(clienteDto);
 		return clienteService.cadastrarCliente(clienteDto);
 	}
 	

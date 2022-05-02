@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.work2home.publica.project.rest.dto.usuario.UsuarioRequest;
@@ -40,8 +41,10 @@ public class AdminService implements CommandLineRunner {
 		}
 		
 		if (!hasAnAdmin) {
+			BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+			
 			UsuarioRequest usuarioDto = UsuarioRequest.builder().nome("admin")
-					.email("admin").senha("admin").dtNascimento("07/01/2004")
+					.email("admin").senha(bcrypt.encode("admin")).dtNascimento("07/01/2004")
 					.telefone("4712341234").build();
 			cadastrar(usuarioDto);
 		}
