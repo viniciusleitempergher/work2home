@@ -11,8 +11,6 @@ import com.work2home.publica.project.model.OrdemServico;
 @Repository
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Integer>{
 
-
-
 	@Query(nativeQuery = true, 
 			value = "select * from ordem_servico_tb where status_orcamento = ?1 and prestador_id = ?2")
 	List<OrdemServico> findByStatusOrcamentoAndPrestadorId(Integer statusOrcamento, Integer prestadorId);

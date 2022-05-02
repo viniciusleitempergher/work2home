@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
 
-type LoginResponse = {
+export type LoginResponse = {
   accessToken:string,
   refreshToken:string
 }

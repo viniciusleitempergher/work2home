@@ -89,7 +89,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
 	}
 	
 	@Bean

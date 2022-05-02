@@ -11,6 +11,6 @@ import com.work2home.publica.project.model.DenunciaId;
 @Repository
 public interface DenunciaRepository extends JpaRepository<Denuncia, DenunciaId> {
 
-	List<Denuncia> findByDenunciadoId();
+	List<Denuncia> findByDenunciadoId(Integer denunciadoId);
 
 }

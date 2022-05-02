@@ -36,8 +36,6 @@ public class DenunciaService {
 	}
 	
 	public List<Denuncia> buscarPorDenunciado(Integer denunciadoId){
-		return denunciaRepository.findByDenunciadoId();
+		return denunciaRepository.findByDenunciadoId(denunciadoId);
 	}
-
-	
 }

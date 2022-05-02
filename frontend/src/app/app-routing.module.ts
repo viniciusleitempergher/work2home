@@ -5,8 +5,10 @@ import { CadastrarCategoriaComponent } from './screens/cadastrar-categoria/cadas
 import { CadastrarClienteComponent } from './screens/cadastrar-cliente/cadastrar-cliente.component';
 import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastrar-endereco.component';
 import { CadastrarPrestadorComponent } from './screens/cadastrar-prestador/cadastrar-prestador.component';
+import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
 import { EscolherTipoComponent } from './screens/escolher-tipo/escolher-tipo.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
+import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
@@ -15,7 +17,9 @@ const routes: Routes = [
   {path: 'escolher-tipo', component: EscolherTipoComponent},
   {path: 'cadastrar-prestador', component: CadastrarPrestadorComponent},
   {path: 'cadastrar-cliente', component: CadastrarClienteComponent},
-  {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent}
+  {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
+  {path: 'cliente', component: ClienteMainScreenComponent},
+  {path: 'prestador', component: PrestadorMainScreenComponent}
 ];
 
 @NgModule({
