@@ -205,6 +205,5 @@ public class OrdemServicoService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

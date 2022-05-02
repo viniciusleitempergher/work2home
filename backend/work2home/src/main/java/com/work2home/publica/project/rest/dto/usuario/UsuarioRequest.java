@@ -9,8 +9,10 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.Formatador;
+import com.work2home.publica.project.validation.BrazilDate;
 
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +35,9 @@ public class UsuarioRequest {
 	@NotBlank(message = "{campo.telefone.obrigatorio}")
 	private String telefone;
 	
+
 	@NotBlank(message = "{campo.data_nascimento.obrigatorio}")
+	@BrazilDate
 	private String dtNascimento;
 	
 	public Usuario converter() {
