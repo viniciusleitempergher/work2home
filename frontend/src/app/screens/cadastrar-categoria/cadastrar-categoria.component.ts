@@ -12,6 +12,7 @@ export class CadastrarCategoriaComponent implements OnInit {
   categoriaForm = new FormGroup({
     nome: new FormControl(),
     imagem: new FormControl(),
+    imagemSrc: new FormControl()
   });
 
   constructor(private categoriaService: CategoriaService) { }
@@ -19,11 +20,20 @@ export class CadastrarCategoriaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onImgChange(event: any) {
+  
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.categoriaForm.patchValue({
+        imagemSrc: file
+      });
+    }
+  }
+
   async handleAddCategoria() {
     await this.categoriaService.cadastrar(
-      this.categoriaForm.value.nome, this.categoriaForm.value.imagem
+      this.categoriaForm.value.nome, this.categoriaForm.get("imagemSrc")?.value
     )
-    
   }
 
 }

@@ -4,37 +4,36 @@
 
         <label for="input-email" class="form__label-login">
             Email:
-            <input type="text" name="email" formControlName="email" class="form-control form__input form__input-login" id="input-email">
+            <input type="text" (change)="validaEmail()" [class.form__input-invalid]="emailInvalido" name="email" formControlName="email" class="form-control form__input form__input-login" id="input-email">
         </label>
         <label for="input-text" class="form__label-login">
             Nome:
-            <input type="text" name="nome" formControlName="nome" class="form-control form__input form__input-login" id="input-nome">
+            <input type="text" (change)="validaNome()" [class.form__input-invalid]="nomeInvalido" name="nome" formControlName="nome" class="form-control form__input form__input-login" id="input-nome">
         </label>
         <label for="input-password" class="form__label-login">
             Senha:
-            <input type="password" name="senha" formControlName="senha" class="form-control form__input form__input-login" id="input-senha">
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="senha" formControlName="senha" class="form-control form__input form__input-login" id="input-senha">
         </label>
         <label for="input-password" class="form__label-login">
             Repetir senha:
-            <input type="password" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-login" id="input-repetirSenha">
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-login" id="input-repetirSenha">
         </label>
         <label for="input-text" class="form__label-login">
             Data nascimento:
-            <input type="date" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-login" id="input-dataNascimento">
+            <input type="date" (change)="validaDataNascimento()" [class.form__input-invalid]="dataNascimentoInvalida" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-login" id="input-dataNascimento">
         </label>
         <label for="input-text" class="form__label-login">
             Cnpj:
-            <input type="text" name="cnpj" formControlName="cnpj" class="form-control form__input form__input-login" id="input-cnpj">
+            <input type="text" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" (change)="validaCnpj()" [class.form__input-invalid]="cnpjInvalido" name="cnpj" formControlName="cnpj" class="form-control form__input form__input-login" id="input-cnpj">
         </label>
         <label for="input-text" class="form__label-login">
             Telefone:
-            <input type="text" name="telefone" formControlName="telefone" class="form-control form__input form__input-login" id="input-telefone">
+            <input type="text" (change)="validaTelefone()" [class.form__input-invalid]="telefoneInvalido" name="telefone" formControlName="telefone" class="form-control form__input form__input-login" id="input-telefone">
         </label>
         <label for="input-text" class="form__label-login">
             Nome da Empresa:
-            <input type="text" name="nomeEmpresa" formControlName="nomeEmpresa" class="form-control form__input form__input-login" id="input-nomeEmpresa">
+            <input type="text" (change)="validaNomeEmpresa()" [class.form__input-invalid]="nomeEmpresaInvalido" name="nomeEmpresa" formControlName="nomeEmpresa" class="form-control form__input form__input-login" id="input-nomeEmpresa">
         </label>
-
         
     </form>  
     <div class="btn__wrapper">
