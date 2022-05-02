@@ -1,0 +1,37 @@
+<main>
+    <form class="form form-cadCliente" [formGroup]="cadastroClienteForm">
+        <img src="../../../assets/logo.svg" class="logo">
+        <label for="input-email" class="form__label-login">
+            Email:
+            <input type="text" name="email" formControlName="email" class="form-control form__input form__input-login" id="email">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Nome:
+            <input type="text" name="nome" formControlName="nome" class="form-control form__input form__input-login" id="input-nome">
+        </label>
+        <label for="input-password" class="form__label-login">
+            Senha:
+            <input type="password" name="senha" formControlName="senha" class="form-control form__input form__input-login" id="input-senha">
+        </label>
+        <label for="input-password" class="form__label-login">
+            Repetir senha:
+            <input type="password" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-login" id="input-repetirSenha">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Data nascimento:
+            <input type="date" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-login" id="input-dataNascimento">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Cpf:
+            <input type="text" name="cpf" formControlName="cpf" class="form-control form__input form__input-login" id="input-cpf">
+        </label>
+        <label for="input-text" class="form__label-login">
+            Telefone:
+            <input type="text" name="telefone" formControlName="telefone" class="form-control form__input form__input-login" id="input-telefone">
+        </label>
+    </form>  
+    <div class="btn__wrapper">
+        <button (click)="cadastrar()" class="btn btn-primary form__button">Cadastrar</button>
+        <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
+    </div>    
+</main>

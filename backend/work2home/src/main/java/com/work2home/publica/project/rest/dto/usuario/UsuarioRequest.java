@@ -12,9 +12,11 @@ import org.hibernate.validator.constraints.Length;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.Formatador;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UsuarioRequest {
 	
 	@Email(message = "{campo.email.invalido}")

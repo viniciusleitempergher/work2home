@@ -85,6 +85,7 @@ public class Verificacoes {
 
 	private boolean plusThirdyBefore(LocalDate dia) {
 		return dia.isBefore(LocalDate.now());
+<<<<<<< HEAD:backend/work2home/src/main/java/com/work2home/publica/project/scheduleds/Verificacoes.java
 	}
 	
 	private  void desativarPrestador(Prestador p) {
@@ -92,4 +93,7 @@ public class Verificacoes {
 		prestadorRepository.save(p);
 		usuarioRepository.save(p.getUsuario());
 	}
+=======
+  }
+>>>>>>> 2a0bdad559f109a02e85409c5ca1f7af36abc615:backend/work2home/src/main/java/com/work2home/publica/project/utils/Agendamentos.java
 }
