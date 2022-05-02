@@ -3,3 +3,33 @@
     flex-direction: column;
     gap: 15px;
 }
+
+.categorias {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.categoria {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--background-secondary);
+    border-radius: 5000px;
+    padding: 5px 55px;
+}
+
+.categoria__img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.categoria__nome {
+
+}
+
+.categoria__closebtn {
+    align-self: flex-end;
+}

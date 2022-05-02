@@ -8,4 +8,11 @@
 
         <button class="btn btn-primary form__button" (click)="handleAddCategoria()">Cadastrar</button>
     </form>
+    <div class="categorias">
+        <div class="categoria" *ngFor="let c of categorias">
+            <img class="categoria__img" src="{{environment.apiHostAddress + '/' + c.imagemUrl}}">
+            <h3 class="categoria__nome">{{c.nome}}</h3>
+            <i class="categoria__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
+        </div>
+    </div>
 </main>
