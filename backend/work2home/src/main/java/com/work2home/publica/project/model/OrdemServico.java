@@ -32,10 +32,10 @@ public class OrdemServico {
 	@Column(name = "status_orcamento", nullable = false)
 	private StatusOrcamento status;
 	
-	@Column(name = "descricao", nullable = false)
+	@Column(name = "descricao", columnDefinition = "TEXT", nullable = false)
 	private String descricao;
 	
-	@Column(name = "valor")
+	@Column(name = "valor")	
 	private Double valor;
 	
 	@Column(name = "imagem_url")

@@ -44,8 +44,8 @@ public class CategoriaController {
 	
 	@PostMapping("/{id}/imagem")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
-		categoriaService.cadastrarImagem(id, multipartFile);
+	public Categoria cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
+		return categoriaService.cadastrarImagem(id, multipartFile);
 		
 	}
 	

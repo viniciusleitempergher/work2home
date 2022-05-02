@@ -63,7 +63,7 @@ public class CategoriaService {
 		prestadorService.adicionarCategoria(categoriaId);
 	}
 
-	public void cadastrarImagem(Integer id, MultipartFile multipartFile) {
+	public Categoria cadastrarImagem(Integer id, MultipartFile multipartFile) {
 		
 		Categoria categoria = categoriaRepository
 				.findById(id)
@@ -71,15 +71,17 @@ public class CategoriaService {
 		
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/categoria";
+		String url = dir + "/" + uuid + ".png";
 		
-		categoria.setImagemUrl(dir + "/" + uuid + ".png");
-		categoriaRepository.save(categoria);
+		categoria.setImagemUrl(url);
 		
 		try {
 			FileUploadUtil.saveFile(dir, uuid , multipartFile);		
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
+		
+		return categoriaRepository.save(categoria);
 	}
 
 	public void deletarCategoria(Integer id) {
