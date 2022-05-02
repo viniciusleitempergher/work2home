@@ -17,9 +17,9 @@ import com.work2home.publica.project.filter.JwtFilter;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-	private final JwtFilter jwtFilter;
 	
+	private final JwtFilter jwtFilter;
+		
 	public SecurityConfiguration(JwtFilter jwtFilter) {
 		this.jwtFilter = jwtFilter;
 	}
@@ -39,27 +39,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
 			
-			//testes **
-			.antMatchers("/avaliacao/**").permitAll()
-			.antMatchers("ordem-servico/filtro/**").hasAnyRole("CLIENTE", "PRESTADOR")
+			//requisicoes avaliacao
+			.antMatchers("/avaliacao/prestador-avalia-cliente/*").hasAnyRole("PRESTADOR")
+			.antMatchers("/avaliacao/cliente-avalia-prestador/*").hasAnyRole("CLIENTE")
 			
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PUT, "/endereco").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PUT, "/cliente").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.GET, "/prestador/filtro").hasAnyRole("CLIENTE")
 			
 			// requisicoes do prestador
 		//	.antMatchers("/prestador/*").hasAnyRole("PRESTADOR")
 			
 			// requisicoes de qualquer usuario
 			.antMatchers(HttpMethod.GET, "/cliente/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")	
-		//	.antMatchers(HttpMethod.GET, "/prestador/*").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
+			// .antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
 			.antMatchers("/usuario/imagem").hasAnyRole("ADMIN, CLIENTE, PRESTADOR")
 			
 			// requisicoes do admin
 			.antMatchers(HttpMethod.GET, "/endereco").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN")
-			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN", "CLIENTE")
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
 			.antMatchers("/categoria/**").hasAnyRole("ADMIN")
 			
@@ -69,8 +70,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
 			
+			
+			//testes **
+			
+			.antMatchers("ordem-servico/filtro/**").hasAnyRole("CLIENTE", "PRESTADOR")
+			
+			
 			//Tests
-			.antMatchers(HttpMethod.GET, "/prestador/**").permitAll()
+		//	.antMatchers(HttpMethod.GET, "/prestador/**").permitAll()
 			
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()

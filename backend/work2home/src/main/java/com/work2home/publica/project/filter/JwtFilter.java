@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.SecurityUser;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.JwtUtil;
