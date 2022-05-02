@@ -196,7 +196,7 @@ public class OrdemServicoService {
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/ordem_servico";
 
-		os.setImagemUrl(dir + uuid);
+		os.setImagemUrl(dir + "/" + uuid + ".png");
 		repository.save(os);
 
 		try {

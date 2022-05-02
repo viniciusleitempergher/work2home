@@ -17,7 +17,7 @@ import com.work2home.publica.project.service.ClienteService;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(value = "/cliente")
+@RequestMapping("/cliente")
 public class ClienteController {
 
 	@Autowired

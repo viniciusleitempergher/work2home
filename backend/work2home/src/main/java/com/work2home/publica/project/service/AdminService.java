@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.rest.dto.usuario.UsuarioRequest;
-import com.fasterxml.jackson.databind.deser.impl.ExternalTypeHandler.Builder;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.UsuarioRepository;
@@ -48,5 +48,16 @@ public class AdminService implements CommandLineRunner {
 					.telefone("4712341234").build();
 			cadastrar(usuarioDto);
 		}
+	}
+
+	public void banirUsuario(Integer usuarioId) {
+		Usuario usuario = usuarioRepository
+				.findById(usuarioId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+		if(usuario.getRole() == Roles.ADMIN) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+		usuario.setRole(Roles.BANIDO);
+		usuarioRepository.save(usuario);
 	}
 }

@@ -72,7 +72,7 @@ public class CategoriaService {
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/categoria";
 		
-		categoria.setImagemUrl(dir + uuid);
+		categoria.setImagemUrl(dir + "/" + uuid + ".png");
 		categoriaRepository.save(categoria);
 		
 		try {

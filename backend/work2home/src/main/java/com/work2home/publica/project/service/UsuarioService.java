@@ -51,7 +51,7 @@ public class UsuarioService {
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/usuario";
 
-		usuario.setImagemUrl(dir + uuid);
+		usuario.setImagemUrl(dir + "/" + uuid + ".png");
 		usuarioRepository.save(usuario);
 
 		try {
