@@ -7,6 +7,7 @@ import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastr
 import { CadastrarPrestadorComponent } from './screens/cadastrar-prestador/cadastrar-prestador.component';
 import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
 import { EscolherTipoComponent } from './screens/escolher-tipo/escolher-tipo.component';
+import { EsqueceuSenhaScreenComponent } from './screens/esqueceu-senha-screen/esqueceu-senha-screen.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},
   {path: 'prestador', component: PrestadorMainScreenComponent},
+  {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

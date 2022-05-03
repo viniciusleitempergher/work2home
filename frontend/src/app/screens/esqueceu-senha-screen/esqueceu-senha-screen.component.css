@@ -1,0 +1,11 @@
+.form-esqueceu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+}
+
+.logo {
+    align-self: center;
+}

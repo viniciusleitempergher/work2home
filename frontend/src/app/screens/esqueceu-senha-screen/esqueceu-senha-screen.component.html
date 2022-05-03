@@ -1,0 +1,12 @@
+<main>
+    <form class="form form-esqueceu" [formGroup]="esqueceuSenhaForm">
+        <img src="../../../assets/logo.svg" class="logo">
+
+        <label for="input-email" class="form__label-esqueceu">
+            Seu email:
+            <input type="text" name="email" formControlName="email" class="form-control form__input form__input-esqueceu" id="input-email">
+        </label>
+
+        <button (click)="handleEsqueceuSenha()" class="btn btn-primary form__button">Ok!</button>
+    </form>
+</main>

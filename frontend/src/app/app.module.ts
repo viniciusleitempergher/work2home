@@ -20,6 +20,7 @@ import { CadastrarClienteComponent } from './screens/cadastrar-cliente/cadastrar
 import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastrar-endereco.component';
 import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
+import { EsqueceuSenhaScreenComponent } from './screens/esqueceu-senha-screen/esqueceu-senha-screen.component';
 
 @NgModule({
   
@@ -34,7 +35,8 @@ import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/pr
     CadastrarClienteComponent,
     CadastrarEnderecoComponent,
     ClienteMainScreenComponent,
-    PrestadorMainScreenComponent
+    PrestadorMainScreenComponent,
+    EsqueceuSenhaScreenComponent
   ],
   imports: [
     BrowserModule,
