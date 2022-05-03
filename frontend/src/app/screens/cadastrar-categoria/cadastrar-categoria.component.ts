@@ -64,9 +64,11 @@ export class CadastrarCategoriaComponent implements OnInit {
   }
 
   async handleAddCategoria() {
-    await this.categoriaService.cadastrar(
+    let categoria:Categoria = await this.categoriaService.cadastrar(
       this.categoriaForm.value.nome, this.categoriaForm.get("imagemSrc")?.value
-    )
+    );
+
+    this.categorias.push(categoria);
   }
 
 }

@@ -19,7 +19,8 @@ const routes: Routes = [
   {path: 'cadastrar-cliente', component: CadastrarClienteComponent},
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},
-  {path: 'prestador', component: PrestadorMainScreenComponent}
+  {path: 'prestador', component: PrestadorMainScreenComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
