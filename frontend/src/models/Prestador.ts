@@ -1,7 +1,13 @@
-import { Usuario } from "./Usuario";
+import { Avaliacao } from "./Avaliacao";
+import { Categoria } from "./Categoria";
+import { Cidade } from "./Cidade";
 
 export class Prestador {
-    usuarioDto: Usuario = {} as Usuario;
-    cnpj: string = '';
-    nomeFantasia: string = '';
+    nome:string = '';
+	email:string = '';
+	telefone:string = '';
+	mediaAvaliacao:number = 0;
+	categorias:Categoria[] = [];
+	cidades:Cidade[] = [];
+	avaliacoes: Avaliacao[] = [];
 }

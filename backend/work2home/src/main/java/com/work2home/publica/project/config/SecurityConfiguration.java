@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			// requisicoes do prestador
 			.antMatchers(HttpMethod.PUT, "/prestador").hasAnyRole("PRESTADOR")
-			
+			.antMatchers(HttpMethod.POST,"/cidade").hasAnyRole("PRESTADOR")
 			.antMatchers("/prestador/categoria/**").hasAnyRole("PRESTADOR")
 			.antMatchers("/prestador/cidade/**").hasAnyRole("PRESTADOR")
 			

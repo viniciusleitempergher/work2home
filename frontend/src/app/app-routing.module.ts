@@ -8,6 +8,8 @@ import { CadastrarPrestadorComponent } from './screens/cadastrar-prestador/cadas
 import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
 import { EscolherTipoComponent } from './screens/escolher-tipo/escolher-tipo.component';
 import { LoginScreenComponent } from './screens/login-screen/login-screen.component';
+import { PrestadorCategoriaScreenComponent } from './screens/prestador-categoria-screen/prestador-categoria-screen.component';
+import { PrestadorCidadeScreenComponent } from './screens/prestador-cidade-screen/prestador-cidade-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path: 'cadastrar-categoria', component: CadastrarCategoriaComponent},
   {path: 'escolher-tipo', component: EscolherTipoComponent},
   {path: 'cadastrar-prestador', component: CadastrarPrestadorComponent},
+  {path: 'cidade', component: PrestadorCidadeScreenComponent},
+  {path: 'prestador-categoria', component: PrestadorCategoriaScreenComponent},
   {path: 'cadastrar-cliente', component: CadastrarClienteComponent},
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},

@@ -1,4 +1,5 @@
 export class Usuario {
+    id:number=0;
     dtNascimento: string = '';
     email: string = '';
     nome: string = '';
