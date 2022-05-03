@@ -60,6 +60,12 @@ export class CadastrarCategoriaComponent implements OnInit {
 
     if (escolha.isConfirmed) {
       await this.categoriaService.deletar(id);
+
+      for (let i = 0; i < this.categorias.length; i++) {
+        if (this.categorias[i].id == id) {
+          this.categorias.splice(i, 1);
+        }
+      }
     }
   }
 

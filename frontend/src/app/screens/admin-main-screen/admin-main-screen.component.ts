@@ -17,8 +17,7 @@ export class AdminMainScreenComponent implements OnInit {
   }
 
   redirectCategoriasPage() {
-    
-    //this.router.navigate(["cadastrar-categoria"]);
+    this.router.navigate(["cadastrar-categoria"]);
   }
 
    async relatorioUsuario(){
