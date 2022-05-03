@@ -12,8 +12,7 @@ export class CidadeService {
 
 
   cadastrarCidade(cidade:CidadePrestador):Promise<CidadePrestador>{
-    console.log(cidade.cidade);
-    console.log(cidade.estado);
+
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/cidade`,
         cidade

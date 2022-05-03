@@ -9,5 +9,5 @@ public class CidadesPretadorRequest {
 	@NotBlank(message = "{campo.estado.obrigatorio}")
 	private String estado;
 	@NotBlank(message = "{campo.cidade.obrigatorio}")
-	private String cidade;
+	private String nome;
 }

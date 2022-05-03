@@ -1,6 +1,7 @@
 import { Avaliacao } from "./Avaliacao";
 import { Categoria } from "./Categoria";
 import { Cidade } from "./Cidade";
+import { CidadePrestador } from "./CidadePrestador";
 
 export class Prestador {
     nome:string = '';
@@ -8,6 +9,6 @@ export class Prestador {
 	telefone:string = '';
 	mediaAvaliacao:number = 0;
 	categorias:Categoria[] = [];
-	cidades:Cidade[] = [];
+	cidades:CidadePrestador[] = [];
 	avaliacoes: Avaliacao[] = [];
 }
