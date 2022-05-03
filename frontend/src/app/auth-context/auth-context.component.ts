@@ -13,7 +13,7 @@ export class AuthContextComponent implements OnInit {
   constructor(private usuarioService:UserService) { }
 
   async ngOnInit(): Promise<void> {
-    if (!this.user.email) {
+    if (!this.user.email && localStorage.getItem('accessToken')) {
       this.user = await this.usuarioService.getUserFromAccessToken();
     }
   }

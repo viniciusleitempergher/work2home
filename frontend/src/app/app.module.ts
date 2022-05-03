@@ -20,6 +20,7 @@ import { CadastrarClienteComponent } from './screens/cadastrar-cliente/cadastrar
 import { CadastrarEnderecoComponent } from './screens/cadastrar-endereco/cadastrar-endereco.component';
 import { ClienteMainScreenComponent } from './screens/cliente-main-screen/cliente-main-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador-main-screen/prestador-main-screen.component';
+import { EsqueceuSenhaScreenComponent } from './screens/esqueceu-senha-screen/esqueceu-senha-screen.component';
 import { PrestadorCategoriaScreenComponent } from './screens/prestador-categoria-screen/prestador-categoria-screen.component';
 import { PrestadorCidadeScreenComponent } from './screens/prestador-cidade-screen/prestador-cidade-screen.component';
 
@@ -37,6 +38,7 @@ import { PrestadorCidadeScreenComponent } from './screens/prestador-cidade-scree
     CadastrarEnderecoComponent,
     ClienteMainScreenComponent,
     PrestadorMainScreenComponent,
+    EsqueceuSenhaScreenComponent
     PrestadorCategoriaScreenComponent,
     PrestadorCidadeScreenComponent
   ],
