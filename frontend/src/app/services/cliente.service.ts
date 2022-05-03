@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Cliente } from 'src/models/Cliente';
+import { ClienteCadastro } from '../screens/cadastrar-cliente/cadastrar-cliente.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class ClienteService {
 
 
 
-  cadastrarCliente(cliente:Cliente):Promise<Cliente>{
+  cadastrarCliente(cliente:ClienteCadastro):Promise<ClienteCadastro>{
 
     console.log(cliente.cpf)
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/cliente`,
         cliente
-      ).subscribe(response => resolve(response as Cliente))
+      ).subscribe(response => resolve(response as ClienteCadastro))
     })
   }
 }
