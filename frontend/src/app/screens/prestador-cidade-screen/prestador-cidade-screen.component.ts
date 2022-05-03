@@ -17,14 +17,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./prestador-cidade-screen.component.css']
 })
 export class PrestadorCidadeScreenComponent implements OnInit {
-  @Input() user = {} as Usuario;
+  user = {} as Usuario;
+
   estado: Estado = new Estado();
   estados: Estado[] = [];
   cidades: Cidade[] = [];
   cidadePrestador:CidadePrestador = new CidadePrestador();
   prestador:Prestador = new Prestador();
   
-
   estadoInvalida=false;
   cidadeInvalida=false;
 
@@ -36,6 +36,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
   constructor(private prestadorService:PrestadorService, private serviceCidade: CidadeService, private serviceEnderecoApi:EnderecoApiService,private router: Router) { }
 
   async ngOnInit(): Promise<void> {
+    
     this.prestador = await this.prestadorService.getPrestador(this.user.id);
     this.limparCombo();
     this.obterEstados();
@@ -47,6 +48,8 @@ export class PrestadorCidadeScreenComponent implements OnInit {
   }
  
   async cadastrar() {
+    console.log(this.user);
+    
     try {
     this.validaCbxEstado();
     this.validaCbxCidade();

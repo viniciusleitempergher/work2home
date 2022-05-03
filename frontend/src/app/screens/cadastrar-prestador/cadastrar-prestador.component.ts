@@ -22,7 +22,7 @@ export type PrestadorCadastro = {
 })
 export class CadastrarPrestadorComponent implements OnInit {
 
-  prestador: PrestadorCadastro = {} as PrestadorCadastro;
+  prestador: PrestadorCadastro = {usuarioDto: new Usuario()} as PrestadorCadastro;
 
   emailInvalido = false;
   nomeInvalido = false;

@@ -10,16 +10,15 @@ import { Usuario } from 'src/models/Usuario';
 })
 export class AdminMainScreenComponent implements OnInit {
 
-  @Input() user:Usuario = {} as Usuario;
-
   constructor(private adminService:AdminService, private router: Router) { }
 
   ngOnInit(): void {
-
+    
   }
 
   redirectCategoriasPage() {
-    this.router.navigate(["cadastrar-categoria"]);
+    
+    //this.router.navigate(["cadastrar-categoria"]);
   }
 
    async relatorioUsuario(){

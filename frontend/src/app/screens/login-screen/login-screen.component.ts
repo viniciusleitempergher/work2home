@@ -16,8 +16,7 @@ export type LoginResponse = {
   styleUrls: ['./login-screen.component.css']
 })
 export class LoginScreenComponent implements OnInit {
-
-  @Input() user = {} as Usuario;
+  user = {} as Usuario;
 
   loginForm = new FormGroup({
     email: new FormControl(),
