@@ -38,7 +38,7 @@ import { PrestadorCidadeScreenComponent } from './screens/prestador-cidade-scree
     CadastrarEnderecoComponent,
     ClienteMainScreenComponent,
     PrestadorMainScreenComponent,
-    EsqueceuSenhaScreenComponent
+    EsqueceuSenhaScreenComponent,
     PrestadorCategoriaScreenComponent,
     PrestadorCidadeScreenComponent
   ],
