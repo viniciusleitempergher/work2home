@@ -11,8 +11,6 @@ main {
     height: 100vh;
     justify-content: space-between !important;
     padding:  45px 45px 45px 45px;
-    
-
 }
 .btn__wrapper {
     display: flex;
@@ -35,16 +33,37 @@ main {
     gap: 15px;
 }
 
+.cidades {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: fit-content;
+    height: 100%;
+    gap: 10px;
+}
+
 .cidade {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
     background-color: var(--background-secondary);
     border-radius: 5000px;
     padding: 5px 55px;
 }
 
+.cidade h3 {
+    transform: translateY(3px);
+}
+
 .cidade__closebtn {
     align-self: flex-end;
+}
+
+@media screen and (max-width: 400px) {
+    .cidade h3 {
+        font-size: 1.2rem;
+    }
 }
