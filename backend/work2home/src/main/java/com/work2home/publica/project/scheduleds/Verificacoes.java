@@ -51,6 +51,9 @@ public class Verificacoes {
 			if (servicos.isEmpty() && plusThirdyBefore(p.getUsuario().getDataCriacao())) {
 				desativarPrestador(p);
 			} else {
+				
+				if (servicos.isEmpty()) continue;
+				
 				OrdemServico os = servicos.get(servicos.size() - 1);
 
 				if ((os.getStatus() == StatusOrcamento.FINALIZADO || os.getStatus() == StatusOrcamento.PAGO)
