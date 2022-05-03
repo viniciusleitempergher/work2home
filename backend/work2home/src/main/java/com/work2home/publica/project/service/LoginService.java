@@ -33,9 +33,9 @@ public class LoginService {
 		System.out.println(request.getEmail());
 		System.out.println(request.getSenha());
 		
-		Usuario usuario = usuarioRepository.findByEmail(request.getEmail());
-		
-		if (usuario == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		Usuario usuario = usuarioRepository
+				.findByEmail(request.getEmail())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		if (!bcrypt.matches(request.getSenha(), usuario.getSenha())) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);

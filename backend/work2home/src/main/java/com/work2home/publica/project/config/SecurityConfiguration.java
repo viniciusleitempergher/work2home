@@ -78,6 +78,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+
+				.antMatchers("/email/**").permitAll()
 			
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()

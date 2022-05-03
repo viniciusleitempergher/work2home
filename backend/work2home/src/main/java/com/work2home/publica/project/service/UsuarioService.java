@@ -4,6 +4,7 @@ import com.work2home.publica.project.utils.FileUploadUtil;
 import com.work2home.publica.project.utils.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.work2home.publica.project.enums.Roles;
@@ -60,5 +61,14 @@ public class UsuarioService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    }
+
+    public void alterarSenha(String novaSenha) {
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+
+		usuario.setSenha(bc.encode(novaSenha));
+		usuarioRepository.save(usuario);
     }
 }
