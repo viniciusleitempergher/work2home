@@ -26,4 +26,12 @@ export class PrestadorService {
       })
     })
   }
+
+  deletarCidadePrestador(id:number): Promise<void>{
+    return new Promise(resolve =>{
+      this.http.delete(`${environment.apiHostAddress}/prestador/cidade/${id}`).subscribe(response => {      
+        resolve();
+      })
+    })
+  }
 }

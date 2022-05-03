@@ -34,7 +34,7 @@ public class CidadeService {
 		
 		Usuario usuario = jwt.getUserFromHeaderToken();
 		
-		Cidade cidade = verificaECadastra(cidadesPretadorDto.getEstado(), cidadesPretadorDto.getCidade());
+		Cidade cidade = verificaECadastra(cidadesPretadorDto.getEstado(), cidadesPretadorDto.getNome());
 		prestadorService.adicionarCidades(usuario.getId() ,cidade);
 	}
 	

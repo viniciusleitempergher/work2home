@@ -22,8 +22,8 @@
         <button (click)="cadastrar()" class="btn btn-primary form__button form__button-cadastrar">Cadastrar</button>
     </form>
     <div class="cidades">
-        <div class="cidade" *ngFor="let c of cidades">
-            <h3 class="cidade__nome">{{c.nome}}</h3>
+        <div class="cidade" *ngFor="let c of prestador.cidades">
+            <h3 class="cidade__nome">{{c.estado}} {{c.nome}}</h3>
             <i class="cidade__closebtn" class="bi bi-x-lg" (click)="handleDeletarCidade(c.id)"></i>
         </div>
     </div>

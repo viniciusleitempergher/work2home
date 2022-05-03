@@ -68,7 +68,7 @@ export class CadastrarPrestadorComponent implements OnInit {
 
     if (this.cadastroPrestadorForm.valid) {
       await this.prestadorService.cadastrarPrestador(this.prestador);
-      this.logar();
+      await this.logar();
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -80,9 +80,12 @@ export class CadastrarPrestadorComponent implements OnInit {
     }
   }
   async logar(){
-    let response:LoginResponse = await this.usuarioService.login(this.prestador.usuarioDto.email, this.prestador.usuarioDto.senha) as LoginResponse;
-    localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
-    localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
+    return new Promise<void>(async resolve => {
+      let response:LoginResponse = await this.usuarioService.login(this.prestador.usuarioDto.email, this.prestador.usuarioDto.senha) as LoginResponse;
+      localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
+      localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
+      resolve()
+    })
   }
   validaEmail() {
     if (!this.cadastroPrestadorForm.get('email')?.valid) {

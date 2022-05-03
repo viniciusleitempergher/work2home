@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CidadeService } from 'src/app/services/cidade.service';
 import { EnderecoApiService } from 'src/app/services/endereco-api.service';
 import { PrestadorService } from 'src/app/services/prestador.service';
+import { UserService } from 'src/app/services/user.service';
 import { Cidade } from 'src/models/Cidade';
 import { CidadePrestador } from 'src/models/CidadePrestador';
 import { Estado } from 'src/models/Estado';
@@ -33,10 +34,11 @@ export class PrestadorCidadeScreenComponent implements OnInit {
     cbxCidade: new FormControl(null, Validators.required)  
   }); 
 
-  constructor(private prestadorService:PrestadorService, private serviceCidade: CidadeService, private serviceEnderecoApi:EnderecoApiService,private router: Router) { }
+  constructor(private usuarioService: UserService ,private prestadorService:PrestadorService, private serviceCidade: CidadeService, private serviceEnderecoApi:EnderecoApiService,private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    
+    this.user = await this.usuarioService.getUserFromAccessToken();
+    console.log(this.user);
     this.prestador = await this.prestadorService.getPrestador(this.user.id);
     this.limparCombo();
     this.obterEstados();
@@ -44,7 +46,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
   }
 
   continuar(){
-
+    this.router.navigate(['prestador-categoria']);
   }
  
   async cadastrar() {
@@ -65,7 +67,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    this.router.navigate(['prestador-categoria']);
+    this.prestador = await this.prestadorService.getPrestador(this.user.id);
   }
 }
   obterEstados = () => {
@@ -101,7 +103,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
       this.cidadeInvalida = true;
       throw new Error("Escolha um Cidade");
     } else {
-      this.cidadePrestador.cidade=this.cidadeForm.value.cbxCidade;
+      this.cidadePrestador.nome=this.cidadeForm.value.cbxCidade;
       this.cidadeInvalida= false;
     }
   }
@@ -112,8 +114,29 @@ export class PrestadorCidadeScreenComponent implements OnInit {
   
   }
 
-  handleDeletarCidade(id:number){
+  async handleDeletarCidade(id:number){
 
+    let escolha = await Swal.fire({
+      title: '<strong>Alerta!</strong>',
+      icon: 'info',
+      html:
+        'Você deseja realmente excluir essa cidade!?',
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        'Sim!',
+      confirmButtonAriaLabel: 'Sim!',
+      cancelButtonText:
+        'Não',
+      cancelButtonAriaLabel: 'Não!'
+    });
+
+    if (escolha.isConfirmed) {
+      await this.prestadorService.deletarCidadePrestador(id);
+      this.prestador = await this.prestadorService.getPrestador(this.user.id);
+    }
+    
   }
 
 }
