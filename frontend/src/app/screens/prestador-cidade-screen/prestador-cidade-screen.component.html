@@ -1,0 +1,33 @@
+<main>
+    <form class="form form-cidade" [formGroup]="cidadeForm">
+        <h1 class="form__title">Cidade que atua:</h1>
+        <label for="input-text" class="form__label-endereco">
+            Estado:
+            <select class="form-control form__input form__input-endereco" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
+                <option value="">Selecione um Estado</option>
+                <option *ngFor="let estado of estados,let i = index" [value]="estado.sigla">
+                    {{estado.nome}}
+                </option>
+            </select>
+        </label>
+        <label for="input-text" class="form__label-endereco">
+            Cidade:
+            <select class="form-control form__input form__input-endereco" formControlName="cbxCidade" [class.form__input-invalid]="cidadeInvalida" name="cbxCidade">
+                <option value="">Selecione uma Cidade</option>
+                <option *ngFor="let cidade of cidades,let i = index" [value]="cidade.nome">
+                    {{cidade.nome}}
+                </option>
+            </select>
+        </label>
+        <button (click)="cadastrar()" class="btn btn-primary form__button form__button-cadastrar">Cadastrar</button>
+    </form>
+    <div class="cidades">
+        <div class="cidade" *ngFor="let c of cidades">
+            <h3 class="cidade__nome">{{c.nome}}</h3>
+            <i class="cidade__closebtn" class="bi bi-x-lg" (click)="handleDeletarCidade(c.id)"></i>
+        </div>
+    </div>
+    <div class="btn__wrapper">
+        <button (click)="continuar()" class="btn btn-primary form__button">Continuar</button>
+    </div>    
+</main>

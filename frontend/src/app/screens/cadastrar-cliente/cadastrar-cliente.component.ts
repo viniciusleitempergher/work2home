@@ -2,11 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Cliente } from 'src/models/Cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../login-screen/login-screen.component';
 import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/models/Usuario';
+
+export type ClienteCadastro = {
+  usuarioDto: Usuario;
+  cpf: string;
+}
 
 @Component({
   selector: 'app-cadastrar-cliente',
@@ -16,7 +21,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CadastrarClienteComponent implements OnInit {
 
-  cliente : Cliente = new Cliente();
+  cliente:ClienteCadastro = {} as ClienteCadastro;
 
   emailInvalido = false;
   nomeInvalido = false;
@@ -47,9 +52,6 @@ export class CadastrarClienteComponent implements OnInit {
   cancelar(){
     this.router.navigate(['login']);
   }
-
-
-
   
   async cadastrar() {
     try {

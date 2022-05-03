@@ -3,10 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-import { Prestador } from 'src/models/Prestador';
 import { PrestadorService } from 'src/app/services/prestador.service';
 import { LoginResponse } from '../login-screen/login-screen.component';
 import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/models/Usuario';
+
+export type PrestadorCadastro = {
+  usuarioDto: Usuario;
+  cnpj: string;
+  nomeFantasia: string;
+}
 
 @Component({
   selector: 'app-cadastrar-prestador',
@@ -16,7 +22,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CadastrarPrestadorComponent implements OnInit {
 
-  prestador: Prestador = new Prestador();
+  prestador: PrestadorCadastro = {} as PrestadorCadastro;
 
   emailInvalido = false;
   nomeInvalido = false;
@@ -70,7 +76,7 @@ export class CadastrarPrestadorComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       })
-//      this.router.navigate(['cadastrar-endereco']);
+     this.router.navigate(['cidade']);
     }
   }
   async logar(){
