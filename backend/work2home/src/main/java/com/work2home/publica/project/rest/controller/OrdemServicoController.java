@@ -73,5 +73,4 @@ public class OrdemServicoController {
 
 		return service.finalizarOrdemServico(id);
 	}
-
 }

@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			//requisicoes denuncia
 			.antMatchers(HttpMethod.POST, "/denuncia").hasAnyRole("PRESTADOR", "CLIENTE")
-			.antMatchers(HttpMethod.GET, "/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/denucia/*").hasAnyRole("ADMIN")
 			
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
@@ -70,7 +70,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
-			.antMatchers("/categoria/**").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/categoria/**").hasAnyRole("ADMIN")
+				.antMatchers(HttpMethod.POST, "/categoria").hasAnyRole("ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/categoria/**").hasAnyRole("ADMIN")
 			.antMatchers("/relatorio/**").hasAnyRole("ADMIN")
 			
 			// requisicoes abertas
@@ -78,6 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
+				.antMatchers(HttpMethod.GET, "/categoria").permitAll()
 
 				.antMatchers("/email/**").permitAll()
 			
