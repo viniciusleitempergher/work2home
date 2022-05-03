@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
+import Swal from 'sweetalert2';
 
 export type LoginResponse = {
   accessToken:string,
@@ -23,26 +24,73 @@ export class LoginScreenComponent implements OnInit {
     senha: new FormControl(),
   });
 
+  emailInvalido = false;
+  senhaInvalida = false;
+
   constructor(private usuarioService:UserService, private router: Router) { }
 
   ngOnInit(): void {
-    
+    let strAccessToken = localStorage.getItem('accessToken');
+
+    if (!strAccessToken) return;
+
+    this.getUserNRedirect();
+  }
+
+  validaEmail(): boolean {
+    let email = this.loginForm.value.email;
+    if (!email || email.length < 5) {
+      this.emailInvalido = true;
+      return false;
+    } else {
+      this.emailInvalido = false;
+      return true;
+    }
+  }
+
+  validaSenha(): boolean {
+    let senha = this.loginForm.value.senha;
+    if (!senha || senha.length < 5) {
+      this.senhaInvalida = true;
+      return false;
+    } else {
+      this.senhaInvalida = false;
+      return true;
+    }
   }
   
-  async handleLogin() {    
-    let response:LoginResponse = await this.usuarioService.login(this.loginForm.value.email, this.loginForm.value.senha) as LoginResponse;
+  async handleLogin() {
+    if (!this.validaEmail()) {
+      Swal.fire('Erro!', 'Preencha o email!', 'error')
+      return;
+    }
+    if (!this.validaSenha()) {
+      Swal.fire('Erro!', 'Preencha a senha!', 'error')
+      return;
+    }
+
+    let email = this.loginForm.value.email;
+    let senha = this.loginForm.value.senha;
+
+    let response:LoginResponse = await this.usuarioService.login(email, senha) as LoginResponse;
     
     localStorage.setItem('accessToken', JSON.stringify(response.accessToken));
     localStorage.setItem('refreshToken', JSON.stringify(response.refreshToken));
     
+    this.getUserNRedirect();
+  }
+
+  async getUserNRedirect() {
     this.user = await this.usuarioService.getUserFromAccessToken();
 
     if (this.user.role == 'ADMIN')
       this.router.navigate(['admin']);
-      if (this.user.role == 'CLIENTE')
-      alert("Cliente Logado");
-    
-    
+
+    if (this.user.role == 'CLIENTE')
+      this.router.navigate(['cliente']);
+
+    if (this.user.role == 'PRESTADOR')
+      this.router.navigate(['prestador']);
   }
 
   novoCadastro(){

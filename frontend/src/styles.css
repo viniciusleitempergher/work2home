@@ -29,6 +29,7 @@ main {
     align-items: center;
     width: 100vw;
     padding: 45px;
+    min-height: 100vh;
 }
 
 .form__input {
