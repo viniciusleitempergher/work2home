@@ -1,1 +1,24 @@
-<p>prestador-categoria-screen works!</p>
+<main>
+    <form class="form form-categoria" [formGroup]="categoriaAtuaForm">
+        <h1 class="form__title">Áreas que atua:</h1>
+        <label for="input-text" class="form__label-endereco">
+            Estado:
+            <select class="form-control form__input form__input-endereco" formControlName="cbxCategoria" [class.form__input-invalid]="categoriaInvalida" name="cbxCategoria">
+                <option value="">Selecione um Estado</option>
+                <option *ngFor="let categoria of categorias,let i = index" [value]="categoria.id">
+                    {{categoria.nome}}
+                </option>
+            </select>
+        </label>
+        <button (click)="cadastrar()" class="btn btn-primary form__button form__button-cadastrar">Cadastrar</button>
+    </form>
+    <div class="cidades">
+        <div class="cidade" *ngFor="let c of prestador.categorias">
+            <h3 class="cidade__nome">{{c.nome}}</h3>
+            <i class="cidade__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
+        </div>
+    </div>
+    <div class="btn__wrapper">
+        <button (click)="continuar()" class="btn btn-primary form__button">Continuar</button>
+    </div>    
+</main>
