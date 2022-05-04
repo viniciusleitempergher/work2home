@@ -21,7 +21,7 @@ export type ClienteCadastro = {
 })
 export class CadastrarClienteComponent implements OnInit {
 
-  cliente:ClienteCadastro = {} as ClienteCadastro;
+  cliente:ClienteCadastro = {usuarioDto: new Usuario()} as ClienteCadastro;
 
   emailInvalido = false;
   nomeInvalido = false;
