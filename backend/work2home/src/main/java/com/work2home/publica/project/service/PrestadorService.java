@@ -1,14 +1,7 @@
 package com.work2home.publica.project.service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.validation.Valid;
 
@@ -53,7 +46,11 @@ public class PrestadorService {
 	private JwtUtil jwt;
 
 	public List<PrestadorResponse> buscarPrestador() {
-		return prestadorRepository.findAll().stream().map(p -> new PrestadorResponse(p)).toList();
+		return prestadorRepository
+				.findAll()
+				.stream()
+				.map(PrestadorResponse::new)
+				.toList();
 	}
 
 	public PrestadorResponse buscarPrestadorId(Integer id) {
@@ -97,7 +94,7 @@ public class PrestadorService {
 
 		Set<Cidade> cidades = prestador.getCidades();
 		for (Cidade c : cidades) {
-			if (c.getId() == cidade.getId()) {
+			if (Objects.equals(c.getId(), cidade.getId())) {
 				contemNaLista = true;
 			}
 		}
@@ -124,7 +121,7 @@ public class PrestadorService {
 		if (prestador.getCategorias() == null)
 			prestador.setCategorias(new HashSet<Categoria>());
 		for (Categoria c : prestador.getCategorias()) {
-			if (c.getId() == categoriaId) {
+			if (Objects.equals(c.getId(), categoriaId)) {
 				throw new ResponseStatusException(HttpStatus.CONFLICT);
 			}
 		}
@@ -162,7 +159,7 @@ public class PrestadorService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
 		for (Cidade c : prestador.getCidades()) {
-			if (c.getId() == cidadeId) {
+			if (Objects.equals(c.getId(), cidadeId)) {
 				prestador.getCidades().remove(c);
 				break;
 			}
@@ -179,7 +176,7 @@ public class PrestadorService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
 		for (Categoria c : prestador.getCategorias()) {
-			if (c.getId() == categoriaId) {
+			if (Objects.equals(c.getId(), categoriaId)) {
 				prestador.getCategorias().remove(c);
 				break;
 			}
@@ -193,7 +190,7 @@ public class PrestadorService {
 				.findByCategorias_IdAndCidades_Id(pfr.getCategoria(), pfr.getCidade())
 				.stream()
 				.filter(p -> p.getUsuario().getRole() == Roles.PRESTADOR)
-				.map(p -> new PrestadorFiltroResponse(p))
+				.map(PrestadorFiltroResponse::new)
 				.toList();
 
 		List<PrestadorFiltroResponse> list = new LinkedList<PrestadorFiltroResponse>(prestadorResponses);

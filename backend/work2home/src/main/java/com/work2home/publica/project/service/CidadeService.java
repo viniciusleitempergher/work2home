@@ -49,5 +49,4 @@ public class CidadeService {
 	public List<Cidade> buscarCidades() {
 		return cidadeRepository.findAll();
 	}
-	
 }

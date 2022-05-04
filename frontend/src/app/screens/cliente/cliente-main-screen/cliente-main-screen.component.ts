@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/models/Categoria';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cliente-main-screen',
@@ -13,6 +14,7 @@ import { Categoria } from 'src/models/Categoria';
 export class ClienteMainScreenComponent implements OnInit {
 
   categorias : Categoria[] = []
+  environment = environment;
 
   value : any
 
