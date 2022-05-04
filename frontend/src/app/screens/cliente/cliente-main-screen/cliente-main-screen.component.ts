@@ -1,8 +1,9 @@
-import { Categoria } from './../../../models/Categoria';
-import { CategoriaService } from './../../services/categoria.service';
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { Categoria } from 'src/models/Categoria';
 
 @Component({
   selector: 'app-cliente-main-screen',
