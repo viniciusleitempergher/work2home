@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ClienteCadastro } from '../screens/cadastrar-cliente/cadastrar-cliente.component';
+import { ClienteCadastro } from '../screens/cliente/cadastrar-cliente/cadastrar-cliente.component';
 
 @Injectable({
   providedIn: 'root'

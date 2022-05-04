@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { PrestadorService } from 'src/app/services/prestador.service';
-import { LoginResponse } from '../login-screen/login-screen.component';
+
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
+import { LoginResponse } from '../../auth/login-screen/login-screen.component';
 
 export type PrestadorCadastro = {
   usuarioDto: Usuario;

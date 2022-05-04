@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ClienteService } from 'src/app/services/cliente.service';
 import Swal from 'sweetalert2';
-import { LoginResponse } from '../login-screen/login-screen.component';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
+import { LoginResponse } from '../../auth/login-screen/login-screen.component';
 
 export type ClienteCadastro = {
   usuarioDto: Usuario;

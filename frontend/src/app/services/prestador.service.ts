@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Prestador } from 'src/models/Prestador';
-import { PrestadorCadastro } from '../screens/cadastrar-prestador/cadastrar-prestador.component';
+import { PrestadorCadastro } from '../screens/prestador/cadastrar-prestador/cadastrar-prestador.component';
 
 @Injectable({
   providedIn: 'root'
