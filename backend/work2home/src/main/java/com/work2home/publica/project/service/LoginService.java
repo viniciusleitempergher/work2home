@@ -60,11 +60,9 @@ public class LoginService {
 		refreshRepository.save(refreshToken);
 		
 		String accessToken = jwt.generateAccessToken(refreshToken);
-		
-		LoginResponse response = LoginResponse.builder().accessToken(accessToken)
+
+		return LoginResponse.builder().accessToken(accessToken)
 				.refreshToken(refreshToken.getToken()).build();
-		
-		return response;
 	}
 	
 	public RefreshResponse refresh(RefreshRequest request) {

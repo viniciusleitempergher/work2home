@@ -90,7 +90,7 @@ public class EmailService {
                 .emailTo(emailTo)
                 .emailFrom(emailFrom)
                 .titulo("Recuperação de senha")
-                .texto(urlFrontEnd + "/alterar-senha/" + token)
+                .texto("Clique no link para recuperar sua senha: " + urlFrontEnd + "/alterar-senha/" + token + "<br> Expira em 1h")
                 .dataEnvio(LocalDateTime.now())
                 .build();
     }
