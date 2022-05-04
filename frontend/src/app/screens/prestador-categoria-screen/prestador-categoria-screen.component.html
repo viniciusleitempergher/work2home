@@ -4,7 +4,7 @@
         <label for="input-text" class="form__label-endereco">
             Estado:
             <select class="form-control form__input form__input-endereco" formControlName="cbxCategoria" [class.form__input-invalid]="categoriaInvalida" name="cbxCategoria">
-                <option value="">Selecione um Estado</option>
+                <option value="">Selecione uma categoria</option>
                 <option *ngFor="let categoria of categorias,let i = index" [value]="categoria.id">
                     {{categoria.nome}}
                 </option>

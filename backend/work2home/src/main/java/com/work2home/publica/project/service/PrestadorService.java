@@ -172,7 +172,7 @@ public class PrestadorService {
 	}
 
 	public void removerCategoriaPrestador(Integer categoriaId) {
-
+		System.out.println(categoriaId);
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
 		Prestador prestador = prestadorRepository.findById(usuario.getId())
@@ -180,11 +180,10 @@ public class PrestadorService {
 
 		for (Categoria c : prestador.getCategorias()) {
 			if (c.getId() == categoriaId) {
-				prestador.getCidades().remove(c);
+				prestador.getCategorias().remove(c);
 				break;
 			}
 		}
-
 		prestadorRepository.save(prestador);
 	}
 

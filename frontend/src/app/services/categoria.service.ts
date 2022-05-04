@@ -54,4 +54,18 @@ export class CategoriaService {
         .subscribe(response => resolve())
     })
   }
+
+  cadastrarCategoria(id:number):Promise<void>{
+    return new Promise(resolve => {
+      this.http.post(`${environment.apiHostAddress}/prestador/categoria/${id}`,{})
+      .subscribe(response => resolve())
+    })
+  }
+  deletarCategoria(id: number):Promise<void> {
+    console.log("teste"+id)
+    return new Promise(resolve => {
+      this.http.delete(`${environment.apiHostAddress}/prestador/categoria/${id}`)
+        .subscribe(response => resolve())
+    })
+  }
 }

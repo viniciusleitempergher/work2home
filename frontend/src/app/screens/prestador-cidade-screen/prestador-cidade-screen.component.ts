@@ -115,7 +115,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
   }
 
   async handleDeletarCidade(id:number){
-
+    console.log(id)
     let escolha = await Swal.fire({
       title: '<strong>Alerta!</strong>',
       icon: 'info',
@@ -133,6 +133,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
     });
 
     if (escolha.isConfirmed) {
+      console.log(id)
       await this.prestadorService.deletarCidadePrestador(id);
       this.prestador = await this.prestadorService.getPrestador(this.user.id);
     }

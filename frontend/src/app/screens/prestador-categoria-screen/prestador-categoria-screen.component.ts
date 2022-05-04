@@ -8,6 +8,7 @@ import { Prestador } from 'src/models/Prestador';
 import { Usuario } from 'src/models/Usuario';
 import { Categoria } from 'src/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-prestador-categoria-screen',
@@ -30,10 +31,71 @@ export class PrestadorCategoriaScreenComponent implements OnInit {
     this.categorias = await this.categoriaService.getAll();
     this.user = await this.usuarioService.getUserFromAccessToken();
     this.prestador = await this.prestadorService.getPrestador(this.user.id);
+    this.limparCombo();
   }
 
-  continuar(){}
-  cadastrar(){}
-  handleDeletarCategoria(id:number){}
+  continuar(){
+    this.router.navigate(['prestador']);
+  }
 
+  
+  async cadastrar() {
+    try {
+      this.validaCbxCategoria();
+
+  } catch (e:any) {
+    Swal.fire('Erro!', e.message, 'error')
+  }
+  if (this.categoriaAtuaForm.valid) {
+    await this.categoriaService.cadastrarCategoria(this.categoriaAtuaForm.value.cbxCategoria);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Endereço Cadastrado!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.prestador = await this.prestadorService.getPrestador(this.user.id);
+  }
+}
+  async handleDeletarCategoria(id:number){
+    console.log(id)
+    let escolha = await Swal.fire({
+      title: '<strong>Alerta!</strong>',
+      icon: 'info',
+      html:
+        'Você deseja realmente excluir essa categoria!?',
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        'Sim!',
+      confirmButtonAriaLabel: 'Sim!',
+      cancelButtonText:
+        'Não',
+      cancelButtonAriaLabel: 'Não!'
+    });
+
+    if (escolha.isConfirmed) {
+      console.log(id)
+      await this.categoriaService.deletarCategoria(id);
+      this.prestador = await this.prestadorService.getPrestador(this.user.id);
+    }
+    
+  }
+
+
+  limparCombo() {
+    this.categoriaAtuaForm.reset();
+    this.categoriaAtuaForm.get("cbxCategoria")?.setValue("");
+  
+  }
+  validaCbxCategoria(){
+    if (this.categoriaAtuaForm.value.cbxCategoria == '') {
+      this.categoriaInvalida = true;
+      throw new Error("Escolha um Estado!");
+    } else {
+      this.categoriaInvalida = false;
+    }
+  }
 }
