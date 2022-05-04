@@ -17,15 +17,16 @@ import Swal from 'sweetalert2';
 })
 export class PrestadorCategoriaScreenComponent implements OnInit {
   user = {} as Usuario;
-  prestador:Prestador = new Prestador();
-  categoriaInvalida:boolean=false;
-  categorias:Categoria[] =[];
+  prestador: Prestador = new Prestador();
+  categoriaInvalida: boolean = false;
+  categorias: Categoria[] = [];
+  nomeCategoria:string='';
 
   categoriaAtuaForm = new FormGroup({
-    cbxCategoria: new FormControl(null, Validators.required)    
-  }); 
+    cbxCategoria: new FormControl(null, Validators.required)
+  });
 
-  constructor(private categoriaService : CategoriaService ,private usuarioService: UserService ,private prestadorService:PrestadorService,private serviceEnderecoApi:EnderecoApiService,private router: Router) { }
+  constructor(private categoriaService: CategoriaService, private usuarioService: UserService, private prestadorService: PrestadorService, private serviceEnderecoApi: EnderecoApiService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
     this.categorias = await this.categoriaService.getAll();
@@ -34,31 +35,35 @@ export class PrestadorCategoriaScreenComponent implements OnInit {
     this.limparCombo();
   }
 
-  continuar(){
+  continuar() {
     this.router.navigate(['prestador']);
   }
 
-  
-  async cadastrar() {
-    try {
-      this.validaCbxCategoria();
 
-  } catch (e:any) {
-    Swal.fire('Erro!', e.message, 'error')
+  async cadastrar() {
+    if (!this.verificaCategoriaCadastrada()) {
+      try {
+        this.validaCbxCategoria();
+
+      } catch (e: any) {
+        Swal.fire('Erro!', e.message, 'error')
+      }
+      if (this.categoriaAtuaForm.valid) {
+        await this.categoriaService.cadastrarCategoria(this.categoriaAtuaForm.value.cbxCategoria);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Categoria Cadastrada!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.prestador = await this.prestadorService.getPrestador(this.user.id);
+      }
+    } else {
+      Swal.fire('Erro!', 'Categoria '+this.nomeCategoria+' já cadastrada', 'error')
+    }
   }
-  if (this.categoriaAtuaForm.valid) {
-    await this.categoriaService.cadastrarCategoria(this.categoriaAtuaForm.value.cbxCategoria);
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Endereço Cadastrado!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    this.prestador = await this.prestadorService.getPrestador(this.user.id);
-  }
-}
-  async handleDeletarCategoria(id:number){
+  async handleDeletarCategoria(id: number) {
     console.log(id)
     let escolha = await Swal.fire({
       title: '<strong>Alerta!</strong>',
@@ -81,21 +86,30 @@ export class PrestadorCategoriaScreenComponent implements OnInit {
       await this.categoriaService.deletarCategoria(id);
       this.prestador = await this.prestadorService.getPrestador(this.user.id);
     }
-    
+
   }
 
 
   limparCombo() {
     this.categoriaAtuaForm.reset();
     this.categoriaAtuaForm.get("cbxCategoria")?.setValue("");
-  
+
   }
-  validaCbxCategoria(){
+  validaCbxCategoria() {
     if (this.categoriaAtuaForm.value.cbxCategoria == '') {
       this.categoriaInvalida = true;
-      throw new Error("Escolha um Estado!");
+      throw new Error("Escolha uma Categoria!");
     } else {
       this.categoriaInvalida = false;
     }
+  }
+  verificaCategoriaCadastrada = () => {
+    for(let ctg of this.prestador.categorias){
+      if(ctg.id == this.categoriaAtuaForm.value.cbxCategoria){
+        this.nomeCategoria=ctg.nome; 
+        return true;
+      }
+    }
+    return false;
   }
 }
