@@ -35,16 +35,37 @@ main {
     gap: 15px;
 }
 
-.cidade {
+.ctgs {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: fit-content;
+    height: 100%;
+    gap: 10px;
+}
+
+.ctg {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
     background-color: var(--background-secondary);
     border-radius: 5000px;
     padding: 5px 55px;
 }
 
-.cidade__closebtn {
+.ctg h3 {
+    transform: translateY(3px);
+}
+
+.ctg__closebtn {
     align-self: flex-end;
+}
+
+@media screen and (max-width: 400px) {
+    .ctg h3 {
+        font-size: 1.2rem;
+    }
 }
