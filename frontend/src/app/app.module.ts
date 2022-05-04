@@ -22,6 +22,7 @@ import { PrestadorCategoriaScreenComponent } from './screens/prestador/prestador
 import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-cidade-screen/prestador-cidade-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main-screen/prestador-main-screen.component';
 import { AlterarSenhaScreenComponent } from './screens/auth/alterar-senha-screen/alterar-senha-screen.component';
+import { PerfilUsuarioComponent } from './screens/perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   
@@ -39,7 +40,8 @@ import { AlterarSenhaScreenComponent } from './screens/auth/alterar-senha-screen
     EsqueceuSenhaScreenComponent,
     PrestadorCategoriaScreenComponent,
     PrestadorCidadeScreenComponent,
-    AlterarSenhaScreenComponent
+    AlterarSenhaScreenComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,

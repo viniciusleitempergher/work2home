@@ -1,0 +1,75 @@
+.perfils {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.perfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 5000px;
+    padding: 5px 25px;
+    
+}
+
+.perfil__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 40px;
+}
+
+.perfil__img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 1px solid var(--font-thirdy);
+}
+.perfil__nome{
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+.perfil__closebtn{
+    position: absolute;
+    right: 0;
+    margin-right:20px;
+    margin-top: 10px;
+    
+}
+
+.perfilFoto{
+    display: flex;
+    align-items: flex-end;
+}
+.pincelFoto{
+    position: absolute;
+    transform: translateX(700%);
+}
+.btnDenuncia{
+    margin-top: 10px;
+}
+.emailTelefone{
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.stars{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: space-between;
+    gap:5px
+}
+.infoPerfil{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+.hr{
+    border-bottom: 2px solid var(--font-primary);
+}

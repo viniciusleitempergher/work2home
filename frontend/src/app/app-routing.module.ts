@@ -9,6 +9,7 @@ import { LoginScreenComponent } from './screens/auth/login-screen/login-screen.c
 import { CadastrarClienteComponent } from './screens/cliente/cadastrar-cliente/cadastrar-cliente.component';
 import { CadastrarEnderecoComponent } from './screens/cliente/cadastrar-endereco/cadastrar-endereco.component';
 import { ClienteMainScreenComponent } from './screens/cliente/cliente-main-screen/cliente-main-screen.component';
+import { PerfilUsuarioComponent } from './screens/perfil-usuario/perfil-usuario.component';
 import { CadastrarPrestadorComponent } from './screens/prestador/cadastrar-prestador/cadastrar-prestador.component';
 import { PrestadorCategoriaScreenComponent } from './screens/prestador/prestador-categoria-screen/prestador-categoria-screen.component';
 import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-cidade-screen/prestador-cidade-screen.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},
   {path: 'prestador', component: PrestadorMainScreenComponent},
+  {path: 'perfil', component: PerfilUsuarioComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
