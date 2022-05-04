@@ -1,3 +1,4 @@
+import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminMainScreenComponent } from './screens/admin/admin-main-screen/admin-main-screen.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'perfil', component: PerfilUsuarioComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
+  {path: 'fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

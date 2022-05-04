@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -26,7 +28,7 @@ public class Email {
     @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "texto", nullable = false)
+    @Column(name = "texto", nullable = false, columnDefinition = "TEXT")
     private String texto;
 
     @Column(name = "data_envio", nullable = false)

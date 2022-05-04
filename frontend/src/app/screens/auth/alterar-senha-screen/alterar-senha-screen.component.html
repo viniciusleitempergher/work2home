@@ -1,5 +1,5 @@
 <main>
-    <form class="form-alterarsenha">
+    <form class="form form-alterarsenha" [formGroup]="alterarSenhaForm">
         <label for="input-password" class="form__label-alterarsenha">
             Nova Senha:
             <input type="password" name="senha" formControlName="senha" class="form-control form__input form__input-alterarsenha" id="input-senha">
@@ -8,5 +8,6 @@
             Repita a nova senha:
             <input type="password" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-alterarsenha" id="input-repetirSenha">
         </label>
+        <button (click)="handleAlterarSenha()" class="btn btn-primary form__button">Alterar!</button>
     </form>
 </main>

@@ -19,10 +19,11 @@
     Categorias
   </div>
 
+  <div class="container">
+
   <div class="row">
 
-
-    <div class="col-6" *ngFor="let c of categorias">
+    <div class="col-md-4 col-lg-3 col-sm-6 mb-4" (click)="fazerSolicitacao(c.id)" *ngFor="let c of categorias">
       <div class="card">
         <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}" alt="...">
         <div class="card-body">
@@ -31,7 +32,7 @@
       </div>
     </div>
   </div>
-  <br>
+</div>
   <div class="hr__main pb-2 mb-3" id="servicos">
 
     <div>
@@ -40,16 +41,33 @@
 
     <form [formGroup]="cadastroStatusForm">
 
-    <select class="form-select form-control form__input form__input-staus" formControlName="cbxStatusServico"
+    <select class="form-select form-control form__input form__input-staus" (change)="getServicosByCategoria()" formControlName="cbxStatusServico"
       name="cbxStatusServico" [(ngModel)]="value">
-      <option value="All">Todos</option>
+      <option value="-1">Todos</option>
       <option value="0">Solicitados</option>
       <option value="1">Em orçamento</option>
-      <option value="2">Solicitados</option>
+      <option value="2">Finalizados</option>
     </select>
 
   </form>
-  </div>
+</div>
 
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-4 col-lg-3 col-sm-6 mb-3"  *ngFor="let os of ordensServico">
+
+        <div class="card" >
+          <img src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{os.nomePrestador}}</h5>
+            <p>{{os.descricao}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </main>

@@ -37,4 +37,14 @@ export class UserService {
       })
     })
   }
+
+  alterarSenha(senha: string):Promise<void> {
+    return new Promise(resolve => {
+      this.http.patch(`${environment.apiHostAddress}/usuario/alterar-senha`, {
+        novaSenha: senha
+      }).subscribe(response => {      
+        resolve();
+      })
+    })
+  }
 }
