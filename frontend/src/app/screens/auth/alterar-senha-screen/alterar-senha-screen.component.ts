@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alterar-senha-screen',
@@ -6,10 +10,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alterar-senha-screen.component.css']
 })
 export class AlterarSenhaScreenComponent implements OnInit {
+  accessToken:string = this.route.snapshot.paramMap.get('accessToken') as string;
 
-  constructor() { }
+  alterarSenhaForm = new FormGroup({
+    senha: new FormControl(),
+    repetirSenha: new FormControl()
+  });
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private router: Router, private usuarioService:UserService) { }
+
+  ngOnInit(): void {  
   }
 
+  async handleAlterarSenha() {
+    let senha = this.alterarSenhaForm.value.senha;
+    let repetirSenha = this.alterarSenhaForm.value.repetirSenha;
+
+    if (!senha || senha.length < 8) {
+      Swal.fire('Erro!', "A senha deve possuir mais que 8 caracteres!", 'error')
+      return;
+    }
+    if (senha != repetirSenha) {
+      Swal.fire('Erro!', "Senhas diferentes!", 'error')
+      return;
+    }
+
+    localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
+    this.usuarioService.alterarSenha(senha);
+    
+    await Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Senha alterada!',
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    this.router.navigate(["login"])
+  }
 }

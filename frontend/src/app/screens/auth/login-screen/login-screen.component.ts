@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,7 @@ export type LoginResponse = {
 })
 export class LoginScreenComponent implements OnInit {
   user = {} as Usuario;
+  environment = environment;
 
   loginForm = new FormGroup({
     email: new FormControl(),
@@ -31,9 +33,14 @@ export class LoginScreenComponent implements OnInit {
   ngOnInit(): void {
     let strAccessToken = localStorage.getItem('accessToken');
 
-    if (!strAccessToken) return;
+    if (strAccessToken) {
+      this.getUserNRedirect();
+      return;
+    }   
+  }
 
-    this.getUserNRedirect();
+  async handleGoogleSignin() {
+
   }
 
   validaEmail(): boolean {
