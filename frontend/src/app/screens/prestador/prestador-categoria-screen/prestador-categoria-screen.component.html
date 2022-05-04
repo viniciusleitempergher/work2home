@@ -2,7 +2,7 @@
     <form class="form form-categoria" [formGroup]="categoriaAtuaForm">
         <h1 class="form__title">Áreas que atua:</h1>
         <label for="input-text" class="form__label-endereco">
-            Estado:
+            Categoria:
             <select class="form-control form__input form__input-endereco" formControlName="cbxCategoria" [class.form__input-invalid]="categoriaInvalida" name="cbxCategoria">
                 <option value="">Selecione uma categoria</option>
                 <option *ngFor="let categoria of categorias,let i = index" [value]="categoria.id">
@@ -12,10 +12,10 @@
         </label>
         <button (click)="cadastrar()" class="btn btn-primary form__button form__button-cadastrar">Cadastrar</button>
     </form>
-    <div class="cidades">
-        <div class="cidade" *ngFor="let c of prestador.categorias">
-            <h3 class="cidade__nome">{{c.nome}}</h3>
-            <i class="cidade__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
+    <div class="ctgs">
+        <div class="ctg" *ngFor="let c of prestador.categorias">
+            <h3 class="ctg__nome">{{c.nome}}</h3>
+            <i class="ctg__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
         </div>
     </div>
     <div class="btn__wrapper">
