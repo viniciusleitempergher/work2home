@@ -21,7 +21,7 @@ export class PrestadorService {
 
   getPrestador(id:number): Promise<Prestador>{
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/prestador/${id}`).subscribe(response => {      
+      this.http.get(`${environment.apiHostAddress}/prestador/${id}`).subscribe(response => {
         resolve(response as Prestador);
       })
     })
@@ -29,9 +29,14 @@ export class PrestadorService {
 
   deletarCidadePrestador(id:number): Promise<void>{
     return new Promise(resolve =>{
-      this.http.delete(`${environment.apiHostAddress}/prestador/cidade/${id}`).subscribe(response => {      
+      this.http.delete(`${environment.apiHostAddress}/prestador/cidade/${id}`).subscribe(response => {
         resolve();
       })
     })
+  }
+
+  getPrestadorByFiltro () {
+
+    
   }
 }
