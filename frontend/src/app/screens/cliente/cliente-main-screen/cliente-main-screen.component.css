@@ -1,7 +1,13 @@
-#header_main__cliente{
 
+
+
+#header_main__cliente{
   display: flex;
   justify-content: space-between;
+}
+
+main{
+  max-width: 100%;
 }
 
 .hr__main{
