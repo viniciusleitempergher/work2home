@@ -40,6 +40,9 @@ public class EmailService {
     @Value("${url.frontend}")
     private String urlFrontEnd;
 
+    @Value("${email.from}")
+    private String emailFrom;
+
 
     public Email sendEmail(EmailRequest emailRequest) {
 
@@ -85,7 +88,7 @@ public class EmailService {
 
         return Email.builder()
                 .emailTo(emailTo)
-                .emailFrom("brunofvincensi@gmail.com")
+                .emailFrom(emailFrom)
                 .titulo("Recuperação de senha")
                 .texto(urlFrontEnd + "/alterar-senha/" + token)
                 .dataEnvio(LocalDateTime.now())

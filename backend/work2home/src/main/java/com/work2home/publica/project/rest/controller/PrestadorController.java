@@ -58,11 +58,11 @@ public class PrestadorController {
 		prestadorService.alterarPrestador(prestadorDto);
 	}
 
-	@PostMapping("/categoria/{id}")
+	@PostMapping("/categoria/{categoriaId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void cadastrarCategoriaPrestador(@PathVariable Integer id) {
+	public void cadastrarCategoriaPrestador(@PathVariable Integer categoriaId) {
 		
-	   categoriaService.cadastrarCategoriaPrestador(id);
+	   categoriaService.cadastrarCategoriaPrestador(categoriaId);
 	}
 
 	@DeleteMapping("/cidade/{cidadeId}")
