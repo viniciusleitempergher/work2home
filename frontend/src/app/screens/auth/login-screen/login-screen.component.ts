@@ -89,7 +89,7 @@ export class LoginScreenComponent implements OnInit {
       this.router.navigate(['cliente']);
 
     if (this.user.role == 'PRESTADOR')
-      this.router.navigate(['cidade']);
+      this.router.navigate(['prestador']);
   }
 
   novoCadastro(){

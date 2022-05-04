@@ -21,6 +21,7 @@ import { CadastrarPrestadorComponent } from './screens/prestador/cadastrar-prest
 import { PrestadorCategoriaScreenComponent } from './screens/prestador/prestador-categoria-screen/prestador-categoria-screen.component';
 import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-cidade-screen/prestador-cidade-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main-screen/prestador-main-screen.component';
+import { AlterarSenhaScreenComponent } from './screens/auth/alterar-senha-screen/alterar-senha-screen.component';
 
 @NgModule({
   
@@ -37,7 +38,8 @@ import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main
     PrestadorMainScreenComponent,
     EsqueceuSenhaScreenComponent,
     PrestadorCategoriaScreenComponent,
-    PrestadorCidadeScreenComponent
+    PrestadorCidadeScreenComponent,
+    AlterarSenhaScreenComponent
   ],
   imports: [
     BrowserModule,
