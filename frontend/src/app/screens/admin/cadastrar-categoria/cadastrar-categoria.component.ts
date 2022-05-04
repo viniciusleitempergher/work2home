@@ -73,6 +73,7 @@ export class CadastrarCategoriaComponent implements OnInit {
     let categoria:Categoria = await this.categoriaService.cadastrar(
       this.categoriaForm.value.nome, this.categoriaForm.get("imagemSrc")?.value
     );
+    
 
     this.categorias.push(categoria);
   }

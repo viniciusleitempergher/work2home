@@ -18,26 +18,22 @@ export class CategoriaService {
     });
   }
 
-  #cadastrarImagem(categoria:any, imagem:File) {
+  #cadastrarImagem(categoria:any, imagem:File): Promise<Categoria> {
     return new Promise(resolve => {
       const formData = new FormData();
       formData.append("image", imagem, imagem.name)
       
       this.http.post(`${environment.apiHostAddress}/categoria/${categoria.id}/imagem`, formData)
-        .subscribe(response => resolve(response))
+        .subscribe(response => resolve(response as Categoria))
     })
   }
 
   cadastrar(nome: string, imagem: File): Promise<Categoria> {
     return new Promise(async resolve => {
       let categoriaNome = await this.#cadastrarNome(nome);
-      let categoriaImg = await this.#cadastrarImagem(categoriaNome, imagem);
+      let categoriaImg:Categoria = await this.#cadastrarImagem(categoriaNome, imagem);   
 
-      console.log(categoriaNome);
-      console.log(categoriaImg);
-      
-
-      resolve(new Categoria());
+      resolve(categoriaImg);
     })
   }
 

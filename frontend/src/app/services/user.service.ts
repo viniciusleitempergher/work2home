@@ -27,4 +27,14 @@ export class UserService {
       })
     })
   }
+
+  esqueceuSenha(email: string):Promise<void> {
+    return new Promise(resolve => {
+      this.http.post(`${environment.apiHostAddress}/email/resgatar-senha`, {
+        email
+      }).subscribe(response => {      
+        resolve();
+      })
+    })
+  }
 }

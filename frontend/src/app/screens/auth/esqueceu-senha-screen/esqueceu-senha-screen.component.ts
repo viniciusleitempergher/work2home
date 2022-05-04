@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-esqueceu-senha-screen',
@@ -12,12 +14,21 @@ export class EsqueceuSenhaScreenComponent implements OnInit {
     email: new FormControl()
   })
 
-  constructor() { }
+  constructor(private usuarioService:UserService) { }
 
   ngOnInit(): void {
   }
 
-  handleEsqueceuSenha() {
+  async handleEsqueceuSenha() {
+    let email = this.esqueceuSenhaForm.value.email;
 
+    await this.usuarioService.esqueceuSenha(email);
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Confira seu email!',
+      showConfirmButton: true
+    })
   }
 }
