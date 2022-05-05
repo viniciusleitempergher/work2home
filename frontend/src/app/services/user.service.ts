@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/models/Usuario';
 import { environment } from 'src/environments/environment';
+import { LoginResponse } from '../screens/auth/login-screen/login-screen.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
         email,
         senha
       }).subscribe(response => {
-        resolve(response as Usuario);
+        resolve(response as LoginResponse);
       })
     })
   }

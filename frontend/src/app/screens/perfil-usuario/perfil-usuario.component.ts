@@ -61,17 +61,15 @@ export class PerfilUsuarioComponent implements OnInit {
     this.buscarPerfil();
   }
   buscarPerfil() {
-
+    this.perfilLogado();
     if (this.rolePerfil == "CLIENTE") {
-      this.perfilLogado();
-      this.clienteLogado();
+      this.perfilCliente();
     } else
       if (this.rolePerfil == "PRESTADOR" || this.rolePerfil == "INATIVO") {
-        this.perfilLogado();
-        this.prestadorLogado();
+        this.perfilPrestador();
       }
   }
-
+  
   perfilLogado() {
     if (this.user.id == this.usuarioPerfilId) {
       this.isVisible = true;
@@ -79,16 +77,18 @@ export class PerfilUsuarioComponent implements OnInit {
       this.isVisible = false;
     }
   }
-  async clienteLogado() {
+  async perfilCliente() {
     this.cliente = await this.clienteService.getCliente(this.usuarioPerfilId);
     this.isCliente = true;
     this.carregaDadosCliente();
+    this.carregarFotoCliente();
   }
 
-  async prestadorLogado() {
+  async perfilPrestador() {
     this.isCliente = false;
     this.prestador = await this.prestadorService.getPrestador(this.usuarioPerfilId);
     this.carregaDadosPrestador();
+    this.carregarFotoPrestador();
   }
 
   handleEditarImagem() {
@@ -116,7 +116,6 @@ export class PerfilUsuarioComponent implements OnInit {
 
 
   carregaDadosPrestador() {
-    this.verificaImagemPerfil();
     this.nome = this.prestador.nome;
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
@@ -130,23 +129,22 @@ export class PerfilUsuarioComponent implements OnInit {
     this.prestador.avaliacoes.push(this.av2);
 
   }
-  verificaImagemPerfil() {
-    if (this.user.role == 'CLIENTE') {
-      if (this.cliente.imagemUrl == null) {
-        this.isImageVisible = false;
-      } else {
-        this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.cliente.imagemUrl;
-      }
+  carregarFotoCliente(){
+    if (this.cliente.imagemUrl == null) {
+      this.isImageVisible = false;
     } else {
-      if (this.prestador.imagemUrl == null) {
-        this.isImageVisible = false;
-      } else {
-        this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.prestador.imagemUrl;
-      }
+      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.cliente.imagemUrl;
+    }
+  }
+  carregarFotoPrestador(){
+    if (this.prestador.imagemUrl == null) {
+      this.isImageVisible = false;
+    } else {
+      console.log(this.prestador.imagemUrl);
+      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.prestador.imagemUrl;
     }
   }
   carregaDadosCliente() {
-    this.verificaImagemPerfil();
     this.nome = this.cliente.nome;
     this.email = this.cliente.email;
     this.telefone = this.cliente.telefone;

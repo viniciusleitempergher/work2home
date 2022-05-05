@@ -15,6 +15,7 @@ import { CadastrarPrestadorComponent } from './screens/prestador/cadastrar-prest
 import { PrestadorCategoriaScreenComponent } from './screens/prestador/prestador-categoria-screen/prestador-categoria-screen.component';
 import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-cidade-screen/prestador-cidade-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main-screen/prestador-main-screen.component';
+import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente-screen/alterar-cliente-screen.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
   {path: 'cliente/fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
+  {path: 'cliente/alterar', component: AlterarClienteScreenComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

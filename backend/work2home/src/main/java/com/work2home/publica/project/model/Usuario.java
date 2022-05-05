@@ -46,13 +46,13 @@ public class Usuario {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@Column(name = "telefone", nullable = false)
+	@Column(name = "telefone")
 	private String telefone;
 
 	@Column(name = "imagem_url")
 	private String imagemUrl;
 
-	@Column(name = "data_nascimento", nullable = false)
+	@Column(name = "data_nascimento")
 	private LocalDate dtNascimento;
 	
 	@Column(name = "data_criacao")

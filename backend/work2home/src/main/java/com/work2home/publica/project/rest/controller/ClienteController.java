@@ -5,8 +5,11 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
+import com.work2home.publica.project.rest.dto.cliente.ClienteCompletarCadastroRequest;
 import com.work2home.publica.project.rest.dto.cliente.ClienteRequest;
 import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
+import com.work2home.publica.project.rest.dto.prestador.PrestadorCompletarCadastroRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +47,9 @@ public class ClienteController {
 		
 		clienteService.alterarCliente(clienteDto);
 	}
-
+	
+	@PutMapping("/completar-cadastro")
+	public void completarCadastro(@RequestBody @Valid ClienteCompletarCadastroRequest clienteDto) {
+		clienteService.completarCadastro(clienteDto);
+	}
 }
