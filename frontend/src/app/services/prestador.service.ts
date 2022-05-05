@@ -1,3 +1,4 @@
+import { PrestadorFiltroRequest } from './../../models/dtos/PrestadorFiltroRequest';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -35,8 +36,12 @@ export class PrestadorService {
     })
   }
 
-  getPrestadorByFiltro () {
+  getPrestadorByFiltro(categoriaId:number): Promise<Prestador[]> {
+    return new Promise(resolve => {
+      this.http.get(`${environment.apiHostAddress}/prestador/filtro/${categoriaId}`).subscribe(response => {
+        resolve(response as Prestador[]);
+      })
+    })
 
-    
   }
 }

@@ -1,1 +1,33 @@
-<p>{{id}}</p>
+<main>
+
+  <div class="prestadores">
+    <div class="prestador" *ngFor="let p of prestadores">
+        <h6 class="prestador__nome">{{p.nome}} - {{p.mediaAvaliacao}}</h6>
+    </div>
+    <div class="prestador" *ngFor="let p of prestadores">
+      <h6 class="prestador__nome">{{p.nome}} - {{p.mediaAvaliacao}}</h6>
+  </div>
+
+</div>
+
+<div>
+  <form method="POST" [formGroup]="cadastroSolicitacaoServico">
+
+    <label for="input-text" class="form__label-solicitacao">
+      Descrição:
+      <textarea type="text" cols="40" rows="4" (change)="validaDescricao()" [class.form__input-invalid]="descricaoInvalida" name="descricao" formControlName="descricao" class="form-control form__input form__input-solicitacao" id="input-descricao">
+      </textarea>
+  </label>
+
+  <button>
+    adicionar imagem
+  </button>
+
+
+
+
+
+  </form>
+</div>
+
+</main>

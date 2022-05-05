@@ -22,7 +22,7 @@ export class UserService {
 
   getUserFromAccessToken():Promise<Usuario> {
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/me`).subscribe(response => {      
+      this.http.get(`${environment.apiHostAddress}/usuario/me`).subscribe(response => {
         resolve(response as Usuario);
       })
     })
@@ -32,7 +32,7 @@ export class UserService {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/email/resgatar-senha`, {
         email
-      }).subscribe(response => {      
+      }).subscribe(response => {
         resolve();
       })
     })
@@ -42,7 +42,7 @@ export class UserService {
     return new Promise(resolve => {
       this.http.patch(`${environment.apiHostAddress}/usuario/alterar-senha`, {
         novaSenha: senha
-      }).subscribe(response => {      
+      }).subscribe(response => {
         resolve();
       })
     })

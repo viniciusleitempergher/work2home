@@ -49,3 +49,8 @@ main{
 select{
   width: 120px;
 }
+
+.card-categoria:hover{
+  cursor: pointer;
+  opacity: 2;
+}
