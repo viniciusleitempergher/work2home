@@ -22,11 +22,16 @@
 }
 
 .perfil__img {
-    background-color: var(--font-thirdy)!important;;
+    
     width: 170px;
     height: 170px;
     border-radius: 50%;
     border: 1px solid var(--font-thirdy);
+}
+.semImagem{
+    font-size: 9em;
+    line-height: 144px;
+    margin-left:auto;
 }
 .perfil__nome{
     margin: 0;
@@ -47,7 +52,7 @@
 }
 .pincelFoto{
     position: absolute;
-    transform: translateX(700%);
+    transform: translateX(460%);
 }
 .btnDenuncia{
     margin-top: 10px;

@@ -17,12 +17,14 @@ public class PrestadorResponse {
 	private String email;
 	private String telefone;
 	private Double mediaAvaliacao;
+	private String imagemUrl;
 	private Set<Categoria> categorias;
 	private Set<Cidade> cidades;
 	private List<AvaliacaoResponse> avaliacoes;
 	
 	public PrestadorResponse(Prestador prestador) {
 		this.nome = prestador.getUsuario().getNome();
+		this.imagemUrl = prestador.getUsuario().getImagemUrl();
 		this.email = prestador.getUsuario().getEmail();
 		this.telefone = prestador.getUsuario().getTelefone();
 		this.mediaAvaliacao = prestador.getUsuario().getMediaAvaliacao();

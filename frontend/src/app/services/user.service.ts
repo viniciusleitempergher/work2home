@@ -7,20 +7,20 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  login(email:string, senha:string) {
+  login(email: string, senha: string) {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/auth/login`, {
-          email,
-          senha
+        email,
+        senha
       }).subscribe(response => {
         resolve(response as Usuario);
       })
     })
   }
 
-  getUserFromAccessToken():Promise<Usuario> {
+  getUserFromAccessToken(): Promise<Usuario> {
     return new Promise(resolve => {
       this.http.get(`${environment.apiHostAddress}/usuario/me`).subscribe(response => {
         resolve(response as Usuario);
@@ -28,7 +28,7 @@ export class UserService {
     })
   }
 
-  esqueceuSenha(email: string):Promise<void> {
+  esqueceuSenha(email: string): Promise<void> {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/email/resgatar-senha`, {
         email
@@ -38,7 +38,7 @@ export class UserService {
     })
   }
 
-  alterarSenha(senha: string):Promise<void> {
+  alterarSenha(senha: string): Promise<void> {
     return new Promise(resolve => {
       this.http.patch(`${environment.apiHostAddress}/usuario/alterar-senha`, {
         novaSenha: senha
@@ -47,4 +47,23 @@ export class UserService {
       })
     })
   }
+
+  cadastrarImagemPerfil(imagem: File): Promise<{ imagemUrl: string }> {
+    return new Promise(resolve => {
+      const formData = new FormData();
+      formData.append("image", imagem, imagem.name)
+      this.http.post(`${environment.apiHostAddress}/usuario/imagem`, formData)
+        .subscribe(response => resolve(response as { imagemUrl: string }))
+    })
+  }
+  getUserRole(id: number): Promise<{ role: string }> {
+    return new Promise(resolve => {
+      this.http.get(`${environment.apiHostAddress}/usuario/${id}/get-role`).subscribe(response => {
+        resolve(response as { role: string });
+
+      })
+    });
+
+  }
 }
+

@@ -71,8 +71,6 @@ public class OrdemServicoService {
 
 		List<OrdemServico> ordemServicoList = repository.findAll(specs);
 
-		System.out.println(ordemServicoList.get(0).getStatus());
-
 		if(status != -1){
 			return 	ordemServicoList
 					.stream()

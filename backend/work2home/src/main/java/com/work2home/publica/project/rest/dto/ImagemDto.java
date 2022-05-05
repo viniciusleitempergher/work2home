@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImagemDto {
-    private String ImagemUrl;
+    private String imagemUrl;
 }
