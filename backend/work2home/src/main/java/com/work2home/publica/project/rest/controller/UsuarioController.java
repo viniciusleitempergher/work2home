@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.work2home.publica.project.model.Email;
+import com.work2home.publica.project.rest.dto.ImagemDto;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.rest.dto.usuario.AlterarSenha;
 import com.work2home.publica.project.service.UsuarioService;
@@ -44,8 +45,8 @@ public class UsuarioController {
 
 	@PostMapping("/imagem")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void cadastrarImagem(@RequestParam("image") MultipartFile multipartFile) {
-		usuarioService.cadastrarImagem(multipartFile);
+	public ImagemDto cadastrarImagem(@RequestParam("image") MultipartFile multipartFile) {
+		return usuarioService.cadastrarImagem(multipartFile);
 
 	}
 

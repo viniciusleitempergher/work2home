@@ -77,8 +77,8 @@ public class PrestadorController {
 		prestadorService.removerCategoriaPrestador(categoriaId);
 	}
 	
-	@GetMapping("/filtro")
-	public List<PrestadorFiltroResponse> filtrarPrestadores(@Valid @RequestBody PrestadorFiltroRequest pfr) {
-		return prestadorService.filtrarPrestadores(pfr);
+	@GetMapping("/filtro/{categoriaId}")
+	public List<PrestadorFiltroResponse> filtrarPrestadores(@PathVariable Integer categoriaId) {
+		return prestadorService.filtrarPrestadores(categoriaId);
 	}
 }

@@ -1,5 +1,6 @@
 package com.work2home.publica.project.service;
 
+import com.work2home.publica.project.rest.dto.ImagemDto;
 import com.work2home.publica.project.utils.FileUploadUtil;
 import com.work2home.publica.project.utils.JwtUtil;
 
@@ -46,21 +47,22 @@ public class UsuarioService {
 		return new long[]{qtdBanido,qtdCliente,qtdPrestador,qtdAdmin};
 	}
 
-    public void cadastrarImagem(MultipartFile multipartFile) {
+    public ImagemDto cadastrarImagem(MultipartFile multipartFile) {
 		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/usuario";
+		String imagemUrl = dir + "/" + uuid + ".png";
 
-		usuario.setImagemUrl(dir + "/" + uuid + ".png");
+		usuario.setImagemUrl(imagemUrl);
 		usuarioRepository.save(usuario);
 
 		try {
 			FileUploadUtil.saveFile(dir, uuid , multipartFile);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return new ImagemDto(imagemUrl);
     }
 
     public void alterarSenha(String novaSenha) {
