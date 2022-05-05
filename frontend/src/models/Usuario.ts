@@ -6,4 +6,5 @@ export class Usuario {
     senha: string = '';
     telefone: string = '';
     role: string = '';
+    imagemUrl : string = '';
 }

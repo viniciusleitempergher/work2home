@@ -1,3 +1,5 @@
+import { Usuario } from 'src/models/Usuario';
+import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../../../models/OrdemServicoResponse';
 
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +19,7 @@ export class ClienteMainScreenComponent implements OnInit {
   categorias: Categoria[] = [];
   environment = environment;
   ordensServico: OrdemServicoResponse[] = [];
+  usuario: Usuario = new Usuario;
 
   value: string = '';
 
@@ -29,10 +32,12 @@ export class ClienteMainScreenComponent implements OnInit {
   constructor(
     private categoriaService: CategoriaService,
     private ordemService: OrdemServicoService,
+    private userService : UserService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.getUser()
     this.buscarCategorias();
     this.value = '-1';
     this.getServicosByStatus();
@@ -56,5 +61,11 @@ export class ClienteMainScreenComponent implements OnInit {
 
   setarCbx() {
     this.cadastroStatusForm.get('cbxStatusServico')?.setValue('0');
+  }
+
+  getUser(){
+    this.userService.getUserFromAccessToken().then((res) =>{
+      this.usuario = res
+    })
   }
 }

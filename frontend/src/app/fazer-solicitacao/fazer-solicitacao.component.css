@@ -12,21 +12,17 @@
 .prestador {
   display: flex;
   align-items: center;
-
-
   background-color: var(--background-secondary);
   border-radius: 10px;
   padding: 5px 55px;
   width: 100%;
   padding: 5px;
+
 }
-
-
 
 .prestador__nome{
   margin: 0;
 }
-
 
 #input-descricao{
   max-height: 300px;
@@ -50,10 +46,8 @@
   margin-top: 10px;
 }
 
-input[type="radio"] {
-  accent-color: black;
-}
 
-i{
-  width: 500px;
+
+.btnradio__prastador{
+  margin-left: 15px;
 }

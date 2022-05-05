@@ -10,13 +10,13 @@
 
     <div class="prestador" *ngFor="let p of prestadores">
 
-      <div>
+      <div id="informacao__prestador" routerLink="/perfil/{{p.id}}">
         <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao}}</h5>
         <i style="display: inline;" class="bi bi-star-fill"></i>
       </div>
 
       <div>
-        <input type="radio" (change)="selecionarPrestadorId(p.id)"  name="radioPrastador" class="form-check-input radio-prastador">
+        <input type="radio" (change)="selecionarPrestadorId(p.id)"  name="radioPrastador" class="form-check-input btnradio__prastador">
       </div>
     </div>
 
@@ -57,8 +57,6 @@
       <div>
         <button (click)="cancelar()" class="btn btn-primary form__button-secondary btn__solicitacao">Cancelar</button>
       </div>
-
-
 
   </div>
 </form>
