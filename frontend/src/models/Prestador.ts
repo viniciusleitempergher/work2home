@@ -3,7 +3,8 @@ import { Categoria } from "./Categoria";
 import { CidadePrestador } from "./CidadePrestador";
 
 export class Prestador {
-    nome:string = '';
+  id:number = 0;
+  nome:string = '';
 	email:string = '';
 	telefone:string = '';
 	mediaAvaliacao:number = 0;

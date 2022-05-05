@@ -5,27 +5,55 @@
   width: fit-content;
   gap: 10px;
   overflow:auto;
-
   height: 250px;
+  margin-bottom: 20px;
 }
 
 .prestador {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
 
-  text-align: center;
 
   background-color: var(--background-secondary);
-  border-radius: 5000px;
+  border-radius: 10px;
   padding: 5px 55px;
+  width: 100%;
+  padding: 5px;
 }
 
-.prestador h3 {
-  transform: translateY(3px);
-}
+
 
 .prestador__nome{
   margin: 0;
+}
+
+
+#input-descricao{
+  max-height: 300px;
+}
+
+.btn__solicitacao{
+  width: 100%;
+  margin-top: 15px;
+}
+
+#add-image{
+  margin-bottom: 15px;
+}
+
+#alerta-vermelho{
+  text-align: center;
+  width: 100%;
+}
+
+.campos__form{
+  margin-top: 10px;
+}
+
+input[type="radio"] {
+  accent-color: black;
+}
+
+i{
+  width: 500px;
 }

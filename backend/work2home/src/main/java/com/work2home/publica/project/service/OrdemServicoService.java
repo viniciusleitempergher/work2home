@@ -85,21 +85,6 @@ public class OrdemServicoService {
 				.toList();
 	}
 
-
-
-
-
-
-
-	//---------------------------------------------------------------
-
-
-
-
-
-
-
-
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();

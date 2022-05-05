@@ -1,6 +1,7 @@
 .metadata
 /node_modules
 /RemoteSystemsTempFiles
+/images
 
 # Compiled class file
 *.class
