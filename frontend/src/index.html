@@ -11,20 +11,45 @@
 </head>
 <body>
   <app-root></app-root>
-  <script>
-    function renderButton() {
-      gapi.signin2.render('form__button-login-google', {
-          'width': 240,
-          'height': 50,
-          'onsuccess': onSuccess,
-          'onfailure': onFailure
+  <script defer>
+    window.addEventListener('load', () => {
+      let googleAuth;
+      gapi.load('auth2', function() {
+        gapi.auth2.init({
+          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com'
+        });
+        googleAuth = gapi.auth2.getAuthInstance();
+
+        googleAuth.attachClickHandler('form__button-login-google', {
+          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com',
+        }, onSuccess, onFailure)
       });
-    }
-    function onSuccess(googleUser) {
-      console.log(googleUser);
+    })
+    async function onSuccess(googleUser) {
+      let id_token = googleUser.getAuthResponse().id_token;
+      
+      console.log(id_token);
+      
+      let headers = new Headers();
+      headers.append("Content-Type", "application/json");
+
+      const tokensResponse = await fetch('http://localhost:8080/auth/google-login', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            googleToken: id_token
+          })
+      });
+
+      const tokens = await tokensResponse.json();
+
+      localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
+      localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
+
+      window.location.reload();
     }
     function onFailure(err) {
-
+      console.log(err);
     }
   </script>
 </body>

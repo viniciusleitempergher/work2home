@@ -45,6 +45,10 @@ main {
     box-shadow: 0 0 0 0.06rem rgb(207, 56, 56) !important;
 }
 
+.form__input-disabled {
+    opacity: .7 !important;
+}
+
 .form__button {
     background-color: var(--font-thirdy) !important;
     border: none !important;

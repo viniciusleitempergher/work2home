@@ -7,16 +7,25 @@ import { ClienteCadastro } from '../screens/cliente/cadastrar-cliente/cadastrar-
   providedIn: 'root'
 })
 export class ClienteService {
-
   constructor(private http:HttpClient) { }
 
-
-
   cadastrarCliente(cliente:ClienteCadastro):Promise<ClienteCadastro>{
-
-    console.log(cliente.cpf)
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/cliente`,
+        cliente
+      ).subscribe(response => resolve(response as ClienteCadastro))
+    })
+  }
+  alterarCliente(cliente:ClienteCadastro):Promise<ClienteCadastro>{
+    return new Promise(resolve => {
+      this.http.put(`${environment.apiHostAddress}/cliente`,
+        cliente
+      ).subscribe(response => resolve(response as ClienteCadastro))
+    })
+  }
+  completarCadastro(cliente: ClienteCadastro) {
+    return new Promise(resolve => {
+      this.http.put(`${environment.apiHostAddress}/cliente/completar-cadastro`,
         cliente
       ).subscribe(response => resolve(response as ClienteCadastro))
     })

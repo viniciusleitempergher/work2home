@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.work2home.publica.project.rest.dto.prestador.PrestadorCompletarCadastroRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroResponse;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
@@ -128,10 +129,36 @@ public class PrestadorService {
 		prestador.getCategorias().add(categoria);
 		prestadorRepository.save(prestador);
 	}
+	
+	@Transactional
+	public void completarCadastro(@Valid PrestadorCompletarCadastroRequest dto) {
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
+		if (usuario.getRole() == Roles.CADASTRO_INCOMPLETO) {
+			usuario.setRole(Roles.PRESTADOR);
+		}
+
+		Prestador prestador = prestadorRepository.findById(usuario.getId())
+				.orElse(new Prestador());
+		
+		if (prestador.getId() != null) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+
+		prestador.setCnpj(dto.getCnpj());
+		prestador.setNomeFantasia(dto.getNomeFantasia());
+		usuario.setNome(dto.getUsuarioDto().getNome());
+		usuario.setTelefone(dto.getUsuarioDto().getTelefone());
+		usuario.setDtNascimento(LocalDate.parse(dto.getUsuarioDto().getDtNascimento(), Formatador.getFormatter()));
+		prestador.setUsuario(usuario);
+		
+		usuarioRepository.save(usuario);
+		prestadorRepository.save(prestador);
+	}
+
 
 	@Transactional
 	public void alterarPrestador(@Valid PrestadorRequest dto) {
-
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
 		Prestador prestador = prestadorRepository.findById(usuario.getId())

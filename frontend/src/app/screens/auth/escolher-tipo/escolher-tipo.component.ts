@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/models/Usuario';
 
 @Component({
   selector: 'app-escolher-tipo',
@@ -9,17 +11,26 @@ import { Router } from '@angular/router';
 })
 export class EscolherTipoComponent implements OnInit {
 
+  user = {} as Usuario;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private usuarioService: UserService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    if (localStorage.getItem('accessToken'))
+      this.user = await this.usuarioService.getUserFromAccessToken();
   }
 
-  cadastrarPrestador(){
-    this.router.navigate(['cadastrar-prestador']);
+  handlePrestador(){
+    if (this.user.email && this.user.role == "CADASTRO_INCOMPLETO")
+      this.router.navigate(['prestador/alterar']);
+    else 
+      this.router.navigate(['cadastrar-prestador']);
   }
-  cadastrarCliente(){
-    this.router.navigate(['cadastrar-cliente']);
+  handleCliente(){
+    if (this.user.email && this.user.role == "CADASTRO_INCOMPLETO")
+      this.router.navigate(['cliente/alterar']);
+    else 
+      this.router.navigate(['cadastrar-cliente']);
   }
 
 }

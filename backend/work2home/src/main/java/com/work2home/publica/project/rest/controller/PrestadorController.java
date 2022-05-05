@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
+import com.work2home.publica.project.rest.dto.prestador.PrestadorCompletarCadastroRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroResponse;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
@@ -53,6 +54,11 @@ public class PrestadorController {
 		return prestadorService.cadastrarPrestador(prestadorDto);
 	}
 	
+	@PutMapping("/completar-cadastro")
+	public void completarCadastro(@RequestBody @Valid PrestadorCompletarCadastroRequest prestadorDto) {
+		prestadorService.completarCadastro(prestadorDto);
+	}
+	
 	@PutMapping
 	public void alterarPrestador(@RequestBody @Valid PrestadorRequest prestadorDto) {
 		prestadorService.alterarPrestador(prestadorDto);
@@ -61,7 +67,6 @@ public class PrestadorController {
 	@PostMapping("/categoria/{categoriaId}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void cadastrarCategoriaPrestador(@PathVariable Integer categoriaId) {
-		
 	   categoriaService.cadastrarCategoriaPrestador(categoriaId);
 	}
 
