@@ -30,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.authorizeRequests()
 			//requisicoes da ordem de servico
-			.antMatchers(HttpMethod.GET, "/ordem-servico/all").hasAnyRole("ADMIN")
-			.antMatchers(HttpMethod.GET, "/ordem-servico/*").hasAnyRole("CLIENTE", "ADMIN", "PRESTADOR")
+			.antMatchers(HttpMethod.GET, "/ordem-servico").hasAnyRole("CLIENTE", "ADMIN", "PRESTADOR")
+			.antMatchers(HttpMethod.GET, "/ordem-servico/filtro/*").hasAnyRole("CLIENTE", "ADMIN", "PRESTADOR")
 			.antMatchers(HttpMethod.POST, "/ordem-servico/solicitar").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.POST, "/ordem-servico/*/imagem").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-solicitacao").hasAnyRole("PRESTADOR")

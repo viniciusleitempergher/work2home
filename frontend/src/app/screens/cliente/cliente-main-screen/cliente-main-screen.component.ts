@@ -35,12 +35,11 @@ export class ClienteMainScreenComponent implements OnInit {
   ngOnInit(): void {
     this.buscarCategorias();
     this.value = '-1';
-    this.getServicosByCategoria();
+    this.getServicosByStatus();
   }
 
-  getServicosByCategoria() {
+  getServicosByStatus() {
     try {
-
       this.ordemService
         .getAllByFilter(Number.parseInt(this.value))
         .then((res) => {

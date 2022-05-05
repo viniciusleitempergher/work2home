@@ -10,11 +10,13 @@ public class ClienteResponse {
     private String email;
     private String telefone;
     private Double mediaAvaliacao;
+    private String imagemUrl;
     private String estado;
     private String cidade;
 
     public ClienteResponse(Cliente cliente) {
         this.nome = cliente.getUsuario().getNome();
+        this.imagemUrl = cliente.getUsuario().getImagemUrl();
         this.email = cliente.getUsuario().getEmail();
         this.telefone = cliente.getUsuario().getTelefone();
         this.mediaAvaliacao = cliente.getUsuario().getMediaAvaliacao();

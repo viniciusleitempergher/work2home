@@ -10,7 +10,7 @@
             </svg>
         </div>
         <div class="perfil__closebtn" id="btnEditarPerfil" *ngIf="isVisible">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear"
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gear"
                 viewBox="0 0 16 16">
                 <path
                     d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
@@ -20,16 +20,17 @@
         </div>
         <div class="perfil__wrapper">
             <div class="perfilFoto">
-                <img class="perfil__img" id="fotoPerfil"
-                    src="https://www.getninjas.com.br/images/compressed_professional_header_images_b/343/original/encanador.png?1498249019">
-                <svg id="btnEditarFoto" *ngIf="isVisible" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                <img class="perfil__img" id="fotoPerfil" *ngIf="isImageVisible"
+                src={{fotoPerfilUsuario}}>
+                <i class="bi bi-person-circle semImagem" *ngIf="!isImageVisible"></i>
+                <svg id="btnEditarFoto" (click)="handleEditarImagem()" *ngIf="isVisible" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                     fill="currentColor" class="bi bi-camera mb-2 pincelFoto" viewBox="0 0 16 16">
                     <path
                         d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
                     <path
                         d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                 </svg>
-                <input type="file" name="imagem" id="imagemFile" accept="image/*">
+                <input type="file" (change)="handleChangeFile($event)" name="imagem" id="imagemFile" accept="image/*">
             </div>
             <h3 class="perfil__nome">{{nome}}</h3>
         </div>
@@ -44,7 +45,7 @@
             <img src={{star4}} alt="" srcset="">
             <img src={{star5}} alt="" srcset="">
         </div>
-        <div class="infoPerfil">
+        <div class="infoPerfilPrestador" *ngIf="!isCliente">
             <div class="hr">
                 <h5>Áreas de atuação</h5>
             </div>
@@ -64,11 +65,7 @@
                 <h5>{{c.comentario}} - Nota: {{c.nota}}</h5>
             </div>
         </div>
-    </div>
-    <form action="">
-        <input type="file" id="image" name="image">
-        <div>
-          <input type="submit" value="Enviar">
+        <div class="infoPerfilPrestador" *ngIf="isCliente">
+                teste!!!!
         </div>
-      </form>
-      <img src="" alt="" id="preview-image">
+    </div>

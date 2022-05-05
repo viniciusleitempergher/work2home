@@ -7,10 +7,13 @@ import java.util.UUID;
 
 import com.work2home.publica.project.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import static com.work2home.publica.project.repositores.specs.PrestadorSpecs.*;
 
 import com.work2home.publica.project.rest.dto.ordem_servico.OrcamentoAcceptRequest;
 import com.work2home.publica.project.rest.dto.ordem_servico.OrdemServicoResponse;
@@ -20,7 +23,6 @@ import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.OrdemServico;
-import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.ClienteRepository;
@@ -47,32 +49,40 @@ public class OrdemServicoService {
 	@Autowired
 	private JwtUtil jwt;
 
-	public List<OrdemServicoResponse> findAll(Integer status) {	
-		
+	public List<OrdemServicoResponse> findAllByFilter(Integer status){
+
+		Specification<OrdemServico> specs = Specification.where((root, query, criteriaBuilder) -> criteriaBuilder.conjunction());
+
 		Usuario usuario = jwt.getUserFromHeaderToken();
-		
+
 		if(usuario.getRole() == Roles.CLIENTE) {
-			
+
 			Cliente cliente = clienteRepository
 					.findById(usuario.getId())
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
-			
-			return repository
-					.findByStatusOrcamentoAndEnderecoId(status, cliente.getEndereco().getId())
-					.stream()
-					.map(OrdemServicoResponse::new)
-					.toList();
-			
+
+			specs = specs.and(enderecoEqual(cliente.getEndereco().getId()));
 		}else if(usuario.getRole() == Roles.PRESTADOR) {
-			
-			return repository
-					.findByStatusOrcamentoAndPrestadorId(status, usuario.getId())
-					.stream()
-					.map(OrdemServicoResponse::new)
-					.toList();
+
+			specs = specs.and(prestadorEqual(usuario.getId()));
 		}else {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
+
+		List<OrdemServico> ordemServicoList = repository.findAll(specs);
+
+		if(status != -1){
+			return 	ordemServicoList
+					.stream()
+					.filter(s -> s.getStatus() == StatusOrcamento.values()[status])
+					.map(OrdemServicoResponse::new)
+					.toList();
+		}
+
+		return ordemServicoList
+				.stream()
+				.map(OrdemServicoResponse::new)
+				.toList();
 	}
 
 	public OrdemServicoResponse buscarDtoPorId(Integer id) {

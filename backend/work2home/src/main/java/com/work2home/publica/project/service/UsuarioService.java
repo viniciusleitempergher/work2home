@@ -1,9 +1,12 @@
 package com.work2home.publica.project.service;
 
+import com.work2home.publica.project.rest.dto.ImagemDto;
+import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
 import com.work2home.publica.project.utils.FileUploadUtil;
 import com.work2home.publica.project.utils.JwtUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -46,21 +50,22 @@ public class UsuarioService {
 		return new long[]{qtdBanido,qtdCliente,qtdPrestador,qtdAdmin};
 	}
 
-    public void cadastrarImagem(MultipartFile multipartFile) {
+    public ImagemDto cadastrarImagem(MultipartFile multipartFile) {
 		Usuario usuario = jwt.getUserFromHeaderToken();
 		
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/usuario";
+		String imagemUrl = dir + "/" + uuid + ".png";
 
-		usuario.setImagemUrl(dir + "/" + uuid + ".png");
+		usuario.setImagemUrl(imagemUrl);
 		usuarioRepository.save(usuario);
 
 		try {
 			FileUploadUtil.saveFile(dir, uuid , multipartFile);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return new ImagemDto(imagemUrl);
     }
 
     public void alterarSenha(String novaSenha) {
@@ -70,5 +75,14 @@ public class UsuarioService {
 
 		usuario.setSenha(bc.encode(novaSenha));
 		usuarioRepository.save(usuario);
+    }
+
+    public RoleUsuarioResponse getRole(Integer id) {
+
+		Usuario usuario = usuarioRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		return new RoleUsuarioResponse(usuario.getRole().toString());
     }
 }

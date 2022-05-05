@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Cliente } from 'src/models/Cliente';
 import { ClienteCadastro } from '../screens/cliente/cadastrar-cliente/cadastrar-cliente.component';
 
 @Injectable({
@@ -30,5 +31,13 @@ export class ClienteService {
       ).subscribe(response => resolve(response as ClienteCadastro))
     })
   }
+
+  getCliente(id:number): Promise<Cliente>{
+      return new Promise(resolve => {
+        this.http.get(`${environment.apiHostAddress}/cliente/${id}`).subscribe(response => {
+          resolve(response as Cliente);
+        })
+      })
+   }
 }
 

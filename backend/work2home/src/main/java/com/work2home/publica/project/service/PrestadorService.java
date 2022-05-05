@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.validation.Valid;
 
+import com.work2home.publica.project.model.*;
+import com.work2home.publica.project.repositores.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,6 @@ import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroResponse;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorResponse;
 import com.work2home.publica.project.enums.Roles;
-import com.work2home.publica.project.model.Categoria;
-import com.work2home.publica.project.model.Cidade;
-import com.work2home.publica.project.model.Prestador;
-import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
@@ -39,6 +37,9 @@ public class PrestadorService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -211,10 +212,16 @@ public class PrestadorService {
 		prestadorRepository.save(prestador);
 	}
 
-	public List<PrestadorFiltroResponse> filtrarPrestadores(@Valid PrestadorFiltroRequest pfr) {
+	public List<PrestadorFiltroResponse> filtrarPrestadores(Integer categoriaId) {
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		Cliente cliente = clienteRepository
+				.findById(usuario.getId())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
 
 		List<PrestadorFiltroResponse> prestadorResponses = prestadorRepository
-				.findByCategorias_IdAndCidades_Id(pfr.getCategoria(), pfr.getCidade())
+				.findByCategorias_IdAndCidades_Id(categoriaId, cliente.getEndereco().getCidade().getId())
 				.stream()
 				.filter(p -> p.getUsuario().getRole() == Roles.PRESTADOR)
 				.map(PrestadorFiltroResponse::new)

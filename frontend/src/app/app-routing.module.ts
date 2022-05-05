@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},
   {path: 'prestador', component: PrestadorMainScreenComponent},
-  {path: 'perfil', component: PerfilUsuarioComponent},
+  {path: 'perfil/:usuarioId', component: PerfilUsuarioComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
   {path: 'cliente/fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
