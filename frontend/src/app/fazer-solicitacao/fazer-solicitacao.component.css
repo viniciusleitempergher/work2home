@@ -1,0 +1,31 @@
+.prestadores {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  gap: 10px;
+  overflow:auto;
+
+  height: 250px;
+}
+
+.prestador {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background-color: var(--background-secondary);
+  border-radius: 5000px;
+  padding: 5px 55px;
+}
+
+.prestador h3 {
+  transform: translateY(3px);
+}
+
+.prestador__nome{
+  margin: 0;
+}

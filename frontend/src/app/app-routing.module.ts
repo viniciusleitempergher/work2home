@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'prestador', component: PrestadorMainScreenComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
-  {path: 'fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
+  {path: 'cliente/fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

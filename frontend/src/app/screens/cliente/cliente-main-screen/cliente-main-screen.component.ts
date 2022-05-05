@@ -49,13 +49,6 @@ export class ClienteMainScreenComponent implements OnInit {
     } catch (err) {}
   }
 
-  fazerSolicitacao(categoriaId:number){
-
-
-
-    this.router.navigate(['fazer-solicitacao/' + categoriaId]);
-  }
-
   buscarCategorias() {
     this.categoriaService.getAll().then((res) => {
       this.categorias = res;
