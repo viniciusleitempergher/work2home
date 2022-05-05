@@ -71,11 +71,21 @@ export class FazerSolicitacaoComponent implements OnInit {
         throw new Error('Insira uma descrição');
       }
 
+
       this.osr.descricao = this.descricao;
       this.osr.prestadorId = this.prestadorId;
       this.osr.categoriaServicoId = this.categoriaId;
 
       this.osService.cadastrar(this.osr, this.solicitacaoForm.get("imagemSrc")?.value);
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Solicitação realizada',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate(['cliente']);
 
 
     } catch (err: any) {

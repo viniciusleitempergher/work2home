@@ -6,12 +6,11 @@
 
   </div>
 
-  <div id="perfil">
-    <div> Bem vindo, Jeff</div>
+  <div id="perfil" routerLink="/perfil/{{usuario.id}}" >
+    <div> Bem vindo, {{usuario.nome}}</div>
 
-    <div id="imagem__perfil">
 
-    </div>
+    <img src="{{environment.apiHostAddress + '/' + usuario.imagemUrl}}" alt="...">
 
   </div>
 
@@ -26,7 +25,7 @@
 
   <div class="row">
 
-    <div class="col-md-4 col-lg-3 col-sm-6 mb-4" routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
+    <div class="col-md-4 col-lg-3 col-sm-6 mb-4 pointer"  routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
       <div class="card card-categoria">
         <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}" alt="...">
         <div class="card-body">
@@ -61,7 +60,7 @@
 
     <div class="row">
 
-      <div class="col-md-4 col-lg-3 col-sm-6 mb-3"  *ngFor="let os of ordensServico">
+      <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  *ngFor="let os of ordensServico">
 
         <div class="card" >
           <img src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" alt="...">

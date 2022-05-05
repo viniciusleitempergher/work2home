@@ -18,11 +18,11 @@ public class OrdemServicoResponse {
 	private Integer tempoEstimado;
 	private Double valor;
 	private String status;
-	private String imgemUrl;
+	private String imagemUrl;
 	
 	public OrdemServicoResponse(OrdemServico os) {
 		this.id = os.getId();
-		this.imgemUrl = os.getImagemUrl();
+		this.imagemUrl = os.getImagemUrl();
 		this.nomeCliente = os.getEndereco().getCliente().getUsuario().getNome();
 		this.nomePrestador = os.getPrestador().getUsuario().getNome();
 		this.area = os.getCategoriaServico().getNome();
