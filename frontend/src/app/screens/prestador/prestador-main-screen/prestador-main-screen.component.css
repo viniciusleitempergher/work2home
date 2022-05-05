@@ -1,0 +1,52 @@
+
+
+
+#header_main__cliente{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  main{
+    max-width: 100%;
+  }
+  
+  .hr__main{
+  
+    width: 100%;
+    border-bottom: 2px solid var(--font-primary);
+  
+  }
+  
+  .logo{
+    width: 80px;
+    margin: 25px;
+  }
+  
+  #perfil{
+    display: flex;
+  
+    justify-content: center;
+    justify-content: center;
+    align-items: center;
+    gap : 10px;
+    height: 50px;
+    margin: 10px;
+  }
+  
+  #imagem__perfil{
+    background-color: var(--font-primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
+  
+  #servicos{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  select{
+    width: 120px;
+  }
+  

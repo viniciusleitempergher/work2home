@@ -20,7 +20,7 @@
         </div>
         <div class="perfil__wrapper">
             <div class="perfilFoto">
-                <img class="perfil__img"
+                <img class="perfil__img" id="fotoPerfil"
                     src="https://www.getninjas.com.br/images/compressed_professional_header_images_b/343/original/encanador.png?1498249019">
                 <svg id="btnEditarFoto" *ngIf="isVisible" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                     fill="currentColor" class="bi bi-camera mb-2 pincelFoto" viewBox="0 0 16 16">
@@ -29,6 +29,7 @@
                     <path
                         d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                 </svg>
+                <input type="file" name="imagem" id="imagemFile" accept="image/*">
             </div>
             <h3 class="perfil__nome">{{nome}}</h3>
         </div>
@@ -47,20 +48,27 @@
             <div class="hr">
                 <h5>Áreas de atuação</h5>
             </div>
-            <div class="textoAreaAtuacao">
-                texto area atuação
+            <div class="ctgPerfil" *ngFor="let c of prestador.categorias">
+                <li>{{c.nome}}</li>
             </div>
             <div class="hr">
                 <h5>Locais de atuação</h5>
             </div>
-            <div class="textoLocalAtuacao">
-                texto Local atuação
+            <div class="cddPerfil" *ngFor="let c of prestador.cidades">
+                <li>{{c.estado}} - {{c.nome}}</li>
             </div>
             <div class="hr">
                 <h5>Avaliação</h5>
             </div>
-            <div class="textoAvaliacao">
-                texto Avaliação
+            <div class="avPerfil" *ngFor="let c of prestador.avaliacoes">
+                <h5>{{c.comentario}} - Nota: {{c.nota}}</h5>
             </div>
         </div>
     </div>
+    <form action="">
+        <input type="file" id="image" name="image">
+        <div>
+          <input type="submit" value="Enviar">
+        </div>
+      </form>
+      <img src="" alt="" id="preview-image">

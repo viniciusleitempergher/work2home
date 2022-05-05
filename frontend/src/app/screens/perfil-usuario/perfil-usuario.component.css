@@ -22,6 +22,7 @@
 }
 
 .perfil__img {
+    background-color: var(--font-thirdy)!important;;
     width: 170px;
     height: 170px;
     border-radius: 50%;
@@ -51,7 +52,8 @@
 .btnDenuncia{
     margin-top: 10px;
 }
-.emailTelefone{
+.emailTelefone label{
+    color: var(--font-thirdy)!important;
     font-size: 13px;
     display: flex;
     flex-direction: column;
@@ -65,11 +67,41 @@
     gap:5px
 }
 .infoPerfil{
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     font-weight: bold;
 }
 .hr{
+    margin-top: 5px;
     border-bottom: 2px solid var(--font-primary);
+}
+.ctgPerfil{
+    margin-left: 20px;
+}
+.cddPerfil{
+    margin-left: 20px;
+}
+.avPerfil{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: var(--background-secondary);
+    padding: 5px 20px;
+    margin-top: 10px;
+}
+.avPerfil h5 {
+    
+    color: var(--font-thirdy)!important;
+}
+h5{
+    margin: 0;
+}
+li{
+    color: var(--font-thirdy)!important;
+}
+input[type='file']{
+    display: none;
 }
