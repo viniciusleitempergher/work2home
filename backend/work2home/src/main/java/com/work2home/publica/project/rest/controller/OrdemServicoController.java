@@ -26,9 +26,14 @@ public class OrdemServicoController {
 	private OrdemServicoService service;
 
 	@GetMapping("/filtro/{status}")
-	public List<OrdemServicoResponse> findAll(@PathVariable Integer status) {
-		return service.findAll(status);
+	public List<OrdemServicoResponse> findAllByFilter(@PathVariable Integer status) {
+		return service.findAllByFilter(status);
 	}
+
+//	@GetMapping
+//	public List<OrdemServicoResponse> findAll() {
+//		return service.findAll();
+//	}
 
 	@GetMapping("/{id}")
 	public OrdemServicoResponse findById(@PathVariable Integer id) {
