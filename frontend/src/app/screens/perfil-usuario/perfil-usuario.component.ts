@@ -18,7 +18,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 export class PerfilUsuarioComponent implements OnInit {
 
   user: Usuario = new Usuario();
-  rolePerfil:string = '';
+  rolePerfil: string = '';
   cliente: Cliente = new Cliente();
   prestador: Prestador = new Prestador();
   av: Avaliacao = new Avaliacao();
@@ -51,46 +51,45 @@ export class PerfilUsuarioComponent implements OnInit {
   constructor(private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.verificaUsuario();
   }
 
-  async verificaUsuario(){
+  async verificaUsuario() {
     this.user = await this.usuarioService.getUserFromAccessToken();
     this.rolePerfil = (await this.usuarioService.getUserRole(this.usuarioPerfilId)).role;
-    if (this.user.id == this.usuarioPerfilId) {
+    this.buscarPerfil();
+  }
+  buscarPerfil() {
+
+    if (this.rolePerfil == "CLIENTE") {
       this.perfilLogado();
-    }else{
-      this.perfilNaoLogado();
-    }
-  } 
-  
-  async perfilLogado(){
-    if (this.user.role == 'CLIENTE') {
       this.clienteLogado();
+    } else
+      if (this.rolePerfil == "PRESTADOR" || this.rolePerfil == "INATIVO") {
+        this.perfilLogado();
+        this.prestadorLogado();
+      }
+  }
+
+  perfilLogado() {
+    if (this.user.id == this.usuarioPerfilId) {
+      this.isVisible = true;
     } else {
-      this.prestadorLogado();
+      this.isVisible = false;
     }
   }
-  async perfilNaoLogado(){
-    if (this.user.role == 'CLIENTE') {
-      this.prestadorLogado();
-    } else {
-      this.clienteLogado();
-    }
-  }  
+  async clienteLogado() {
+    this.cliente = await this.clienteService.getCliente(this.usuarioPerfilId);
+    this.isCliente = true;
+    this.carregaDadosCliente();
+  }
 
-   async clienteLogado(){
-      this.cliente = await this.clienteService.getCliente(this.usuarioPerfilId);
-      this.isCliente = true;
-      this.carregaDadosCliente();
-    }
-
-    async prestadorLogado(){
-      this.isCliente = false;
-      this.prestador = await this.prestadorService.getPrestador(this.usuarioPerfilId);
-      this.carregaDadosPrestador();
-    } 
+  async prestadorLogado() {
+    this.isCliente = false;
+    this.prestador = await this.prestadorService.getPrestador(this.usuarioPerfilId);
+    this.carregaDadosPrestador();
+  }
 
   handleEditarImagem() {
     let file = document.getElementById('imagemFile');

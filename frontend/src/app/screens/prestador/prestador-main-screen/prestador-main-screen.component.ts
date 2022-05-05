@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import { Usuario } from 'src/models/Usuario';
 
 @Component({
   selector: 'app-prestador-main-screen',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrestadorMainScreenComponent implements OnInit {
 
-  constructor() { }
+  prestador:Usuario = new Usuario();
 
-  ngOnInit(): void {
+  constructor(private usuarioService: UserService) { }
+
+  async ngOnInit(): Promise<void> {
+    this.prestador = await this.usuarioService.getUserFromAccessToken();
   }
 
 }
