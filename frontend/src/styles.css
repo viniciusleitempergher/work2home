@@ -9,7 +9,7 @@
     --font-secondary: #FCC129;
     --font-thirdy: #D1A126;
     --font-fourth: #FFFFFF;
-    
+
     font-family: 'Rajdhani', sans-serif;
     font-weight: 500;
     color: var(--font-primary);
@@ -30,6 +30,7 @@ main {
     width: 100vw;
     padding: 45px;
     min-height: 100vh;
+    max-width: 100%;
 }
 
 .form__input {
@@ -71,3 +72,7 @@ main {
     transition: all .4s;
 }
 
+.hr__main{
+  width: 100%;
+  border-bottom: 2px solid var(--font-primary);
+}

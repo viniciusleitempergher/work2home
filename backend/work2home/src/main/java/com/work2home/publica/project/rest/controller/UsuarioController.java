@@ -8,6 +8,7 @@ import com.work2home.publica.project.model.Email;
 import com.work2home.publica.project.rest.dto.ImagemDto;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.rest.dto.usuario.AlterarSenha;
+import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
 import com.work2home.publica.project.service.UsuarioService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class UsuarioController {
 		BeanUtils.copyProperties(ur, user);
 		return ur;
 	}
+
+	@GetMapping("/{id}/get-role")
+	public RoleUsuarioResponse getRole(@PathVariable Integer id){
+		return usuarioService.getRole(id);
+	}
+
+
 
 	@PostMapping("/imagem")
 	@ResponseStatus(HttpStatus.CREATED)
