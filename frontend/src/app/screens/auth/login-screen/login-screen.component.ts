@@ -36,7 +36,7 @@ export class LoginScreenComponent implements OnInit {
     if (strAccessToken) {
       this.getUserNRedirect();
       return;
-    }   
+    }
   }
 
   async handleGoogleSignin() {
@@ -97,9 +97,12 @@ export class LoginScreenComponent implements OnInit {
 
     if (this.user.role == 'PRESTADOR')
       this.router.navigate(['prestador']);
+
+    if (this.user.role == "CADASTRO_INCOMPLETO")
+      this.router.navigate(['escolher-tipo']);
   }
 
-  novoCadastro(){
+  handleCadastrar(){
     this.router.navigate(['escolher-tipo']);
   }
 

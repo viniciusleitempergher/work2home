@@ -51,11 +51,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PUT, "/endereco").hasAnyRole("CLIENTE")
-			.antMatchers(HttpMethod.PUT, "/cliente").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PUT, "/cliente").hasAnyRole("CLIENTE", "CADASTRO_INCOMPLETO")
 			.antMatchers(HttpMethod.GET, "/prestador/filtro").hasAnyRole("CLIENTE")
 			
 			// requisicoes do prestador
-			.antMatchers(HttpMethod.PUT, "/prestador").hasAnyRole("PRESTADOR")
+			.antMatchers(HttpMethod.PUT, "/prestador").hasAnyRole("PRESTADOR", "CADASTRO_INCOMPLETO")
 			.antMatchers(HttpMethod.POST,"/cidade").hasAnyRole("PRESTADOR")
 			.antMatchers("/prestador/categoria/*").hasAnyRole("PRESTADOR")
 			.antMatchers("/prestador/cidade/*").hasAnyRole("PRESTADOR")

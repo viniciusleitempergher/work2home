@@ -24,7 +24,8 @@ import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main
 import { AlterarSenhaScreenComponent } from './screens/auth/alterar-senha-screen/alterar-senha-screen.component';
 import { PerfilUsuarioComponent } from './screens/perfil-usuario/perfil-usuario.component';
 import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao.component';
-
+import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente-screen/alterar-cliente-screen.component';
+import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-prestador-screen/alterar-prestador-screen.component';
 
 @NgModule({
 
@@ -44,7 +45,9 @@ import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao
     PrestadorCidadeScreenComponent,
     AlterarSenhaScreenComponent,
     PerfilUsuarioComponent,
-    FazerSolicitacaoComponent
+    FazerSolicitacaoComponent,
+    AlterarClienteScreenComponent,
+    AlterarPrestadorScreenComponent,
   ],
   imports: [
     BrowserModule,

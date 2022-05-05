@@ -1,0 +1,37 @@
+<main>
+    <form class="form form-cadCliente" [formGroup]="cadastroClienteForm">
+        <img src="../../../assets/logo.svg" class="logo">
+        <label for="input-email" class="form__label-cliente">
+            Email:
+            <input type="text" placeholder="exemplo@email.com" autocomplete="disabled" (change)="validaEmail()" [class.form__input-invalid]="emailInvalido" name="email" formControlName="email" class="form-control form__input form__input-cliente form__input-disabled" id="email">
+        </label>
+        <label for="input-text" class="form__label-cliente">
+            Nome:
+            <input type="text" (change)="validaNome()" [class.form__input-invalid]="nomeInvalido"name="nome" formControlName="nome" class="form-control form__input form__input-cliente" id="input-nome">
+        </label>
+        <label for="input-senha" *ngIf="!cadastroIncompleto" class="form__label-cliente">
+            Senha:
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="senha" formControlName="senha" class="form-control form__input form__input-cliente" id="input-senha">
+        </label>
+        <label for="input-repetirSenha" *ngIf="!cadastroIncompleto" class="form__label-cliente">
+            Repetir senha:
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-cliente" id="input-repetirSenha">
+        </label>
+        <label for="input-text" class="form__label-cliente">
+            Data nascimento:
+            <input type="date" (change)="validaDataNascimento()" [class.form__input-invalid]="dataNascimentoInvalida" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-cliente" id="input-dataNascimento">
+        </label>
+        <label for="input-text" class="form__label-cliente">
+            Cpf:
+            <input type="text" mask="000.000.000-00" placeholder="000.000.000-00" (change)="validaCpf()" [class.form__input-invalid]="cpfInvalido" name="cpf" formControlName="cpf" class="form-control form__input form__input-cliente" id="input-cpf">
+        </label>
+        <label for="input-text" class="form__label-cliente">
+            Telefone:
+            <input type="text" mask="(000) 00000-0000" placeholder="(000) 00000-0000"(change)="validaTelefone()" [class.form__input-invalid]="telefoneInvalido" name="telefone" formControlName="telefone" class="form-control form__input form__input-cliente" id="input-telefone">
+        </label>
+    </form>  
+    <div class="btn__wrapper">
+        <button (click)="handleAlterar()" class="btn btn-primary form__button">Alterar</button>
+        <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
+    </div>    
+</main>

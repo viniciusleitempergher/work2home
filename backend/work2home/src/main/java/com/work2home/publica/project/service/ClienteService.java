@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.work2home.publica.project.rest.dto.cliente.ClienteCompletarCadastroRequest;
 import com.work2home.publica.project.rest.dto.cliente.ClienteRequest;
 import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.model.Cliente;
@@ -65,6 +66,33 @@ public class ClienteService {
 
 		usuarioRepository.save(usuario);
 	    clienteRepository.save(cliente);
+	}
+	
+
+	@Transactional
+	public void completarCadastro(@Valid ClienteCompletarCadastroRequest dto) {
+		
+		Usuario usuario = jwt.getUserFromHeaderToken();
+		
+		if (usuario.getRole() == Roles.CADASTRO_INCOMPLETO) {
+			usuario.setRole(Roles.CLIENTE);
+		}
+
+		Cliente cliente = clienteRepository.findById(usuario.getId())
+				.orElse(new Cliente());
+		
+		if (cliente.getId() != null) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+
+		cliente.setCpf(dto.getCpf());
+		usuario.setNome(dto.getUsuarioDto().getNome());
+		usuario.setTelefone(dto.getUsuarioDto().getTelefone());
+		usuario.setDtNascimento(LocalDate.parse(dto.getUsuarioDto().getDtNascimento(), Formatador.getFormatter()));
+		cliente.setUsuario(usuario);
+		
+		usuarioRepository.save(usuario);
+		clienteRepository.save(cliente);
 	}
 
 	@Transactional
