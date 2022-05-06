@@ -94,6 +94,7 @@ main {
     width: 100vw;
     left: 0;
     position: absolute;
+    gap: 10px;
 }
 
 .horizontalCards__card {
