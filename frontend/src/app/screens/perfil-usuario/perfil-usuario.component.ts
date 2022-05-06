@@ -10,6 +10,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
 import Swal from 'sweetalert2';
+import { DenunciaService } from 'src/app/services/denuncia.service';
+import { Denuncia } from 'src/models/dtos/Denuncia';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -35,11 +37,12 @@ export class PerfilUsuarioComponent implements OnInit {
   starCheia: string = '../../../assets/star-fill.svg';
   usuarioPerfilId: number = +this.route.snapshot.params['usuarioId'];
 
-  star1: string = this.starCheia;
-  star2: string = this.starMetade;
+  star1: string = this.starVazia;
+  star2: string = this.starVazia;
   star3: string = this.starVazia;
-  star4: string = this.starMetade;
-  star5: string = this.starMetade;
+  star4: string = this.starVazia;
+  star5: string = this.starVazia;
+
 
   fotoPerfilUsuario: string = '';
 
@@ -51,7 +54,7 @@ export class PerfilUsuarioComponent implements OnInit {
   email: string = '';
   telefone: string = ''
 
-  constructor(private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
+  constructor(private denunciaService:DenunciaService,private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -123,7 +126,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.nome = this.prestador.nome;
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
-    this.prestador.mediaAvaliacao = 5;
+    this.prestador.mediaAvaliacao = 3.5;
     this.mediaAvaliacao(this.prestador.mediaAvaliacao);
     this.av.comentario = "comentario 1 teste testetes tetestetestetestetestetes stetestetesteteste!!!";
     this.av.nota = 5;
@@ -157,95 +160,16 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   mediaAvaliacao(media: number) {
-    this.media00;
-    if (media >= 0.5) this.media05();
-    if (media >= 1) this.media10();
-    if (media >= 1.5) this.media15();
-    if (media >= 2) this.media20();
-    if (media >= 2.5) this.media25();
-    if (media >= 3) this.media30();
-    if (media >= 3.5) this.media35();
-    if (media >= 4) this.media40();
-    if (media >= 4.5) this.media45();
-    if (media == 5) this.media50();
-  }
-
-  media00() {
-    this.star1 = this.starVazia;
-    this.star2 = this.starVazia;
-    this.star3 = this.starVazia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media05() {
-    this.star1 = this.starMetade;
-    this.star2 = this.starVazia;
-    this.star3 = this.starVazia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media10() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starVazia;
-    this.star3 = this.starVazia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media15() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starMetade;
-    this.star3 = this.starVazia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media20() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starVazia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media25() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starMetade;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media30() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starCheia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media35() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starCheia;
-    this.star4 = this.starMetade;
-    this.star5 = this.starVazia;
-  }
-  media40() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starCheia;
-    this.star4 = this.starVazia;
-    this.star5 = this.starVazia;
-  }
-  media45() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starCheia;
-    this.star4 = this.starCheia;
-    this.star5 = this.starMetade;
-  }
-  media50() {
-    this.star1 = this.starCheia;
-    this.star2 = this.starCheia;
-    this.star3 = this.starCheia;
-    this.star4 = this.starCheia;
-    this.star5 = this.starCheia;
+    if (media >= 0.5) this.star1 = this.starMetade;
+    if (media >= 1) this.star1 = this.starCheia;
+    if (media >= 1.5) this.star2 = this.starMetade;
+    if (media >= 2) this.star2 = this.starCheia;
+    if (media >= 2.5) this.star3 = this.starMetade;
+    if (media >= 3) this.star3 = this.starCheia;
+    if (media >= 3.5) this.star4 = this.starMetade;
+    if (media >= 4) this.star4 = this.starCheia;
+    if (media >= 4.5) this.star5 = this.starMetade;
+    if (media == 5) this.star5 = this.starCheia;
   }
 
   denuncia(){
@@ -271,6 +195,13 @@ export class PerfilUsuarioComponent implements OnInit {
       showLoaderOnConfirm: true,
       preConfirm: (texto) => {
         console.log(texto)
+        let denuncia = new Denuncia();
+        denuncia.denunciadorId = this.user.id;
+        
+        denuncia.denunciadoId= this.usuarioPerfilId;
+        denuncia.descricao = texto;
+        console.log(denuncia);
+        this.denunciaService.cadastrarDenuncia(denuncia);
       }
   })}
 

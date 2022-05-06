@@ -10,8 +10,10 @@ import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class DenunciaRequest {
 
 	private Integer denunciadoId;
