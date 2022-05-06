@@ -23,15 +23,13 @@
 
   <div class="container">
 
-  <div class="row">
+  <div class="horizontalCards">
 
-    <div class="col-md-4 col-lg-3 col-sm-6 mb-4 pointer"  routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
-      <div class="card card-categoria">
-        <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}" alt="...">
+    <div class="horizontalCards__card pointer"  routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
+        <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}">
         <div class="card-body">
           <h5 class="card-title">{{c.nome}}</h5>
         </div>
-      </div>
     </div>
   </div>
 </div>

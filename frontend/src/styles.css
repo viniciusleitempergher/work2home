@@ -3,6 +3,8 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 * {
+    box-sizing: border-box !important;
+
     --background-primary: #F4EEE8;
     --background-secondary: #FFEBC3;
     --font-primary: #926D0F;
@@ -80,6 +82,28 @@ main {
 .form__button-secondary:active {
     background-color: rgba(0, 0, 0, .1) !important;
     transition: all .4s;
+}
+
+.horizontalCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap !important;
+    overflow: scroll;
+    overflow-y: hidden;
+    max-height: 300px;
+    width: 100vw;
+    left: 0;
+    position: absolute;
+}
+
+.horizontalCards__card {
+    height: 100% !important;
+    width: 100vw !important;
+    background-color: var(--font-fourth);
+    border-radius: 40px;
+}
+.horizontalCards__card > img {
+    width: 250px;
 }
 
 .hr__main {
