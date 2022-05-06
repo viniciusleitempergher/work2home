@@ -19,6 +19,20 @@ export class PrestadorService {
       ).subscribe(response => resolve(response as PrestadorCadastro))
     })
   }
+  alterarPrestador(prestador:PrestadorCadastro):Promise<PrestadorCadastro>{
+    return new Promise(resolve => {
+      this.http.put(`${environment.apiHostAddress}/prestador`,
+        prestador
+      ).subscribe(response => resolve(response as PrestadorCadastro))
+    })
+  }
+  completarCadastro(prestador:PrestadorCadastro):Promise<PrestadorCadastro>{
+    return new Promise(resolve => {
+      this.http.put(`${environment.apiHostAddress}/prestador/completar-cadastro`,
+        prestador
+      ).subscribe(response => resolve(response as PrestadorCadastro))
+    })
+  }
 
   getPrestador(id:number): Promise<Prestador>{
     return new Promise(resolve => {

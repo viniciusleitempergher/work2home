@@ -45,8 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/avaliacao/cliente-avalia-prestador/*").hasAnyRole("CLIENTE")
 			
 			//requisicoes denuncia
-			.antMatchers(HttpMethod.POST, "/denucia").hasAnyRole("PRESTADOR", "CLIENTE")
-			.antMatchers(HttpMethod.GET, "/denucia/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/denuncia").hasAnyRole("PRESTADOR", "CLIENTE")
+			.antMatchers(HttpMethod.GET, "/denuncia/*").hasAnyRole("ADMIN")
 			
 			// requisicoes do cliente
 			.antMatchers(HttpMethod.POST, "/endereco").hasAnyRole("CLIENTE")

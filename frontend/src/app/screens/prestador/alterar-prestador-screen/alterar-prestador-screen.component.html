@@ -1,1 +1,43 @@
-<p>alterar-prestador-screen works!</p>
+<main>
+    <form class="form form-cadPrestador" [formGroup]="cadastroPrestadorForm">
+        <img src="../../../assets/logo.svg" class="logo">
+
+        <label for="input-email" class="form__label-prestador">
+            Email:
+            <input type="text" placeholder="exemplo@email.com" autocomplete="off" (change)="validaEmail()" [class.form__input-invalid]="emailInvalido" name="email" formControlName="email" class="form-control form__input form__input-prestador form__input-disabled" id="input-email">
+        </label>
+        <label for="input-text" class="form__label-prestador">
+            Nome:
+            <input type="text" (change)="validaNome()" [class.form__input-invalid]="nomeInvalido" name="nome" formControlName="nome" class="form-control form__input form__input-prestador" id="input-nome">
+        </label>
+        <label for="input-password" class="form__label-prestador" *ngIf="!cadastroIncompleto">
+            Senha:
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="senha" formControlName="senha" class="form-control form__input form__input-prestador" id="input-senha">
+        </label>
+        <label for="input-password" class="form__label-prestador" *ngIf="!cadastroIncompleto">
+            Repetir senha:
+            <input type="password" (change)="validaSenha()" [class.form__input-invalid]="senhaInvalida" name="repetirSenha" formControlName="repetirSenha" class="form-control form__input form__input-prestador" id="input-repetirSenha">
+        </label>
+        <label for="input-text" class="form__label-prestador">
+            Data nascimento:
+            <input type="date" (change)="validaDataNascimento()" [class.form__input-invalid]="dataNascimentoInvalida" name="dataNascimento" formControlName="dataNascimento" class="form-control form__input form__input-prestador" id="input-dataNascimento">
+        </label>
+        <label for="input-text" class="form__label-prestador">
+            Cnpj:
+            <input type="text" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" (change)="validaCnpj()" [class.form__input-invalid]="cnpjInvalido" name="cnpj" formControlName="cnpj" class="form-control form__input form__input-prestador" id="input-cnpj">
+        </label>
+        <label for="input-text" class="form__label-prestador">
+            Telefone:
+            <input type="text" mask="(000) 00000-0000" placeholder="(000) 00000-0000" (change)="validaTelefone()" [class.form__input-invalid]="telefoneInvalido" name="telefone" formControlName="telefone" class="form-control form__input form__input-prestador" id="input-telefone">
+        </label>
+        <label for="input-text" class="form__label-prestador">
+            Nome da Empresa:
+            <input type="text" (change)="validaNomeEmpresa()" [class.form__input-invalid]="nomeEmpresaInvalido" name="nomeEmpresa" formControlName="nomeEmpresa" class="form-control form__input form__input-prestador" id="input-nomeEmpresa">
+        </label>
+        
+    </form>  
+    <div class="btn__wrapper">
+        <button  (click)="cadastrar()"class="btn btn-primary form__button">Atualizar</button>
+        <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
+    </div>    
+</main>
