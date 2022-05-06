@@ -23,8 +23,8 @@ export class PerfilUsuarioComponent implements OnInit {
   user: Usuario = new Usuario();
   rolePerfil: string = '';
   cliente: Cliente = new Cliente();
-  cidadeCliente:string = '';
-  estadoCliente:string = '';
+  cidadeCliente: string = '';
+  estadoCliente: string = '';
   prestador: Prestador = new Prestador();
   av: Avaliacao = new Avaliacao();
   av2: Avaliacao = new Avaliacao();
@@ -45,7 +45,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
 
   fotoPerfilUsuario: string = '';
-  btnEditar:string='';
+  btnEditar: string = '';
 
   perfilForm = new FormGroup({
     imagemSrc: new FormControl()
@@ -55,7 +55,7 @@ export class PerfilUsuarioComponent implements OnInit {
   email: string = '';
   telefone: string = ''
 
-  constructor(private denunciaService:DenunciaService,private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
+  constructor(private denunciaService: DenunciaService, private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -70,15 +70,15 @@ export class PerfilUsuarioComponent implements OnInit {
   buscarPerfil() {
     this.perfilLogado();
     if (this.rolePerfil == "CLIENTE") {
-      this.btnEditar="/cliente/alterar";
+      this.btnEditar = "/cliente/alterar";
       this.perfilCliente();
     } else
       if (this.rolePerfil == "PRESTADOR" || this.rolePerfil == "INATIVO") {
-        this.btnEditar="/prestador/alterar";
+        this.btnEditar = "/prestador/alterar";
         this.perfilPrestador();
       }
   }
-  
+
   perfilLogado() {
     if (this.user.id == this.usuarioPerfilId) {
       this.isVisible = true;
@@ -90,15 +90,30 @@ export class PerfilUsuarioComponent implements OnInit {
     this.cliente = await this.clienteService.getCliente(this.usuarioPerfilId);
     this.isCliente = true;
     this.carregaDadosCliente();
-    this.carregarFotoCliente();
-  }
+    this.carregarFoto();
 
+  }
   async perfilPrestador() {
     this.isCliente = false;
     this.prestador = await this.prestadorService.getPrestador(this.usuarioPerfilId);
     this.carregaDadosPrestador();
-    this.carregarFotoPrestador();
+    this.carregarFoto();
   }
+  carregarFoto() {
+    console.log(this.cliente.imagemUrl);
+      console.log(this.prestador.imagemUrl);
+    if (!this.cliente.imagemUrl && !this.prestador.imagemUrl) {
+      this.isImageVisible = false;
+    } else {      
+      if ((this.cliente.imagemUrl).includes("https") || (this.prestador.imagemUrl).includes("https")) {
+        this.fotoPerfilUsuario = this.cliente.imagemUrl ? this.cliente.imagemUrl : this.prestador.imagemUrl;
+      } else {
+        this.fotoPerfilUsuario = environment.apiHostAddress + '/' + (this.cliente.imagemUrl ? this.cliente.imagemUrl : this.prestador.imagemUrl);
+      }
+    }
+  }
+
+
 
   handleEditarImagem() {
     let file = document.getElementById('imagemFile');
@@ -139,20 +154,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.prestador.avaliacoes.push(this.av2);
 
   }
-  carregarFotoCliente(){
-    if (this.cliente.imagemUrl == null) {
-      this.isImageVisible = false;
-    } else {
-      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.cliente.imagemUrl;
-    }
-  }
-  carregarFotoPrestador(){
-    if (this.prestador.imagemUrl == null) {
-      this.isImageVisible = false;
-    } else {
-      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.prestador.imagemUrl;
-    }
-  }
+
   carregaDadosCliente() {
     this.nome = this.cliente.nome;
     this.email = this.cliente.email;
@@ -175,18 +177,18 @@ export class PerfilUsuarioComponent implements OnInit {
     if (media == 5) this.star5 = this.starCheia;
   }
 
-  denuncia(){
+  denuncia() {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         title: 'titles',
         popup: 'popus',
-        input :'inputs',
+        input: 'inputs',
         confirmButton: 'botaoDenuncia',
         cancelButton: 'botaoCancela'
       },
       buttonsStyling: false
     })
-    
+
     swalWithBootstrapButtons.fire({
       title: 'Descreva o motivo da denúncia',
       input: 'text',
@@ -200,12 +202,13 @@ export class PerfilUsuarioComponent implements OnInit {
         console.log(texto)
         let denuncia = new Denuncia();
         denuncia.denunciadorId = this.user.id;
-        
-        denuncia.denunciadoId= this.usuarioPerfilId;
+
+        denuncia.denunciadoId = this.usuarioPerfilId;
         denuncia.descricao = texto;
         console.log(denuncia);
         this.denunciaService.cadastrarDenuncia(denuncia);
       }
-  })}
+    })
+  }
 
 }

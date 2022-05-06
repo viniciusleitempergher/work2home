@@ -18,4 +18,12 @@ export class EnderecoService {
       ).subscribe(response => resolve(response as Endereco))
     })
   }
+
+  getEndereco(id:number): Promise<Endereco>{
+    return new Promise(resolve => {
+      this.http.get(`${environment.apiHostAddress}/endereco/${id}`).subscribe(response => {
+        resolve(response as Endereco);
+      })
+    })
+ }
 }

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { EnderecoApiService } from 'src/app/services/endereco-api.service';
 import { EnderecoService } from 'src/app/services/endereco.service';
+import { UserService } from 'src/app/services/user.service';
 import { Cidade } from 'src/models/Cidade';
+import { Cliente } from 'src/models/Cliente';
 import { Endereco } from 'src/models/Endereco';
 import { Estado } from 'src/models/Estado';
+import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,65 +19,77 @@ import Swal from 'sweetalert2';
 })
 export class CadastrarEnderecoComponent implements OnInit {
 
+  user: Usuario = new Usuario();
+  cliente:Cliente = new Cliente();
   estado: Estado = new Estado();
   estados: Estado[] = [];
   cidades: Cidade[] = [];
-  endereco:Endereco= new Endereco();
+  endereco: Endereco = new Endereco();
 
-  bairroInvalida=false;
-  estadoInvalida=false;
-  cidadeInvalida=false;
-  ruaInvalida=false;
-  numeroInvalida=false;
-  complementoInvalida=false;
+  bairroInvalida = false;
+  estadoInvalida = false;
+  cidadeInvalida = false;
+  ruaInvalida = false;
+  numeroInvalida = false;
+  complementoInvalida = false;
 
-  
+
   cadastroEnderecoForm = new FormGroup({
     cbxEstado: new FormControl(null, Validators.required),
     cbxCidade: new FormControl(null, Validators.required),
-    bairro:new FormControl(null,Validators.required),
-    rua:new FormControl(null,Validators.required),
-    numero:new FormControl(null,[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-    complemento:new FormControl(null,Validators.required)   
+    bairro: new FormControl(null, Validators.required),
+    logradouro: new FormControl(null, Validators.required),
+    numero: new FormControl(null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+    complemento: new FormControl(null, Validators.required)
   });
 
 
-  constructor(private serviceEnderecoApi:EnderecoApiService, private enderecoService:EnderecoService, private router: Router) { }
+  constructor(private clienteService:ClienteService,private endercoService: EnderecoService, private usuarioServico: UserService, private serviceEnderecoApi: EnderecoApiService, private enderecoService: EnderecoService, private router: Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.user = await this.usuarioServico.getUserFromAccessToken();
+    this.cliente = await this.clienteService.getCliente(this.user.id);
     this.limparCombo();
     this.obterEstados();
     this.obterCidades("");
+    try {
+      this.endereco = await this.endercoService.getEndereco(this.user.id);
+      this.carregarCampos();
+    } catch (error) {
+      console.log(error);
+      
+     }
   }
-  cancelar(){
+  cancelar() {
     this.router.navigate(['login']);
   }
   async cadastrar() {
     try {
-    this.validaCbxEstado();
-    this.validaCbxCidade();
-    this.validaBairro();
-    this.validaRua();
-    this.validaNumero();
-    this.validaComplemento();
-    console.log(this.endereco);
-    console.log(this.cadastroEnderecoForm.value.cbxEstado)
-    console.log(this.cadastroEnderecoForm.value.cbxCidade)
-  } catch (e:any) {
-    Swal.fire('Erro!', e.message, 'error')
+      this.validaCbxEstado();
+      this.validaCbxCidade();
+      this.validaBairro();
+      this.validaRua();
+      this.validaNumero();
+      this.validaComplemento();
+    } catch (e: any) {
+      Swal.fire('Erro!', e.message, 'error')
+    }
+    if (this.cadastroEnderecoForm.valid) {
+      await this.enderecoService.cadastrarEndereco(this.endereco);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Endereço Cadastrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate(['cliente']);
+    }
   }
-  if (this.cadastroEnderecoForm.valid) {
-    await this.enderecoService.cadastrarEndereco(this.endereco);
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Endereço Cadastrado!',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    this.router.navigate(['cliente']);
+  carregarCampos() {
+    console.log(this.cliente);
+    this.cadastroEnderecoForm.value.cbxEstado=this.cliente.estado;
   }
-}
   obterEstados = () => {
     this.serviceEnderecoApi.listarEstados()
       .subscribe(retorno => this.estados = retorno);
@@ -98,7 +114,7 @@ export class CadastrarEnderecoComponent implements OnInit {
       this.estadoInvalida = true;
       throw new Error("Escolha um Estado!");
     } else {
-      this.endereco.estado=this.cadastroEnderecoForm.value.cbxEstado;
+      this.endereco.estado = this.cadastroEnderecoForm.value.cbxEstado;
       this.estadoInvalida = false;
     }
   }
@@ -107,45 +123,45 @@ export class CadastrarEnderecoComponent implements OnInit {
       this.cidadeInvalida = true;
       throw new Error("Escolha um Cidade");
     } else {
-      this.endereco.cidade=this.cadastroEnderecoForm.value.cbxCidade;
-      this.cidadeInvalida= false;
+      this.endereco.cidade = this.cadastroEnderecoForm.value.cbxCidade;
+      this.cidadeInvalida = false;
     }
   }
-  validaBairro(){
-    if(!this.cadastroEnderecoForm.get('bairro')?.valid){
+  validaBairro() {
+    if (!this.cadastroEnderecoForm.get('bairro')?.valid) {
       this.bairroInvalida = true;
       throw new Error("Bairro inválido!!!");
-    }else{
-      this.endereco.bairro=this.cadastroEnderecoForm.value.bairro;
-      this.bairroInvalida=false;
-      
+    } else {
+      this.endereco.bairro = this.cadastroEnderecoForm.value.bairro;
+      this.bairroInvalida = false;
+
     }
   }
-  validaRua(){
-    if(!this.cadastroEnderecoForm.get('rua')?.valid){
-      this.ruaInvalida=true;
+  validaRua() {
+    if (!this.cadastroEnderecoForm.get('rua')?.valid) {
+      this.ruaInvalida = true;
       throw new Error("Rua inválida!!!");
-    }else{
-      this.endereco.endereco=this.cadastroEnderecoForm.value.rua;
-      this.ruaInvalida=false;
+    } else {
+      this.endereco.logradouro = this.cadastroEnderecoForm.value.logradouro;
+      this.ruaInvalida = false;
     }
   }
-  validaNumero(){
-    if(!this.cadastroEnderecoForm.get('numero')?.valid){
-      this.numeroInvalida=true;
+  validaNumero() {
+    if (!this.cadastroEnderecoForm.get('numero')?.valid) {
+      this.numeroInvalida = true;
       throw new Error("Numero inválido");
-    }else {
-      this.endereco.numero= this.cadastroEnderecoForm.value.numero;
-      this.numeroInvalida=false;
-   }
+    } else {
+      this.endereco.numero = this.cadastroEnderecoForm.value.numero;
+      this.numeroInvalida = false;
+    }
   }
-  validaComplemento(){
-    if(!this.cadastroEnderecoForm.get('complemento')?.valid){
-      this.complementoInvalida=true;
+  validaComplemento() {
+    if (!this.cadastroEnderecoForm.get('complemento')?.valid) {
+      this.complementoInvalida = true;
       throw new Error("Complemento inválido");
-    }else{
-      this.endereco.complemento=this.cadastroEnderecoForm.value.complemento;
-      this.complementoInvalida=false;
+    } else {
+      this.endereco.complemento = this.cadastroEnderecoForm.value.complemento;
+      this.complementoInvalida = false;
     }
   }
 
@@ -154,7 +170,7 @@ export class CadastrarEnderecoComponent implements OnInit {
     this.cadastroEnderecoForm.reset();
     this.cadastroEnderecoForm.get("cbxEstado")?.setValue("");
     this.cadastroEnderecoForm.get("cbxCidade")?.setValue("");
-  
+
   }
-  
+
 }

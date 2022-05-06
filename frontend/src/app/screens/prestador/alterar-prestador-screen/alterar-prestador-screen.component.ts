@@ -60,6 +60,7 @@ export class AlterarPrestadorScreenComponent implements OnInit {
     this.cadastroPrestadorForm.get('dataNascimento')?.setValue(this.user.dtNascimento);
 
     let prestador = await this.prestadorService.getPrestador(this.user.id);
+    console.log(prestador.cnpj);
     
     this.cadastroPrestadorForm.get('cnpj')?.setValue(prestador.cnpj);
     this.cadastroPrestadorForm.get('nomeEmpresa')?.setValue(prestador.nomeFantasia);

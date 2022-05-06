@@ -3,8 +3,12 @@ package com.work2home.publica.project.rest.controller;
 import javax.validation.Valid;
 
 import com.work2home.publica.project.rest.dto.endereco.EnderecoRequest;
+import com.work2home.publica.project.rest.dto.endereco.EnderecoResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +24,11 @@ public class EnderecoController {
 
 	@Autowired
 	private EnderecoService enderecoService;
+	
+	@GetMapping("{clienteId}")
+	public EnderecoResponse buscarEndreco(@PathVariable Integer clienteId ) {
+		return enderecoService.buscarEndereco(clienteId);
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

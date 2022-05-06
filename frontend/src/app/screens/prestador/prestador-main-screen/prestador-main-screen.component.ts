@@ -11,31 +11,35 @@ import { Usuario } from 'src/models/Usuario';
   styleUrls: ['./prestador-main-screen.component.css']
 })
 export class PrestadorMainScreenComponent implements OnInit {
-  isImageVisible:boolean=true;
-  fotoPerfilUsuario:string = '';
-  user:Usuario = new Usuario();
-  nomePrestador:string='';
+  isImageVisible: boolean = true;
+  fotoPerfilUsuario: string = '';
+  user: Usuario = new Usuario();
+  nomePrestador: string = '';
 
   constructor(private usuarioService: UserService) { }
 
   async ngOnInit(): Promise<void> {
     this.user = await this.usuarioService.getUserFromAccessToken();
     this.carregarInfoPrestador();
+    
 
   }
 
-  carregarInfoPrestador(){
-    this.nomePrestador ="Bem vindo, " +this.user.nome;
+  carregarInfoPrestador() {
+    this.nomePrestador = "Bem vindo, " + this.user.nome;
     this.carregarImagemPerfil();
 
   }
 
-  carregarImagemPerfil(){
+  carregarImagemPerfil() {
     if (this.user.imagemUrl == null) {
       this.isImageVisible = false;
     } else {
-      this.isImageVisible=true;
+      this.isImageVisible = true;
     }
+    
+
+
     this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.user.imagemUrl;
   }
 

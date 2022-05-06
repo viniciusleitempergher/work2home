@@ -80,7 +80,13 @@ export class ClienteMainScreenComponent implements OnInit {
       this.isImageVisible = false;
     } else {
       this.isImageVisible=true;
-      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
+
+      if ((this.usuario.imagemUrl as string).includes("https")) {
+        this.fotoPerfilUsuario = this.usuario.imagemUrl;
+      } else {
+        this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
+      }
+      
     }
 
   }

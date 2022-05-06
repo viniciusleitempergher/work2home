@@ -1,11 +1,13 @@
 package com.work2home.publica.project.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.rest.dto.endereco.EnderecoRequest;
+import com.work2home.publica.project.rest.dto.endereco.EnderecoResponse;
 import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Endereco;
 import com.work2home.publica.project.model.Usuario;
@@ -52,5 +54,13 @@ public class EnderecoService {
 		
 		cliente.setEndereco(endereco);
 		clienteRepository.save(cliente);
+	}
+
+	public EnderecoResponse buscarEndereco(Integer clienteId) {
+		EnderecoResponse enderecoResponse = new EnderecoResponse();
+		Endereco endereco = enderecoRepository.findByClienteUsuarioId(clienteId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
+		BeanUtils.copyProperties(endereco, enderecoResponse);
+		return enderecoResponse;
 	}
 }

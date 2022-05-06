@@ -1,5 +1,5 @@
 export class Endereco{
-    endereco:string='';
+    logradouro:string='';
     estado:string='';
     cidade:string='';
     numero:string='';
