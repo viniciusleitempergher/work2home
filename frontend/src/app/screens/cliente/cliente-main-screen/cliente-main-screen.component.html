@@ -6,14 +6,19 @@
 
   </div>
 
-  <div id="perfil" routerLink="/perfil/{{usuario.id}}" >
-    <div> Bem vindo, {{usuario.nome}}</div>
+  <div id="perfil" routerLink="/perfil/{{usuario.id}}">
+    <div>{{nomeUsuario}}</div>
 
-
-    <img src="{{environment.apiHostAddress + '/' + usuario.imagemUrl}}" alt="...">
-
+    <div id="imagem__perfil">
+      <div *ngIf="isImageVisible">
+            <img class="perfil__img" id="fotoPerfil"
+              src={{fotoPerfilUsuario}}>
+      </div>
+      <div *ngIf="!isImageVisible">
+      <i class="bi bi-person-circle semImagem"></i>
+    </div>
+    </div>
   </div>
-
 </header>
 <main>
 
@@ -23,18 +28,18 @@
 
   <div class="container">
 
-  <div class="row">
-
-    <div class="col-md-4 col-lg-3 col-sm-6 mb-4 pointer"  routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
-      <div class="card card-categoria">
-        <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{c.nome}}</h5>
+    <div class="row">
+      <div class="col-md-4 col-lg-3 col-sm-6 mb-4 pointer" routerLink="fazer-solicitacao/{{c.id}}"
+        *ngFor="let c of categorias">
+        <div class="card card-categoria">
+          <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{c.nome}}</h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
   <div class="hr__main pb-2 mb-3" id="servicos">
 
     <div>
@@ -43,26 +48,26 @@
 
     <form [formGroup]="cadastroStatusForm">
 
-    <select class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()" formControlName="cbxStatusServico"
-      name="cbxStatusServico" [(ngModel)]="value">
-      <option value="-1">Todos</option>
-      <option value="0">Solicitados</option>
-      <option value="1">Em orçamento</option>
-      <option value="2">Em anamento</option>
-      <option value="3">Finalizados</option>
-      <option value="4">Negados</option>
-    </select>
+      <select class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
+        formControlName="cbxStatusServico" name="cbxStatusServico" [(ngModel)]="value">
+        <option value="-1">Todos</option>
+        <option value="0">Solicitados</option>
+        <option value="1">Em orçamento</option>
+        <option value="2">Em anamento</option>
+        <option value="3">Finalizados</option>
+        <option value="4">Negados</option>
+      </select>
 
-  </form>
-</div>
+    </form>
+  </div>
 
   <div class="container">
 
     <div class="row">
 
-      <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  *ngFor="let os of ordensServico">
-
-        <div class="card" >
+      <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  routerLink="ordem-servico/{{os.id}}"
+       *ngFor="let os of ordensServico">
+        <div class="card">
           <img src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{os.nomePrestador}}</h5>
@@ -73,5 +78,4 @@
 
     </div>
   </div>
-
 </main>
