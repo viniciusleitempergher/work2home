@@ -165,6 +165,12 @@ public class PrestadorService {
 		Prestador prestador = prestadorRepository.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+		usuarioRepository.findAll().forEach(u -> {
+			if (u.getEmail().equalsIgnoreCase(dto.getUsuarioDto().getEmail())
+					&& !dto.getUsuarioDto().getEmail().equalsIgnoreCase(usuario.getEmail()))
+				throw new ResponseStatusException(HttpStatus.CONFLICT);
+		});
+
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));
 
@@ -176,7 +182,6 @@ public class PrestadorService {
 
 		usuarioRepository.save(usuario);
 		prestadorRepository.save(prestador);
-
 	}
 
 	public void removerCidadePrestador(Integer cidadeId) {

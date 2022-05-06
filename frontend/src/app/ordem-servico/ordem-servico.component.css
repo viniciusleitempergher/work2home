@@ -12,8 +12,19 @@ p{
   margin-bottom: 0;
 }
 
+
 #informacoes{
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+.btn{
+  align-self: center;
+  width: 100%;
+}
+
+.btns__chose{
+  display: flex;
   gap: 10px;
 }
