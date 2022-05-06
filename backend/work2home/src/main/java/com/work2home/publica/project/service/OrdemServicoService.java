@@ -145,13 +145,13 @@ public class OrdemServicoService {
 		if (os.getEndereco().getCliente().getId() != usuario.getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
-		
 		if (os.getStatus() != StatusOrcamento.EM_ORCAMENTO) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		} else if (LocalDate.now().isAfter(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
+		} else if (LocalDate.now().isAfter(os.getDataInicio())) {
+			os.setStatus(StatusOrcamento.NEGADO);
+			repository.save(os);
 			throw new ResponseStatusException(HttpStatus.GONE);
 		}
-
 		if (orcamentoAcceptRequest.isAceitar()) {
 			os.setStatus(StatusOrcamento.EM_ANDAMENTO);
 		} else {

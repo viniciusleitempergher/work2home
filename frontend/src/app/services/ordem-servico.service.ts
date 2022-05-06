@@ -59,4 +59,18 @@ export class OrdemServicoService {
         .subscribe((response) => resolve(response as OrdemServicoResponse));
     });
   }
+
+
+  responderOrcamento(aceitar : boolean, id : number) : Promise<void>{
+
+    return new Promise((resolve) => {
+      this.http
+      .patch(`${environment.apiHostAddress}/ordem-servico/${id}/aceitar-orcamento`, {
+        aceitar : aceitar
+      })
+      .subscribe(() => resolve());
+
+    })
+  }
+
 }
