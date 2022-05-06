@@ -1,6 +1,8 @@
 package com.work2home.publica.project.rest.controller;
 
 import javax.validation.Valid;
+
+import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.endereco.CidadesPretadorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,5 +25,11 @@ public class CidadeController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void cadastrarCidade(@RequestBody @Valid CidadesPretadorRequest cidadesPretadorDto) {
 		cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
+	}
+	@PostMapping("/teste")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void cadastrarCidade(@RequestBody @Valid DenunciaRequest denunciaRequest) {
+		System.out.println(denunciaRequest);
+//		cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
 	}
 }
