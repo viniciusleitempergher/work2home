@@ -14,6 +14,8 @@ export class OrdemServicoComponent implements OnInit {
 
   ordemServico : OrdemServicoResponse = new OrdemServicoResponse
   imagem : string= ""
+  isFinalizado : boolean = false;
+  isEmOrcamento : boolean = false;
 
   constructor( private route: ActivatedRoute,
     private router: Router,
@@ -27,7 +29,6 @@ export class OrdemServicoComponent implements OnInit {
     let id = this.route.snapshot.params['id']
     await this.osService.getById(id).then((res) => {
       this.ordemServico = res
-      console.log(res)
       this.imagem = environment.apiHostAddress + "/" + res.imagemUrl
     })
   }
