@@ -24,14 +24,9 @@ export class FazerSolicitacaoComponent implements OnInit {
   categoriaId: number = 0;
   prestadores: Prestador[] = [];
   cidade: string = '';
-
-
   osr: OrdemServicoRequest = new OrdemServicoRequest();
-
   existePrestadores: boolean = this.prestadores.length != 0;
-
   prestadorId: number = 0;
-
   descricao: string = '';
 
   solicitacaoForm = new FormGroup({
@@ -71,7 +66,6 @@ export class FazerSolicitacaoComponent implements OnInit {
         throw new Error('Insira uma descrição');
       }
 
-
       this.osr.descricao = this.descricao;
       this.osr.prestadorId = this.prestadorId;
       this.osr.categoriaServicoId = this.categoriaId;
@@ -102,15 +96,6 @@ export class FazerSolicitacaoComponent implements OnInit {
     }
   }
 
-  /*  async handleAddCategoria() {
-    let categoria:Categoria = await this.categoriaService.cadastrar(
-      this.categoriaForm.value.nome, this.categoriaForm.get("imagemSrc")?.value
-    );
-
-
-    this.categorias.push(categoria);
-  }
- */
   selecionarPrestadorId(id: number) {
     this.prestadorId = id;
   }

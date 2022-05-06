@@ -55,6 +55,13 @@ export class AlterarPrestadorScreenComponent implements OnInit {
     this.cadastroPrestadorForm.get('nome')?.setValue(this.user.nome);
 
     this.cadastroPrestadorForm.controls['email'].disable()
+
+    this.cadastroPrestadorForm.get('telefone')?.setValue(this.user.telefone);
+    this.cadastroPrestadorForm.get('dataNascimento')?.setValue(this.user.dtNascimento);
+
+    let prestador = await this.prestadorService.getPrestador(this.user.id);
+    this.cadastroPrestadorForm.get('cnpj')?.setValue(prestador.cnpj);
+    this.cadastroPrestadorForm.get('nomeEmpresa')?.setValue(prestador.nomeFantasia);
   }
 
   cancelar() {
@@ -72,7 +79,6 @@ export class AlterarPrestadorScreenComponent implements OnInit {
       this.validaCnpj();
       this.validaTelefone();
       this.validaNomeEmpresa();
-
 
       if (this.cadastroIncompleto)
         await this.prestadorService.completarCadastro(this.prestador);

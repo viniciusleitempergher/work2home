@@ -1,3 +1,4 @@
+import { OrdemServicoComponent } from './ordem-servico/ordem-servico.component';
 import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,7 +37,9 @@ const routes: Routes = [
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
   {path: 'cliente/fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
   {path: 'cliente/alterar', component: AlterarClienteScreenComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'}
+  {path: 'ordem-servico/:id', component: OrdemServicoComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+
 ];
 
 @NgModule({

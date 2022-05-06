@@ -15,8 +15,10 @@
     window.addEventListener('load', () => {
       let googleAuth;
       gapi.load('auth2', function() {
+
         gapi.auth2.init({
-          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com'
+          client_id: '624234946356-ven0mcpkp9ntnrin5gamh132jos0j1lo.apps.googleusercontent.com',
+          prompt: 'select_account'
         });
         googleAuth = gapi.auth2.getAuthInstance();
 
@@ -27,8 +29,6 @@
     })
     async function onSuccess(googleUser) {
       let id_token = googleUser.getAuthResponse().id_token;
-      
-      console.log(id_token);
       
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
@@ -45,6 +45,8 @@
 
       localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
       localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
+
+      gapi.auth2.getAuthInstance().signOut();
 
       window.location.reload();
     }
