@@ -12,6 +12,7 @@
 .prestador {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--background-secondary);
   border-radius: 10px;
   padding: 5px 55px;
