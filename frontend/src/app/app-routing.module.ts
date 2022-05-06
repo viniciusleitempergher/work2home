@@ -16,6 +16,7 @@ import { PrestadorCategoriaScreenComponent } from './screens/prestador/prestador
 import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-cidade-screen/prestador-cidade-screen.component';
 import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main-screen/prestador-main-screen.component';
 import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente-screen/alterar-cliente-screen.component';
+import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-prestador-screen/alterar-prestador-screen.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'cadastrar-endereco', component: CadastrarEnderecoComponent},
   {path: 'cliente', component: ClienteMainScreenComponent},
   {path: 'prestador', component: PrestadorMainScreenComponent},
+  {path: 'prestador/alterar', component: AlterarPrestadorScreenComponent},
   {path: 'perfil/:usuarioId', component: PerfilUsuarioComponent},
   {path: 'esqueceu-senha', component: EsqueceuSenhaScreenComponent},
   {path: 'alterar-senha/:accessToken', component: AlterarSenhaScreenComponent},
