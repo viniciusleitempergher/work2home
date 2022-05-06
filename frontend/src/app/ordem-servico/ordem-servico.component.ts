@@ -16,6 +16,7 @@ export class OrdemServicoComponent implements OnInit {
   imagem : string= ""
   isFinalizado : boolean = false;
   isEmOrcamento : boolean = false;
+  thereIsImage : boolean = false;
 
   constructor( private route: ActivatedRoute,
     private router: Router,
@@ -30,10 +31,32 @@ export class OrdemServicoComponent implements OnInit {
     await this.osService.getById(id).then((res) => {
       this.ordemServico = res
       this.imagem = environment.apiHostAddress + "/" + res.imagemUrl
+
+      console.log(res.imagemUrl)
+
+
+
+      this.thereIsImage = !!res.imagemUrl
+
+      this.isFinalizado = res.status == "FINALIZADO";
+      this.isEmOrcamento = res.status == "EM_ORCAMENTO"
     })
   }
 
-  carregarInformacoes(){
+
+
+  respostaOrcamento(aceitar : boolean){
+
+    this.osService.responderOrcamento(aceitar, this.ordemServico.id)
+
+    this.isEmOrcamento = false;
+
+    if(aceitar){
+      this.ordemServico.status = "EM_ANDAMENTO"
+    }else{
+      this.ordemServico.status = "NEGADO"
+    }
+
 
   }
 
