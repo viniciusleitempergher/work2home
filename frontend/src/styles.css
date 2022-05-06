@@ -94,16 +94,20 @@ main {
     width: 100vw;
     left: 0;
     position: absolute;
+    gap: 10px;
 }
 
 .horizontalCards__card {
-    height: 100% !important;
-    width: 100vw !important;
-    background-color: var(--font-fourth);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     border-radius: 40px;
 }
-.horizontalCards__card > img {
-    width: 250px;
+.horizontalCards__card__img {
+    width: 140px !important;
+    height: 140px !important;
+    border-radius: 50%;
 }
 
 .hr__main {
