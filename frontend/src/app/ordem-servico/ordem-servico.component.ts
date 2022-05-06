@@ -16,6 +16,9 @@ export class OrdemServicoComponent implements OnInit {
   imagem : string= ""
   isFinalizado : boolean = false;
   isEmOrcamento : boolean = false;
+  isSolicitado : boolean = false;
+  isEmAndamento : boolean = false;
+
   thereIsImage : boolean = false;
 
   constructor( private route: ActivatedRoute,
@@ -40,6 +43,9 @@ export class OrdemServicoComponent implements OnInit {
 
       this.isFinalizado = res.status == "FINALIZADO";
       this.isEmOrcamento = res.status == "EM_ORCAMENTO"
+
+      this.isSolicitado = res.status == "SOLICITADO";
+      this.isEmAndamento = res.status == "EM_ANDAMENTO"
     })
   }
 
@@ -57,6 +63,14 @@ export class OrdemServicoComponent implements OnInit {
       this.ordemServico.status = "NEGADO"
     }
 
+
+  }
+
+  existe(x: any){
+    return x != null
+  }
+
+  avaliar(){
 
   }
 

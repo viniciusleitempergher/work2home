@@ -1,6 +1,7 @@
 <main>
-  <div id="imagem" style="background-image: url({{imagem}});">
+  <div id="imagem"  >
 
+    <img  *ngIf="thereIsImage" src="{{imagem}}" alt="imagem do serviço" height="300px">
     <i *ngIf="!thereIsImage" class="bi bi-card-image"></i>
 
   </div>
@@ -27,12 +28,12 @@
 
     <div>
       <p><b>Data solicitada: </b>{{ordemServico.dataSolicitada}}</p>
-      <p><b>Tempo estimado: </b>{{ordemServico.tempoEstimado}}</p>
-      <p><b>Data inicio: </b>{{ordemServico.dataInicio}}</p>
-      <p><b>Data final: </b>{{ordemServico.dataFim}}</p>
+      <p *ngIf=" existe(ordemServico.tempoEstimado)" ><b>Tempo estimado: </b>{{ordemServico.tempoEstimado}}</p>
+      <p *ngIf=" existe(ordemServico.dataInicio)"><b>Data inicio: </b>{{ordemServico.dataInicio}}</p>
+      <p *ngIf=" existe(ordemServico.dataFim)"><b>Data final: </b>{{ordemServico.dataFim}}</p>
     </div>
 
-    <div>
+    <div *ngIf=" existe(ordemServico.valor)">
       <p><b>Valor: </b>R${{ordemServico.valor}}</p>
     </div>
 
