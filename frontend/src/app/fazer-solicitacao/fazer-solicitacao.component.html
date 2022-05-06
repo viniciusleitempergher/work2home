@@ -32,8 +32,6 @@
 
   <div class="campos__form">
 
-
-
     <label for="input-descricao" class="form__label-solicitacao">
       Descrição:
       <textarea type="text" [(ngModel)]="descricao" cols="40" rows="4"
@@ -42,13 +40,9 @@
       </textarea>
     </label>
 
-
-
-
       <div class="btn__solicitacao btn__imagem">
         <input type="file" accept="image/*" (change)="onImgChange($event)" id="add-ima" class="btn btn-primary form__button btn__solicitacao" value="Adicionar Imagem">
       </div>
-
 
       <div>
         <button (click)="solicitar()" class="btn btn-primary form__button btn__solicitacao">Solicitar
