@@ -1,0 +1,30 @@
+img{
+  width: 100vw;
+  height: 300px;
+}
+
+main{
+  margin-top: 0;
+  padding-top: 0;
+}
+
+p{
+  margin-bottom: 0;
+}
+
+
+#informacoes{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn{
+  align-self: center;
+  width: 100%;
+}
+
+.btns__chose{
+  display: flex;
+  gap: 10px;
+}

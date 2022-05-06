@@ -103,6 +103,12 @@ public class ClienteService {
 		Cliente cliente = clienteRepository.findById(usuario.getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+		usuarioRepository.findAll().forEach(u -> {
+			if (u.getEmail().equalsIgnoreCase(dto.getUsuarioDto().getEmail())
+					&& !dto.getUsuarioDto().getEmail().equalsIgnoreCase(usuario.getEmail()))
+				throw new ResponseStatusException(HttpStatus.CONFLICT);
+		});
+
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 		usuario.setSenha(bcrypt.encode(dto.getUsuarioDto().getSenha()));
 
@@ -113,7 +119,6 @@ public class ClienteService {
 
 		usuarioRepository.save(usuario);
 		clienteRepository.save(cliente);
-
 	}
 
 }

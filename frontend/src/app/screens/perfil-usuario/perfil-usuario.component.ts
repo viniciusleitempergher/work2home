@@ -45,6 +45,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
 
   fotoPerfilUsuario: string = '';
+  btnEditar:string='';
 
   perfilForm = new FormGroup({
     imagemSrc: new FormControl()
@@ -69,9 +70,11 @@ export class PerfilUsuarioComponent implements OnInit {
   buscarPerfil() {
     this.perfilLogado();
     if (this.rolePerfil == "CLIENTE") {
+      this.btnEditar="/cliente/alterar";
       this.perfilCliente();
     } else
       if (this.rolePerfil == "PRESTADOR" || this.rolePerfil == "INATIVO") {
+        this.btnEditar="/prestador/alterar";
         this.perfilPrestador();
       }
   }

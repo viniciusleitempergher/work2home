@@ -12,4 +12,5 @@ public class UsuarioResponse {
 	private String telefone;
 	private LocalDate dtNascimento;
 	private Roles role;
+	private String imagemUrl;
 }

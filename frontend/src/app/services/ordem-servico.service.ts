@@ -10,10 +10,15 @@ import { environment } from 'src/environments/environment';
 export class OrdemServicoService {
   constructor(private http: HttpClient) {}
 
-  #cadastrarSolicitacao(solicitacao: OrdemServicoRequest): Promise<OrdemServicoResponse> {
+  #cadastrarSolicitacao(
+    solicitacao: OrdemServicoRequest
+  ): Promise<OrdemServicoResponse> {
     return new Promise((resolve) => {
       this.http
-        .post(`${environment.apiHostAddress}/ordem-servico/solicitar`, solicitacao)
+        .post(
+          `${environment.apiHostAddress}/ordem-servico/solicitar`,
+          solicitacao
+        )
         .subscribe((response) => {
           resolve(response as OrdemServicoResponse);
         });
@@ -31,9 +36,12 @@ export class OrdemServicoService {
       .subscribe();
   }
 
-  async cadastrar(solicitacao: OrdemServicoRequest, imagem: File): Promise<void> {
-      let solicitacaoResponse = await this.#cadastrarSolicitacao(solicitacao);
-      this.#cadastrarImagem(solicitacaoResponse, imagem);
+  async cadastrar(
+    solicitacao: OrdemServicoRequest,
+    imagem: File
+  ): Promise<void> {
+    let solicitacaoResponse = await this.#cadastrarSolicitacao(solicitacao);
+    this.#cadastrarImagem(solicitacaoResponse, imagem);
   }
 
   getAllByFilter(status: number): Promise<OrdemServicoResponse[]> {
@@ -41,6 +49,14 @@ export class OrdemServicoService {
       this.http
         .get(`${environment.apiHostAddress}/ordem-servico/filtro/${status}`)
         .subscribe((response) => resolve(response as OrdemServicoResponse[]));
+    });
+  }
+
+  getById(id: number): Promise<OrdemServicoResponse> {
+    return new Promise((resolve) => {
+      this.http
+        .get(`${environment.apiHostAddress}/ordem-servico/${id}`)
+        .subscribe((response) => resolve(response as OrdemServicoResponse));
     });
   }
 }

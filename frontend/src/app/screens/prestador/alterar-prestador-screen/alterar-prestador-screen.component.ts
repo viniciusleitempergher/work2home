@@ -60,6 +60,7 @@ export class AlterarPrestadorScreenComponent implements OnInit {
     this.cadastroPrestadorForm.get('dataNascimento')?.setValue(this.user.dtNascimento);
 
     let prestador = await this.prestadorService.getPrestador(this.user.id);
+    
     this.cadastroPrestadorForm.get('cnpj')?.setValue(prestador.cnpj);
     this.cadastroPrestadorForm.get('nomeEmpresa')?.setValue(prestador.nomeFantasia);
   }
@@ -70,8 +71,8 @@ export class AlterarPrestadorScreenComponent implements OnInit {
 
   async cadastrar() {
     try {
+      this.prestador.usuarioDto.email = this.user.email;
       if (!this.cadastroIncompleto) {
-        this.validaEmail();
         this.validaSenha();
       }
       this.validaNome();
@@ -95,16 +96,6 @@ export class AlterarPrestadorScreenComponent implements OnInit {
      this.router.navigate(['cidade']);
     } catch (e:any) {
       Swal.fire('Erro!', e.message, 'error')
-    }
-  }
-
-  validaEmail() {
-    if (!this.cadastroPrestadorForm.get('email')?.valid) {
-      this.emailInvalido = true;
-      throw new Error("Email inválido!");
-    } else {
-      this.prestador.usuarioDto.email = this.cadastroPrestadorForm.value.email;
-      this.emailInvalido = false;
     }
   }
   validaNome() {

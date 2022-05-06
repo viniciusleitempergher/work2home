@@ -14,31 +14,29 @@ export class PrestadorMainScreenComponent implements OnInit {
   isImageVisible:boolean=true;
   fotoPerfilUsuario:string = '';
   user:Usuario = new Usuario();
-  prestador:Prestador = new Prestador();
   nomePrestador:string='';
 
-  constructor(private usuarioService: UserService,private prestadorService: PrestadorService) { }
+  constructor(private usuarioService: UserService) { }
 
   async ngOnInit(): Promise<void> {
     this.user = await this.usuarioService.getUserFromAccessToken();
-    this.prestador = await this.prestadorService.getPrestador(this.user.id);
     this.carregarInfoPrestador();
-    
+
   }
 
   carregarInfoPrestador(){
-    this.nomePrestador ="Bem vindo, " +this.prestador.nome;
+    this.nomePrestador ="Bem vindo, " +this.user.nome;
     this.carregarImagemPerfil();
-    
+
   }
 
   carregarImagemPerfil(){
-    if (this.prestador.imagemUrl == null) {
+    if (this.user.imagemUrl == null) {
       this.isImageVisible = false;
-    } else {      
+    } else {
       this.isImageVisible=true;
     }
-    this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.prestador.imagemUrl;
+    this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.user.imagemUrl;
   }
 
 }

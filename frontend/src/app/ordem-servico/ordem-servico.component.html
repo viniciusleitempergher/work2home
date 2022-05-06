@@ -1,0 +1,52 @@
+<main>
+  <div id="imagem">
+    <img src="{{imagem}}" alt="">
+  </div>
+
+  <div id="informacoes">
+
+    <div>
+      <p><b>Status do serviço: </b>{{ordemServico.status}}</p>
+    </div>
+
+    <div class="mt-3">
+      <p><b>Cliente:</b> {{ordemServico.nomeCliente}}</p>
+      <p><b>Prestador:</b> {{ordemServico.nomePrestador}}</p>
+    </div>
+
+    <div>
+      <p><b>Area: </b>{{ordemServico.area}}</p>
+    </div>
+
+    <div>
+      <p><b>Descrição:</b></p>
+      <p>{{ordemServico.descricao}}</p>
+    </div>
+
+    <div>
+      <p><b>Data solicitada: </b>{{ordemServico.dataSolicitada}}</p>
+      <p><b>Tempo estimado: </b>{{ordemServico.tempoEstimado}}</p>
+      <p><b>Data inicio: </b>{{ordemServico.dataInicio}}</p>
+      <p><b>Data final: </b>{{ordemServico.dataFim}}</p>
+    </div>
+
+    <div>
+      <p><b>Valor: </b>{{ordemServico.valor}}</p>
+    </div>
+
+    <div class="btn" *ngIf="isFinalizado">
+      <button class="btn btn-primary form__button ">
+        Avaliar</button>
+    </div>
+
+    <div class="btns__chose">
+      <button class="btn btn-success  btn__solicitacao btn__aceitar">
+        Aceitar</button>
+        <button class="btn btn-danger  btn__solicitacao btn__recusar">
+        Recusar</button>
+    </div>
+
+
+  </div>
+
+</main>
