@@ -87,7 +87,7 @@ public class Verificacoes {
 	}
 
 	private boolean plusThirdyBefore(LocalDate dia) {
-		return dia.isBefore(LocalDate.now());
+		return dia.plusDays(30).isBefore(LocalDate.now());
 	}
 	
 	private  void desativarPrestador(Prestador p) {
