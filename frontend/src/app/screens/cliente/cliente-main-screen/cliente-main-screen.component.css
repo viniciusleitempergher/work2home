@@ -4,10 +4,8 @@
 }
 
 .hr__main{
-
   width: 100%;
   border-bottom: 2px solid var(--font-primary);
-
 }
 
 .logo{
@@ -36,6 +34,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.categorias__title {
+  margin-bottom: 250px !important;
+}
+
+.horizontalCards-categorias {
+  margin-top: 50px;
 }
 
 select{
