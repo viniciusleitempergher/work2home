@@ -3,12 +3,14 @@ import { Categoria } from "./Categoria";
 import { CidadePrestador } from "./CidadePrestador";
 
 export class Prestador {
-  id:number = 0;
-  nome:string = '';
+	id:number = 0;
+	nome:string = '';
 	email:string = '';
 	telefone:string = '';
-	mediaAvaliacao:number = 0;
+	cnpj:string = '';
 	imagemUrl:string='';
+	nomeFantasia:string = '';
+	mediaAvaliacao:number = 0;
 	categorias:Categoria[] = [];
 	cidades:CidadePrestador[] = [];
 	avaliacoes: Avaliacao[] = [];

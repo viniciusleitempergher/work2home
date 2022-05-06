@@ -18,6 +18,8 @@ public class PrestadorResponse {
 	private String telefone;
 	private Double mediaAvaliacao;
 	private String imagemUrl;
+	private String cnpj;
+	private String nomeFantasia;
 	private Set<Categoria> categorias;
 	private Set<Cidade> cidades;
 	private List<AvaliacaoResponse> avaliacoes;
@@ -30,6 +32,8 @@ public class PrestadorResponse {
 		this.mediaAvaliacao = prestador.getUsuario().getMediaAvaliacao();
 		this.categorias = prestador.getCategorias();
 		this.cidades = prestador.getCidades();
+		this.cnpj = prestador.getCnpj();
+		this.nomeFantasia = prestador.getNomeFantasia();		
 		
 		if(prestador.getUsuario().getAvaliacoesRecebidas() != null) {
 			this.avaliacoes = prestador.getUsuario()

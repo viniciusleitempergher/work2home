@@ -2,6 +2,7 @@ package com.work2home.publica.project.service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -78,6 +79,7 @@ public class LoginService {
 				usuario.setSenha(bcrypt.encode(UUID.randomUUID().toString()));
 				usuario.setImagemUrl(pictureUrl);
 				usuario.setRole(Roles.CADASTRO_INCOMPLETO);
+				usuario.setDataCriacao(LocalDate.now());
 				usuario = usuarioRepository.save(usuario);
 			}
 			

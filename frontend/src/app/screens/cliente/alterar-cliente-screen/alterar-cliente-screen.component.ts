@@ -54,6 +54,9 @@ export class AlterarClienteScreenComponent implements OnInit {
     this.cadastroClienteForm.get('nome')?.setValue(this.user.nome);
 
     this.cadastroClienteForm.controls['email'].disable()
+
+    this.cadastroClienteForm.get('telefone')?.setValue(this.user.telefone);
+    this.cadastroClienteForm.get('dataNascimento')?.setValue(this.user.dtNascimento);
   }
 
   cancelar() {
