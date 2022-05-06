@@ -47,9 +47,9 @@ export class PerfilUsuarioComponent implements OnInit {
     imagemSrc: new FormControl()
   });
 
-  nome: string = 'Jefferson Bisatto';
-  email: string = 'jefferson.bisatto@gmail.com';
-  telefone: string = '(047)99915-8513'
+  nome: string = '';
+  email: string = '';
+  telefone: string = ''
 
   constructor(private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 

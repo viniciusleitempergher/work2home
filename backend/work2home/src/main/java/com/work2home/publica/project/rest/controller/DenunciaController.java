@@ -18,7 +18,7 @@ import com.work2home.publica.project.service.DenunciaService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping("/denucia")
+@RequestMapping("/denuncia")
 public class DenunciaController {
 	
 	@Autowired
