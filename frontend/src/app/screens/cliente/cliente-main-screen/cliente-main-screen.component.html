@@ -22,19 +22,19 @@
 </header>
 <main>
 
-  <div class="hr__main pb-2 mb-3">
+  <div class="hr__main pb-2 mb-3 categorias__title">
     Categorias
   </div>
 
-  <div class="horizontalCards">
+  <div class="horizontalCards horizontalCards-categorias">
 
     <div class="horizontalCards__card pointer"  routerLink="fazer-solicitacao/{{c.id}}"  *ngFor="let c of categorias">
-        <img src="{{environment.apiHostAddress + '/' + c.imagemUrl}}">
+        <img class="horizontalCards__card__img" src="{{environment.apiHostAddress + '/' + c.imagemUrl}}">
         <div class="card-body">
           <h5 class="card-title">{{c.nome}}</h5>
         </div>
     </div>
-  </div> -->
+  </div>
   <div class="hr__main pb-2 mb-3" id="servicos">
 
     <div>

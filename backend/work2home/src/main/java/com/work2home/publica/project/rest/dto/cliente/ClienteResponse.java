@@ -20,7 +20,10 @@ public class ClienteResponse {
         this.email = cliente.getUsuario().getEmail();
         this.telefone = cliente.getUsuario().getTelefone();
         this.mediaAvaliacao = cliente.getUsuario().getMediaAvaliacao();
+
+        if(cliente.getEndereco() != null){
         this.estado = cliente.getEndereco().getCidade().getEstado();
         this.cidade = cliente.getEndereco().getCidade().getNome();
+    }
     }
 }
