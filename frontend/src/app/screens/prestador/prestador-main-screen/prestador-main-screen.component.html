@@ -2,51 +2,51 @@
     <div>
       <img src="../../../assets/logo.svg" class="logo">
     </div>
-  
+
     <div id="perfil">
-      <div routerLink="/perfil/{{prestador.id}}">{{nomePrestador}}</div>
+      <div routerLink="/perfil/{{user.id}}">{{nomePrestador}}</div>
 
       <div id="imagem__perfil" routerLink="/perfil/{{user.id}}">
         <div *ngIf="isImageVisible">
-              <img class="perfil__img" id="fotoPerfil" 
+              <img class="perfil__img" id="fotoPerfil"
                 src={{fotoPerfilUsuario}}>
         </div>
         <div *ngIf="!isImageVisible">
         <i class="bi bi-person-circle semImagem"></i>
       </div>
-      </div>  
+      </div>
     </div>
-  
+
   </header>
   <main>
-  
+
     <div class="hr__main pb-2 mb-3">
       Categorias
     </div>
-  
+
     <div class="container">
-  
+
     <div class="row">
-  
-      
+
+
     </div>
   </div>
     <div class="hr__main pb-2 mb-3" id="servicos">
-  
+
       <div>
         Seus serviços
       </div>
-  
-  
+
+
   </div>
-  
+
     <div class="container">
-  
+
       <div class="row">
-  
-     
-  
+
+
+
       </div>
     </div>
-  
+
   </main>

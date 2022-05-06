@@ -20,10 +20,15 @@ export class ClienteMainScreenComponent implements OnInit {
   environment = environment;
   ordensServico: OrdemServicoResponse[] = [];
   usuario: Usuario = new Usuario;
+  fotoPerfilUsuario: string = "";
+  nomeUsuario : string = ""
 
   value: string = '';
 
-  categoriaId : number = 10;
+  categoriaId : number = 0;
+
+
+  isImageVisible : boolean = false
 
   cadastroStatusForm = new FormGroup({
     cbxStatusServico: new FormControl(null, Validators.required),
@@ -36,11 +41,13 @@ export class ClienteMainScreenComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.getUser()
+  async ngOnInit(): Promise<void>{
+
+    this.usuario = await this.userService.getUserFromAccessToken();
     this.buscarCategorias();
     this.value = '-1';
     this.getServicosByStatus();
+    this.carregarInfoUsuario()
   }
 
   getServicosByStatus() {
@@ -63,9 +70,18 @@ export class ClienteMainScreenComponent implements OnInit {
     this.cadastroStatusForm.get('cbxStatusServico')?.setValue('0');
   }
 
-  getUser(){
-    this.userService.getUserFromAccessToken().then((res) =>{
-      this.usuario = res
-    })
+  carregarInfoUsuario(){
+    this.nomeUsuario ="Bem vindo, "+this.usuario.nome;
+    this.carregarImagemPerfil();
+  }
+
+  carregarImagemPerfil(){
+    if (this.usuario.imagemUrl == null) {
+      this.isImageVisible = false;
+    } else {
+      this.isImageVisible=true;
+      this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
+    }
+
   }
 }
