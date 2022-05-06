@@ -1,6 +1,7 @@
 package com.work2home.publica.project.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,14 @@ public class DenunciaService {
 	
 	public void denunciar(DenunciaRequest denunciaRequest) {
 		
-		Usuario denunciador = jwt.getUserFromHeaderToken(); 
+		Usuario denunciador = jwt.getUserFromHeaderToken();
+		
+		denunciaRepository.findAll().forEach(d -> {
+			if(Objects.equals(d.getDenunciador().getId(), denunciador.getId()) && Objects.equals(d.getDenunciado().getId(),
+					denunciaRequest.getDenunciadoId())){
+				throw new ResponseStatusException(HttpStatus.CONFLICT);
+			}
+		});
 		
 		Denuncia denuncia = denunciaRequest.converter(usuarioRepository);
 		denuncia.setDenunciador(denunciador);

@@ -46,11 +46,29 @@
   margin-top: 10px;
 }
 
-.btnradio__prastador{
-  margin-left: 15px;
-}
-
 .btn__imagem{
   margin-top: 0;
   margin-bottom: 20px;
 }
+
+i{
+  margin-left: 3px;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--font-primary);
+  transition: 0.2s all linear;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+
+input:checked {
+  border: 6px solid var(--font-secondary);
+  outline: unset !important}
