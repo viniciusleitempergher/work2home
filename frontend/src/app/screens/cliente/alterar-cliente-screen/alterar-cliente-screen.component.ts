@@ -65,10 +65,9 @@ export class AlterarClienteScreenComponent implements OnInit {
 
   async handleAlterar() {
     try {
-      if (this.cadastroIncompleto) {
-        this.cliente.usuarioDto.email = this.cadastroClienteForm.value.email
-      } else {
-        this.validaEmail();
+      
+      this.cliente.usuarioDto.email = this.user.email;
+      if (!this.cadastroIncompleto) {
         this.validaSenha();
       }
       this.validaNome();
@@ -94,15 +93,6 @@ export class AlterarClienteScreenComponent implements OnInit {
     }
   }
 
-  validaEmail() {
-    if (!this.cadastroClienteForm.get('email')?.valid) {
-      this.emailInvalido = true;
-      throw new Error("Email inválido!");
-    } else {
-      this.cliente.usuarioDto.email = this.cadastroClienteForm.value.email;
-      this.emailInvalido = false;
-    }
-  }
   validaNome() {
     if (!this.cadastroClienteForm.get('nome')?.valid) {
       this.nomeInvalido = true;
