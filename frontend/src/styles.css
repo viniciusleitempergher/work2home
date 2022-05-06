@@ -39,9 +39,11 @@ main {
     max-width: 600px;
     color: var(--font-primary) !important;
 }
+
 .form__input:focus {
     box-shadow: 0 0 0 0.06rem var(--font-thirdy) !important;
 }
+
 .form__input-invalid {
     box-shadow: 0 0 0 0.06rem rgb(207, 56, 56) !important;
 }
@@ -54,9 +56,11 @@ main {
     background-color: var(--font-thirdy) !important;
     border: none !important;
 }
+
 .form__button:focus {
     box-shadow: none !important;
 }
+
 .form__button:active {
     opacity: 0.8;
     transition: all .4s;
@@ -68,19 +72,57 @@ main {
     color: var(--font-primary) !important;
     align-self: stretch;
 }
+
 .form__button-secondary:focus {
     box-shadow: none !important;
 }
+
 .form__button-secondary:active {
     background-color: rgba(0, 0, 0, .1) !important;
     transition: all .4s;
 }
 
-.hr__main{
-  width: 100%;
-  border-bottom: 2px solid var(--font-primary);
+.hr__main {
+    width: 100%;
+    border-bottom: 2px solid var(--font-primary);
 }
 
-.pointer:hover{
-  cursor: pointer;
+.pointer:hover {
+    cursor: pointer;
+}
+
+.titles,
+.popus,
+.inputs {
+    background-color: var(--background-primary) !important;
+    max-width: 600px;
+    color: var(--font-primary) !important;
+    border-radius: 10%;
+}
+
+.inputs {
+    border: 1px solid var(--font-thirdy) !important;
+    box-shadow: 0 0 0 0.1rem var(--font-thirdy) !important;
+    max-width: 600px;
+    color: var(--font-primary) !important;
+}
+
+.botaoDenuncia {
+    background-color: var(--font-thirdy);
+    color: var(--font-fourth);
+    width: 120px;
+    height: 50px;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.botaoCancela {
+    background-color: var(--font-fourth) !important;
+    width: 120px;
+    height: 50px;
+    border: none !important;
+    color: var(--font-primary) !important;
+    margin: 10px;
+    border-radius: 5px;
 }

@@ -9,6 +9,7 @@ import { Avaliacao } from 'src/models/Avaliacao';
 import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ClienteService } from 'src/app/services/cliente.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -20,6 +21,8 @@ export class PerfilUsuarioComponent implements OnInit {
   user: Usuario = new Usuario();
   rolePerfil: string = '';
   cliente: Cliente = new Cliente();
+  cidadeCliente:string = '';
+  estadoCliente:string = '';
   prestador: Prestador = new Prestador();
   av: Avaliacao = new Avaliacao();
   av2: Avaliacao = new Avaliacao();
@@ -111,6 +114,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.perfilForm.get("imagemSrc")?.value
     );
     this.fotoPerfilUsuario = environment.apiHostAddress + '/' + caminhoImagem.imagemUrl;
+    this.isImageVisible = true;
   }
 
 
@@ -140,7 +144,6 @@ export class PerfilUsuarioComponent implements OnInit {
     if (this.prestador.imagemUrl == null) {
       this.isImageVisible = false;
     } else {
-      console.log(this.prestador.imagemUrl);
       this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.prestador.imagemUrl;
     }
   }
@@ -148,6 +151,8 @@ export class PerfilUsuarioComponent implements OnInit {
     this.nome = this.cliente.nome;
     this.email = this.cliente.email;
     this.telefone = this.cliente.telefone;
+    this.cidadeCliente = this.cliente.cidade;
+    this.estadoCliente = this.cliente.estado;
     this.mediaAvaliacao(this.cliente.mediaAvaliacao);
   }
 
@@ -242,5 +247,31 @@ export class PerfilUsuarioComponent implements OnInit {
     this.star4 = this.starCheia;
     this.star5 = this.starCheia;
   }
+
+  denuncia(){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        title: 'titles',
+        popup: 'popus',
+        input :'inputs',
+        confirmButton: 'botaoDenuncia',
+        cancelButton: 'botaoCancela'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Descreva o motivo da denúncia',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Denunciar',
+      showLoaderOnConfirm: true,
+      preConfirm: (texto) => {
+        console.log(texto)
+      }
+  })}
 
 }

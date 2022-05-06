@@ -4,8 +4,17 @@
     </div>
   
     <div id="perfil">
-      <div routerLink="/perfil/{{prestador.id}}"> Bem vindo, Jeff</div>  
-      <div id="imagem__perfil" routerLink="/perfil/{{prestador.id}}"></div>  
+      <div routerLink="/perfil/{{prestador.id}}">{{nomePrestador}}</div>
+
+      <div id="imagem__perfil" routerLink="/perfil/{{user.id}}">
+        <div *ngIf="isImageVisible">
+              <img class="perfil__img" id="fotoPerfil" 
+                src={{fotoPerfilUsuario}}>
+        </div>
+        <div *ngIf="!isImageVisible">
+        <i class="bi bi-person-circle semImagem"></i>
+      </div>
+      </div>  
     </div>
   
   </header>
