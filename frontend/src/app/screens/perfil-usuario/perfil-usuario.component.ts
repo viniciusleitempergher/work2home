@@ -199,13 +199,11 @@ export class PerfilUsuarioComponent implements OnInit {
       confirmButtonText: 'Denunciar',
       showLoaderOnConfirm: true,
       preConfirm: (texto) => {
-        console.log(texto)
         let denuncia = new Denuncia();
         denuncia.denunciadorId = this.user.id;
 
         denuncia.denunciadoId = this.usuarioPerfilId;
         denuncia.descricao = texto;
-        console.log(denuncia);
         this.denunciaService.cadastrarDenuncia(denuncia);
       }
     })

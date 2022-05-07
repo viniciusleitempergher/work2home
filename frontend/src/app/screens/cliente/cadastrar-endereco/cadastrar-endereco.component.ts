@@ -33,6 +33,7 @@ export class CadastrarEnderecoComponent implements OnInit {
   numeroInvalida = false;
   complementoInvalida = false;
 
+  btnConfirmar:string='Cadastrar';
 
   cadastroEnderecoForm = new FormGroup({
     cbxEstado: new FormControl(null, Validators.required),
@@ -56,9 +57,7 @@ export class CadastrarEnderecoComponent implements OnInit {
       this.endereco = await this.endercoService.getEndereco(this.user.id);
       this.carregarCampos();
     } catch (error) {
-      console.log(error);
-      
-     }
+    }
   }
   cancelar() {
     this.router.navigate(['login']);
@@ -86,10 +85,16 @@ export class CadastrarEnderecoComponent implements OnInit {
       this.router.navigate(['cliente']);
     }
   }
-  carregarCampos() {
-    console.log(this.cliente);
-    this.cadastroEnderecoForm.value.cbxEstado=this.cliente.estado;
-  }
+  async carregarCampos() {
+    this.btnConfirmar="Atualizar";
+    this.cadastroEnderecoForm.get("cbxEstado")?.setValue(this.cliente.estado);
+    await this.obterCidades(this.cadastroEnderecoForm.value.cbxEstado);
+    this.cadastroEnderecoForm.get("cbxCidade")?.setValue(this.cliente.cidade);
+    this.cadastroEnderecoForm.get("bairro")?.setValue(this.endereco.bairro);
+    this.cadastroEnderecoForm.get("logradouro")?.setValue(this.endereco.logradouro);
+    this.cadastroEnderecoForm.get("numero")?.setValue(this.endereco.numero);
+    this.cadastroEnderecoForm.get("complemento")?.setValue(this.endereco.complemento);
+    }
   obterEstados = () => {
     this.serviceEnderecoApi.listarEstados()
       .subscribe(retorno => this.estados = retorno);
@@ -138,7 +143,7 @@ export class CadastrarEnderecoComponent implements OnInit {
     }
   }
   validaRua() {
-    if (!this.cadastroEnderecoForm.get('rua')?.valid) {
+    if (!this.cadastroEnderecoForm.get('logradouro')?.valid) {
       this.ruaInvalida = true;
       throw new Error("Rua inválida!!!");
     } else {

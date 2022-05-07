@@ -48,7 +48,7 @@ public class EnderecoService {
 		endereco.setBairro(enderecoDto.getBairro());
 		endereco.setComplemento(enderecoDto.getComplemento());
 		endereco.setNumero(enderecoDto.getNumero());
-		endereco.setLogradouro(enderecoDto.getEndereco());
+		endereco.setLogradouro(enderecoDto.getLogradouro());
 
 		endereco = enderecoRepository.save(endereco);
 		

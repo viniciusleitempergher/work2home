@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class EnderecoRequest {
-	private String endereco;
+	private String logradouro;
 	private String estado;
 	private String cidade;
 	private Integer numero;
