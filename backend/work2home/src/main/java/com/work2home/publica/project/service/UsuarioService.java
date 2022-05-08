@@ -1,7 +1,9 @@
 package com.work2home.publica.project.service;
 
 import com.work2home.publica.project.rest.dto.ImagemDto;
+import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
+import com.work2home.publica.project.rest.dto.usuario.UsuarioResponse;
 import com.work2home.publica.project.utils.FileUploadUtil;
 import com.work2home.publica.project.utils.JwtUtil;
 
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -85,4 +88,12 @@ public class UsuarioService {
 
 		return new RoleUsuarioResponse(usuario.getRole().toString());
     }
+
+	public List<UsuarioResponse> buscarUsuarios() {
+		return usuarioRepository
+				.findAll()
+				.stream()
+				.map(c -> new UsuarioResponse(c))
+				.toList();
+	}
 }

@@ -1,7 +1,79 @@
+<nav class="navbar-expand-lg navbar navbar-light" style="background-color: var(--font-thirdy);">
+    <div class="container-fluid">
+        <a>
+            <h4 style="color: var(--font-fourth)">Administrador Work2home</h4>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" (click)="mostrarScreenUsuarios()">Gerenciar Usuários</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" (click)="mostrarScreenCategoria()">Cadastrar
+                        Categorias</a>
+                </li>
+                <li class="nav-item mouseMaozinha">
+                    <a class="nav-link active" aria-current="page" (click)="relatorioUsuario()">Relatório de
+                        Usuários</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
 <main>
-    <form class="form form-administardor">
-        <button  (click)="relatorioUsuario()" class="btn btn-primary form__button">Relatório de Usuários</button>
-        <button (click)="redirectCategoriasPage()" class="btn btn-primary form__button">Cadastrar Categorias</button>
-    </form>
-    
+    <div *ngIf="screenUsuario">
+        <div id="divTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Seleconar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of usuarios; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{u.nome}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.email}}</td>
+                        <td><button class="btn btn-secondary" (click)="selecionarPessoa(i)">Selecionar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="screenCategoria">
+        <form [formGroup]="categoriaForm" class="form form-categoria">
+            <h2>Cadastro de Categorias</h2>
+            <input type="text" name="nome" formControlName="nome" class="form-control form__input">
+
+            <label>Adicione uma imagem:</label>
+            <input type="file" (change)="onImgChange($event)" name="imagem" formControlName="imagem"
+                class="btn btn-primary form__button">
+
+            <button class="btn btn-primary form__button" (click)="handleAddCategoria()">Cadastrar</button>
+        </form>
+        <div class="categorias">
+            <div class="categoria" *ngFor="let c of categorias">
+                <div class="categoria__wrapper">
+                    <img class="categoria__img" src="{{environment.apiHostAddress + '/' + c.imagemUrl}}">
+                    <h3 class="categoria__nome">{{c.nome}}</h3>
+                </div>
+                <i class="categoria__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
+            </div>
+        </div>
+    </div>
 </main>

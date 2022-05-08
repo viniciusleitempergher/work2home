@@ -100,8 +100,6 @@ export class PerfilUsuarioComponent implements OnInit {
     this.carregarFoto();
   }
   carregarFoto() {
-    console.log(this.cliente.imagemUrl);
-      console.log(this.prestador.imagemUrl);
     if (!this.cliente.imagemUrl && !this.prestador.imagemUrl) {
       this.isImageVisible = false;
     } else {      

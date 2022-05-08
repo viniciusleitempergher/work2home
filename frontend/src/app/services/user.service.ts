@@ -28,6 +28,13 @@ export class UserService {
       })
     })
   }
+  listarUsuarios(): Promise<Usuario[]> {
+    return new Promise(resolve => {
+      this.http.get(`${environment.apiHostAddress}/usuario`).subscribe(response => {
+        resolve(response as Usuario[]);
+      })
+    })
+  }
 
   esqueceuSenha(email: string): Promise<void> {
     return new Promise(resolve => {

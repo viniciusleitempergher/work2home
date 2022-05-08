@@ -1,11 +1,13 @@
 package com.work2home.publica.project.rest.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.work2home.publica.project.model.Email;
 import com.work2home.publica.project.rest.dto.ImagemDto;
+import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.rest.dto.usuario.AlterarSenha;
 import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
@@ -35,6 +37,11 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@GetMapping
+	public List<UsuarioResponse> buscaListaUsuario() {
+		return usuarioService.buscarUsuarios();
+	}
 	
 	@GetMapping("/me")
 	public UsuarioResponse getMe() throws IllegalAccessException, InvocationTargetException {

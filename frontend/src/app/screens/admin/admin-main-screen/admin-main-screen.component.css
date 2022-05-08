@@ -12,3 +12,49 @@ main {
     height: 100vh;
     justify-content: space-between !important;
 }
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-brand {
+    color: var(--font-fourth);
+}
+.mouseMaozinha{
+    cursor: pointer;
+}
+.form-categoria {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.categorias {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.categoria {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: var(--background-secondary);
+    border-radius: 5000px;
+    padding: 5px 25px;
+}
+
+.categoria__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.categoria__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.categoria__closebtn {
+    align-self: flex-end;
+}
