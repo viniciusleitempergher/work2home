@@ -2,47 +2,52 @@
 
   <form>
 
-  <div *ngIf="this.prestadores.length != 0">
-   <h5>Selecione um prestador</h5>
-  </div>
-
-  <div class="prestadores" *ngIf="this.prestadores.length != 0" >
-
-    <div class="prestador" *ngFor="let p of prestadores">
-
-      <div id="informacao__prestador" routerLink="/perfil/{{p.id}}">
-        <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao}}</h5>
-        <i style="display: inline;" class="bi bi-star-fill"></i>
-      </div>
-
-      <div>
-        <input type="radio" (change)="selecionarPrestadorId(p.id)"  name="radioPrastador" class=" btnradio__prastador">
-      </div>
+    <div *ngIf="this.prestadores.length != 0">
+      <h5>Selecione um prestador</h5>
     </div>
 
-  </div>
+    <div class="prestadores" *ngIf="this.prestadores.length != 0">
 
-  <div *ngIf="!(this.prestadores.length != 0)" class="alert alert-danger" id="alerta-vermelho">
-    Não existe prestadores para esse serviço
-  </div>
+      <div class="prestador" *ngFor="let p of prestadores">
 
-  <div class="hr__main">
+        <div id="informacao__prestador" routerLink="/perfil/{{p.id}}">
+          <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao}}</h5>
+          <i style="display: inline;" class="bi bi-star-fill"></i>
+        </div>
 
-  </div>
+        <div>
+          <input type="radio" (change)="selecionarPrestadorId(p.id)" name="radioPrastador" class=" btnradio__prastador">
+        </div>
+      </div>
 
-  <div class="campos__form">
+    </div>
 
-    <label for="input-descricao" class="form__label-solicitacao">
-      Descrição:
-      <textarea type="text" [(ngModel)]="descricao" cols="40" rows="4"
-         name="descricao"
-        class="form-control form__input form__input-solicitacao" id="input-descricao">
+    <div *ngIf="!(this.prestadores.length != 0)" class="alert alert-danger" id="alerta-vermelho">
+      Não existe prestadores para esse serviço
+    </div>
+
+    <div class="hr__main">
+
+    </div>
+
+    <div class="campos__form">
+
+      <label for="input-descricao" class="form__label-solicitacao">
+        Descrição:
+        <textarea type="text" [(ngModel)]="descricao" cols="50" rows="4" name="descricao"
+          class="form-control form__input" id="input__descricao">
       </textarea>
-    </label>
+      </label>
 
       <div class="btn__solicitacao btn__imagem">
-        <input type="file" accept="image/*" (change)="onImgChange($event)" id="add-ima" class="btn btn-primary form__button btn__solicitacao" value="Adicionar Imagem">
+        <button class="btn btn-primary form__button btn__solicitacao" (click)="handleEditarImagem()">
+          Adicionar Imagem
+        </button>
+        <span>{{nomeImagem}}</span>
       </div>
+
+
+      <input type="file" accept="image/*" (change)="onImgChange($event)" id="imagemFile" class="d-none">
 
       <div>
         <button (click)="solicitar()" class="btn btn-primary form__button btn__solicitacao">Solicitar
@@ -53,7 +58,7 @@
         <button (click)="cancelar()" class="btn btn-primary form__button-secondary btn__solicitacao">Cancelar</button>
       </div>
 
-  </div>
-</form>
+    </div>
+  </form>
 
 </main>

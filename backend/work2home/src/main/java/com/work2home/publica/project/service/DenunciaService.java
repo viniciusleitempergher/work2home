@@ -30,7 +30,7 @@ public class DenunciaService {
 	public void denunciar(DenunciaRequest denunciaRequest) {
 		
 		Usuario denunciador = jwt.getUserFromHeaderToken();
-		
+
 		denunciaRepository.findAll().forEach(d -> {
 			if(Objects.equals(d.getDenunciador().getId(), denunciador.getId()) && Objects.equals(d.getDenunciado().getId(),
 					denunciaRequest.getDenunciadoId())){
