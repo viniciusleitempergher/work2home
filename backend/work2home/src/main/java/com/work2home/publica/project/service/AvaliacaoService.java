@@ -41,7 +41,6 @@ public class AvaliacaoService {
 		avaliacaoJaExiste(usuario.getId(), os.getId(), os.getPrestador().getId());
 
 		avaliacaoRepository.save(avaliacaoDto.converter(usuarioRepository, os));
-
 	}
 
 	public void avaliarPrestador(Integer OrdemServicoId, @Valid AvaliarPrestadorDto avaliacaoDto) {

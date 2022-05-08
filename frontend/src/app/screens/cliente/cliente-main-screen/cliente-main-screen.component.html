@@ -1,12 +1,31 @@
 <header id="header_main__cliente">
+
   <div>
-    <a href="#">
+
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
       <img src="../../../assets/logo.svg" class="logo">
     </a>
 
+    <div id="sideBar" class="offcanvas offcanvas-start side-bar" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title color-secondary" id="offcanvasWithBackdropLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+
+        <nav>
+          <ul class="menu">
+            <li class="itens__menu">Temas</li>
+            <li class="itens__menu">Log Out</li>
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+
   </div>
 
-  <div id="perfil" routerLink="/perfil/{{usuario.id}}">
+  <div id="perfil" class="pointer" routerLink="/perfil/{{usuario.id}}">
     <div>{{nomeUsuario}}</div>
 
     <div id="imagem__perfil">
@@ -35,16 +54,16 @@
         </div>
     </div>
   </div>
-  <div class="hr__main pb-2 mb-3" id="servicos">
+  <div class="hr__main py-2 mt-4 mb-3" id="servicos">
 
     <div>
       Seus serviços
     </div>
 
-    <form [formGroup]="cadastroStatusForm">
+    <form>
 
-      <select class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
-        formControlName="cbxStatusServico" name="cbxStatusServico" [(ngModel)]="value">
+      <select id="cbxStatus" class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
+         name="cbxStatusServico" [(ngModel)]="cbxStatus">
         <option value="-1">Todos</option>
         <option value="0">Solicitados</option>
         <option value="1">Em orçamento</option>

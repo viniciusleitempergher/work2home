@@ -30,7 +30,7 @@ public class BrazilDateValidator implements ConstraintValidator<BrazilDate, Stri
 
 			if ((ano <= 1900 || ano > LocalDate.now().getYear()) || (mes <= 0 || mes > 12) || (dia <= 0 || dia > 31)) {
 				return false;
-			} else if (mes == 2 && ((!eBisexto && mes == 2 && dia > 28) || (eBisexto && dia > 29))) {
+			} else if (mes == 2 && (!eBisexto && dia > 28 || eBisexto && dia > 29)) {
 				return false;
 			} else if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia == 31) {
 				return false;
