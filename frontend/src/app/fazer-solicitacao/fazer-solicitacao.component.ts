@@ -29,6 +29,8 @@ export class FazerSolicitacaoComponent implements OnInit {
   prestadorId: number = 0;
   descricao: string = '';
 
+  nomeImagem: string = ""
+
   solicitacaoForm = new FormGroup({
     imagemSrc: new FormControl(),
   });
@@ -70,18 +72,19 @@ export class FazerSolicitacaoComponent implements OnInit {
       this.osr.prestadorId = this.prestadorId;
       this.osr.categoriaServicoId = this.categoriaId;
 
-      this.osService.cadastrar(this.osr, this.solicitacaoForm.get("imagemSrc")?.value);
+      this.osService.cadastrar(
+        this.osr,
+        this.solicitacaoForm.get('imagemSrc')?.value
+      );
 
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Solicitação realizada',
         showConfirmButton: false,
-        timer: 1500
-      })
+        timer: 1500,
+      });
       this.router.navigate(['cliente']);
-
-
     } catch (err: any) {
       Swal.fire('Erro!', err.message, 'error');
     }
@@ -90,6 +93,8 @@ export class FazerSolicitacaoComponent implements OnInit {
   onImgChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.nomeImagem = file.name
+      
       this.solicitacaoForm.patchValue({
         imagemSrc: file,
       });
@@ -102,5 +107,10 @@ export class FazerSolicitacaoComponent implements OnInit {
 
   cancelar() {
     this.router.navigate(['login']);
+  }
+
+  handleEditarImagem() {
+    let file = document.getElementById('imagemFile');
+    file?.click();
   }
 }

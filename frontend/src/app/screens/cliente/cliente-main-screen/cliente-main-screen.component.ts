@@ -22,17 +22,13 @@ export class ClienteMainScreenComponent implements OnInit {
   usuario: Usuario = new Usuario;
   fotoPerfilUsuario: string = "";
   nomeUsuario : string = ""
-
-  value: string = '';
+  cbxStatus: string = '';
 
   categoriaId : number = 0;
 
 
   isImageVisible : boolean = false
 
-  cadastroStatusForm = new FormGroup({
-    cbxStatusServico: new FormControl(null, Validators.required),
-  });
 
   constructor(
     private categoriaService: CategoriaService,
@@ -45,7 +41,7 @@ export class ClienteMainScreenComponent implements OnInit {
 
     this.usuario = await this.userService.getUserFromAccessToken();
     this.buscarCategorias();
-    this.value = '-1';
+    this.cbxStatus = '-1';
     this.getServicosByStatus();
     this.carregarInfoUsuario()
   }
@@ -53,7 +49,7 @@ export class ClienteMainScreenComponent implements OnInit {
   getServicosByStatus() {
     try {
       this.ordemService
-        .getAllByFilter(Number.parseInt(this.value))
+        .getAllByFilter(Number.parseInt(this.cbxStatus))
         .then((res) => {
           this.ordensServico = res;
         });
@@ -64,10 +60,6 @@ export class ClienteMainScreenComponent implements OnInit {
     this.categoriaService.getAll().then((res) => {
       this.categorias = res;
     });
-  }
-
-  setarCbx() {
-    this.cadastroStatusForm.get('cbxStatusServico')?.setValue('0');
   }
 
   carregarInfoUsuario(){
@@ -86,7 +78,7 @@ export class ClienteMainScreenComponent implements OnInit {
       } else {
         this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
       }
-      
+
     }
 
   }

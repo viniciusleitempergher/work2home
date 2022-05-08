@@ -23,7 +23,6 @@ public class AdminService implements CommandLineRunner {
 		Usuario usuario = dto.converter();
 		
 		usuario.setRole(Roles.ADMIN);
-				
 		usuarioRepository.save(usuario);
 	}
 

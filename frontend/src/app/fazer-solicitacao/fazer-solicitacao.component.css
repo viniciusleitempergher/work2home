@@ -18,13 +18,14 @@
   padding: 5px 55px;
   width: 100%;
   padding: 5px;
+  gap: 20px;
 }
 
 .prestador__nome{
   margin: 0;
 }
 
-#input-descricao{
+#input__descricao{
   max-height: 300px;
 }
 
@@ -33,9 +34,7 @@
   margin-top: 15px;
 }
 
-#add-image{
-  margin-bottom: 15px;
-}
+
 
 #alerta-vermelho{
   text-align: center;
