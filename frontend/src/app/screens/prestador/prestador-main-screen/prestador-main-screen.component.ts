@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
+import { OrdemServicoService } from 'src/app/services/ordem-servico.service';
+import { OrdemServicoResponse } from './../../../../models/OrdemServicoResponse';
 import { Component, OnInit } from '@angular/core';
-import { PrestadorService } from 'src/app/services/prestador.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
-import { Prestador } from 'src/models/Prestador';
 import { Usuario } from 'src/models/Usuario';
 
 @Component({
@@ -13,34 +14,55 @@ import { Usuario } from 'src/models/Usuario';
 export class PrestadorMainScreenComponent implements OnInit {
   isImageVisible: boolean = true;
   fotoPerfilUsuario: string = '';
-  user: Usuario = new Usuario();
+  usuario: Usuario = new Usuario;
   nomePrestador: string = '';
 
-  constructor(private usuarioService: UserService) { }
+
+  environment = environment;
+  ordensServico: OrdemServicoResponse[] = [];
+
+  cbxStatus: string = '';
+
+
+  constructor(
+    private ordemService: OrdemServicoService,
+    private userService : UserService,
+    private router: Router) { }
 
   async ngOnInit(): Promise<void> {
-    this.user = await this.usuarioService.getUserFromAccessToken();
+    this.usuario = await this.userService.getUserFromAccessToken();
     this.carregarInfoPrestador();
-    
+    this.cbxStatus = '-1';
+    this.getServicosByStatus();
+  }
 
+  getServicosByStatus() {
+    try {
+      this.ordemService
+        .getAllByFilter(Number.parseInt(this.cbxStatus))
+        .then((res) => {
+          this.ordensServico = res;
+        });
+    } catch (err) {}
   }
 
   carregarInfoPrestador() {
-    this.nomePrestador = "Bem vindo, " + this.user.nome;
+    this.nomePrestador = "Bem vindo, " + this.usuario.nome;
     this.carregarImagemPerfil();
 
   }
 
   carregarImagemPerfil() {
-    if (this.user.imagemUrl == null) {
+    if (this.usuario.imagemUrl == null) {
       this.isImageVisible = false;
     } else {
       this.isImageVisible = true;
-    }
-    
+    } 
+    this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
+  }
 
-
-    this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.user.imagemUrl;
+  logOut(){
+    localStorage.clear();
   }
 
 }
