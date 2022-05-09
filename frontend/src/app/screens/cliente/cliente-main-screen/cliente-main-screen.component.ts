@@ -82,4 +82,8 @@ export class ClienteMainScreenComponent implements OnInit {
     }
 
   }
+
+  logOut(){
+    localStorage.clear();
+  }
 }
