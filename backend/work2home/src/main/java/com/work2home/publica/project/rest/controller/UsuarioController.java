@@ -10,6 +10,7 @@ import com.work2home.publica.project.rest.dto.ImagemDto;
 import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.rest.dto.usuario.AlterarSenha;
+import com.work2home.publica.project.rest.dto.usuario.BanirUsuario;
 import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
 import com.work2home.publica.project.service.UsuarioService;
 import org.apache.commons.beanutils.BeanUtils;
@@ -43,6 +44,11 @@ public class UsuarioController {
 		return usuarioService.buscarUsuarios();
 	}
 	
+	@GetMapping("/{id}")
+	public UsuarioResponse buscaUsuarioId(@PathVariable Integer id) {
+		return usuarioService.buscarUsuarioId(id);
+	}
+	
 	@GetMapping("/me")
 	public UsuarioResponse getMe() throws IllegalAccessException, InvocationTargetException {
 		Usuario user = jwt.getUserFromHeaderToken();
@@ -69,6 +75,12 @@ public class UsuarioController {
 	public void alterarSenha(@RequestBody @Valid AlterarSenha alterarSenha){
 
 		usuarioService.alterarSenha(alterarSenha.getNovaSenha());
+	}
+	
+	@PatchMapping("/banir")
+	public void banirUsuario(@RequestBody @Valid BanirUsuario banirUsuario){
+		System.out.println(banirUsuario.getId());
+		usuarioService.banimentoUsuario(banirUsuario.getId());
 	}
 
 }

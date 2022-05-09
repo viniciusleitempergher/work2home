@@ -13,6 +13,7 @@ import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.DenunciaRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
+import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
 import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
@@ -45,5 +46,10 @@ public class DenunciaService {
 	
 	public List<Denuncia> buscarPorDenunciado(Integer denunciadoId){
 		return denunciaRepository.findByDenunciadoId(denunciadoId);
+	}
+
+	public List<DenunciaResponse> buscarDenunciaPorQtd() {
+
+		return denunciaRepository.findDenunciaPorQtd();
 	}
 }

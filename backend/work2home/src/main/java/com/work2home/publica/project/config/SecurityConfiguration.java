@@ -68,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			// requisicoes do admin
 			.antMatchers(HttpMethod.GET, "/endereco").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/usuario/*").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.PATCH, "/admin/*").hasAnyRole("ADMIN")

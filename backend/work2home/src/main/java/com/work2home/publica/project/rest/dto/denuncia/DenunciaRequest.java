@@ -26,7 +26,7 @@ public class DenunciaRequest {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 		
 		return Denuncia.builder()
-				.dataDeduncia(LocalDateTime.now())
+				.dataDenuncia(LocalDateTime.now())
 				.descricao(descricao)
 				.denunciado(denunciado)
 				.build();

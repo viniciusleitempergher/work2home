@@ -118,6 +118,9 @@ main {
 .pointer:hover {
     cursor: pointer;
 }
+.tituloBanir{
+font-size: 1rem !important;
+}
 
 .titles,
 .popus,

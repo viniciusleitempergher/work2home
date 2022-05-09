@@ -15,6 +15,17 @@ main {
 .navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-brand {
     color: var(--font-fourth);
 }
+.table-scrollable {
+    overflow-x: auto;
+    max-width: 600px;
+    box-shadow: inset 0 0 5px rgba(150, 150 ,150,0.35);
+    margin: auto;
+  }
+a{
+    text-decoration: none;
+    margin-left: 10px;
+    color: var(--font-fourth); 
+}
 .mouseMaozinha{
     cursor: pointer;
 }
