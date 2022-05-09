@@ -32,23 +32,23 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Nome</th>
                         <th>E-mail</th>
+                        <th>Data Nascimento</th>
                         <th>Telefone</th>
-                        <th>Estado</th>
-                        <th>Cidade</th>
-                        <th>Seleconar</th>
+                        <th>Cargo</th>
+                        <th>Selecionar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let u of usuarios; let i = index">
-                        <td>{{i+1}}</td>
+                        <td>{{u.id}}</td>
                         <td>{{u.nome}}</td>
                         <td>{{u.email}}</td>
-                        <td>{{u.email}}</td>
-                        <td>{{u.email}}</td>
-                        <td>{{u.email}}</td>
+                        <td>{{u.dtNascimento}}</td>
+                        <td>{{u.telefone}}</td>
+                        <td>{{u.role}}</td>
                         <td><button class="btn btn-secondary" (click)="selecionarPessoa(i)">Selecionar</button></td>
                     </tr>
                 </tbody>

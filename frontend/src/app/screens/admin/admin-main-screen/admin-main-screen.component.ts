@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-main-screen',
   templateUrl: './admin-main-screen.component.html',
-  styleUrls: ['./admin-main-screen.component.css']
+  styleUrls: ['./admin-main-screen.component.css'],
+  providers: [DatePipe] //DatePipe como provider
 })
 export class AdminMainScreenComponent implements OnInit {
   environment = environment;
@@ -29,7 +31,7 @@ export class AdminMainScreenComponent implements OnInit {
     imagemSrc: new FormControl()
   });
 
-  constructor(private userService: UserService, private adminService:AdminService, private router: Router, private categoriaService: CategoriaService) { }
+  constructor(private datePipe: DatePipe,private userService: UserService, private adminService:AdminService, private router: Router, private categoriaService: CategoriaService) { }
 
   async ngOnInit(): Promise<void> {
     this.usuarios = await this.userService.listarUsuarios();
@@ -104,5 +106,8 @@ export class AdminMainScreenComponent implements OnInit {
   }
   selecionarPessoa(i:number){
 
+  }
+  converteData = (data:string)=>{
+    return this.datePipe.transform(data, 'dd/MM/yyyy') as string
   }
 }
