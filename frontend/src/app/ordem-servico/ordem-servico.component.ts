@@ -1,3 +1,5 @@
+import { Usuario } from './../../models/Usuario';
+import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
 import { OrdemServicoService } from './../services/ordem-servico.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,19 +15,20 @@ export class OrdemServicoComponent implements OnInit {
 
 
   ordemServico : OrdemServicoResponse = new OrdemServicoResponse
+  usuario : Usuario = new Usuario
   imagem : string= ""
-  isFinalizado : boolean = false;
-  isEmOrcamento : boolean = false;
-  isSolicitado : boolean = false;
-  isEmAndamento : boolean = false;
+  status : string = ""
 
   thereIsImage : boolean = false;
 
+
   constructor( private route: ActivatedRoute,
     private router: Router,
-    private osService: OrdemServicoService) { }
+    private osService: OrdemServicoService,
+    private userService: UserService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.usuario = await this.userService.getUserFromAccessToken();
     this.getOrdemServico()
   }
 
@@ -35,35 +38,37 @@ export class OrdemServicoComponent implements OnInit {
       this.ordemServico = res
       this.imagem = environment.apiHostAddress + "/" + res.imagemUrl
 
-      console.log(res.imagemUrl)
-
-
-
       this.thereIsImage = !!res.imagemUrl
-
-      this.isFinalizado = res.status == "FINALIZADO";
-      this.isEmOrcamento = res.status == "EM_ORCAMENTO"
-
-      this.isSolicitado = res.status == "SOLICITADO";
-      this.isEmAndamento = res.status == "EM_ANDAMENTO"
+      this.status = res.status
     })
   }
-
-
 
   respostaOrcamento(aceitar : boolean){
 
     this.osService.responderOrcamento(aceitar, this.ordemServico.id)
 
-    this.isEmOrcamento = false;
-
     if(aceitar){
-      this.ordemServico.status = "EM_ANDAMENTO"
+      this.status = "EM_ANDAMENTO"
     }else{
-      this.ordemServico.status = "NEGADO"
+      this.status = "NEGADO"
     }
+  }
 
 
+  negarSolicitacao(){
+    this.osService.negarSolicitacao(this.ordemServico.id).then(() => {
+      this.status = 'NEGADO'
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  finalizarServico(){
+    this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
+      this.status = 'FINALIZADO'
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   existe(x: any){
@@ -72,6 +77,10 @@ export class OrdemServicoComponent implements OnInit {
 
   avaliar(){
 
+  }
+
+  logOut(){
+    localStorage.clear()
   }
 
 }

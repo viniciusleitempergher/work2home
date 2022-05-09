@@ -56,13 +56,11 @@ public class OrdemServicoController {
 	@PatchMapping("/{id}/aceitar-solicitacao")
 	public OrdemServicoResponse aceitarSolicitacao(@PathVariable Integer id,
 			@RequestBody @Valid SolicitacaoAcceptRequest acceptRequest) {
-
 		return service.aceitarSolicitacao(acceptRequest, id);
 	}
 
 	@PatchMapping("/{id}/negar-solicitacao")
 	public OrdemServicoResponse negarSolicitacao(@PathVariable Integer id) {
-
 		return service.negarSolicitacao(id);
 	}
 

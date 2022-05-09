@@ -28,6 +28,7 @@ import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente
 import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-prestador-screen/alterar-prestador-screen.component';
 import { OrdemServicoComponent } from './ordem-servico/ordem-servico.component';
 import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
+import { OrcamentoComponent } from './orcamento/orcamento.component';
 
 @NgModule({
 
@@ -52,6 +53,7 @@ import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
     AlterarPrestadorScreenComponent,
     OrdemServicoComponent,
     AvaliacaoComponent,
+    OrcamentoComponent,
   ],
   imports: [
     BrowserModule,

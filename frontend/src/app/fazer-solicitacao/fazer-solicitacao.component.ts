@@ -1,17 +1,13 @@
 import { OrdemServicoService } from 'src/app/services/ordem-servico.service';
 
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
 } from '@angular/forms';
-import { Usuario } from 'src/models/Usuario';
-import { UserService } from 'src/app/services/user.service';
 import { Prestador } from 'src/models/Prestador';
 import { PrestadorService } from 'src/app/services/prestador.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { OrdemServicoRequest } from 'src/models/OrdemServicoRequest';
 
@@ -94,7 +90,7 @@ export class FazerSolicitacaoComponent implements OnInit {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.nomeImagem = file.name
-      
+
       this.solicitacaoForm.patchValue({
         imagemSrc: file,
       });
