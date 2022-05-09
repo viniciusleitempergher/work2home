@@ -38,8 +38,8 @@ export class ClienteMainScreenComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void>{
-
     this.usuario = await this.userService.getUserFromAccessToken();
+
     this.buscarCategorias();
     this.cbxStatus = '-1';
     this.getServicosByStatus();

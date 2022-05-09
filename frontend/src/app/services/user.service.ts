@@ -3,12 +3,25 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/models/Usuario';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../screens/auth/login-screen/login-screen.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   constructor(private http: HttpClient) { }
+
+  refresh(): Observable<any> {
+    let unparsedToken = localStorage.getItem("refreshToken");
+
+    if (!unparsedToken) throw new Error;
+
+    let refreshToken = JSON.parse(unparsedToken);
+
+    return this.http.post(`${environment.apiHostAddress}/auth/refresh`, {
+        refreshToken
+    })
+  }
 
   login(email: string, senha: string) {
     return new Promise(resolve => {
@@ -30,10 +43,15 @@ export class UserService {
   }
   listarUsuarios(): Promise<Usuario[]> {
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario`).subscribe(response => {
-        resolve(response as Usuario[]);
-      })
-    })
+      infinito:while (true) {
+        try {
+          this.http.get(`${environment.apiHostAddress}/usuario`).subscribe(response => {
+            resolve(response as Usuario[]);
+          })
+        } catch (err) {
+          continue infinito;
+        }
+    }})
   }
 
   esqueceuSenha(email: string): Promise<void> {

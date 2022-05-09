@@ -13,10 +13,17 @@ export class AdminService {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/pdf');
     return new Promise(resolve => {
-        return this.http.get(`${environment.apiHostAddress}/relatorio/usuario`,
-         { headers: headers, responseType: 'blob' as 'json' })
-       .subscribe(response => {      
-                  resolve(response as any)});
+      // infinito: while (true) {
+        // try {
+          this.http.get(`${environment.apiHostAddress}/relatorio/usuario`,
+          { headers: headers, responseType: 'blob' as 'json' })
+          .subscribe(response => {
+            resolve(response as any);
+          });
+        // } catch (err) {
+        //   continue infinito;
+        // }
+      // }
     })
   }
 }

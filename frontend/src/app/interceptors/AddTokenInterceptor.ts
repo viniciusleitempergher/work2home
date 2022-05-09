@@ -3,15 +3,58 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpRequest,
+    HttpErrorResponse,
+    HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-    
-export class AddTokenInterceptor implements HttpInterceptor {
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let accessToken = JSON.parse(localStorage.getItem("accessToken") as any);        
-        
-        const clonedRequest = req.clone({ headers: req.headers.append('Authorization', `Bearer ${accessToken}`) });
+import { ErrorHandler, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, catchError, first, mergeMap, Observable, ObservableInput, Subject, switchMap, tap, throwError } from 'rxjs';
+import { UserService } from '../services/user.service';
 
-        return next.handle(clonedRequest);
+@Injectable()
+export class AddTokenInterceptor implements HttpInterceptor {
+    constructor(private userService: UserService, private router: Router) {}
+
+    refreshTokenInProgress = false;
+
+    logout() {
+        localStorage.clear();
+        this.router.navigate(["login"]);
+    }
+
+    isRefreshing = false;
+
+    handleResponseError(request?: any, next?: any): any {
+        this.isRefreshing = true;
+
+        return this.userService.refresh().pipe(
+            tap(responseData => {               
+                this.isRefreshing = false;
+                
+                localStorage.setItem("accessToken", JSON.stringify(responseData.accessToken));
+        
+                return next.handle(this.addTokenHeader(request));
+            }),
+            catchError(error => {
+                return error;
+            })
+        )
+    }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {
+        if (this.isRefreshing) return next.handle(request);
+
+        request = this.addTokenHeader(request);
+        
+        return next.handle(request).pipe(catchError(error => {                    
+            return this.handleResponseError(request, next);
+        }))
+    }
+
+    addTokenHeader(req: HttpRequest<any>) {
+        let accessToken = JSON.parse(localStorage.getItem("accessToken") as string);        
+        console.log(accessToken + " LOCAL");
+        
+        return req.clone({ headers: req.headers.append('Authorization', `Bearer ${accessToken}`) });
     }
 }

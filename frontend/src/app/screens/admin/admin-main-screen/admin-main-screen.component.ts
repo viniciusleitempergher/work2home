@@ -35,6 +35,7 @@ export class AdminMainScreenComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.usuarios = await this.userService.listarUsuarios();
+
     this.loadCategories();
   }
 
