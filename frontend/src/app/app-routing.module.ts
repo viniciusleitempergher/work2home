@@ -1,3 +1,4 @@
+import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
 import { OrdemServicoComponent } from './ordem-servico/ordem-servico.component';
 import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao.component';
 import { NgModule } from '@angular/core';
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'cliente/fazer-solicitacao/:categoriaId', component: FazerSolicitacaoComponent},
   {path: 'cliente/alterar', component: AlterarClienteScreenComponent},
   {path: 'ordem-servico/:id', component: OrdemServicoComponent},
+  {path: 'ordem-servico/:id/avaliacao', component: AvaliacaoComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
 
 ];

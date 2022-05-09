@@ -55,8 +55,8 @@ public class AvaliacaoService {
 		avaliacaoRepository.save(avaliacaoDto.converter(usuarioRepository, os));
 	}
 	
-	private void avaliacaoJaExiste(Integer avaliadorId, Integer odId, Integer avaliadorOsId) {
-		if (avaliacaoRepository.findByAvaliadorIdAndOrdemServicoId(avaliadorId, odId).isPresent()) {
+	private void avaliacaoJaExiste(Integer avaliadorId, Integer osId, Integer avaliadorOsId) {
+		if (avaliacaoRepository.findByAvaliadorIdAndOrdemServicoId(avaliadorId, osId).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT);
 		}
 		if (avaliadorId != avaliadorOsId) {
