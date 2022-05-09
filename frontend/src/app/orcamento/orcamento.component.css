@@ -1,0 +1,29 @@
+.form-orcamento {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 550px;
+  gap: 4px;
+}
+
+.form-orcamento .logo {
+  align-self: center;
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+main {
+  height: 100vh;
+  justify-content: space-around !important;
+  padding:  20px 45px 45px 45px;
+}
+.btn__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 550px;
+  margin-top: 10px;
+}

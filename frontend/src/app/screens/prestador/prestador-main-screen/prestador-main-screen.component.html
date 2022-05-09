@@ -1,12 +1,34 @@
 <header id="header_main__cliente">
-    <div>
+
+  <div>
+
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
       <img src="../../../assets/logo.svg" class="logo">
+    </a>
+
+    <div id="sideBar" class="offcanvas offcanvas-start side-bar" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title color-white" id="offcanvasWithBackdropLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+
+        <nav>
+          <ul class="menu">
+            <li class="itens__menu pointer">Temas</li>
+            <li class="itens__menu pointer"  routerLink="/" (click)="logOut()">Log Out</li>
+          </ul>
+        </nav>
+
+      </div>
     </div>
 
-    <div id="perfil">
-      <div routerLink="/perfil/{{user.id}}">{{nomePrestador}}</div>
+  </div>
 
-      <div id="imagem__perfil" routerLink="/perfil/{{user.id}}">
+    <div id="perfil">
+      <div routerLink="/perfil/{{usuario.id}}">{{nomePrestador}}</div>
+
+      <div id="imagem__perfil" routerLink="/perfil/{{usuario.id}}">
         <div *ngIf="isImageVisible">
               <img class="perfil__img" id="fotoPerfil"
                 src={{fotoPerfilUsuario}}>
@@ -20,31 +42,41 @@
   </header>
   <main>
 
-    <div class="hr__main pb-2 mb-3">
-      Categorias
-    </div>
-
-    <div class="container">
-
-    <div class="row">
-
-
-    </div>
-  </div>
-    <div class="hr__main pb-2 mb-3" id="servicos">
+    <div class="hr__main py-2 mt-4 mb-3" id="servicos">
 
       <div>
         Seus serviços
       </div>
 
+      <form>
 
-  </div>
+        <select id="cbxStatus" class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
+           name="cbxStatusServico" [(ngModel)]="cbxStatus">
+          <option value="-1">Todos</option>
+          <option value="0">Solicitados</option>
+          <option value="1">Em orçamento</option>
+          <option value="2">Em andamento</option>
+          <option value="3">Finalizados</option>
+          <option value="4">Negados</option>
+        </select>
+
+      </form>
+    </div>
 
     <div class="container">
 
       <div class="row">
 
-
+        <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  routerLink="/ordem-servico/{{os.id}}"
+         *ngFor="let os of ordensServico">
+          <div class="card">
+            <img src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{os.nomePrestador}}</h5>
+              <p>{{os.descricao}}</p>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

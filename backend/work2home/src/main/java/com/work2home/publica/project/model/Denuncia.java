@@ -31,7 +31,7 @@ public class Denuncia implements Serializable {
 	private String descricao;
 	
 	@Column(name = "data_denuncia")
-	private LocalDateTime dataDeduncia;
+	private LocalDateTime dataDenuncia;
 	
 	@Id
 	@JoinColumn(name = "denunciador_id", nullable = false)

@@ -147,7 +147,8 @@ public class OrdemServicoService {
 		}
 		if (os.getStatus() != StatusOrcamento.EM_ORCAMENTO) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		} else if (LocalDate.now().isAfter(os.getDataInicio())) {
+		}
+		if (LocalDate.now().isAfter(os.getDataInicio())) {
 			os.setStatus(StatusOrcamento.NEGADO);
 			repository.save(os);
 			throw new ResponseStatusException(HttpStatus.GONE);
@@ -169,11 +170,10 @@ public class OrdemServicoService {
 		if (os.getPrestador().getId() != usuario.getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
-		
 		if (os.getStatus() != StatusOrcamento.EM_ANDAMENTO) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-
-		} else if (LocalDate.now().isBefore(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
+		}
+		if (LocalDate.now().isBefore(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
 			throw new ResponseStatusException(HttpStatus.TOO_EARLY);
 		}
 		os.setStatus(StatusOrcamento.FINALIZADO);

@@ -8,15 +8,15 @@
 
     <div id="sideBar" class="offcanvas offcanvas-start side-bar" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title color-secondary" id="offcanvasWithBackdropLabel">Menu</h5>
+        <h5 class="offcanvas-title color-white" id="offcanvasWithBackdropLabel">Menu</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
 
         <nav>
           <ul class="menu">
-            <li class="itens__menu">Temas</li>
-            <li class="itens__menu">Log Out</li>
+            <li class="itens__menu pointer">Temas</li>
+            <li class="itens__menu pointer"  routerLink="/" (click)="logOut()">Log Out</li>
           </ul>
         </nav>
 
@@ -67,7 +67,7 @@
         <option value="-1">Todos</option>
         <option value="0">Solicitados</option>
         <option value="1">Em orçamento</option>
-        <option value="2">Em anamento</option>
+        <option value="2">Em andamento</option>
         <option value="3">Finalizados</option>
         <option value="4">Negados</option>
       </select>

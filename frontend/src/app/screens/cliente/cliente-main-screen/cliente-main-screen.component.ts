@@ -1,9 +1,7 @@
 import { Usuario } from 'src/models/Usuario';
 import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../../../models/OrdemServicoResponse';
-
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/models/Categoria';
@@ -23,12 +21,8 @@ export class ClienteMainScreenComponent implements OnInit {
   fotoPerfilUsuario: string = "";
   nomeUsuario : string = ""
   cbxStatus: string = '';
-
   categoriaId : number = 0;
-
-
   isImageVisible : boolean = false
-
 
   constructor(
     private categoriaService: CategoriaService,
@@ -78,8 +72,10 @@ export class ClienteMainScreenComponent implements OnInit {
       } else {
         this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
       }
-
     }
+  }
 
+  logOut(){
+    localStorage.clear();
   }
 }

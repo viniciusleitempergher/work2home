@@ -96,4 +96,16 @@ public class UsuarioService {
 				.map(c -> new UsuarioResponse(c))
 				.toList();
 	}
+
+	public UsuarioResponse buscarUsuarioId(Integer id) {
+		Usuario usuario = usuarioRepository
+				.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return new UsuarioResponse(usuario);
+	}
+
+	public void banimentoUsuario(String id) {
+		
+		
+	}
 }

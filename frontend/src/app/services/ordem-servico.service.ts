@@ -1,4 +1,4 @@
-import { OrdemServicoRequest } from './../../models/OrdemServicoRequest';
+import { OrdemServicoRequest } from '../../models/OrdemServicoRequest';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -60,9 +60,26 @@ export class OrdemServicoService {
     });
   }
 
+  aceitarSolicitacao(id: number, solicitacao : OrdemServicoRequest) : Promise<void> {
+    return new Promise((resolve) => {
+      this.http
+        .patch(`${environment.apiHostAddress}/ordem-servico/${id}/aceitar-solicitacao`,
+        solicitacao
+        )
+        .subscribe(() => resolve());
+    });
+  }
+
+  negarSolicitacao(id: number) : Promise<void> {
+    return new Promise((resolve) => {
+      this.http
+        .patch(`${environment.apiHostAddress}/ordem-servico/${id}/negar-solicitacao`, {})
+        .subscribe(() => resolve());
+    });
+  }
+
 
   responderOrcamento(aceitar : boolean, id : number) : Promise<void>{
-
     return new Promise((resolve) => {
       this.http
       .patch(`${environment.apiHostAddress}/ordem-servico/${id}/aceitar-orcamento`, {
@@ -73,4 +90,12 @@ export class OrdemServicoService {
     })
   }
 
+  finalizarOrcamento(id : number): Promise<void>{
+    return new Promise((resolve) => {
+      this.http
+      .patch(`${environment.apiHostAddress}/ordem-servico/${id}/finalizar-os`, {})
+      .subscribe(() => resolve());
+
+    })
+  }
 }
