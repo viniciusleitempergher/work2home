@@ -10,6 +10,8 @@ public class OrdemServicoResponse {
 	private Integer id;
 	private String nomeCliente;
 	private String nomePrestador;
+	private Integer clieteId;
+	private Integer prestadorId;
 	private String area;
 	private String descricao;
 	private String dataSolicitada;
@@ -25,6 +27,8 @@ public class OrdemServicoResponse {
 		this.imagemUrl = os.getImagemUrl();
 		this.nomeCliente = os.getEndereco().getCliente().getUsuario().getNome();
 		this.nomePrestador = os.getPrestador().getUsuario().getNome();
+		this.clieteId = os.getEndereco().getCliente().getId();
+		this.prestadorId = os.getPrestador().getId();
 		this.area = os.getCategoriaServico().getNome();
 		this.descricao = os.getDescricao();
 		
