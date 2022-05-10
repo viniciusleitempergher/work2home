@@ -30,9 +30,7 @@ export class UserService {
       this.http.post(`${environment.apiHostAddress}/auth/login`, {
         email,
         senha
-      }).pipe(
-        retry(15),
-      ).subscribe(response => {
+      }).subscribe(response => {
         resolve(response as LoginResponse);
       })
     })

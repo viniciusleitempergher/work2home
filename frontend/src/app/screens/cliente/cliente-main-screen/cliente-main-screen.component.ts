@@ -18,11 +18,8 @@ export class ClienteMainScreenComponent implements OnInit {
   environment = environment;
   ordensServico: OrdemServicoResponse[] = [];
   usuario: Usuario = new Usuario;
-  fotoPerfilUsuario: string = "";
-  nomeUsuario : string = ""
   cbxStatus: string = '';
   categoriaId : number = 0;
-  isImageVisible : boolean = false
 
   constructor(
     private categoriaService: CategoriaService,
@@ -37,7 +34,6 @@ export class ClienteMainScreenComponent implements OnInit {
     this.buscarCategorias();
     this.cbxStatus = '-1';
     this.getServicosByStatus();
-    this.carregarInfoUsuario()
   }
 
   getServicosByStatus() {
@@ -54,28 +50,5 @@ export class ClienteMainScreenComponent implements OnInit {
     this.categoriaService.getAll().then((res) => {
       this.categorias = res;
     });
-  }
-
-  carregarInfoUsuario(){
-    this.nomeUsuario ="Bem vindo, "+this.usuario.nome;
-    this.carregarImagemPerfil();
-  }
-
-  carregarImagemPerfil(){
-    if (this.usuario.imagemUrl == null) {
-      this.isImageVisible = false;
-    } else {
-      this.isImageVisible=true;
-
-      if ((this.usuario.imagemUrl as string).includes("https")) {
-        this.fotoPerfilUsuario = this.usuario.imagemUrl;
-      } else {
-        this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
-      }
-    }
-  }
-
-  logOut(){
-    localStorage.clear();
   }
 }
