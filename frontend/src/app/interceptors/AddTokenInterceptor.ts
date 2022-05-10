@@ -3,8 +3,6 @@ import {
     HttpInterceptor,
     HttpHandler,
     HttpRequest,
-    HttpErrorResponse,
-    HttpResponse,
 } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -28,11 +26,11 @@ export class AddTokenInterceptor implements HttpInterceptor {
         this.isRefreshing = true;
 
         return this.userService.refresh().pipe(
-            tap(responseData => {               
+            tap(responseData => {
                 this.isRefreshing = false;
-                
+
                 localStorage.setItem("accessToken", JSON.stringify(responseData.accessToken));
-        
+
                 return next.handle(this.addTokenHeader(request));
             }),
             catchError(error => {
@@ -45,15 +43,15 @@ export class AddTokenInterceptor implements HttpInterceptor {
         if (this.isRefreshing) return next.handle(request);
 
         request = this.addTokenHeader(request);
-        
-        return next.handle(request).pipe(catchError(error => {                    
+
+        return next.handle(request).pipe(catchError(error => {
             return this.handleResponseError(request, next);
         }))
     }
 
     addTokenHeader(req: HttpRequest<any>) {
-        let accessToken = JSON.parse(localStorage.getItem("accessToken") as string);        
-        
+        let accessToken = JSON.parse(localStorage.getItem("accessToken") as string);
+
         return req.clone({ headers: req.headers.append('Authorization', `Bearer ${accessToken}`) });
     }
 }
