@@ -48,6 +48,8 @@ export class UserService {
             resolve(response as Usuario[]);
           })
         } catch (err) {
+          console.log("KKKKKK");
+          
           resolve(await this.listarUsuarios())
         }
     })
