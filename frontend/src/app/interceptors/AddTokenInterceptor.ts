@@ -53,7 +53,6 @@ export class AddTokenInterceptor implements HttpInterceptor {
 
     addTokenHeader(req: HttpRequest<any>) {
         let accessToken = JSON.parse(localStorage.getItem("accessToken") as string);        
-        console.log(accessToken + " LOCAL");
         
         return req.clone({ headers: req.headers.append('Authorization', `Bearer ${accessToken}`) });
     }

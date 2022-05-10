@@ -42,16 +42,15 @@ export class UserService {
     })
   }
   listarUsuarios(): Promise<Usuario[]> {
-    return new Promise(resolve => {
-      infinito:while (true) {
+    return new Promise(async resolve => {
         try {
           this.http.get(`${environment.apiHostAddress}/usuario`).subscribe(response => {
             resolve(response as Usuario[]);
           })
         } catch (err) {
-          continue infinito;
+          resolve(await this.listarUsuarios())
         }
-    }})
+    })
   }
 
   buscarUsuarioId(id:number): Promise<Usuario> {
