@@ -1,0 +1,40 @@
+
+
+
+#input__comentario{
+  max-height: 200px;
+}
+
+body{text-align: center; padding-top: 50px}
+
+.estrelas{
+  display: flex;
+  gap: 5px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(100vh - 90px) ;
+
+}
+
+.btn{
+  width: 100%;
+}
+
+.estrelas input[type=radio] {
+  display: none;
+}
+.estrelas label i.fa{
+  font-size: 2.5em
+}
+.estrelas label i.fa:before {
+  content:'\f005';
+  color: var(--font-primary);
+}
+.estrelas input[type=radio]:checked ~ label i.fa:before {
+  color: #CCC;
+}

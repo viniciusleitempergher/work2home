@@ -43,9 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			//requisicoes avaliacao
 			.antMatchers("/avaliacao/prestador-avalia-cliente/*").hasAnyRole("PRESTADOR")
 			.antMatchers("/avaliacao/cliente-avalia-prestador/*").hasAnyRole("CLIENTE")
-				.antMatchers("/avaliacao/cliente-avalia-prestador/*").hasAnyRole("CLIENTE", "PRESTADOR")
+			.antMatchers(HttpMethod.GET, "/avaliacao/avaliacao-existe/*").hasAnyRole("CLIENTE", "PRESTADOR")
 
-			
 			//requisicoes denuncia
 			.antMatchers(HttpMethod.POST, "/denuncia").hasAnyRole("PRESTADOR", "CLIENTE")
 			.antMatchers(HttpMethod.GET, "/denuncia/*").hasAnyRole("ADMIN")
@@ -87,8 +86,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
 			.antMatchers(HttpMethod.GET, "/categoria").permitAll()
 			.antMatchers("/email/**").permitAll()
-				
-
 
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()
