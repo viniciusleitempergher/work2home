@@ -57,7 +57,7 @@ export class UserService {
 
   buscarUsuarioId(id:number): Promise<Usuario> {
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/${id}`).subscribe(response => {
+      this.http.get(`${environment.apiHostAddress}/usuario/denunciado/${id}`).subscribe(response => {
         resolve(response as Usuario);
       })
     })
@@ -101,12 +101,20 @@ export class UserService {
   }
   banimentoUsuario(id:number): Promise<void>{
     return new Promise(resolve => {
-      this.http.patch(`${environment.apiHostAddress}/usuario/banir`,{
+      this.http.patch(`${environment.apiHostAddress}/usuario/banimento`,{
         id: id
       }).subscribe(response => {
         resolve();
       })
     });
   }
+  cadastrarAdm(user:Usuario):Promise<Usuario>{
+      return new Promise(resolve => {
+        console.log(user)
+        this.http.post(`${environment.apiHostAddress}/admin`,
+          user
+        ).subscribe(response => resolve(response as Usuario))
+      })
+    }
 }
 

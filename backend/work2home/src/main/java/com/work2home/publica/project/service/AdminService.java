@@ -21,7 +21,8 @@ public class AdminService implements CommandLineRunner {
 	
 	public void cadastrar(UsuarioRequest dto) {
 		Usuario usuario = dto.converter();
-		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		usuario.setSenha(bcrypt.encode(dto.getSenha()));
 		usuario.setRole(Roles.ADMIN);
 		usuarioRepository.save(usuario);
 	}

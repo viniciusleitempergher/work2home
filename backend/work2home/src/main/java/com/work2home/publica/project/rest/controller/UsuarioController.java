@@ -44,7 +44,7 @@ public class UsuarioController {
 		return usuarioService.buscarUsuarios();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/denunciado/{id}")
 	public UsuarioResponse buscaUsuarioId(@PathVariable Integer id) {
 		return usuarioService.buscarUsuarioId(id);
 	}
@@ -77,9 +77,8 @@ public class UsuarioController {
 		usuarioService.alterarSenha(alterarSenha.getNovaSenha());
 	}
 	
-	@PatchMapping("/banir")
+	@PatchMapping("/banimento")
 	public void banirUsuario(@RequestBody @Valid BanirUsuario banirUsuario){
-		System.out.println(banirUsuario.getId());
 		usuarioService.banimentoUsuario(banirUsuario.getId());
 	}
 

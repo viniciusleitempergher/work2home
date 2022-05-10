@@ -62,6 +62,10 @@ public class PrestadorService {
 
 		return new PrestadorResponse(prestador);
 	}
+	
+	public boolean verificarPrestadorBanido(Integer id) {
+		return prestadorRepository.findById(id).isPresent();
+	}
 
 	@Transactional
 	public PrestadorResponse cadastrarPrestador(@Valid PrestadorRequest prestadorDto) {

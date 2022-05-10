@@ -70,10 +70,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			// requisicoes do admin
 			.antMatchers(HttpMethod.GET, "/endereco").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/cliente").hasAnyRole("ADMIN")
-			.antMatchers(HttpMethod.GET, "/usuario/banimento/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/usuario/denunciado/*").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.PATCH, "/admin/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.PATCH, "/usuario/banimento").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/categoria/*/imagem").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/categoria").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/categoria/*").hasAnyRole("ADMIN")
@@ -87,7 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
 			.antMatchers(HttpMethod.GET, "/categoria").permitAll()
 			.antMatchers("/email/**").permitAll()
-				
+			.antMatchers("/usuario/me").permitAll()	
 
 
 			// requisicoes do swegger

@@ -11,24 +11,34 @@
 main {
     height: 100vh;
     justify-content: space-between !important;
+    padding:  20px 45px 45px 45px;
+    
+
 }
-.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-brand {
+
+.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-brand {
     color: var(--font-fourth);
 }
+
 .table-scrollable {
     overflow-x: auto;
     max-width: 600px;
-    box-shadow: inset 0 0 5px rgba(150, 150 ,150,0.35);
+    box-shadow: inset 0 0 5px rgba(150, 150, 150, 0.35);
     margin: auto;
-  }
-a{
+}
+
+a {
     text-decoration: none;
     margin-left: 10px;
-    color: var(--font-fourth); 
+    color: var(--font-fourth);
 }
-.mouseMaozinha{
+
+.mouseMaozinha {
     cursor: pointer;
 }
+
 .form-categoria {
     display: flex;
     flex-direction: column;
@@ -68,4 +78,40 @@ a{
 
 .categoria__closebtn {
     align-self: flex-end;
+}
+
+.btn__ImagemCategoria {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.form-cadCliente {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 4px;
+
+}
+.btn__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 550px;
+    margin-top: 10px;
+}
+.teste{
+    width: 100% !important;
+    width: 290px !important;
+}
+.btn-mobile:focus{
+    box-shadow:none !important;
+}
+.btn-mobile{
+    border: none !important;
+}
+.icon-mobile{
+    color: var(--font-fourth);
+    font-size: 40px;
 }

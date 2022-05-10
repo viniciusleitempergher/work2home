@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
@@ -22,27 +22,46 @@ import Swal from 'sweetalert2';
 export class AdminMainScreenComponent implements OnInit {
   environment = environment;
 
+  usuarioAdm:Usuario = new Usuario();
+
   screenCategoria: boolean = false;
   screenUsuario: boolean = false;
 
   categorias: Categoria[] = [];
-  usuarios: Usuario[] = [];
   denuncias: DenunciaResponse[] = [];
   botaoBanir:string='Banir';
+  nomeImagem: string = ""
 
   categoriaForm = new FormGroup({
-    nome: new FormControl(),
-    imagem: new FormControl(),
-    imagemSrc: new FormControl()
+    nome: new FormControl(null, [Validators.required, Validators.minLength(1)]),
+    imagemSrc: new FormControl(null, [Validators.required])
+  });
+
+  emailInvalido = false;
+  nomeInvalido = false;
+  senhaInvalida = false;
+  telefoneInvalido = false;
+  dataNascimentoInvalida = false;
+
+  cadastroAdmForm= new FormGroup({
+    email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z0-9._-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    nomeAdm: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.pattern('^[a-zA-Zà-úÀ-Ú_ ]*$')]),
+    senha: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+    repetirSenha: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+    dataNascimento: new FormControl(null, [Validators.required]),
+    telefone: new FormControl(null,[Validators.required])
   });
 
   constructor(private denunciaService: DenunciaService, private datePipe: DatePipe, private userService: UserService, private adminService: AdminService, private router: Router, private categoriaService: CategoriaService) { }
 
   async ngOnInit(): Promise<void> {
-    this.denuncias = await this.denunciaService.getDenunciaPorQuatidade();
-    this.usuarios = await this.userService.listarUsuarios();
+    this.carregarDenuncias();
 
     this.loadCategories();
+  }
+
+  async carregarDenuncias(){
+    this.denuncias = await this.denunciaService.getDenunciaPorQuatidade();
   }
 
   redirectCategoriasPage() {
@@ -61,6 +80,8 @@ export class AdminMainScreenComponent implements OnInit {
   onImgChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.nomeImagem = file.name
+
       this.categoriaForm.patchValue({
         imagemSrc: file
       });
@@ -96,14 +117,24 @@ export class AdminMainScreenComponent implements OnInit {
   }
 
   async handleAddCategoria() {
+    if(this.categoriaForm.valid){
+
     let categoria: Categoria = await this.categoriaService.cadastrar(
       this.categoriaForm.value.nome, this.categoriaForm.get("imagemSrc")?.value
     );
-
-
     this.categorias.push(categoria);
+    this.limparCampos();
+    }else{
+      Swal.fire('Erro!', "Informe todos os campos!!!", 'error')
+    }
   }
+  
 
+  limparCampos(){
+    this.categoriaForm.get("imagemSrc")?.setValue("");
+    this.categoriaForm.get("nome")?.setValue("");
+    this.nomeImagem="";
+  }
 
   logout() {
     localStorage.clear();
@@ -130,14 +161,17 @@ export class AdminMainScreenComponent implements OnInit {
       title:await this.informacoesUsuario(usuariosDenunciado) ,
       showCancelButton: true,
       confirmButtonText: this.botaoBanir
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         this.userService.banimentoUsuario(usuariosDenunciado.id);
+        
         if(this.botaoBanir=="Banir"){
           Swal.fire('Usuário banido!', '', 'success')
         }else{
           Swal.fire('Usuário Desbanido!', '', 'success')
         }
+        await this.carregarDenuncias();
+        
         
       }
     })
@@ -157,6 +191,86 @@ export class AdminMainScreenComponent implements OnInit {
       informacoes+="\n- "+d.descricao;
     }
     return informacoes;
+  }
+
+  handleEditarImagem() {
+    let file = document.getElementById('imagemFile');
+    file?.click();
+  }
+  async cadastrarAdm() {
+    try {
+      this.validaEmail();
+      this.validaNome();
+      this.validaSenha();
+      this.validaDataNascimento();
+      this.validaTelefone();
+    } catch (e:any) {
+      Swal.fire('Erro!', e.message, 'error')
+    }
+    if (this.cadastroAdmForm.valid) {
+      await this.userService.cadastrarAdm(this.usuarioAdm);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Administrador Cadastrado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.cadastroAdmForm.reset();
+    }
+  }
+
+  cancelarAdm(){
+
+  }
+  validaEmail() {
+    if (!this.cadastroAdmForm.get('email')?.valid) {
+      this.emailInvalido = true;
+      throw new Error("Email inválido!");
+    }else{
+      this.usuarioAdm.email = this.cadastroAdmForm.value.email;
+      this.emailInvalido = false;
+    }
+  }
+  validaNome() {
+    if (!this.cadastroAdmForm.get('nomeAdm')?.valid) {
+      this.nomeInvalido = true;
+      throw new Error("Nome inválido!");
+    }else{
+      this.usuarioAdm.nome = this.cadastroAdmForm.value.nomeAdm;
+      this.nomeInvalido = false;
+    }
+  }
+  validaSenha() {
+    if (!this.cadastroAdmForm.get('senha')?.valid) {
+      this.senhaInvalida = true;
+      throw new Error("Senha inválida!");
+    }else if(this.cadastroAdmForm.get('senha')?.value!=this.cadastroAdmForm.get('repetirSenha')?.value){
+      this.senhaInvalida = true;
+      throw new Error("Senhas não conferem");
+    }else{
+      this.usuarioAdm.senha = this.cadastroAdmForm.value.senha;
+      this.senhaInvalida=false;
+    }
+
+  }
+  validaTelefone() {
+    if (!this.cadastroAdmForm.get('telefone')?.valid) {
+      this.telefoneInvalido=true;
+      throw new Error("Telefone inválido!");
+    }else{
+      this.usuarioAdm.telefone = this.cadastroAdmForm.value.telefone;
+      this.telefoneInvalido=false;
+    }
+  }
+  validaDataNascimento() {
+    if(this.datePipe.transform(this.cadastroAdmForm.get("dataNascimento")?.value, 'dd/MM/yyyy')==null){
+      this.dataNascimentoInvalida=true;
+      throw new Error("Informe a data");
+    }else{
+      this.usuarioAdm.dtNascimento = this.datePipe.transform(this.cadastroAdmForm.value.dataNascimento, 'dd/MM/yyyy') as string;
+      this.dataNascimentoInvalida=false;
+    }
   }
 
 }
