@@ -28,6 +28,12 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private PrestadorService prestadorService;
+	
+	@Autowired
 	private JwtUtil jwt;
 
 	public long quantidadeUsuario() {
@@ -104,7 +110,32 @@ public class UsuarioService {
 	}
 
 	public void banimentoUsuario(String id) {
+		Usuario usuario = usuarioRepository
+				.findById(Integer.parseInt(id))
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		if(verificaBanido(id)) {
+			usuario.setRole(buscarRoleBanido(Integer.parseInt(id)));
+		}else {			
+			usuario.setRole(Roles.BANIDO);						
+		}
+		usuarioRepository.save(usuario);
 		
-		
+	}
+	
+	public boolean verificaBanido(String id){
+		if(getRole(Integer.parseInt(id)).getRole()=="BANIDO"){
+			return true;
+		}		
+		return false;
+	}
+	
+	public Roles buscarRoleBanido(Integer id) {
+		if(clienteService.verificarClienteBanido(id)) {
+			return Roles.CLIENTE;
+		}
+		if(prestadorService.verificarPrestadorBanido(id)) {
+			return Roles.PRESTADOR;
+		}
+		return Roles.ADMIN;
 	}
 }

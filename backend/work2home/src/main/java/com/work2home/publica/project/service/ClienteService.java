@@ -47,6 +47,10 @@ public class ClienteService {
 		Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return new ClienteResponse(cliente);
 	}
+	
+	public boolean verificarClienteBanido(Integer id) {
+		return clienteRepository.findById(id).isPresent();
+	}
 
 	@Transactional
 	public void cadastrarCliente(ClienteRequest clienteDto) {
