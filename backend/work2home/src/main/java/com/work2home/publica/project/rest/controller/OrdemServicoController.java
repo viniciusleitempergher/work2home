@@ -30,11 +30,6 @@ public class OrdemServicoController {
 		return service.findAllByFilter(status);
 	}
 
-//	@GetMapping
-//	public List<OrdemServicoResponse> findAll() {
-//		return service.findAll();
-//	}
-
 	@GetMapping("/{id}")
 	public OrdemServicoResponse findById(@PathVariable Integer id) {
 		return service.buscarDtoPorId(id);

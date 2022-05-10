@@ -1,5 +1,6 @@
 package com.work2home.publica.project.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @IdClass(DenunciaId.class)
 public class Denuncia implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 6691799932343781245L;
 
 	@Column(name = "descricao", nullable = false)

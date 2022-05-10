@@ -30,6 +30,7 @@ public class OrdemServico {
 	private Integer id;
 	
 	@Column(name = "status_orcamento", nullable = false)
+	@Enumerated(value = EnumType.ORDINAL)
 	private StatusOrcamento status;
 	
 	@Column(name = "descricao", columnDefinition = "TEXT", nullable = false)

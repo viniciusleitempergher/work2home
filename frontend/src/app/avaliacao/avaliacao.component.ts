@@ -6,6 +6,7 @@ import { OrdemServicoService } from './../services/ordem-servico.service';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-avaliacao',
@@ -23,7 +24,7 @@ export class AvaliacaoComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute,
      private osService: OrdemServicoService, private avaliacaoService: AvaliacaoService,
-     private userService : UserService) { }
+     private userService : UserService, private location: Location) { }
 
   async ngOnInit(): Promise<void> {
     this.getOrdemServico()
@@ -47,10 +48,17 @@ export class AvaliacaoComponent implements OnInit {
   }
 
   avaliarUsuario(){
+    try{
     if(this.usuario.role == "CLIENTE"){
       this.avaliacaoService.clienteAvaliaPrestador(this.avaliacao, this.ordemServico.id)
     }else if(this.usuario.role == "PRESTADOR"){
       this.avaliacaoService.prestadorAvaliaCliente(this.avaliacao, this.ordemServico.id)
     }
+    this.location.back()
+
+  }catch(err){
+      console.log(err)
+    }
+
   }
 }

@@ -46,7 +46,6 @@ public class CategoriaController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Categoria cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
 		return categoriaService.cadastrarImagem(id, multipartFile);
-		
 	}
 	
 	@DeleteMapping("/{id}")

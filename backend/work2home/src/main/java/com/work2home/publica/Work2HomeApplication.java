@@ -13,5 +13,4 @@ public class Work2HomeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Work2HomeApplication.class, args);
 	}
-
 }
