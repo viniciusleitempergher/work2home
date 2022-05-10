@@ -117,5 +117,4 @@ public class RelatorioServico {
 
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
-
 }

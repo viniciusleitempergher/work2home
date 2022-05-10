@@ -1,5 +1,6 @@
 package com.work2home.publica.project.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @IdClass(AvaliacaoId.class)
 public class Avaliacao implements Serializable{
 	
+	@Serial
 	private static final long serialVersionUID = -3259431626478556888L;
 
 	@Column(name = "nota", nullable = false)
