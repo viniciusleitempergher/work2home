@@ -1,5 +1,5 @@
+import Swal  from 'sweetalert2';
 import { AvaliacaoService } from './../services/avaliacao.service';
-import { Avaliacao } from 'src/models/Avaliacao';
 import { Usuario } from './../../models/Usuario';
 import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
@@ -67,11 +67,21 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   finalizarServico(){
+
+    var listaData = this.ordemServico.dataInicio.split('/');
+    var dataFormatada = listaData[1] + '-' + listaData[0] + '-' +
+    listaData[2];
+
+    if(new Date(dataFormatada) > new Date){
+      Swal.fire('Erro!', "Muito cedo para finalizar", 'error')
+    }
+    else{
     this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
       this.status = 'FINALIZADO'
+      this.router.navigate(['avaliacao'])
     }).catch((err) => {
       console.log(err)
-    })
+    })}
   }
 
   verificarAvaliacao(osId : number){
@@ -89,4 +99,8 @@ export class OrdemServicoComponent implements OnInit {
     localStorage.clear()
   }
 
+  async relatorioOs(){
+    const fileURL = URL.createObjectURL(await this.osService.relatorioOs(this.ordemServico.id));
+    window.open(fileURL);
+  }
 }

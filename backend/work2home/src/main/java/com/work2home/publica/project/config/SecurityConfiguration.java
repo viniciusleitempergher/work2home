@@ -65,6 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/cliente/*").hasAnyRole("ADMIN", "CLIENTE", "PRESTADOR")	
 		    .antMatchers(HttpMethod.GET, "/prestador/*").hasAnyRole("ADMIN", "CLIENTE", "PRESTADOR")
 			.antMatchers(HttpMethod.POST, "/usuario/imagem").hasAnyRole("ADMIN", "CLIENTE", "PRESTADOR")
+			.antMatchers(HttpMethod.GET, "/relatorio/servico/*").hasAnyRole("ADMIN", "CLIENTE", "PRESTADOR")
 			
 			// requisicoes do admin
 			.antMatchers(HttpMethod.GET, "/endereco").hasAnyRole("ADMIN")
@@ -80,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 			// requisicoes abertas
+			.antMatchers(HttpMethod.GET, "/usuario/me").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
 			.antMatchers("/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/cliente").permitAll()

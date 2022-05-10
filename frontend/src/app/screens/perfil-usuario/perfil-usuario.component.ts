@@ -102,7 +102,7 @@ export class PerfilUsuarioComponent implements OnInit {
   carregarFoto() {
     if (!this.cliente.imagemUrl && !this.prestador.imagemUrl) {
       this.isImageVisible = false;
-    } else {      
+    } else {
       if ((this.cliente.imagemUrl).includes("https") || (this.prestador.imagemUrl).includes("https")) {
         this.fotoPerfilUsuario = this.cliente.imagemUrl ? this.cliente.imagemUrl : this.prestador.imagemUrl;
       } else {
@@ -142,14 +142,9 @@ export class PerfilUsuarioComponent implements OnInit {
     this.nome = this.prestador.nome;
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
-    this.prestador.mediaAvaliacao = 3.5;
+
     this.mediaAvaliacao(this.prestador.mediaAvaliacao);
-    this.av.comentario = "comentario 1 teste testetes tetestetestetestetestetes stetestetesteteste!!!";
-    this.av.nota = 5;
-    this.av2.comentario = "comentario 2 !!!";
-    this.av2.nota = 4;
-    this.prestador.avaliacoes.push(this.av);
-    this.prestador.avaliacoes.push(this.av2);
+
 
   }
 
