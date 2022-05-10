@@ -22,7 +22,7 @@ p{
   max-height: 300px;
   min-height: 200px;
   min-width: 200px;
-  
+
 }
 
 .menu{
@@ -36,7 +36,6 @@ p{
 i{
  font-size: 200px;
 }
-
 
 #informacoes{
   display: flex;
@@ -69,7 +68,6 @@ i{
   border-bottom: 2px solid var(--font-fourth);
   color: var(--font-fourth);
 }
-
 
 .color-white{
   color: var(--font-fourth);

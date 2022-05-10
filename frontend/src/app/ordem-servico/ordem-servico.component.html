@@ -85,10 +85,15 @@
     </div>
 
     <div class="btn" *ngIf="status == 'EM_ANDAMENTO' && usuario.role == 'PRESTADOR'">
-      <button class="btn btn-primary form__button" (click)="finalizarServico()" routerLink="avaliacao">
+      <button class="btn btn-primary form__button" (click)="finalizarServico()">
         Finalizar</button>
     </div>
 
+
+    <div class="btn" *ngIf="status == 'FINALIZADO'">
+      <button class="btn btn-primary form__button" (click)="relatorioOs()">
+        Gerar Relatório</button>
+    </div>
   </div>
 
 </main>
