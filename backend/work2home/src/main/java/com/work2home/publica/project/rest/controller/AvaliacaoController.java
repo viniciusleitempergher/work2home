@@ -28,8 +28,8 @@ public class AvaliacaoController {
 		service.avaliarPrestador(ordemServicoId, avaliacaoDto);
 	}
 
-	@GetMapping("{avaliadorId}/avalicao-existe/{ordemServicoId}")
-	public boolean avaliacaoExiste(@PathVariable Integer avaliadorId, @PathVariable Integer ordemServicoId){
-		return service.avaliacaoExiste(avaliadorId, ordemServicoId);
+	@GetMapping("/avaliacao-existe/{osId}")
+	public Boolean avaliacaoExiste(@PathVariable Integer osId){
+		return service.avaliacaoExiste(osId);
 	}
 }

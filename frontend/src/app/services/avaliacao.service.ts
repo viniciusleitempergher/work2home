@@ -14,13 +14,42 @@ export class AvaliacaoService {
     return new Promise((resolve) => {
       this.http
         .post(
-          `${environment.apiHostAddress}/avaliaca/prestador-avalia-cliente/${osId}`,
+          `${environment.apiHostAddress}/avaliacao/cliente-avalia-prestador/${osId}`,
           avaliacao
         ).pipe(
           retry(15),
         )
         .subscribe(() => {
           resolve();
+        });
+    });
+  }
+
+  prestadorAvaliaCliente(avaliacao: Avaliacao, osId:number): Promise<void> {
+    return new Promise((resolve) => {
+      this.http
+        .post(
+          `${environment.apiHostAddress}/avaliacao/prestador-avalia-cliente/${osId}`,
+          avaliacao
+        ).pipe(
+          retry(15),
+        )
+        .subscribe(() => {
+          resolve();
+        });
+    });
+  }
+
+  avaliacaoJaExiste(osId:number): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.http
+        .get(
+          `${environment.apiHostAddress}/avaliacao/avaliacao-existe/${osId}`
+        ).pipe(
+          retry(15),
+        )
+        .subscribe((res) => {
+          resolve(res as boolean);
         });
     });
   }

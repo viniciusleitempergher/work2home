@@ -1,8 +1,9 @@
 import { OrdemServicoRequest } from '../../models/OrdemServicoRequest';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, Pipe } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,8 @@ export class OrdemServicoService {
         .post(
           `${environment.apiHostAddress}/ordem-servico/solicitar`,
           solicitacao
+        ).pipe(
+          retry(15),
         )
         .subscribe((response) => {
           resolve(response as OrdemServicoResponse);
@@ -32,6 +35,8 @@ export class OrdemServicoService {
       .post(
         `${environment.apiHostAddress}/ordem-servico/${solicitacao.id}/imagem`,
         formData
+      ).pipe(
+        retry(15),
       )
       .subscribe();
   }
@@ -47,7 +52,9 @@ export class OrdemServicoService {
   getAllByFilter(status: number): Promise<OrdemServicoResponse[]> {
     return new Promise((resolve) => {
       this.http
-        .get(`${environment.apiHostAddress}/ordem-servico/filtro/${status}`)
+        .get(`${environment.apiHostAddress}/ordem-servico/filtro/${status}`).pipe(
+          retry(15),
+        )
         .subscribe((response) => resolve(response as OrdemServicoResponse[]));
     });
   }
@@ -55,7 +62,9 @@ export class OrdemServicoService {
   getById(id: number): Promise<OrdemServicoResponse> {
     return new Promise((resolve) => {
       this.http
-        .get(`${environment.apiHostAddress}/ordem-servico/${id}`)
+        .get(`${environment.apiHostAddress}/ordem-servico/${id}`).pipe(
+          retry(15),
+        )
         .subscribe((response) => resolve(response as OrdemServicoResponse));
     });
   }
@@ -65,6 +74,8 @@ export class OrdemServicoService {
       this.http
         .patch(`${environment.apiHostAddress}/ordem-servico/${id}/aceitar-solicitacao`,
         solicitacao
+        ).pipe(
+          retry(15),
         )
         .subscribe(() => resolve());
     });
@@ -73,18 +84,21 @@ export class OrdemServicoService {
   negarSolicitacao(id: number) : Promise<void> {
     return new Promise((resolve) => {
       this.http
-        .patch(`${environment.apiHostAddress}/ordem-servico/${id}/negar-solicitacao`, {})
+        .patch(`${environment.apiHostAddress}/ordem-servico/${id}/negar-solicitacao`, {}).pipe(
+          retry(15),
+        )
         .subscribe(() => resolve());
     });
   }
-
 
   responderOrcamento(aceitar : boolean, id : number) : Promise<void>{
     return new Promise((resolve) => {
       this.http
       .patch(`${environment.apiHostAddress}/ordem-servico/${id}/aceitar-orcamento`, {
         aceitar : aceitar
-      })
+      }).pipe(
+        retry(15),
+      )
       .subscribe(() => resolve());
 
     })
@@ -93,9 +107,27 @@ export class OrdemServicoService {
   finalizarOrcamento(id : number): Promise<void>{
     return new Promise((resolve) => {
       this.http
-      .patch(`${environment.apiHostAddress}/ordem-servico/${id}/finalizar-os`, {})
+      .patch(`${environment.apiHostAddress}/ordem-servico/${id}/finalizar-os`, {}).pipe(
+        retry(15),
+      )
       .subscribe(() => resolve());
 
     })
   }
+
+  relatorioOs(id : number): Promise<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return new Promise(resolve => {
+      this.http.get(`${environment.apiHostAddress}/relatorio/servico/${id}`,
+        { headers: headers, responseType: 'blob' as 'json' }).pipe(
+          retry(15),
+        )
+        .subscribe(response => {
+          resolve(response as any);
+        });
+    })
+  }
+
+
 }
