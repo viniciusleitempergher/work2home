@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Cliente } from 'src/models/Cliente';
 import { ClienteCadastro } from '../screens/cliente/cadastrar-cliente/cadastrar-cliente.component';
@@ -14,6 +15,8 @@ export class ClienteService {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/cliente`,
         cliente
+      ).pipe(
+        retry(15),
       ).subscribe(response => resolve(response as ClienteCadastro))
     })
   }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/models/Usuario';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../screens/auth/login-screen/login-screen.component';
-import { Observable } from 'rxjs';
+import { catchError, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,9 @@ export class UserService {
 
     return this.http.post(`${environment.apiHostAddress}/auth/refresh`, {
         refreshToken
-    })
+    }).pipe(
+      retry(15),
+    )
   }
 
   login(email: string, senha: string) {
@@ -28,23 +30,29 @@ export class UserService {
       this.http.post(`${environment.apiHostAddress}/auth/login`, {
         email,
         senha
-      }).subscribe(response => {
+      }).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve(response as LoginResponse);
       })
     })
   }
 
   getUserFromAccessToken(): Promise<Usuario> {
-    return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/me`).subscribe(response => {
-        resolve(response as Usuario);
-      })
+    return new Promise(async resolve => {
+        this.http.get(`${environment.apiHostAddress}/usuario/me`).pipe(
+          retry(15),
+        ).subscribe(response => {
+          resolve(response as Usuario);
+        })
     })
   }
   listarUsuarios(): Promise<Usuario[]> {
     return new Promise(async resolve => {
         try {
-          this.http.get(`${environment.apiHostAddress}/usuario`).subscribe(response => {
+          this.http.get(`${environment.apiHostAddress}/usuario`).pipe(
+            retry(15),
+          ).subscribe(response => {
             resolve(response as Usuario[]);
           })
         } catch (err) {
@@ -57,7 +65,9 @@ export class UserService {
 
   buscarUsuarioId(id:number): Promise<Usuario> {
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/${id}`).subscribe(response => {
+      this.http.get(`${environment.apiHostAddress}/usuario/${id}`).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve(response as Usuario);
       })
     })
@@ -67,7 +77,9 @@ export class UserService {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/email/resgatar-senha`, {
         email
-      }).subscribe(response => {
+      }).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve();
       })
     })
@@ -77,7 +89,9 @@ export class UserService {
     return new Promise(resolve => {
       this.http.patch(`${environment.apiHostAddress}/usuario/alterar-senha`, {
         novaSenha: senha
-      }).subscribe(response => {
+      }).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve();
       })
     })
@@ -88,14 +102,17 @@ export class UserService {
       const formData = new FormData();
       formData.append("image", imagem, imagem.name)
       this.http.post(`${environment.apiHostAddress}/usuario/imagem`, formData)
-        .subscribe(response => resolve(response as { imagemUrl: string }))
+      .pipe(
+        retry(15),
+      ).subscribe(response => resolve(response as { imagemUrl: string }))
     })
   }
   getUserRole(id: number): Promise<{ role: string }> {
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/${id}/get-role`).subscribe(response => {
+      this.http.get(`${environment.apiHostAddress}/usuario/${id}/get-role`).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve(response as { role: string });
-
       })
     });
   }
@@ -103,7 +120,9 @@ export class UserService {
     return new Promise(resolve => {
       this.http.patch(`${environment.apiHostAddress}/usuario/banir`,{
         id: id
-      }).subscribe(response => {
+      }).pipe(
+        retry(15),
+      ).subscribe(response => {
         resolve();
       })
     });
