@@ -1,7 +1,6 @@
 package com.work2home.publica.project.service;
 
 import com.work2home.publica.project.rest.dto.ImagemDto;
-import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
 import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
 import com.work2home.publica.project.rest.dto.usuario.UsuarioResponse;
 import com.work2home.publica.project.utils.FileUploadUtil;

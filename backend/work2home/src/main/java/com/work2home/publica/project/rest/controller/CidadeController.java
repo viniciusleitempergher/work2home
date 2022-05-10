@@ -26,10 +26,4 @@ public class CidadeController {
 	public void cadastrarCidade(@RequestBody @Valid CidadesPretadorRequest cidadesPretadorDto) {
 		cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
 	}
-	@PostMapping("/teste")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void cadastrarCidade(@RequestBody @Valid DenunciaRequest denunciaRequest) {
-		System.out.println(denunciaRequest);
-//		cidadeService.cadastrarCidadePrestador(cidadesPretadorDto);
-	}
 }

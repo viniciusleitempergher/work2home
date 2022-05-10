@@ -7,5 +7,4 @@ public class Formatador {
 	public static DateTimeFormatter getFormatter() {
 		return DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	}
-
 }

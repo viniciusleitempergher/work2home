@@ -17,7 +17,6 @@ import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
 import com.work2home.publica.project.service.DenunciaService;
 
-
 @RestController
 @RequestMapping("/denuncia")
 public class DenunciaController {
@@ -34,8 +33,7 @@ public class DenunciaController {
 	public List<DenunciaResponse> listaQtdDenuncia(){
 		return denunciaService.buscarDenunciaPorQtd();
 	}
-	
-	
+
 	@GetMapping("/{denunciadoId}")
 	public List<Denuncia> listarDenuncias(@PathVariable Integer denunciadoId){
 		return denunciaService.buscarPorDenunciado(denunciadoId);

@@ -29,6 +29,9 @@ import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-pre
 import { OrdemServicoComponent } from './ordem-servico/ordem-servico.component';
 import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
+import { ChangeThemeComponent } from './screens/change-theme/change-theme.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
 
@@ -54,6 +57,8 @@ import { OrcamentoComponent } from './orcamento/orcamento.component';
     OrdemServicoComponent,
     AvaliacaoComponent,
     OrcamentoComponent,
+    ChangeThemeComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,8 @@ import { OrcamentoComponent } from './orcamento/orcamento.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    StarRatingModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

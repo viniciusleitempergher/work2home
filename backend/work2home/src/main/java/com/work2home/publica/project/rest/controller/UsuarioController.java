@@ -62,13 +62,10 @@ public class UsuarioController {
 		return usuarioService.getRole(id);
 	}
 
-
-
 	@PostMapping("/imagem")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ImagemDto cadastrarImagem(@RequestParam("image") MultipartFile multipartFile) {
 		return usuarioService.cadastrarImagem(multipartFile);
-
 	}
 
 	@PatchMapping("/alterar-senha")
@@ -81,5 +78,4 @@ public class UsuarioController {
 	public void banirUsuario(@RequestBody @Valid BanirUsuario banirUsuario){
 		usuarioService.banimentoUsuario(banirUsuario.getId());
 	}
-
 }

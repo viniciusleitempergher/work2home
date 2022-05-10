@@ -44,7 +44,7 @@ public class EmailService {
     private String emailFrom;
 
 
-    public Email sendEmail(EmailRequest emailRequest) {
+    public void sendEmail(EmailRequest emailRequest) {
 
         String emailUsuario = emailRequest.getEmail();
 
@@ -75,17 +75,11 @@ public class EmailService {
         } catch (MailException e){
             email.setStatusEmail(StatusEmail.ERRO);
         } finally {
-
             usuarioRepository.save(usuario);
-            return emailRepository.save(email);
         }
     }
 
-
     private Email criarEmail(String emailTo, String token){
-
-
-
         return Email.builder()
                 .emailTo(emailTo)
                 .emailFrom(emailFrom)

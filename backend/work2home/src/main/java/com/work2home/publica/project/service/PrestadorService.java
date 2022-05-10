@@ -8,16 +8,13 @@ import javax.validation.Valid;
 import com.work2home.publica.project.model.*;
 import com.work2home.publica.project.repositores.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.rest.dto.prestador.PrestadorCompletarCadastroRequest;
-import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorFiltroResponse;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorRequest;
 import com.work2home.publica.project.rest.dto.prestador.PrestadorResponse;
@@ -25,7 +22,6 @@ import com.work2home.publica.project.enums.Roles;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.repositores.PrestadorRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
-import com.work2home.publica.project.repositores.specs.PrestadorSpecs;
 import com.work2home.publica.project.utils.Formatador;
 import com.work2home.publica.project.utils.JwtUtil;
 
@@ -161,7 +157,6 @@ public class PrestadorService {
 		prestadorRepository.save(prestador);
 	}
 
-
 	@Transactional
 	public void alterarPrestador(@Valid PrestadorRequest dto) {
 		Usuario usuario = jwt.getUserFromHeaderToken();
@@ -242,12 +237,8 @@ public class PrestadorService {
 	}
 
 	private static void ordenaPorMediaAvaliacao(List<PrestadorFiltroResponse> listaPessoas) {
-		
-		Collections.sort(listaPessoas, new Comparator<PrestadorFiltroResponse>() {
-			@Override
-			public int compare(PrestadorFiltroResponse p1, PrestadorFiltroResponse p2) {
-				return p2.getMediaAvaliacao().compareTo(p1.getMediaAvaliacao());
-			}
-		});
+		listaPessoas.sort(
+				 (PrestadorFiltroResponse p1, PrestadorFiltroResponse p2) ->
+						p2.getMediaAvaliacao().compareTo(p1.getMediaAvaliacao()));
 	}
 }

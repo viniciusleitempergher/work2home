@@ -23,9 +23,8 @@ public class EmailController {
 
     @PostMapping("/resgatar-senha")
     @ResponseStatus(HttpStatus.CREATED)
-    public Email enviarSenhaEmail(@RequestBody @Valid EmailRequest emailRequest) {
-
-        return emailService.sendEmail(emailRequest);
+    public void enviarSenhaEmail(@RequestBody @Valid EmailRequest emailRequest) {
+        emailService.sendEmail(emailRequest);
     }
 
     @GetMapping("/emails")

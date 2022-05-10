@@ -35,5 +35,6 @@ public class Email {
     private LocalDateTime dataEnvio;
 
     @Column(name = "status_email")
+    @Enumerated(value = EnumType.ORDINAL)
     private StatusEmail statusEmail;
 }

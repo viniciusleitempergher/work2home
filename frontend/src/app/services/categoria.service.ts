@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Categoria } from 'src/models/Categoria';
 
@@ -14,7 +15,9 @@ export class CategoriaService {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/categoria`, {
         nome
-      }).subscribe(response => resolve(response))
+      }).pipe(
+        retry(15),
+      ).subscribe(response => resolve(response))
     });
   }
 
@@ -24,7 +27,9 @@ export class CategoriaService {
       formData.append("image", imagem, imagem.name)
       
       this.http.post(`${environment.apiHostAddress}/categoria/${categoria.id}/imagem`, formData)
-        .subscribe(response => resolve(response as Categoria))
+        .pipe(
+          retry(15),
+        ).subscribe(response => resolve(response as Categoria))
     })
   }
 
@@ -39,28 +44,36 @@ export class CategoriaService {
 
   getAll():Promise<Categoria[]>{
     return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/categoria`)
+      this.http.get(`${environment.apiHostAddress}/categoria`).pipe(
+         retry(15),
+        )
         .subscribe(response => resolve(response as Categoria[]))
     })
   }
 
   deletar(id: number):Promise<void> {
     return new Promise(resolve => {
-      this.http.delete(`${environment.apiHostAddress}/categoria/${id}`)
+      this.http.delete(`${environment.apiHostAddress}/categoria/${id}`).pipe(
+          retry(15),
+        )
         .subscribe(response => resolve())
     })
   }
 
   cadastrarCategoria(id:number):Promise<void>{
     return new Promise(resolve => {
-      this.http.post(`${environment.apiHostAddress}/prestador/categoria/${id}`,{})
+      this.http.post(`${environment.apiHostAddress}/prestador/categoria/${id}`,{}).pipe(
+        retry(15),
+      )
       .subscribe(response => resolve())
     })
   }
   deletarCategoria(id: number):Promise<void> {
     console.log("teste"+id)
     return new Promise(resolve => {
-      this.http.delete(`${environment.apiHostAddress}/prestador/categoria/${id}`)
+      this.http.delete(`${environment.apiHostAddress}/prestador/categoria/${id}`).pipe(
+          retry(15),
+        )
         .subscribe(response => resolve())
     })
   }

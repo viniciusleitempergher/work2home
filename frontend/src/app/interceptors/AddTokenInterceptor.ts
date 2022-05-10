@@ -25,18 +25,13 @@ export class AddTokenInterceptor implements HttpInterceptor {
     handleResponseError(request?: any, next?: any): any {
         this.isRefreshing = true;
 
-        return this.userService.refresh().pipe(
-            tap(responseData => {
-                this.isRefreshing = false;
+        this.userService.refresh().subscribe(response => {
+            this.isRefreshing = false;
 
-                localStorage.setItem("accessToken", JSON.stringify(responseData.accessToken));
+            localStorage.setItem("accessToken", JSON.stringify(response.accessToken));
 
-                return next.handle(this.addTokenHeader(request));
-            }),
-            catchError(error => {
-                return error;
-            })
-        )
+            next.handle(this.addTokenHeader(request)).subscribe();
+        })
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<any> {

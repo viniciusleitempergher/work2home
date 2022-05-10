@@ -1,3 +1,5 @@
+import Swal  from 'sweetalert2';
+import { AvaliacaoService } from './../services/avaliacao.service';
 import { Usuario } from './../../models/Usuario';
 import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
@@ -18,14 +20,15 @@ export class OrdemServicoComponent implements OnInit {
   usuario : Usuario = new Usuario
   imagem : string= ""
   status : string = ""
+  jaAvaliado: boolean = false
 
   thereIsImage : boolean = false;
-
 
   constructor( private route: ActivatedRoute,
     private router: Router,
     private osService: OrdemServicoService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private avaliacaoService: AvaliacaoService) { }
 
   async ngOnInit(): Promise<void> {
     this.usuario = await this.userService.getUserFromAccessToken();
@@ -40,6 +43,7 @@ export class OrdemServicoComponent implements OnInit {
 
       this.thereIsImage = !!res.imagemUrl
       this.status = res.status
+      this.verificarAvaliacao(res.id)
     })
   }
 
@@ -54,7 +58,6 @@ export class OrdemServicoComponent implements OnInit {
     }
   }
 
-
   negarSolicitacao(){
     this.osService.negarSolicitacao(this.ordemServico.id).then(() => {
       this.status = 'NEGADO'
@@ -64,9 +67,26 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   finalizarServico(){
+
+    var listaData = this.ordemServico.dataInicio.split('/');
+    var dataFormatada = listaData[1] + '-' + listaData[0] + '-' +
+    listaData[2];
+
+    if(new Date(dataFormatada) > new Date){
+      Swal.fire('Erro!', "Muito cedo para finalizar", 'error')
+    }
+    else{
     this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
       this.status = 'FINALIZADO'
+      this.router.navigate(['avaliacao'])
     }).catch((err) => {
+      console.log(err)
+    })}
+  }
+
+  verificarAvaliacao(osId : number){
+    this.avaliacaoService.avaliacaoJaExiste(osId).then((res) =>
+    this.jaAvaliado = res).catch((err) => {
       console.log(err)
     })
   }
@@ -75,12 +95,12 @@ export class OrdemServicoComponent implements OnInit {
     return x != null
   }
 
-  avaliar(){
-
-  }
-
   logOut(){
     localStorage.clear()
   }
 
+  async relatorioOs(){
+    const fileURL = URL.createObjectURL(await this.osService.relatorioOs(this.ordemServico.id));
+    window.open(fileURL);
+  }
 }

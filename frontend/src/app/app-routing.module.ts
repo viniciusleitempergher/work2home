@@ -20,6 +20,7 @@ import { PrestadorCidadeScreenComponent } from './screens/prestador/prestador-ci
 import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main-screen/prestador-main-screen.component';
 import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente-screen/alterar-cliente-screen.component';
 import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-prestador-screen/alterar-prestador-screen.component';
+import { ChangeThemeComponent } from './screens/change-theme/change-theme.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'ordem-servico/:id', component: OrdemServicoComponent},
   {path: 'ordem-servico/:id/avaliacao', component: AvaliacaoComponent},
   {path: 'ordem-servico/:id/orcamento', component: OrcamentoComponent},
+  {path: 'tema', component: ChangeThemeComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
 ];
 
