@@ -29,7 +29,7 @@
 <main>
   <div id="imagem">
 
-    <img  *ngIf="thereIsImage" src="{{imagem}}" alt="imagem do serviço" class="rounded img-fluid" style="max-height: 300px;">
+    <img  *ngIf="thereIsImage" src="{{imagem}}" alt="imagem do serviço" id="imagemServico" class="rounded img-fluid">
     <i *ngIf="!thereIsImage" class="bi bi-card-image"></i>
 
   </div>
@@ -65,7 +65,7 @@
       <p><b>Valor: </b>R${{ordemServico.valor}}</p>
     </div>
 
-    <div class="btn" *ngIf="status == 'FINALIZADO' && usuario.role == 'CLIENTE'">
+    <div class="btn" *ngIf="status == 'FINALIZADO' && usuario.role == 'CLIENTE' && !jaAvaliado">
       <button class="btn btn-primary form__button" routerLink="avaliacao">
         Avaliar</button>
     </div>

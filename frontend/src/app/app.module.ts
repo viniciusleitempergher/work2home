@@ -29,6 +29,7 @@ import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-pre
 import { OrdemServicoComponent } from './ordem-servico/ordem-servico.component';
 import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
 
@@ -61,7 +62,8 @@ import { OrcamentoComponent } from './orcamento/orcamento.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    StarRatingModule.forRoot(),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

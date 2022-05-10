@@ -1,3 +1,5 @@
+import { AvaliacaoService } from './../services/avaliacao.service';
+import { Avaliacao } from 'src/models/Avaliacao';
 import { Usuario } from './../../models/Usuario';
 import { UserService } from 'src/app/services/user.service';
 import { OrdemServicoResponse } from './../../models/OrdemServicoResponse';
@@ -18,14 +20,15 @@ export class OrdemServicoComponent implements OnInit {
   usuario : Usuario = new Usuario
   imagem : string= ""
   status : string = ""
+  jaAvaliado: boolean = false
 
   thereIsImage : boolean = false;
-
 
   constructor( private route: ActivatedRoute,
     private router: Router,
     private osService: OrdemServicoService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private avaliacaoService: AvaliacaoService) { }
 
   async ngOnInit(): Promise<void> {
     this.usuario = await this.userService.getUserFromAccessToken();
@@ -40,6 +43,7 @@ export class OrdemServicoComponent implements OnInit {
 
       this.thereIsImage = !!res.imagemUrl
       this.status = res.status
+      this.verificarAvaliacao(res.id)
     })
   }
 
@@ -53,7 +57,6 @@ export class OrdemServicoComponent implements OnInit {
       this.status = "NEGADO"
     }
   }
-
 
   negarSolicitacao(){
     this.osService.negarSolicitacao(this.ordemServico.id).then(() => {
@@ -71,12 +74,15 @@ export class OrdemServicoComponent implements OnInit {
     })
   }
 
-  existe(x: any){
-    return x != null
+  verificarAvaliacao(osId : number){
+    this.avaliacaoService.avaliacaoJaExiste(osId).then((res) =>
+    this.jaAvaliado = res).catch((err) => {
+      console.log(err)
+    })
   }
 
-  avaliar(){
-
+  existe(x: any){
+    return x != null
   }
 
   logOut(){
