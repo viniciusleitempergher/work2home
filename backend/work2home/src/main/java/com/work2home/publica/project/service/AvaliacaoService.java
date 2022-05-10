@@ -63,4 +63,8 @@ public class AvaliacaoService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 	}
+
+    public boolean avaliacaoExiste(Integer avaliadorId, Integer ordemServicoId) {
+		return avaliacaoRepository.findByAvaliadorIdAndOrdemServicoId(avaliadorId, ordemServicoId).isPresent();
+    }
 }

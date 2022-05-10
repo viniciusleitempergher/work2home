@@ -5,12 +5,7 @@ import com.work2home.publica.project.rest.dto.avaliacao.AvaliarClienteDto;
 import com.work2home.publica.project.rest.dto.avaliacao.AvaliarPrestadorDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.work2home.publica.project.service.AvaliacaoService;
 
@@ -31,5 +26,10 @@ public class AvaliacaoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void avaliarPrestador(@PathVariable Integer ordemServicoId, @RequestBody @Valid AvaliarPrestadorDto avaliacaoDto) {
 		service.avaliarPrestador(ordemServicoId, avaliacaoDto);
+	}
+
+	@GetMapping("{avaliadorId}/avalicao-existe/{ordemServicoId}")
+	public boolean avaliacaoExiste(@PathVariable Integer avaliadorId, @PathVariable Integer ordemServicoId){
+		return service.avaliacaoExiste(avaliadorId, ordemServicoId);
 	}
 }
