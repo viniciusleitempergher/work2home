@@ -90,4 +90,7 @@
   border: none;
   background-color: transparent;
 }
+.div-descricao{
+  background-color: var(--background-secondary);
+}
 

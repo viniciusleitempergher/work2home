@@ -33,6 +33,8 @@ export class PerfilUsuarioComponent implements OnInit {
   isCliente: boolean = true;
   isImageVisible: boolean = true;
   starVazia: string = '../../../assets/star.svg';
+
+ 
   starMetade: string = '../../../assets/star-half.svg';
   starCheia: string = '../../../assets/star-fill.svg';
   usuarioPerfilId: number = +this.route.snapshot.params['usuarioId'];
@@ -43,7 +45,6 @@ export class PerfilUsuarioComponent implements OnInit {
   star4: string = this.starVazia;
   star5: string = this.starVazia;
 
-
   fotoPerfilUsuario: string = '';
   btnEditar: string = '';
 
@@ -53,7 +54,8 @@ export class PerfilUsuarioComponent implements OnInit {
 
   nome: string = '';
   email: string = '';
-  telefone: string = ''
+  telefone: string = '';
+  media =0;
 
   constructor(private denunciaService: DenunciaService, private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 
@@ -142,10 +144,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.nome = this.prestador.nome;
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
-    this.prestador.mediaAvaliacao = 3.5;
-    this.mediaAvaliacao(this.prestador.mediaAvaliacao);
-
-
+    this.media=this.prestador.mediaAvaliacao;
   }
 
   carregaDadosCliente() {
@@ -154,20 +153,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.telefone = this.cliente.telefone;
     this.cidadeCliente = this.cliente.cidade;
     this.estadoCliente = this.cliente.estado;
-    this.mediaAvaliacao(this.cliente.mediaAvaliacao);
-  }
-
-  mediaAvaliacao(media: number) {
-    if (media >= 0.5) this.star1 = this.starMetade;
-    if (media >= 1) this.star1 = this.starCheia;
-    if (media >= 1.5) this.star2 = this.starMetade;
-    if (media >= 2) this.star2 = this.starCheia;
-    if (media >= 2.5) this.star3 = this.starMetade;
-    if (media >= 3) this.star3 = this.starCheia;
-    if (media >= 3.5) this.star4 = this.starMetade;
-    if (media >= 4) this.star4 = this.starCheia;
-    if (media >= 4.5) this.star5 = this.starMetade;
-    if (media == 5) this.star5 = this.starCheia;
+    this.media=this.cliente.mediaAvaliacao;
   }
 
   denuncia() {

@@ -66,6 +66,9 @@ public class Usuario {
 	@JsonIgnore
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "denunciado")
+	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
 
 	@OneToMany(mappedBy = "denunciado")
 	private List<Denuncia> denunciasRecebidas = new ArrayList<>();

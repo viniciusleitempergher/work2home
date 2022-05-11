@@ -1,28 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
-
+@import '~css-star-rating/css/star-rating';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 * {
     box-sizing: border-box !important;
-
-    --background-primary: #F4EEE8;
-    --background-secondary: #FFEBC3;
-    --font-primary: #926D0F;
-    --font-secondary: #FCC129;
-    --font-thirdy: #D1A126;
-    --font-fourth: #FFFFFF;
 
     font-family: 'Rajdhani', sans-serif;
     font-weight: 500;
     color: var(--font-primary);
 }
 
-.logo {
-    width: 100px;
+:root {
+    --background-primary: #F4EEE8;
+    --background-secondary: #FFEBC3;
+    --font-primary: #926D0F;
+    --font-secondary: #FCC129;
+    --font-thirdy: #D1A126;
+    --font-fourth: #FFFFFF;
 }
-
 body {
     background-color: var(--background-primary) !important;
+}
+
+.logo {
+    height: 80px;
+    width: 80px;
 }
 
 main {

@@ -13,8 +13,6 @@ import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
 @Repository
 public interface DenunciaRepository extends JpaRepository<Denuncia, DenunciaId> {
 
-	List<Denuncia> findByDenunciadoId(Integer denunciadoId);
-
 	@Query(value = "SELECT NEW com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse"
 			+ "(de.id, COUNT(d) AS qtdDenuncias, de.nome, de.role)"
 			+ " FROM Denuncia d INNER JOIN d.denunciado de "

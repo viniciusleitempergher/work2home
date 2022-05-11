@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { Categoria } from 'src/models/Categoria';
 import { Denuncia } from 'src/models/dtos/Denuncia';
 import { DenunciaResponse } from 'src/models/dtos/DenunciaResponse';
+import { UsuarioDenuncia } from 'src/models/dtos/UsuarioDenuncia';
 import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 
@@ -137,14 +138,15 @@ export class AdminMainScreenComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     this.router.navigate(['/']);
+    window.location.href = "/login";
   }
   converteData = (data: string) => {
     return this.datePipe.transform(data, 'dd/MM/yyyy') as string
   }
  async verInformacao(i: number) {
-  let usuariosDenunciado:Usuario = await this.userService.buscarUsuarioId(i);
     
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -158,12 +160,12 @@ export class AdminMainScreenComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({
-      title:await this.informacoesUsuario(usuariosDenunciado) ,
+      title:await this.informacoesUsuario(i) ,
       showCancelButton: true,
       confirmButtonText: this.botaoBanir
     }).then(async (result) => {
       if (result.isConfirmed) {
-        this.userService.banimentoUsuario(usuariosDenunciado.id);
+        this.userService.banimentoUsuario(i);
         
         if(this.botaoBanir=="Banir"){
           Swal.fire('Usuário banido!', '', 'success')
@@ -177,17 +179,17 @@ export class AdminMainScreenComponent implements OnInit {
     })
   }
 
-  informacoesUsuario = async (usuariosDenuciado:Usuario) =>{
+  informacoesUsuario = async (i:number) =>{
     
-    let denuncias:Denuncia[] =await this.denunciaService.getDenunciasPorId(usuariosDenuciado.id);
-    this.botaoBanir = usuariosDenuciado.role=="BANIDO"?"Desbanir":"Banir"
-    let informacoes= "Nome: "+usuariosDenuciado.nome+
-    "\nE-mail: "+usuariosDenuciado.email+
-    "\nTelefone:"+usuariosDenuciado.telefone+
-    "\nCargo: "+usuariosDenuciado.role+
+    let usuarioDenuncias:UsuarioDenuncia =await this.denunciaService.getDenunciasPorId(i);
+    this.botaoBanir = usuarioDenuncias.cargo=="BANIDO"?"Desbanir":"Banir"
+    let informacoes= "Nome: "+usuarioDenuncias.nome+
+    "\nE-mail: "+usuarioDenuncias.email+
+    "\nTelefone:"+usuarioDenuncias.telefone+
+    "\nCargo: "+usuarioDenuncias.cargo+
     "\n\nDenúncias";
 
-    for(let  d of denuncias){
+    for(let  d of usuarioDenuncias.denuncias){
       informacoes+="\n- "+d.descricao+" , "
       +(this.datePipe.transform(d.dataDenuncia, 'dd/MM/yyyy'));
       
