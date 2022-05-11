@@ -188,7 +188,9 @@ export class AdminMainScreenComponent implements OnInit {
     "\n\nDenúncias";
 
     for(let  d of denuncias){
-      informacoes+="\n- "+d.descricao;
+      informacoes+="\n- "+d.descricao+" , "
+      +(this.datePipe.transform(d.dataDenuncia, 'dd/MM/yyyy'));
+      
     }
     return informacoes;
   }

@@ -72,7 +72,7 @@ public class AvaliacaoService {
     public Boolean avaliacaoExiste(Integer osId) {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
-
+		System.out.println(osId);
 		OrdemServico os = ordemServicoRepository.findById(osId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
