@@ -1,13 +1,11 @@
 package com.work2home.publica.project.rest.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,6 +45,7 @@ public class RelatorioServicoController {
 	private OrdemServicoRepository ordemServicoRepository;
 
 
+	@ApiOperation(value = "Gera um relatório de usuários em PDF")
 	@GetMapping("/usuario")
 	public ResponseEntity<byte[]> relatorioUsuario() throws JRException, IOException {
 
@@ -81,7 +79,8 @@ public class RelatorioServicoController {
 
 		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(data);
 	}
-	
+
+	@ApiOperation(value = "Gera um relatório de serviço por id em PDF")
 	@GetMapping("/servico/{id}")
 	public ResponseEntity<byte[]> relatorioServico(@PathVariable Integer id) throws JRException, IOException {
 
