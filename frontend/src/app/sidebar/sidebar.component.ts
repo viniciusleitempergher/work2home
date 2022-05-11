@@ -42,7 +42,8 @@ export class SidebarComponent implements OnInit {
   }
 
   logOut(){
-    localStorage.clear();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     this.router.navigate(["/"]);
     window.location.href = "/login";
   }

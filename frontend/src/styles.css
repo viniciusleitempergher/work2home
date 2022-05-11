@@ -5,6 +5,12 @@
 * {
     box-sizing: border-box !important;
 
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 500;
+    color: var(--font-primary);
+}
+
+:root {
     --background-primary: #F4EEE8;
     --background-secondary: #FFEBC3;
     --font-primary: #926D0F;
@@ -12,17 +18,19 @@
     --font-thirdy: #D1A126;
     --font-fourth: #FFFFFF;
 
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 500;
-    color: var(--font-primary);
+    --background-primary: #252525;
+    --background-secondary: #363636;
+    --font-primary: #f9f9f9;
+    --font-secondary: #d2d2d2;
+    --font-thirdy: #4b494e;
+    --font-fourth: #8e8e8f;
+}
+body {
+    background-color: var(--background-primary) !important;
 }
 
 .logo {
-    width: 100px;
-}
-
-body {
-    background-color: var(--background-primary) !important;
+    width: 80px;
 }
 
 main {

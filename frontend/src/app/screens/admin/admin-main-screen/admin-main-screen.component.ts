@@ -137,8 +137,10 @@ export class AdminMainScreenComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     this.router.navigate(['/']);
+    window.location.href = "/login";
   }
   converteData = (data: string) => {
     return this.datePipe.transform(data, 'dd/MM/yyyy') as string
