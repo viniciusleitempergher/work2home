@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.work2home.publica.project.model.Denuncia;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
+import com.work2home.publica.project.rest.dto.usuario.UsuarioDenunciasResponse;
 import com.work2home.publica.project.service.DenunciaService;
 
 @RestController
@@ -35,7 +36,7 @@ public class DenunciaController {
 	}
 
 	@GetMapping("/{denunciadoId}")
-	public List<Denuncia> listarDenuncias(@PathVariable Integer denunciadoId){
+	public UsuarioDenunciasResponse listarDenuncias(@PathVariable Integer denunciadoId){
 		return denunciaService.buscarPorDenunciado(denunciadoId);
 	}
 }

@@ -14,6 +14,7 @@ import com.work2home.publica.project.repositores.DenunciaRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
+import com.work2home.publica.project.rest.dto.usuario.UsuarioDenunciasResponse;
 import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
@@ -44,8 +45,10 @@ public class DenunciaService {
 		denunciaRepository.save(denuncia);
 	}
 	
-	public List<Denuncia> buscarPorDenunciado(Integer denunciadoId){
-		return denunciaRepository.findByDenunciadoId(denunciadoId);
+	public UsuarioDenunciasResponse buscarPorDenunciado(Integer denunciadoId){		
+		return new UsuarioDenunciasResponse
+				(usuarioRepository.findById(denunciadoId)
+						.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 	}
 
 	public List<DenunciaResponse> buscarDenunciaPorQtd() {
