@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Denuncia } from 'src/models/dtos/Denuncia';
 import { DenunciaResponse } from 'src/models/dtos/DenunciaResponse';
+import { UsuarioDenuncia } from 'src/models/dtos/UsuarioDenuncia';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,10 @@ export class DenunciaService {
       .subscribe(response => resolve(response as DenunciaResponse[]))
     } )
   }
-  getDenunciasPorId(id:number):Promise<Denuncia[]>{
+  getDenunciasPorId(id:number):Promise<UsuarioDenuncia>{
     return new Promise(resolve =>{
       this.http.get(`${environment.apiHostAddress}/denuncia/${id}`)
-      .subscribe(response => resolve(response as Denuncia[]))
+      .subscribe(response => resolve(response as UsuarioDenuncia))
     } )
   }
 }

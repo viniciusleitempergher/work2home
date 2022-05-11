@@ -39,11 +39,11 @@
             <label>{{telefone}}</label>
         </div>
         <div class="stars">
-            <img src={{star1}} alt="" srcset="">
-            <img src={{star2}} alt="" srcset="">
-            <img src={{star3}} alt="" srcset="">
-            <img src={{star4}} alt="" srcset="">
-            <img src={{star5}} alt="" srcset="">
+            <i class="estrela" [ngClass]="media < 0.5 ? 'bi bi-star' : media < 1 ?'bi bi-star-half':'bi bi-star-fill'" ></i>
+            <i class="estrela" [ngClass]="media < 1.5 ? 'bi bi-star' : media < 2 ?'bi bi-star-half':'bi bi-star-fill'" ></i>
+            <i class="estrela" [ngClass]="media < 2.5 ? 'bi bi-star' : media < 3 ?'bi bi-star-half':'bi bi-star-fill'" ></i>
+            <i class="estrela" [ngClass]="media < 3.5 ? 'bi bi-star' : media < 4 ?'bi bi-star-half':'bi bi-star-fill'" ></i>
+            <i class="estrela" [ngClass]="media < 4.5 ? 'bi bi-star' : media < 5 ?'bi bi-star-half':'bi bi-star-fill'" ></i>
         </div>
         <div class="infoPerfilPrestador" *ngIf="!isCliente">
             <div class="hr">
