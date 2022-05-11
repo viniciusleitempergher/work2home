@@ -142,7 +142,7 @@ export class PerfilUsuarioComponent implements OnInit {
     this.nome = this.prestador.nome;
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
-
+    this.prestador.mediaAvaliacao = 3.5;
     this.mediaAvaliacao(this.prestador.mediaAvaliacao);
 
 

@@ -19,6 +19,6 @@ public interface DenunciaRepository extends JpaRepository<Denuncia, DenunciaId> 
 			+ "(de.id, COUNT(d) AS qtdDenuncias, de.nome, de.role)"
 			+ " FROM Denuncia d INNER JOIN d.denunciado de "
 			+ "GROUP BY de.id ORDER BY qtdDenuncias DESC")
-	List<DenunciaResponse> findDenunciaPorQtd();
 
+	List<DenunciaResponse> findDenunciaPorQtd();
 }

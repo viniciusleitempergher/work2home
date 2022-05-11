@@ -67,6 +67,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 
+	@OneToMany(mappedBy = "denunciado")
+	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
+
 	public Double getMediaAvaliacao() {
 		Locale.setDefault(Locale.US);
 		if (avaliacoesRecebidas == null || avaliacoesRecebidas.isEmpty()) {
