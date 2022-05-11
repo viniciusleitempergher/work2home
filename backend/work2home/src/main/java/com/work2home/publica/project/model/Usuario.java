@@ -1,9 +1,10 @@
 package com.work2home.publica.project.model;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -58,14 +59,16 @@ public class Usuario {
 	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
 	private RefreshToken refreshToken;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "avaliado")
 	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 
 	public Double getMediaAvaliacao() {
-
+		Locale.setDefault(Locale.US);
 		if (avaliacoesRecebidas == null || avaliacoesRecebidas.isEmpty()) {
 			return 5.0;
 		} else {
@@ -73,16 +76,7 @@ public class Usuario {
 			for (Avaliacao a : avaliacoesRecebidas) {
 				cont += a.getNota();
 			}
-			return cont / avaliacoesRecebidas.size();
+			return Double.parseDouble(new DecimalFormat("0.00").format(cont/avaliacoesRecebidas.size()));
 		}
 	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", email=" + email + ", senha=" + senha + ", nome=" + nome + ", telefone="
-				+ telefone + ", imagemUrl=" + imagemUrl + ", dtNascimento=" + dtNascimento + ", dataCriacao="
-				+ dataCriacao + ", role=" + role + ", refreshToken=" + refreshToken + "]";
-	}
-	
-	
 }

@@ -12,21 +12,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
-//    @ExceptionHandler(CheckOutException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ApiErrors handleCheckOutException(CheckOutException ex){
-//        String messageError = ex.getMessage();
-//        return new ApiErrors(messageError);
-//
-//    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors hendleMethodNotValidException(MethodArgumentNotValidException ex){
         List<String> errors = ex.getBindingResult().getAllErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .collect(Collectors.toList());
+                .toList();
 
         return new ApiErrors(errors);
     }

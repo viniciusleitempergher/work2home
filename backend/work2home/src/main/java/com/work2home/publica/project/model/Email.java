@@ -36,5 +36,5 @@ public class Email {
 
     @Column(name = "status_email")
     @Enumerated(value = EnumType.ORDINAL)
-    private StatusEmail statusEmail;
+    private StatusEmail status;
 }

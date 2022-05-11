@@ -1,6 +1,7 @@
 package com.work2home.publica.project.rest.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 @RequestMapping("/relatorio")
-public class RelatorioServico {
+public class RelatorioServicoController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -49,6 +50,7 @@ public class RelatorioServico {
 
 	@GetMapping("/usuario")
 	public ResponseEntity<byte[]> relatorioUsuario() throws JRException, IOException {
+
 		long qdtUsuario = usuarioService.quantidadeUsuario();
 		long vetor[] = usuarioService.quantidadesCargos();
 		
@@ -68,7 +70,6 @@ public class RelatorioServico {
 		parameters.put("totalCliente",Long.toString(qtdCliente));
 		parameters.put("totalPrestador",Long.toString(qtdPrestador));
 		parameters.put("totalAdm",Long.toString(qtdAdm));
-		parameters.put("mediaAvaliacao",Long.toString(qtdAdm));
 
 		JasperPrint jasperPrint = JasperFillManager.fillReport("src/main/resources/relatorioServico/relatorioUsuario.jasper", parameters, beanCollectionDataSource);
 
