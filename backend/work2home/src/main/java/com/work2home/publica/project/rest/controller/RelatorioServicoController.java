@@ -50,9 +50,7 @@ public class RelatorioServicoController {
 
 	@GetMapping("/usuario")
 	public ResponseEntity<byte[]> relatorioUsuario() throws JRException, IOException {
-		DecimalFormat fmt = new DecimalFormat("0.00");      
-	    
-		
+
 		long qdtUsuario = usuarioService.quantidadeUsuario();
 		long vetor[] = usuarioService.quantidadesCargos();
 		
@@ -72,7 +70,6 @@ public class RelatorioServicoController {
 		parameters.put("totalCliente",Long.toString(qtdCliente));
 		parameters.put("totalPrestador",Long.toString(qtdPrestador));
 		parameters.put("totalAdm",Long.toString(qtdAdm));
-		parameters.put("mediaAvaliacao",fmt.format(qtdAdm));
 
 		JasperPrint jasperPrint = JasperFillManager.fillReport("src/main/resources/relatorioServico/relatorioUsuario.jasper", parameters, beanCollectionDataSource);
 

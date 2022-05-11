@@ -71,9 +71,9 @@ public class EmailService {
             message.setText(email.getTexto());
             emailSender.send(message);
 
-            email.setStatusEmail(StatusEmail.ENVAIDO);
+            email.setStatus(StatusEmail.ENVIADO);
         } catch (MailException e){
-            email.setStatusEmail(StatusEmail.ERRO);
+            email.setStatus(StatusEmail.ERRO);
         } finally {
             usuarioRepository.save(usuario);
         }

@@ -70,11 +70,11 @@ public class Verificacoes {
 		for (OrdemServico os : servicos) {
 
 			if (os.getStatus() == StatusOrcamento.SOLICITADO && plusThirdyBefore(os.getDataSolicitada())) {
-				os.setStatus(StatusOrcamento.NEGADO);
+				os.cancelar();
 				osRepository.save(os);
 
 			} else if(os.getStatus() == StatusOrcamento.EM_ORCAMENTO && os.getDataInicio().isBefore(LocalDate.now())) {
-				os.setStatus(StatusOrcamento.NEGADO);
+				os.cancelar();
 				osRepository.save(os);
 			} 
 			else if (os.getStatus() == StatusOrcamento.FINALIZADO && plusThirdyBefore(os.getDataFim())) {
