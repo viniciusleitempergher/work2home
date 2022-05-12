@@ -11,9 +11,4 @@ import com.work2home.publica.project.model.Endereco;
 public interface EnderecoRepository extends JpaRepository<Endereco, Integer>{
 
 	Optional<Endereco> findByClienteUsuarioId(Integer clienteId);
-
-	
-
-	
-
 }

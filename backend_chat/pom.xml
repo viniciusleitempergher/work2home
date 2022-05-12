@@ -3,7 +3,14 @@
   <groupId>com.work2home.chat</groupId>
   <artifactId>com.work2home.chat</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
   <name>work2home_chat</name>
   <description>work2home socket io server</description>
+  <packaging>war</packaging>
+  <dependencies>
+  	<dependency>
+	 <groupId>com.corundumstudio.socketio</groupId>
+	 <artifactId>netty-socketio</artifactId>
+	 <version>1.7.19</version>
+	</dependency>
+  </dependencies>
 </project>

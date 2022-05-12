@@ -4,6 +4,7 @@ import com.work2home.publica.project.model.Email;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.service.EmailService;
 import com.work2home.publica.project.service.UsuarioService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +22,16 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
+    @ApiOperation(value = "Envia um email para o usuário com uma url para acessar a alteração de senha")
     @PostMapping("/resgatar-senha")
     @ResponseStatus(HttpStatus.CREATED)
     public void enviarSenhaEmail(@RequestBody @Valid EmailRequest emailRequest) {
         emailService.sendEmail(emailRequest);
     }
 
+    @ApiOperation(value = "Lista todos os emails")
     @GetMapping("/emails")
-    public Page<Email> getAllEmails(@PageableDefault(page = 0, size = 5, sort = "emailId", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<Email> listarEmails(@PageableDefault(page = 0, size = 5, sort = "emailId", direction = Sort.Direction.DESC) Pageable pageable){
         return emailService.findAll(pageable);
     }
 }

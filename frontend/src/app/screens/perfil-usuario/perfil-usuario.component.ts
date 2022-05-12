@@ -29,15 +29,12 @@ export class PerfilUsuarioComponent implements OnInit {
   av: Avaliacao = new Avaliacao();
   av2: Avaliacao = new Avaliacao();
 
-  
-
   isVisible: boolean = true;
   isCliente: boolean = true;
   isImageVisible: boolean = true;
   starVazia: string = '../../../assets/star.svg';
 
-
-  
+ 
   starMetade: string = '../../../assets/star-half.svg';
   starCheia: string = '../../../assets/star-fill.svg';
   usuarioPerfilId: number = +this.route.snapshot.params['usuarioId'];
@@ -47,7 +44,6 @@ export class PerfilUsuarioComponent implements OnInit {
   star3: string = this.starVazia;
   star4: string = this.starVazia;
   star5: string = this.starVazia;
-
 
   fotoPerfilUsuario: string = '';
   btnEditar: string = '';
@@ -149,8 +145,6 @@ export class PerfilUsuarioComponent implements OnInit {
     this.email = this.prestador.email;
     this.telefone = this.prestador.telefone;
     this.media=this.prestador.mediaAvaliacao;
-
-
   }
 
   carregaDadosCliente() {
@@ -160,7 +154,6 @@ export class PerfilUsuarioComponent implements OnInit {
     this.cidadeCliente = this.cliente.cidade;
     this.estadoCliente = this.cliente.estado;
     this.media=this.cliente.mediaAvaliacao;
-   
   }
 
   denuncia() {
