@@ -8,17 +8,17 @@
       </label>
       <label for="input-text" class="form__label-orcamento">
           Tempo estimado em dias:
-          <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="99999999" (change)="validaTempoEstimado()" [class.form__input-invalid]="tempoEstimadoInvalido" name="tempoEstimado" formControlName="tempoEstimado" class="form-control form__input form__input-orcamento" id="input-tempoEstimado">
+          <input type="text" mask="separator." thousandSeparator="" separatorLimit="99999" (change)="validaTempoEstimado()" [class.form__input-invalid]="tempoEstimadoInvalido" name="tempoEstimado" formControlName="tempoEstimado" class="form-control form__input form__input-orcamento" id="input-tempoEstimado">
       </label>
 
       <label for="input-text" class="form__label-orcamento">
           Valor:
-          <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="99999999" (change)="validaValor()" [class.form__input-invalid]="valorInvalido" name="valor" formControlName="valor" class="form-control form__input form__input-orcamento" id="input-valor">
+          <input type="text" mask="separator.2" thousandSeparator="" separatorLimit="999999" (change)="validaValor()" [class.form__input-invalid]="valorInvalido" name="valor" formControlName="valor" class="form-control form__input form__input-orcamento" id="input-valor">
       </label>
 
   </form>
   <div class="btn__wrapper">
-      <button  (click)="enviarOrcamento()"class="btn btn-primary form__button">Cadastrar</button>
+      <button  (click)="enviarOrcamento()"class="btn btn-primary form__button">Enviar</button>
       <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
   </div>
 </main>

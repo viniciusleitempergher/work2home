@@ -11,7 +11,7 @@
       <div class="prestador" *ngFor="let p of prestadores">
 
         <div id="informacao__prestador" class="pointer" routerLink="/perfil/{{p.id}}">
-          <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao.toFixed(2)}}</h5>
+          <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao}}</h5>
           <i style="display: inline;" class="bi bi-star-fill"></i>
         </div>
 

@@ -1,7 +1,6 @@
 package com.work2home.publica.project.rest.dto.usuario;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.utils.Formatador;
 import com.work2home.publica.project.validation.BrazilDate;

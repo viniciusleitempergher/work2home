@@ -1,29 +1,4 @@
 <app-sidebar></app-sidebar>
-<header id="header_main__cliente">
-
-  <div>
-
-    <div id="sideBar" class="offcanvas offcanvas-start side-bar" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title color-white" id="offcanvasWithBackdropLabel">Menu</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-
-        <nav>
-          <ul class="menu">
-            <li class="itens__menu pointer">Temas</li>
-            <li class="itens__menu pointer"  routerLink="/" (click)="logOut()">Log Out</li>
-            <li class="itens__menu pointer"  routerLink="/">Home</li>
-          </ul>
-        </nav>
-
-      </div>
-    </div>
-  </div>
-
-</header>
-
 <main>
   <div id="imagem">
 
@@ -39,15 +14,15 @@
     </div>
 
     <div>
-      <p><b>Cliente:</b> {{ordemServico.nomeCliente}}</p>
-      <p><b>Prestador:</b> {{ordemServico.nomePrestador}}</p>
+      <p class="pointer" routerLink="/perfil/{{ordemServico.clienteId}}"><b>Cliente:</b> {{ordemServico.nomeCliente}}</p>
+      <p class="pointer" routerLink="/perfil/{{ordemServico.prestadorId}}"><b>Prestador:</b> {{ordemServico.nomePrestador}}</p>
     </div>
 
     <div>
       <p><b>Area: </b>{{ordemServico.area}}</p>
     </div>
 
-    <div>
+    <div class="informacao__wrapper">
       <p><b>Descrição:</b></p>
       <p>{{ordemServico.descricao}}</p>
     </div>

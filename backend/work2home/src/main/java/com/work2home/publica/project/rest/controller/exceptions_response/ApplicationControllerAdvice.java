@@ -13,12 +13,12 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiErrors hendleMethodNotValidException(MethodArgumentNotValidException ex){
-        List<String> errors = ex.getBindingResult().getAllErrors()
+    public ApiErros hendleMethodNotValidException(MethodArgumentNotValidException ex){
+        List<String> erros = ex.getBindingResult().getAllErrors()
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
 
-        return new ApiErrors(errors);
+        return new ApiErros(erros);
     }
 }
