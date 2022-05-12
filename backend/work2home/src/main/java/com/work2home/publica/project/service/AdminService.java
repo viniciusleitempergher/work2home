@@ -41,11 +41,10 @@ public class AdminService implements CommandLineRunner {
 		}
 		
 		if (!hasAnAdmin) {
-			BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-			
 			UsuarioRequest usuarioDto = UsuarioRequest.builder().nome("admin")
-					.email("admin").senha(bcrypt.encode("admin")).dtNascimento("07/01/2004")
+					.email("admin").senha("admin").dtNascimento("07/01/2004")
 					.telefone("4712341234").build();
+
 			cadastrar(usuarioDto);
 		}
 	}

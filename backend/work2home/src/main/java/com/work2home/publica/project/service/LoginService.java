@@ -97,6 +97,7 @@ public class LoginService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
 		
 		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		
 		if (!bcrypt.matches(request.getSenha(), usuario.getSenha())) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 			
 		removerInatividade(usuario);

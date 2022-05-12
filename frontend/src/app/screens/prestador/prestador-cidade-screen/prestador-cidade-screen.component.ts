@@ -63,7 +63,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'Endereço Cadastrado!',
+      title: 'Cidade Adicionada!',
       showConfirmButton: false,
       timer: 1500
     })

@@ -78,7 +78,7 @@ export class CadastrarEnderecoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Endereço Cadastrado!',
+        title: 'Endereço atualizado!',
         showConfirmButton: false,
         timer: 1500
       })
