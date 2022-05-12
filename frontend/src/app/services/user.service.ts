@@ -61,17 +61,6 @@ export class UserService {
     })
   }
 
-  buscarUsuarioId(id:number): Promise<Usuario> {
-    return new Promise(resolve => {
-      this.http.get(`${environment.apiHostAddress}/usuario/denunciado/${id}`).pipe(
-        retry(15),
-      ).subscribe(response => {
-
-        resolve(response as Usuario);
-      })
-    })
-  }
-
   esqueceuSenha(email: string): Promise<void> {
     return new Promise(resolve => {
       this.http.post(`${environment.apiHostAddress}/email/resgatar-senha`, {
