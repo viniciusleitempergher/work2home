@@ -38,7 +38,7 @@
     font-size: 20px;
     font-weight: bold;
 }
-.perfil__closebtn{
+.btn__features{
     position: absolute;
     right: 0;
     margin-right:20px;
@@ -112,5 +112,8 @@ input[type='file']{
 }
 .estrela{
     font-size: 20px;
+}
+.btn__voltar{
+    font-size: 30px;
 }
 

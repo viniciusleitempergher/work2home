@@ -1,6 +1,9 @@
 <div class="perfils">
     <div class="perfil">
-        <div class="btnDenuncia" *ngIf="!isVisible">
+        <div class="btnDenuncia">
+            <i class="bi bi-arrow-left-circle btn__voltar" (click)="voltarPagina()"></i>
+        </div>
+        <div class="btn__features" *ngIf="!isVisible">
             <svg xmlns="http://www.w3.org/2000/svg" (click)="denuncia()" width="25" height="25" fill="currentColor"
                 class="bi bi-exclamation-triangle pointer" viewBox="0 0 16 16">
                 <path
@@ -9,7 +12,7 @@
                     d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
             </svg>
         </div>
-        <div class="perfil__closebtn" id="btnEditarPerfil" *ngIf="isVisible" routerLink="{{btnEditar}}">
+        <div class="btn__features" id="btnEditarPerfil" *ngIf="isVisible" routerLink="{{btnEditar}}">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gear pointer"
                 viewBox="0 0 16 16">
                 <path

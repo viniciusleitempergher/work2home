@@ -45,6 +45,7 @@ export class OrdemServicoComponent implements OnInit {
       this.status = res.status
       this.verificarAvaliacao(res.id)
     })
+    
   }
 
   respostaOrcamento(aceitar : boolean){

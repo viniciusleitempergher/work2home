@@ -12,6 +12,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import Swal from 'sweetalert2';
 import { DenunciaService } from 'src/app/services/denuncia.service';
 import { Denuncia } from 'src/models/dtos/Denuncia';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -57,7 +58,7 @@ export class PerfilUsuarioComponent implements OnInit {
   telefone: string = '';
   media =0;
 
-  constructor(private denunciaService: DenunciaService, private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
+  constructor(private location: Location, private denunciaService: DenunciaService, private route: ActivatedRoute, private usuarioService: UserService, private clienteService: ClienteService, private prestadorService: PrestadorService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -186,6 +187,10 @@ export class PerfilUsuarioComponent implements OnInit {
         this.denunciaService.cadastrarDenuncia(denuncia);
       }
     })
+  }
+
+  voltarPagina(){
+    this.location.back()
   }
 
 }
