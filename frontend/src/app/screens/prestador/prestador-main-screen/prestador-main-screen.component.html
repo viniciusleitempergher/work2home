@@ -29,14 +29,16 @@
       <div class="col-md-4 col-lg-3 col-sm-6 mb-3 pointer"  routerLink="/ordem-servico/{{os.id}}"
         *ngFor="let os of ordensServico">
         <div class="card div-descricao">
-          <img src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" alt="...">
+          <div class="imagem__div">
+          <img *ngIf="os.imagemUrl" src="{{environment.apiHostAddress + '/' + os.imagemUrl}}" class="img-fluid imagem__os" alt="imagem do serviço">
+           <i *ngIf="!os.imagemUrl" class="bi bi-card-image"></i>
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{os.nomePrestador}}</h5>
             <p>{{os.descricao}}</p>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 

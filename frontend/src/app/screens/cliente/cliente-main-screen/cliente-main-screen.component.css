@@ -8,6 +8,10 @@
   margin: 25px;
 }
 
+main{
+   overflow-x: hidden !important;
+}
+
 #servicos{
   display: flex;
   justify-content: space-between;
@@ -19,7 +23,7 @@
 }
 
 .horizontalCards-categorias {
-  margin-left: 5px;
+  padding-left: 10px;
   width: 100%;
   margin-top: 50px;
 }
@@ -36,4 +40,21 @@
 }
 .div-descricao{
   background-color: var(--background-secondary);
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-descricao i{
+  font-size: 136px;
+}
+
+.imagem__div{
+  height: 200px;
+
+}
+
+.imagem__os{
+  height: 200px;
 }

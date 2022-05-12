@@ -79,7 +79,7 @@ public class Usuario {
 			for (Avaliacao a : avaliacoesRecebidas) {
 				cont += a.getNota();
 			}
-			return Double.parseDouble(new DecimalFormat("0.00").format(cont/avaliacoesRecebidas.size()));
+			return Double.parseDouble(new DecimalFormat("0.0").format(cont/avaliacoesRecebidas.size()));
 		}
 	}
 }

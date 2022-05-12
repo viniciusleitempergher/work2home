@@ -92,5 +92,23 @@
 }
 .div-descricao{
   background-color: var(--background-secondary);
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.div-descricao i{
+  font-size: 136px;
+}
+
+.imagem__div{
+  height: 200px;
+
+}
+
+.imagem__os{
+  height: 200px;
 }
 

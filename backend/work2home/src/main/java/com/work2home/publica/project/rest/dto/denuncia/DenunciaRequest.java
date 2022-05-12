@@ -12,11 +12,16 @@ import com.work2home.publica.project.repositores.UsuarioRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 public class DenunciaRequest {
 
+	@NotNull(message = "{campo.denunciado_id.obrigatorio}")
 	private Integer denunciadoId;
+	@NotBlank(message = "{campo.descricao.obrigatorio}")
 	private String descricao;
 	
 	public Denuncia converter(UsuarioRepository usuarioRepository) {

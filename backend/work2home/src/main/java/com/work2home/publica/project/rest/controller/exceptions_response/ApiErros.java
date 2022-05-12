@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-public class ApiErrors {
+public class ApiErros {
 
-    private List<String> errors;
+    private List<String> erros;
 
-    public ApiErrors(List<String> errors) {
-        this.errors = errors;
+    public ApiErros(List<String> erros) {
+        this.erros = erros;
     }
 }

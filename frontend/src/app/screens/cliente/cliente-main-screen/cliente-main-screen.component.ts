@@ -41,7 +41,13 @@ export class ClienteMainScreenComponent implements OnInit {
       this.ordemService
         .getAllByFilter(Number.parseInt(this.cbxStatus))
         .then((res) => {
-          this.ordensServico = res;
+          this.ordensServico = res
+          this.ordensServico.map(os => {
+            if(os.descricao.length > 20){
+              os.descricao = os.descricao.substring(0, 20) + "..."
+            }
+
+          }) as []
         });
     } catch (err) {}
   }

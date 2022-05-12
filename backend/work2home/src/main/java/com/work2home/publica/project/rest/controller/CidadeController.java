@@ -2,7 +2,6 @@ package com.work2home.publica.project.rest.controller;
 
 import javax.validation.Valid;
 
-import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.endereco.CidadesPretadorRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

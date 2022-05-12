@@ -48,19 +48,39 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   respostaOrcamento(aceitar : boolean){
-
     this.osService.responderOrcamento(aceitar, this.ordemServico.id)
 
     if(aceitar){
       this.status = "EM_ANDAMENTO"
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Orçamento aceito!',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }else{
       this.status = "NEGADO"
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Orçamento negado',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   }
 
   negarSolicitacao(){
     this.osService.negarSolicitacao(this.ordemServico.id).then(() => {
       this.status = 'NEGADO'
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Solicitação negada',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }).catch((err) => {
       console.log(err)
     })
@@ -78,6 +98,13 @@ export class OrdemServicoComponent implements OnInit {
     else{
     this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
       this.status = 'FINALIZADO'
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Serviço finalizado!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       this.router.navigate([`ordem-servico/${this.ordemServico.id}/avaliacao` ])
     }).catch((err) => {
       console.log(err)

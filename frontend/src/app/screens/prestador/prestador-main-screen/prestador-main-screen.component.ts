@@ -41,15 +41,24 @@ export class PrestadorMainScreenComponent implements OnInit {
       this.ordemService
         .getAllByFilter(Number.parseInt(this.cbxStatus))
         .then((res) => {
-          this.ordensServico = res;
+          this.ordensServico = res
+          this.ordensServico.map(os => {
+            if(os.descricao.length > 20){
+              os.descricao = os.descricao.substring(0, 20) + "..."
+            }
+
+          }) as []
+
+
         });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   carregarInfoPrestador() {
     this.nomePrestador = "Bem vindo, " + this.usuario.nome;
     this.carregarImagemPerfil();
-
   }
 
   carregarImagemPerfil() {
@@ -57,7 +66,7 @@ export class PrestadorMainScreenComponent implements OnInit {
       this.isImageVisible = false;
     } else {
       this.isImageVisible = true;
-    } 
+    }
     this.fotoPerfilUsuario = environment.apiHostAddress + '/' + this.usuario.imagemUrl;
   }
 
@@ -65,4 +74,8 @@ export class PrestadorMainScreenComponent implements OnInit {
     localStorage.clear();
   }
 
+  reduzirDescricao(descricao : string){
+
+    alert("fwfwe")
+  }
 }
