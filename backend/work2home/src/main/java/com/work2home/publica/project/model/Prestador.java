@@ -3,17 +3,7 @@ package com.work2home.publica.project.model;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,8 +36,12 @@ public class Prestador {
 	
 	@ManyToMany
 	private Set<Cidade> cidades;
-	
+
 	@ManyToMany
+	@JoinTable(
+			name = "prestador_categoria_tb",
+			joinColumns = @JoinColumn(name = "prestador_id"),
+			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categorias;
 	
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.EAGER)
