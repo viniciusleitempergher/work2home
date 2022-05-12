@@ -13,8 +13,4 @@ public class ApiErrors {
     public ApiErrors(List<String> errors) {
         this.errors = errors;
     }
-
-    public ApiErrors(String mensagemErro) {
-        this.errors = new ArrayList<>(Collections.singletonList(mensagemErro));
-    }
 }

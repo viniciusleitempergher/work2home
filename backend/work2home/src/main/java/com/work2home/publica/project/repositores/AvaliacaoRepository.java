@@ -11,5 +11,4 @@ import com.work2home.publica.project.model.AvaliacaoId;
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, AvaliacaoId>{
 
 	Optional<Avaliacao> findByAvaliadorIdAndOrdemServicoId(Integer id, Integer id2);
-
 }
