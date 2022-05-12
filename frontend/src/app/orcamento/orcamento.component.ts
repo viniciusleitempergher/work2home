@@ -74,13 +74,15 @@ export class OrcamentoComponent implements OnInit {
 
   validaDataInicio(){
 
-    let data = this.datePipe.transform(this.orcamentoForm.get("dataInicio")?.value, 'dd/MM/yyyy')
+    let data = this.datePipe.transform(this.orcamentoForm.value.dataInicio, 'dd/MM/yyyy') as string;
 
-    if (data == null || new Date(this.orcamentoForm.value.dataInicio) <= new Date(Date.now())) {
+
+
+    if (data == null || new Date(new Date(this.orcamentoForm.value.dataInicio).toLocaleDateString('pt-BR')) < new Date(new Date().toLocaleDateString('pt-BR'))) {
       this.dataInicioInvalido = true;
       throw new Error("Data de inicio inválida!");
     } else {
-      this.ordemServico.dataInicio = this.datePipe.transform(this.orcamentoForm.value.dataInicio, 'dd/MM/yyyy') as string;
+      this.ordemServico.dataInicio = data
       this.dataInicioInvalido = false;
     }
   }

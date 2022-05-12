@@ -89,7 +89,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/prestador").permitAll()
 			.antMatchers(HttpMethod.GET, "/categoria").permitAll()
 			.antMatchers("/email/**").permitAll()
-			.antMatchers("/usuario/me").permitAll()	
+			.antMatchers("/usuario/me").permitAll()
 
 
 			// requisicoes do swegger

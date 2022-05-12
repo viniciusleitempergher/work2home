@@ -34,7 +34,7 @@ public class Categoria {
 	@Column(name = "imagem_url")
 	private String imagemUrl;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "categorias")
 	private Set<Prestador> prestadores;
 
 	public Categoria(String nome) {

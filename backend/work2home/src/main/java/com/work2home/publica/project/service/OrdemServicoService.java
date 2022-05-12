@@ -173,7 +173,7 @@ public class OrdemServicoService {
 		if (os.getStatus() != StatusOrcamento.EM_ANDAMENTO) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
-		if (LocalDate.now().isBefore(os.getDataInicio()) || LocalDate.now().isEqual(os.getDataInicio())) {
+		if (LocalDate.now().isBefore(os.getDataInicio())) {
 			throw new ResponseStatusException(HttpStatus.TOO_EARLY);
 		}
 		os.setStatus(StatusOrcamento.FINALIZADO);

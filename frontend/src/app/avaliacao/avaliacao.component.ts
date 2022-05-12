@@ -58,7 +58,6 @@ export class AvaliacaoComponent implements OnInit {
 
   }catch(err){
       console.log(err)
-    }
-
+    } 
   }
 }
