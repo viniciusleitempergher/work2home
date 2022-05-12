@@ -70,9 +70,6 @@ public class Usuario {
 	@OneToMany(mappedBy = "denunciado")
 	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
 
-	@OneToMany(mappedBy = "denunciado")
-	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
-
 	public Double getMediaAvaliacao() {
 		Locale.setDefault(Locale.US);
 		if (avaliacoesRecebidas == null || avaliacoesRecebidas.isEmpty()) {

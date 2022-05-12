@@ -72,13 +72,13 @@ export class OrdemServicoComponent implements OnInit {
     var dataFormatada = listaData[1] + '-' + listaData[0] + '-' +
     listaData[2];
 
-    if(new Date(dataFormatada) > new Date){
+    if(new Date(dataFormatada) >= new Date){
       Swal.fire('Erro!', "Muito cedo para finalizar", 'error')
     }
     else{
     this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
       this.status = 'FINALIZADO'
-      this.router.navigate(['avaliacao'])
+      this.router.navigate([`ordem-servico/${this.ordemServico.id}/avaliacao` ])
     }).catch((err) => {
       console.log(err)
     })}

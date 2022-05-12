@@ -1,6 +1,5 @@
 package com.work2home.publica.project.config;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
