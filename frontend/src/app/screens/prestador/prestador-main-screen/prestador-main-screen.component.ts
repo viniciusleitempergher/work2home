@@ -30,9 +30,9 @@ export class PrestadorMainScreenComponent implements OnInit {
     private router: Router) { }
 
   async ngOnInit(): Promise<void> {
+    this.cbxStatus = '-1';
     this.usuario = await this.userService.getUserFromAccessToken();
     this.carregarInfoPrestador();
-    this.cbxStatus = '-1';
     this.getServicosByStatus();
   }
 
@@ -48,8 +48,6 @@ export class PrestadorMainScreenComponent implements OnInit {
             }
 
           }) as []
-
-
         });
     } catch (err) {
       console.log(err)

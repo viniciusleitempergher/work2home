@@ -3,7 +3,7 @@
         <h1 class="form__title">Cidade que atua:</h1>
         <label for="input-text" class="form__label-endereco">
             Estado:
-            <select class="form-control form__input form__input-endereco" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
+            <select class="form-control form__input form__input-endereco" (load)="obterEstados()" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
                 <option value="">Selecione um Estado</option>
                 <option *ngFor="let estado of estados,let i = index" [value]="estado.sigla">
                     {{estado.nome}}
@@ -29,5 +29,5 @@
     </div>
     <div class="btn__wrapper">
         <button (click)="continuar()" class="btn btn-primary form__button">Continuar</button>
-    </div>    
+    </div>
 </main>

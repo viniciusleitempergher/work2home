@@ -29,11 +29,10 @@ export class ClienteMainScreenComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void>{
-    this.usuario = await this.userService.getUserFromAccessToken();
-
-    this.buscarCategorias();
     this.cbxStatus = '-1';
+    this.usuario = await this.userService.getUserFromAccessToken();
     this.getServicosByStatus();
+    this.buscarCategorias();
   }
 
   getServicosByStatus() {
@@ -46,7 +45,6 @@ export class ClienteMainScreenComponent implements OnInit {
             if(os.descricao.length > 20){
               os.descricao = os.descricao.substring(0, 20) + "..."
             }
-
           }) as []
         });
     } catch (err) {}

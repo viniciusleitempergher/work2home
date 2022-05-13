@@ -3,7 +3,7 @@
         <h1 class="form__title">Endereço:</h1>
         <label for="input-text" class="form__label-endereco">
             Estado:
-            <select class="form-control form__input form__input-endereco" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
+            <select class="form-control form__input form__input-endereco"  (load)="obterEstados()" formControlName="cbxEstado" [class.form__input-invalid]="estadoInvalida" name="cbxEstado" (change)="selecaoEstado()">
                 <option value="">Selecione um Estado</option>
                 <option *ngFor="let estado of estados,let i = index" [value]="estado.sigla">
                     {{estado.nome}}
@@ -18,7 +18,7 @@
                     {{cidade.nome}}
                 </option>
             </select>
-        </label>        
+        </label>
         <label for="input-text" class="form__label-endereco">
             Bairro:
             <input type="text" (change)="validaBairro()" [class.form__input-invalid]="bairroInvalida" name="bairro" formControlName="bairro" class="form-control form__input form__input-endereco" id="input-bairro">
@@ -35,9 +35,9 @@
             Complemento:
             <input type="text"  name="complemento" formControlName="complemento" [class.form__input-invalid]="complementoInvalida" class="form-control form__input form__input-complemento" id="input-complemento">
         </label>
-    </form>  
+    </form>
     <div class="btn__wrapper">
         <button (click)="cadastrar()" class="btn btn-primary form__button">{{btnConfirmar}}</button>
         <button (click)="cancelar()" class="btn btn-primary form__button-secondary">Cancelar</button>
-    </div>    
+    </div>
 </main>
