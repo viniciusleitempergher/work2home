@@ -20,6 +20,8 @@ export class AppComponent {
       Temas.temaRoxo();
     } else if (tema == "preto") {
       Temas.temaPreto();
+    } else if (tema == "verde") {
+      Temas.temaVerde();
     }
   }
 }
