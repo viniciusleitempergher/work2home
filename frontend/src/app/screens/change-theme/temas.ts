@@ -34,4 +34,13 @@ export class Temas {
         this.rootStyle.setProperty("--font-thirdy", "#4b494e")
         this.rootStyle.setProperty("--font-fourth", "#8e8e8f")
     }
+
+    static temaVerde() {
+        this.rootStyle.setProperty("--background-primary", "#e0ffe5")
+        this.rootStyle.setProperty("--background-secondary", "#35de49")
+        this.rootStyle.setProperty("--font-primary", "#3bb24f")
+        this.rootStyle.setProperty("--font-secondary", "#29c43b")
+        this.rootStyle.setProperty("--font-thirdy", "#00f328")
+        this.rootStyle.setProperty("--font-fourth", "#e0ffe5")
+    }
 }

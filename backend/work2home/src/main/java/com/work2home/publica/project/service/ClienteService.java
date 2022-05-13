@@ -64,6 +64,10 @@ public class ClienteService {
 
 		Usuario usuario = cliente.getUsuario();
 		usuario.setRole(Roles.CLIENTE);
+
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		usuario.setSenha(bcrypt.encode(usuario.getSenha()));
+		
 		usuario.setSenha(usuario.getSenha());
 
 		usuarioRepository.save(usuario);
