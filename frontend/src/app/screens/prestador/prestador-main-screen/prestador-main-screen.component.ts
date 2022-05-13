@@ -47,7 +47,6 @@ export class PrestadorMainScreenComponent implements OnInit {
             if(os.descricao.length > 20){
               os.descricao = os.descricao.substring(0, 20) + "..."
             }
-
           }) as []
         });
     } catch (err) {

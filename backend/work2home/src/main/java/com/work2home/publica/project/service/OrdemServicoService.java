@@ -228,4 +228,19 @@ public class OrdemServicoService {
 			e.printStackTrace();
 		}
 	}
+
+	public List<List<Long>> buscarQuantidadesDeOs() {
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		System.out.println();
+
+		if(usuario.getRole() == Roles.CLIENTE){
+            return repository.findQtdsServicosByClienteId(usuario.getId());
+		}else if(usuario.getRole() == Roles.PRESTADOR){
+			return repository.findQtdsServicosByPrestadorId(usuario.getId());
+		}else{
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+	}
 }

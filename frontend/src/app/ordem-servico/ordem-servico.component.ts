@@ -19,7 +19,6 @@ export class OrdemServicoComponent implements OnInit {
   imagem: string = '';
   status: string = '';
   jaAvaliado: boolean = false;
-
   thereIsImage: boolean = false;
 
   constructor(
