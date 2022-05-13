@@ -1,0 +1,6 @@
+.form-chat {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 13px;
+}

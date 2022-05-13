@@ -21,6 +21,7 @@ import { PrestadorMainScreenComponent } from './screens/prestador/prestador-main
 import { AlterarClienteScreenComponent } from './screens/cliente/alterar-cliente-screen/alterar-cliente-screen.component';
 import { AlterarPrestadorScreenComponent } from './screens/prestador/alterar-prestador-screen/alterar-prestador-screen.component';
 import { ChangeThemeComponent } from './screens/change-theme/change-theme.component';
+import { ChatComponent } from './screens/chat/chat.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'ordem-servico/:id/avaliacao', component: AvaliacaoComponent},
   {path: 'ordem-servico/:id/orcamento', component: OrcamentoComponent},
   {path: 'tema', component: ChangeThemeComponent},
+  {path: 'chat/:usuarioId', component: ChatComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
 ];
 

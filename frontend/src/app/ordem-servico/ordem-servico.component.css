@@ -79,6 +79,10 @@ i{
   justify-content: space-between;
 }
 
+.center {
+  text-align: center;
+}
+
 p{
   max-width: 500px;
   word-break: break-all;

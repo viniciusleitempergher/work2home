@@ -17,6 +17,14 @@
     --font-secondary: #FCC129;
     --font-thirdy: #D1A126;
     --font-fourth: #FFFFFF;
+
+    
+    --background-primary: #e9f4e8;
+    --background-secondary: #b6f3ac;
+    --font-primary: #04510c;
+    --font-secondary: #22a71b;
+    --font-thirdy: #186205;
+    --font-fourth: #ffffff;
 }
 body {
     background-color: var(--background-primary) !important;

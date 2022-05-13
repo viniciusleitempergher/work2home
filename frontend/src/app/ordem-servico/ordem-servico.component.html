@@ -9,8 +9,12 @@
 
   <div id="informacoes">
 
-    <div class="mt-3">
-      <p><b>Status do serviço: </b>{{status}}</p>
+    <div class="mt-3 center">
+      <p *ngIf="status == 'FINALIZADO' || status == 'PAGO'"><b>Serviço Finalizado</b></p>
+      <p *ngIf="status == 'EM_ORCAMENTO'"><b>Aguardando Resposta do Cliente</b></p>
+      <p *ngIf="status == 'SOLICITADO'"><b>Aguardando Orçamento</b></p>
+      <p *ngIf="status == 'EM_ANDAMENTO'"><b>Em Andamento</b></p>
+      <p *ngIf="status == 'NEGADO'"><b>Serviço Negado</b></p>
     </div>
 
     <div>
