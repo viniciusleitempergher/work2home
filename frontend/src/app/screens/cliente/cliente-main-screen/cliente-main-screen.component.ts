@@ -20,6 +20,7 @@ export class ClienteMainScreenComponent implements OnInit {
   usuario: Usuario = new Usuario;
   cbxStatus: string = '';
   categoriaId : number = 0;
+  qtdStatusOs : [0, 0, 0, 0, 0] = [0, 0, 0, 0, 0]
 
   constructor(
     private categoriaService: CategoriaService,
@@ -29,10 +30,19 @@ export class ClienteMainScreenComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void>{
+    this.buscarQuantidadesDeOs()
     this.cbxStatus = '-1';
     this.usuario = await this.userService.getUserFromAccessToken();
     this.getServicosByStatus();
     this.buscarCategorias();
+  }
+
+  buscarQuantidadesDeOs(){
+    this.ordemService.buscarQuantidadesDeOs().then((res) => {
+      for(let i = 0; i < res.length; i++){
+        this.qtdStatusOs[res[i][0]] = res[i][1]
+      }
+    })
   }
 
   getServicosByStatus() {

@@ -230,13 +230,13 @@ public class OrdemServicoService {
 	}
 
 	public List<List<Long>> buscarQuantidadesDeOs() {
-
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		System.out.println();
-
 		if(usuario.getRole() == Roles.CLIENTE){
-            return repository.findQtdsServicosByClienteId(usuario.getId());
+			Cliente cliente = clienteRepository
+					.findById(usuario.getId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+            return repository.findQtdsServicosByClienteId(cliente.getEndereco().getId());
 		}else if(usuario.getRole() == Roles.PRESTADOR){
 			return repository.findQtdsServicosByPrestadorId(usuario.getId());
 		}else{

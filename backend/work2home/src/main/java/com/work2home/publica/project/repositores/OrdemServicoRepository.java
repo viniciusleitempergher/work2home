@@ -15,9 +15,9 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Inte
     @Query(value = """
             SELECT os.status_orcamento, COUNT(*)
             FROM ordem_servico_tb os
-            WHERE os.cliente_id = ?1
+            WHERE os.endereco_id = ?1
             GROUP BY os.status_orcamento;""", nativeQuery = true)
-    List<List<Long>> findQtdsServicosByClienteId(Integer prestadorId);
+    List<List<Long>> findQtdsServicosByClienteId(Integer enderecoId);
 
     @Query(value = """
             SELECT os.status_orcamento, COUNT(*)
