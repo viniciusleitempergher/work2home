@@ -36,11 +36,11 @@ export class Temas {
     }
 
     static temaVerde() {
-        this.rootStyle.setProperty("--background-primary", "#e0ffe5")
-        this.rootStyle.setProperty("--background-secondary", "#35de49")
-        this.rootStyle.setProperty("--font-primary", "#3bb24f")
-        this.rootStyle.setProperty("--font-secondary", "#29c43b")
-        this.rootStyle.setProperty("--font-thirdy", "#00f328")
-        this.rootStyle.setProperty("--font-fourth", "#e0ffe5")
+        this.rootStyle.setProperty("--background-primary", "#e9f4e8")
+        this.rootStyle.setProperty("--background-secondary", "#b6f3ac")
+        this.rootStyle.setProperty("--font-primary", "#04510c")
+        this.rootStyle.setProperty("--font-secondary", "#22a71b")
+        this.rootStyle.setProperty("--font-thirdy", "#186205")
+        this.rootStyle.setProperty("--font-fourth", "#ffffff")
     }
 }
