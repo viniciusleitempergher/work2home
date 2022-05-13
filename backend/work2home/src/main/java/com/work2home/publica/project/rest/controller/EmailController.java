@@ -26,7 +26,7 @@ public class EmailController {
     @PostMapping("/resgatar-senha")
     @ResponseStatus(HttpStatus.CREATED)
     public void enviarSenhaEmail(@RequestBody @Valid EmailRequest emailRequest) {
-        emailService.sendEmail(emailRequest);
+        emailService.enviarEmailRecuperarSenha(emailRequest);
     }
 
     @ApiOperation(value = "Lista todos os emails")

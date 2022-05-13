@@ -47,6 +47,9 @@ public class OrdemServicoService {
 	private ClienteRepository clienteRepository;
 
 	@Autowired
+	private EmailService emailService;
+
+	@Autowired
 	private JwtUtil jwt;
 
 	public List<OrdemServicoResponse> findAllByFilter(Integer status){
@@ -107,7 +110,9 @@ public class OrdemServicoService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
 		OrdemServico os = repository.save(sr.converter(categoriaRepository, prestadorRepository, cliente.getEndereco()));
+		emailService.enviarEmailOsChange(os.getStatus(), os.getPrestador().getUsuario().getEmail());
 		return new OrdemServicoResponse(os);
+
 	}
 
 	public OrdemServicoResponse aceitarSolicitacao(SolicitacaoAcceptRequest acceptRequest, Integer id) {
@@ -116,6 +121,7 @@ public class OrdemServicoService {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
 		if (os.getPrestador().getId() != usuario.getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
@@ -133,6 +139,19 @@ public class OrdemServicoService {
 		os.setValor(acceptRequest.getValor());
 		os.setDataInicio(data);
 		os.setTempoEstimado(acceptRequest.getTempoEstimado());
+		return new OrdemServicoResponse(repository.save(os));
+	}
+
+	public OrdemServicoResponse negarSolicitacao(Integer id) {
+		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		if (os.getPrestador().getId() != usuario.getId()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		os.cancelar();
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
@@ -158,6 +177,7 @@ public class OrdemServicoService {
 		} else {
 			os.cancelar();
 		}
+		emailService.enviarEmailOsChange(os.getStatus(), os.getPrestador().getUsuario().getEmail());
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
@@ -178,18 +198,7 @@ public class OrdemServicoService {
 		}
 		os.setStatus(StatusOrcamento.FINALIZADO);
 		os.setDataFim(LocalDate.now());
-		return new OrdemServicoResponse(repository.save(os));
-	}
-
-	public OrdemServicoResponse negarSolicitacao(Integer id) {
-		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-		Usuario usuario = jwt.getUserFromHeaderToken();
-
-		if (os.getPrestador().getId() != usuario.getId()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		}
-		os.cancelar();	
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
