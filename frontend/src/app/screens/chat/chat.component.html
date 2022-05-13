@@ -1,6 +1,6 @@
 <main>
-    <form class="form form-chat">
-        <input type="text" class="form-control form__input">
-        <input type="button" class="btn btn-primary form__button" value="Enviar">
+    <form class="form form-chat" [formGroup]="chatForm">
+        <input type="text" name="message" formControlName="message" class="form-control form__input">
+        <input (click)="handleSendMessage()" type="button" class="btn btn-primary form__button" value="Enviar">
     </form>
 </main>

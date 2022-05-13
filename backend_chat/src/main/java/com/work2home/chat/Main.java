@@ -20,16 +20,17 @@ public class Main {
         server.addConnectListener(new ConnectListener() {
 			@Override
 			public void onConnect(SocketIOClient client) {
-				System.out.println(client);
+				System.out.println("Id conectado: " + client.getSessionId());
 			}
 		});
         
-        server.addEventListener("message", Message.class, new DataListener<Message>() {
-            public void onData(SocketIOClient client, Message data, AckRequest ackRequest) {
-                // broadcast messages to all clients
-                server.getBroadcastOperations().sendEvent("chatevent", data);
-            }
-        });
+        server.addEventListener("message", String.class, new DataListener<Message>() {
+			@Override
+			public void onData(SocketIOClient client, String data, AckRequest ackSender) throws Exception {
+				System.out.println("ALOW");
+				System.out.println(data);
+			}
+        }, null);
 
         server.start();
 

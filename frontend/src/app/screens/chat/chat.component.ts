@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-chat',
@@ -8,10 +10,25 @@ import { environment } from 'src/environments/environment';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(private socket: Socket) { }
+
+  chatForm = new FormGroup({
+    message: new FormControl()
+  })
 
   ngOnInit(): void {
-    const socket = new WebSocket(environment.chatHostAddress);
+    this.socket.connect()
+    
+
+    this.socket.emit("message", {})
+  }
+  
+  handleSendMessage() {
+    console.log("MANDOU");
+
+
+    this.socket.emit("message", {})
+    this.socket.ioSocket.emit("message")
   }
 
 }

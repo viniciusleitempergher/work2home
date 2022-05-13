@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,11 @@ import { ChangeThemeComponent } from './screens/change-theme/change-theme.compon
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { ChatComponent } from './screens/chat/chat.component';
+import { environment } from 'src/environments/environment';
+
+const config: SocketIoConfig = { url: environment.chatHostAddress, options: {
+  autoConnect: false
+} };
 
 @NgModule({
 
@@ -70,6 +76,7 @@ import { ChatComponent } from './screens/chat/chat.component';
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     StarRatingModule.forRoot(),
+    SocketIoModule.forRoot(config)
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
