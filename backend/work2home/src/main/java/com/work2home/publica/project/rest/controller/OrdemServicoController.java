@@ -74,4 +74,12 @@ public class OrdemServicoController {
 	public OrdemServicoResponse finalizarOrdemServico(@PathVariable Integer id) {
 		return service.finalizarOrdemServico(id);
 	}
+
+	@ApiOperation(value = "Busca as quantidades de ordens de serviço por status")
+	@GetMapping("/quantidades-servicos")
+	public List<List<Long>> buscarQuantidadesDeOs() {
+		return service.buscarQuantidadesDeOs();
+	}
+
+
 }

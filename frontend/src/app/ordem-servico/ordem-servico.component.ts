@@ -1,4 +1,4 @@
-import Swal  from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { AvaliacaoService } from './../services/avaliacao.service';
 import { Usuario } from './../../models/Usuario';
 import { UserService } from 'src/app/services/user.service';
@@ -11,124 +11,164 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-ordem-servico',
   templateUrl: './ordem-servico.component.html',
-  styleUrls: ['./ordem-servico.component.css']
+  styleUrls: ['./ordem-servico.component.css'],
 })
 export class OrdemServicoComponent implements OnInit {
+  ordemServico: OrdemServicoResponse = new OrdemServicoResponse();
+  usuario: Usuario = new Usuario();
+  imagem: string = '';
+  status: string = '';
+  jaAvaliado: boolean = false;
+  thereIsImage: boolean = false;
 
-
-  ordemServico : OrdemServicoResponse = new OrdemServicoResponse
-  usuario : Usuario = new Usuario
-  imagem : string= ""
-  status : string = ""
-  jaAvaliado: boolean = false
-
-  thereIsImage : boolean = false;
-
-  constructor( private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private osService: OrdemServicoService,
     private userService: UserService,
-    private avaliacaoService: AvaliacaoService) { }
+    private avaliacaoService: AvaliacaoService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.usuario = await this.userService.getUserFromAccessToken();
-    this.getOrdemServico()
+    this.getOrdemServico();
   }
 
-  async getOrdemServico(){
-    let id = this.route.snapshot.params['id']
+  async getOrdemServico() {
+    let id = this.route.snapshot.params['id'];
     await this.osService.getById(id).then((res) => {
-      this.ordemServico = res
-      this.imagem = environment.apiHostAddress + "/" + res.imagemUrl
+      this.ordemServico = res;
+      this.imagem = environment.apiHostAddress + '/' + res.imagemUrl;
 
-      this.thereIsImage = !!res.imagemUrl
-      this.status = res.status
-      this.verificarAvaliacao(res.id)
-    })
-    
+      console.log(this.ordemServico.clienteId);
+      this.thereIsImage = !!res.imagemUrl;
+      this.status = res.status;
+      this.verificarAvaliacao(res.id);
+    });
   }
 
-  respostaOrcamento(aceitar : boolean){
-    this.osService.responderOrcamento(aceitar, this.ordemServico.id)
-
-    if(aceitar){
-      this.status = "EM_ANDAMENTO"
+  async respostaOrcamento(aceitar: boolean) {
+    if (aceitar) {
+      this.status = 'EM_ANDAMENTO';
       Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Orçamento aceito!',
         showConfirmButton: false,
-        timer: 1500
-      })
-    }else{
-      this.status = "NEGADO"
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Orçamento negado',
-        showConfirmButton: false,
-        timer: 1500
-      })
+        timer: 1500,
+      });
+
+      this.osService.responderOrcamento(aceitar, this.ordemServico.id);
+    } else {
+      let escolha = await Swal.fire({
+        title: '<strong>Alerta!</strong>',
+        icon: 'info',
+        html: 'Você deseja realmente excluir essa categoria!?',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: 'Sim!',
+        confirmButtonAriaLabel: 'Sim!',
+        cancelButtonText: 'Não',
+        cancelButtonAriaLabel: 'Não!',
+      });
+
+      if (escolha.isConfirmed) {
+        this.status = 'NEGADO';
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Orçamento negado',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.osService.responderOrcamento(aceitar, this.ordemServico.id);
+      }
     }
   }
 
-  negarSolicitacao(){
-    this.osService.negarSolicitacao(this.ordemServico.id).then(() => {
-      this.status = 'NEGADO'
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Solicitação negada',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }).catch((err) => {
-      console.log(err)
-    })
+  async negarSolicitacao() {
+    let escolha = await Swal.fire({
+      title: '<strong>Alerta!</strong>',
+      icon: 'info',
+      html: 'Você deseja realmente excluir essa categoria!?',
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: 'Sim!',
+      confirmButtonAriaLabel: 'Sim!',
+      cancelButtonText: 'Não',
+      cancelButtonAriaLabel: 'Não!',
+    });
+
+    if (escolha.isConfirmed) {
+      this.osService
+        .negarSolicitacao(this.ordemServico.id)
+        .then(() => {
+          this.status = 'NEGADO';
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Solicitação negada',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
-  finalizarServico(){
-
+  finalizarServico() {
     var listaData = this.ordemServico.dataInicio.split('/');
-    var dataFormatada = listaData[1] + '-' + listaData[0] + '-' +
-    listaData[2];
+    var dataFormatada = listaData[1] + '-' + listaData[0] + '-' + listaData[2];
 
-    if(new Date(dataFormatada) >= new Date){
-      Swal.fire('Erro!', "Muito cedo para finalizar", 'error')
+    if (new Date(dataFormatada) >= new Date()) {
+      Swal.fire('Erro!', 'Muito cedo para finalizar', 'error');
+    } else {
+      this.osService
+        .finalizarOrcamento(this.ordemServico.id)
+        .then(() => {
+          this.status = 'FINALIZADO';
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Serviço finalizado!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.router.navigate([
+            `ordem-servico/${this.ordemServico.id}/avaliacao`,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    else{
-    this.osService.finalizarOrcamento(this.ordemServico.id).then(() => {
-      this.status = 'FINALIZADO'
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Serviço finalizado!',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate([`ordem-servico/${this.ordemServico.id}/avaliacao` ])
-    }).catch((err) => {
-      console.log(err)
-    })}
   }
 
-  verificarAvaliacao(osId : number){
-    this.avaliacaoService.avaliacaoJaExiste(osId).then((res) =>
-    this.jaAvaliado = res).catch((err) => {
-      console.log(err)
-    })
+  verificarAvaliacao(osId: number) {
+    this.avaliacaoService
+      .avaliacaoJaExiste(osId)
+      .then((res) => (this.jaAvaliado = res))
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  existe(x: any){
-    return x != null
+  existe(x: any) {
+    return x != null;
   }
 
-  logOut(){
-    localStorage.clear()
+  logOut() {
+    localStorage.clear();
   }
 
-  async relatorioOs(){
-    const fileURL = URL.createObjectURL(await this.osService.relatorioOs(this.ordemServico.id));
+  async relatorioOs() {
+    const fileURL = URL.createObjectURL(
+      await this.osService.relatorioOs(this.ordemServico.id)
+    );
     window.open(fileURL);
   }
 }

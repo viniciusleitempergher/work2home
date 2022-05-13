@@ -16,6 +16,8 @@ export class PrestadorMainScreenComponent implements OnInit {
   fotoPerfilUsuario: string = '';
   usuario: Usuario = new Usuario;
   nomePrestador: string = '';
+  qtdStatusOs : [0, 0, 0, 0, 0] = [0, 0, 0, 0, 0]
+
 
 
   environment = environment;
@@ -30,10 +32,20 @@ export class PrestadorMainScreenComponent implements OnInit {
     private router: Router) { }
 
   async ngOnInit(): Promise<void> {
+    this.buscarQuantidadesDeOs();
     this.cbxStatus = '-1';
     this.usuario = await this.userService.getUserFromAccessToken();
     this.carregarInfoPrestador();
     this.getServicosByStatus();
+
+  }
+
+  buscarQuantidadesDeOs(){
+    this.ordemService.buscarQuantidadesDeOs().then((res) => {
+      for(let i = 0; i < res.length; i++){
+        this.qtdStatusOs[res[i][0]] = res[i][1]
+      }
+    })
   }
 
   getServicosByStatus() {
@@ -46,7 +58,6 @@ export class PrestadorMainScreenComponent implements OnInit {
             if(os.descricao.length > 20){
               os.descricao = os.descricao.substring(0, 20) + "..."
             }
-
           }) as []
         });
     } catch (err) {

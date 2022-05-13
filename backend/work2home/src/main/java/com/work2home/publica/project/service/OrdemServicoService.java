@@ -3,6 +3,7 @@ package com.work2home.publica.project.service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.work2home.publica.project.utils.FileUploadUtil;
@@ -45,6 +46,9 @@ public class OrdemServicoService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private JwtUtil jwt;
@@ -107,7 +111,9 @@ public class OrdemServicoService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
 		OrdemServico os = repository.save(sr.converter(categoriaRepository, prestadorRepository, cliente.getEndereco()));
+		emailService.enviarEmailOsChange(os.getStatus(), os.getPrestador().getUsuario().getEmail());
 		return new OrdemServicoResponse(os);
+
 	}
 
 	public OrdemServicoResponse aceitarSolicitacao(SolicitacaoAcceptRequest acceptRequest, Integer id) {
@@ -116,6 +122,7 @@ public class OrdemServicoService {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
 		if (os.getPrestador().getId() != usuario.getId()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
@@ -136,13 +143,28 @@ public class OrdemServicoService {
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
+	public OrdemServicoResponse negarSolicitacao(Integer id) {
+		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId()) &&
+				!Objects.equals(os.getEndereco().getCliente().getId(), usuario.getId())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		os.cancelar();
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
+		return new OrdemServicoResponse(repository.save(os));
+	}
+
 	public OrdemServicoResponse aceitarOrcamento(OrcamentoAcceptRequest orcamentoAcceptRequest, Integer id) {
 
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		if (os.getEndereco().getCliente().getId() != usuario.getId()) {
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId()) &&
+				!Objects.equals(os.getEndereco().getCliente().getId(), usuario.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		if (os.getStatus() != StatusOrcamento.EM_ORCAMENTO) {
@@ -158,6 +180,7 @@ public class OrdemServicoService {
 		} else {
 			os.cancelar();
 		}
+		emailService.enviarEmailOsChange(os.getStatus(), os.getPrestador().getUsuario().getEmail());
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
@@ -178,18 +201,7 @@ public class OrdemServicoService {
 		}
 		os.setStatus(StatusOrcamento.FINALIZADO);
 		os.setDataFim(LocalDate.now());
-		return new OrdemServicoResponse(repository.save(os));
-	}
-
-	public OrdemServicoResponse negarSolicitacao(Integer id) {
-		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-		Usuario usuario = jwt.getUserFromHeaderToken();
-
-		if (os.getPrestador().getId() != usuario.getId()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		}
-		os.cancelar();	
+		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
 		return new OrdemServicoResponse(repository.save(os));
 	}
 
@@ -214,6 +226,21 @@ public class OrdemServicoService {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public List<List<Long>> buscarQuantidadesDeOs() {
+		Usuario usuario = jwt.getUserFromHeaderToken();
+
+		if(usuario.getRole() == Roles.CLIENTE){
+			Cliente cliente = clienteRepository
+					.findById(usuario.getId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
+            return repository.findQtdsServicosByClienteId(cliente.getEndereco().getId());
+		}else if(usuario.getRole() == Roles.PRESTADOR){
+			return repository.findQtdsServicosByPrestadorId(usuario.getId());
+		}else{
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

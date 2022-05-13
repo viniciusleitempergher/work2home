@@ -35,11 +35,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/ordem-servico/solicitar").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.POST, "/ordem-servico/*/imagem").hasAnyRole("CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-solicitacao").hasAnyRole("PRESTADOR")
-			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/negar-solicitacao").hasAnyRole("PRESTADOR")
-			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("CLIENTE")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/negar-solicitacao").hasAnyRole("PRESTADOR", "CLIENTE")
+			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("PRESTADOR", "CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
 			.antMatchers(HttpMethod.GET, "ordem-servico/filtro/*").hasAnyRole("CLIENTE", "PRESTADOR")
-			
+
+			.antMatchers(HttpMethod.GET, "ordem-servico/quantidades-servicos").permitAll()
+
+
 			//requisicoes avaliacao
 			.antMatchers("/avaliacao/prestador-avalia-cliente/*").hasAnyRole("PRESTADOR")
 			.antMatchers("/avaliacao/cliente-avalia-prestador/*").hasAnyRole("CLIENTE")

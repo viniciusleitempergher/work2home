@@ -76,9 +76,7 @@ export class OrcamentoComponent implements OnInit {
 
     let data = this.datePipe.transform(this.orcamentoForm.value.dataInicio, 'dd/MM/yyyy') as string;
 
-
-
-    if (data == null || new Date(new Date(this.orcamentoForm.value.dataInicio).toLocaleDateString('pt-BR')) < new Date(new Date().toLocaleDateString('pt-BR'))) {
+    if (data == null || new Date(this.orcamentoForm.value.dataInicio) < new Date()) {
       this.dataInicioInvalido = true;
       throw new Error("Data de inicio inválida!");
     } else {

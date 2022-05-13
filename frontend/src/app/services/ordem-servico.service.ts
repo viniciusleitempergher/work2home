@@ -129,5 +129,14 @@ export class OrdemServicoService {
     })
   }
 
+  buscarQuantidadesDeOs() : Promise<(any)[4][4]>{
+    return new Promise((resolve) => {
+      this.http.get(`${environment.apiHostAddress}/ordem-servico/quantidades-servicos`).pipe(
+        retry(15),
+      ).subscribe(response => {
+        resolve(response as (any)[4][4]);
+      });
+    })
+  }
 
 }

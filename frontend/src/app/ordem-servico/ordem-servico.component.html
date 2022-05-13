@@ -61,11 +61,20 @@
         Recusar</button>
     </div>
 
+    <div class="btns__chose" *ngIf="status == 'SOLICITADO' && usuario.role == 'CLIENTE'" >
+      <button class="btn btn-danger btn__solicitacao btn__recusar" (click)="negarSolicitacao()">
+        Cancelar</button>
+    </div>
+
+    <div class="btns__chose" *ngIf="status == 'EM_ORCAMENTO' && usuario.role == 'PRESTADOR'" >
+      <button class="btn btn-danger btn__solicitacao btn__recusar" (click)="respostaOrcamento(false)">
+        Cancelar</button>
+    </div>
+
     <div class="btn" *ngIf="status == 'EM_ANDAMENTO' && usuario.role == 'PRESTADOR'">
       <button class="btn btn-primary form__button" (click)="finalizarServico()">
         Finalizar</button>
     </div>
-
 
     <div class="btn" *ngIf="status == 'FINALIZADO'">
       <button class="btn btn-primary form__button" (click)="relatorioOs()">

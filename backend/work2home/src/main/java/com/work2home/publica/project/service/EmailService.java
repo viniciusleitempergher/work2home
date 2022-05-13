@@ -1,6 +1,7 @@
 package com.work2home.publica.project.service;
 
 import com.work2home.publica.project.enums.StatusEmail;
+import com.work2home.publica.project.enums.StatusOrcamento;
 import com.work2home.publica.project.model.Email;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.EmailRepository;
@@ -18,7 +19,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -44,7 +44,7 @@ public class EmailService {
     private String emailFrom;
 
 
-    public void sendEmail(EmailRequest emailRequest) {
+    public void enviarEmailRecuperarSenha(EmailRequest emailRequest) {
 
         String emailUsuario = emailRequest.getEmail();
 
@@ -55,11 +55,10 @@ public class EmailService {
 
         String token = jwt.generateAccessToken(usuario.getRefreshToken());
 
-
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
         String novaSenha = UUID.randomUUID().toString();
-        Email email = criarEmail(emailUsuario, token);
+        Email email = criarEmailRecuperacaoSenha(emailUsuario, token);
 
         usuario.setSenha(bcrypt.encode(novaSenha));
 
@@ -75,21 +74,70 @@ public class EmailService {
         } catch (MailException e){
             email.setStatus(StatusEmail.ERRO);
         } finally {
+            emailRepository.save(email);
             usuarioRepository.save(usuario);
         }
     }
 
-    private Email criarEmail(String emailTo, String token){
+    private Email criarEmailRecuperacaoSenha(String emailTo, String token){
         return Email.builder()
                 .emailTo(emailTo)
                 .emailFrom(emailFrom)
                 .titulo("Recuperação de senha")
-                .texto("Clique no link para recuperar sua senha: " + urlFrontEnd + "/alterar-senha/" + token + "\n Expira em 1h")
+                .texto(getTurnoAtual() + ", clique no link para recuperar sua senha: " + urlFrontEnd + "/alterar-senha/" + token + "\n Expira em 1h")
+                .dataEnvio(LocalDateTime.now())
+                .build();
+    }
+
+
+    public void enviarEmailOsChange(StatusOrcamento statusOrcamento, String emailTo){
+
+        Email email = criarEmailOsChange(statusOrcamento, emailTo);
+
+        try{
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(email.getEmailFrom());
+            message.setTo(email.getEmailTo());
+            message.setSubject(email.getTitulo());
+            message.setText(email.getTexto());
+            emailSender.send(message);
+
+            email.setStatus(StatusEmail.ENVIADO);
+        } catch (MailException e){
+            email.setStatus(StatusEmail.ERRO);
+        } finally {
+            emailRepository.save(email);
+        }
+    }
+
+    private Email criarEmailOsChange(StatusOrcamento statusOrcamento, String emailTo){
+
+        String status = statusOrcamento == StatusOrcamento.SOLICITADO ? "nova solicitação" : "atualização";
+        String titulo = status + " de ordem de serviço";
+
+        return Email.builder()
+                .emailTo(emailTo)
+                .emailFrom(emailFrom)
+                .titulo(titulo)
+                .texto(getTurnoAtual() + ", entre no nosso site para ver a " + status + " pelo link abaixo \n" + urlFrontEnd)
                 .dataEnvio(LocalDateTime.now())
                 .build();
     }
 
     public Page<Email> findAll(Pageable pageable) {
         return emailRepository.findAll(pageable);
+    }
+
+    private String getTurnoAtual(){
+        int horaAtual = LocalDateTime.now().getHour();
+        String turno;
+        if(horaAtual >= 6 && horaAtual <= 12){
+            turno = "Bom dia";
+        }else if(horaAtual > 12 && horaAtual <= 18){
+            turno = "Boa tarde";
+        }else{
+            turno = "Boa noite";
+        }
+        return turno;
     }
 }
