@@ -38,10 +38,6 @@ public class Prestador {
 	private Set<Cidade> cidades;
 
 	@ManyToMany
-	@JoinTable(
-			name = "prestador_categoria_tb",
-			joinColumns = @JoinColumn(name = "prestador_id"),
-			inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categorias;
 	
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.EAGER)
