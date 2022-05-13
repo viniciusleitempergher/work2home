@@ -16,6 +16,7 @@ export class PrestadorMainScreenComponent implements OnInit {
   fotoPerfilUsuario: string = '';
   usuario: Usuario = new Usuario;
   nomePrestador: string = '';
+  qtdStatusOs : [5] = [5]
 
 
   environment = environment;

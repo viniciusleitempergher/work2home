@@ -3,6 +3,7 @@ package com.work2home.publica.project.service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.work2home.publica.project.utils.FileUploadUtil;
@@ -147,7 +148,8 @@ public class OrdemServicoService {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		if (os.getPrestador().getId() != usuario.getId()) {
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId()) &&
+				!Objects.equals(os.getEndereco().getCliente().getId(), usuario.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		os.cancelar();
@@ -161,7 +163,8 @@ public class OrdemServicoService {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		if (os.getEndereco().getCliente().getId() != usuario.getId()) {
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId()) &&
+				!Objects.equals(os.getEndereco().getCliente().getId(), usuario.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		if (os.getStatus() != StatusOrcamento.EM_ORCAMENTO) {

@@ -12,7 +12,7 @@
       <select id="cbxStatus" class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
           name="cbxStatusServico" [(ngModel)]="cbxStatus">
         <option value="-1">Todos</option>
-        <option value="0">Solicitados</option>
+        <option value="0">Solicitados {{qtdStatusOs[0]}}</option>
         <option value="1">Em orçamento</option>
         <option value="2">Em andamento</option>
         <option value="3">Finalizados</option>
