@@ -32,7 +32,6 @@ import { AvaliacaoComponent } from './avaliacao/avaliacao.component';
 import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { ChangeThemeComponent } from './screens/change-theme/change-theme.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { StarRatingModule } from 'angular-star-rating';
 import { ChatComponent } from './screens/chat/chat.component';
 import { environment } from 'src/environments/environment';
 
@@ -75,7 +74,6 @@ const config: SocketIoConfig = { url: environment.chatHostAddress, options: {
     FormsModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
-    StarRatingModule.forRoot(),
     SocketIoModule.forRoot(config)
   ],
   providers: [{
