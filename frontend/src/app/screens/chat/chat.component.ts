@@ -7,12 +7,16 @@ import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PrestadorService } from 'src/app/services/prestador.service';
+import { MessageDto } from 'src/models/MessageDto';
+import { MessageService } from 'src/app/services/message.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.css'],
+  providers: [DatePipe] 
 })
 export class ChatComponent implements OnInit {
 
@@ -20,11 +24,11 @@ export class ChatComponent implements OnInit {
   userReceiver: Usuario = {} as Usuario;
   userReceiverId: number = +this.route.snapshot.params['usuarioId'];
   profileImgUrl: string = "";
-  messages: any[] = [];
+  messages: MessageDto[] = [] as MessageDto[];
 
   hasImage: boolean = true;
 
-  constructor(private socket: Socket, private usuarioService: UserService, private route: ActivatedRoute, private clienteService: ClienteService, private prestadorService: PrestadorService) { }
+  constructor(private socket: Socket, private usuarioService: UserService, private messageService: MessageService, private route: ActivatedRoute, private clienteService: ClienteService, private prestadorService: PrestadorService, private datePipe: DatePipe) { }
 
   chatForm = new FormGroup({
     message: new FormControl()
@@ -53,6 +57,8 @@ export class ChatComponent implements OnInit {
     this.socket.on("receiveMsg", (msg: any) => {
       this.messages.push(msg);
     })
+
+    this.messages = await this.messageService.getMyMessages();
   }
   
   handleSendMessage() {
@@ -61,6 +67,17 @@ export class ChatComponent implements OnInit {
       userTo: this.userReceiverId,
       text: this.chatForm.value.message
     })
+  }
+
+  scrollMessages() {
+    let messagesDiv = document.querySelector(".messages") as Element;
+
+    setTimeout(() => {
+      messagesDiv.animate({
+        scrollTop: messagesDiv.scrollHeight
+      }, 200)
+      //messagesDiv.scrollTo(0, messagesDiv.scrollHeight);
+    }, 100);
   }
 
 }

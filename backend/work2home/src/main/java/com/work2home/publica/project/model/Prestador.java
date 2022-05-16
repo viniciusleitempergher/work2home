@@ -41,7 +41,5 @@ public class Prestador {
 	private Set<Categoria> categorias;
 	
 	@OneToMany(mappedBy = "prestador", fetch = FetchType.EAGER)
-	@JsonIgnore
 	private List<OrdemServico> servicos;
-	
 }

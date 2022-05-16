@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 
 		// Get jwt token and validate
-		final String token = header.split(" ")[1].trim();
+		final String token = header.split(" ")[1].split(",")[0].trim();
 
 		try {
 			jwtTokenUtil.validateAccessToken(token);

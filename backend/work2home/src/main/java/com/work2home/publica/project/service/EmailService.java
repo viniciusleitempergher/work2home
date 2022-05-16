@@ -43,7 +43,6 @@ public class EmailService {
     @Value("${email.from}")
     private String emailFrom;
 
-
     public void enviarEmailRecuperarSenha(EmailRequest emailRequest) {
 
         String emailUsuario = emailRequest.getEmail();

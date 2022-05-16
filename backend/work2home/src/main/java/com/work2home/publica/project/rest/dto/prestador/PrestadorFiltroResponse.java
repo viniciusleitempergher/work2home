@@ -13,9 +13,9 @@ public class PrestadorFiltroResponse {
 	
 	private Integer id;
 	private String nome;	
-	private Double mediaAvaliacao;
 	private String imagemUrl;
-	
+	private Double mediaAvaliacao; 
+
 	public PrestadorFiltroResponse(Prestador prestador) {
 		this.id = prestador.getId();
 		this.nome = prestador.getUsuario().getNome();

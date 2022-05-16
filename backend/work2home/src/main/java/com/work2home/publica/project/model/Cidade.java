@@ -35,7 +35,5 @@ public class Cidade {
 	private String estado;
 
 	@ManyToMany
-	@JsonIgnore
 	private Set<Prestador> prestadores;
-	
 }

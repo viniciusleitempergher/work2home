@@ -43,4 +43,4 @@ export class Temas {
         this.rootStyle.setProperty("--font-thirdy", "#186205")
         this.rootStyle.setProperty("--font-fourth", "#ffffff")
     }
-}
+}   

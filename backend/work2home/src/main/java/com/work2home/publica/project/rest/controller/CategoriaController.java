@@ -48,7 +48,7 @@ public class CategoriaController {
 	@ApiOperation(value = "Salva e adiciona uma imagem na categoria")
 	@PostMapping("/{id}/imagem")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Categoria cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
+	public CategoriaResponse cadastrarImagem(@PathVariable Integer id, @RequestParam("image") MultipartFile multipartFile) {
 		return categoriaService.cadastrarImagem(id, multipartFile);
 	}
 
