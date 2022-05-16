@@ -65,8 +65,8 @@ public class UsuarioController {
 	}
 
 	@ApiOperation(value = "Bane ou desbane um usuário")
-	@PatchMapping("/banimento")
-	public void banirUsuario(@RequestBody @Valid BanirUsuario banirUsuario){
-		usuarioService.banimentoUsuario(banirUsuario.getId());
+	@PatchMapping("/banimento/{id}")
+	public void banirUsuario(@PathVariable Integer id){
+		usuarioService.banimentoUsuario(id);
 	}
 }

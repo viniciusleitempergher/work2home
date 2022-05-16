@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -98,7 +99,7 @@ public class UsuarioService {
 		return usuarioRepository
 				.findAll()
 				.stream()
-				.map(c -> new UsuarioResponse(c))
+				.map(UsuarioResponse::new)
 				.toList();
 	}
 
@@ -109,24 +110,20 @@ public class UsuarioService {
 		return new UsuarioResponse(usuario);
 	}
 
-	public void banimentoUsuario(String id) {
+	public void banimentoUsuario(Integer id) {
 		Usuario usuario = usuarioRepository
-				.findById(Integer.parseInt(id))
+				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		if(verificaBanido(id)) {
-			usuario.setRole(buscarRoleBanido(Integer.parseInt(id)));
+			usuario.setRole(buscarRoleBanido(id));
 		}else {			
 			usuario.setRole(Roles.BANIDO);						
 		}
 		usuarioRepository.save(usuario);
-		
 	}
-	
-	public boolean verificaBanido(String id){
-		if(getRole(Integer.parseInt(id)).getRole()=="BANIDO"){
-			return true;
-		}		
-		return false;
+
+	public boolean verificaBanido(Integer id){
+		return Objects.equals(getRole(id).getRole(), "BANIDO");
 	}
 	
 	public Roles buscarRoleBanido(Integer id) {

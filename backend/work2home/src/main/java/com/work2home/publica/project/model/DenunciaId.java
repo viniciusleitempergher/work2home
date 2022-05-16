@@ -16,6 +16,5 @@ public class DenunciaId implements Serializable {
 	private static final long serialVersionUID = 7843864021035775856L;
 
 	private int denunciador;
-	
 	private int denunciado;
 }

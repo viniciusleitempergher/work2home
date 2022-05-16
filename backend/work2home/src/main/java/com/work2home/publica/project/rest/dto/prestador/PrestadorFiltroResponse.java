@@ -13,7 +13,7 @@ public class PrestadorFiltroResponse {
 	
 	private Integer id;
 	private String nome;	
-	private Double mediaAvaliacao;
+	private Double mediaAvaliacao; 
 	
 	public PrestadorFiltroResponse(Prestador prestador) {
 		this.id = prestador.getId();

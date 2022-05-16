@@ -35,9 +35,7 @@ public class DenunciaService {
 
 		denunciaRepository.findAll().forEach(d -> {
 			if(Objects.equals(d.getDenunciador().getId(), denunciador.getId()) && Objects.equals(d.getDenunciado().getId(),
-					denunciaRequest.getDenunciadoId())){
-				throw new ResponseStatusException(HttpStatus.CONFLICT);
-			}
+					denunciaRequest.getDenunciadoId())) throw new ResponseStatusException(HttpStatus.CONFLICT);
 		});
 		
 		Denuncia denuncia = denunciaRequest.converter(usuarioRepository);
@@ -52,7 +50,6 @@ public class DenunciaService {
 	}
 
 	public List<DenunciaResponse> buscarDenunciaPorQtd() {
-
 		return denunciaRepository.findDenunciaPorQtd();
 	}
 }

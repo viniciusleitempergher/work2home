@@ -25,7 +25,4 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Inte
             WHERE os.prestador_id = ?1
             GROUP BY os.status_orcamento;""", nativeQuery = true)
     List<List<Long>> findQtdsServicosByPrestadorId(Integer clienteId);
-
-
-    // List<Integer> findQtdsServicosByPrestadorId();
 }

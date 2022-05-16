@@ -1,27 +1,22 @@
 package com.work2home.publica.project.model;
 
-import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Table(name="refresh_token_tb")
 public class RefreshToken {
 	@Id
@@ -34,5 +29,4 @@ public class RefreshToken {
 	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	@MapsId
 	private Usuario usuario;
-	
 }

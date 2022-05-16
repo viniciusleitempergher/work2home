@@ -39,9 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("PRESTADOR", "CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
 			.antMatchers(HttpMethod.GET, "ordem-servico/filtro/*").hasAnyRole("CLIENTE", "PRESTADOR")
-
-			.antMatchers(HttpMethod.GET, "ordem-servico/quantidades-servicos").permitAll()
-
+			.antMatchers(HttpMethod.GET, "ordem-servico/quantidades-servicos").hasAnyRole("CLIENTE", "PRESTADOR")
 
 			//requisicoes avaliacao
 			.antMatchers("/avaliacao/prestador-avalia-cliente/*").hasAnyRole("PRESTADOR")
@@ -77,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/prestador").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/admin").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.PATCH, "/admin/*").hasAnyRole("ADMIN")
-			.antMatchers(HttpMethod.PATCH, "/usuario/banimento").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.PATCH, "/usuario/banimento/*").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/categoria/*/imagem").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/categoria").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/categoria/*").hasAnyRole("ADMIN")

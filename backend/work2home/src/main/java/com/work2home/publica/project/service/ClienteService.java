@@ -39,7 +39,7 @@ public class ClienteService {
 		return clienteRepository
 				.findAll()
 				.stream()
-				.map(c -> new ClienteResponse(c))
+				.map(ClienteResponse::new)
 				.toList();
 	}
 

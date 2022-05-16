@@ -44,7 +44,6 @@ public class AdminService implements CommandLineRunner {
 			UsuarioRequest usuarioDto = UsuarioRequest.builder().nome("admin")
 					.email("admin").senha("admin").dtNascimento("07/01/2004")
 					.telefone("4712341234").build();
-
 			cadastrar(usuarioDto);
 		}
 	}
