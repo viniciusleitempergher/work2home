@@ -106,9 +106,7 @@ export class UserService {
   }
   banimentoUsuario(id:number): Promise<void>{
     return new Promise(resolve => {
-      this.http.patch(`${environment.apiHostAddress}/usuario/banimento`,{
-        id: id
-      }).pipe(
+      this.http.patch(`${environment.apiHostAddress}/usuario/banimento/${id}`,{}).pipe(
         retry(15),
       ).subscribe(response => {
         resolve();

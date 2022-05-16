@@ -19,6 +19,7 @@ export class OrdemServicoComponent implements OnInit {
   imagem: string = '';
   status: string = '';
   jaAvaliado: boolean = false;
+
   thereIsImage: boolean = false;
 
   constructor(
@@ -40,7 +41,7 @@ export class OrdemServicoComponent implements OnInit {
       this.ordemServico = res;
       this.imagem = environment.apiHostAddress + '/' + res.imagemUrl;
 
-      console.log(this.ordemServico.clienteId);
+      console.log(this.ordemServico);
       this.thereIsImage = !!res.imagemUrl;
       this.status = res.status;
       this.verificarAvaliacao(res.id);
