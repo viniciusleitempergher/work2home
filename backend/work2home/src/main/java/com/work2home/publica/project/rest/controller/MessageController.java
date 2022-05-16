@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -77,10 +78,9 @@ public class MessageController {
         if (msg != null) {
             clientMap.forEach((key, value) -> {
                 if (value != null && Integer.parseInt(key) == msg.getUserTo() || Integer.parseInt(key) == msg.getUserFrom()) {
-                	messageService.add(msg);
-                    socketIOServer.getClient(value).sendEvent("receiveMsg", msg);
+                	socketIOServer.getClient(value).sendEvent("receiveMsg", msg);
                 }
             });
         }
-    }    
+    } 
 }

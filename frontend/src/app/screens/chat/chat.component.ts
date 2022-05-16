@@ -54,30 +54,34 @@ export class ChatComponent implements OnInit {
       }
     }
 
-    this.socket.on("receiveMsg", (msg: any) => {
+    this.socket.on("receiveMsg", (msg: MessageDto) => {
+      if (!msg.sentDate) {
+        msg.sentDate = new Date();
+      }
       this.messages.push(msg);
+      this.scrollMessages();
     })
 
+    this.messages = [];
     this.messages = await this.messageService.getMyMessages();
   }
   
-  handleSendMessage() {
-    this.socket.emit("message", {
+  async handleSendMessage() {
+    let msgDto = await this.messageService.sendMessage({
       userFrom: this.user.id,
       userTo: this.userReceiverId,
       text: this.chatForm.value.message
-    })
+    } as MessageDto)
+
+    this.socket.emit("message", msgDto)
   }
 
   scrollMessages() {
     let messagesDiv = document.querySelector(".messages") as Element;
 
     setTimeout(() => {
-      messagesDiv.animate({
-        scrollTop: messagesDiv.scrollHeight
-      }, 200)
-      //messagesDiv.scrollTo(0, messagesDiv.scrollHeight);
-    }, 100);
+      messagesDiv.scrollTo(0, messagesDiv.scrollHeight + 1500);
+    }, 300);
   }
 
 }

@@ -35,6 +35,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    scroll-behavior: smooth;
     transition: all 0.2s;
 }
 

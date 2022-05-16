@@ -20,4 +20,16 @@ export class MessageService {
       .subscribe((response) => resolve(response as MessageDto[]));
     })
   }
+
+  sendMessage(msg: MessageDto): Promise<MessageDto> {
+    console.log(msg);
+    
+    return new Promise(resolve => {
+      this.http
+      .post(`${environment.apiHostAddress}/message`, msg).pipe(
+        retry(15),
+      )
+      .subscribe((response) => resolve(response as MessageDto));
+    })
+  }
 }

@@ -1,6 +1,5 @@
 package com.work2home.publica.project.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class MessageService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Transactional
-	public void add(MessageDto dto) {
+	public MessageDto add(MessageDto dto) {
 		Usuario sender = usuarioRepository.findById(dto.getUserFrom()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		Usuario receiver = usuarioRepository.findById(dto.getUserTo()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -44,10 +43,11 @@ public class MessageService {
 		messageRepository.save(message);
 		usuarioRepository.save(sender);
 		usuarioRepository.save(receiver);
+		
+		return dto;
 	}
 
-	public List<MessageDto> getMessagesByUserId(int id) {	
-		System.out.println(id);
+	public List<MessageDto> getMessagesByUserId(int id) {
 		
 		List<Message> messages = messageRepository.findByReceiverIdOrSenderId(id, id);
 		List<MessageDto> messagesConverted = new ArrayList<>();
@@ -55,13 +55,12 @@ public class MessageService {
 		for (Message message : messages) {
 			MessageDto messageConverted = new MessageDto();
 			messageConverted.setText(message.getText());
-			messageConverted.setSentDate(LocalDateTime.now());
+			messageConverted.setSentDate(message.getDataEnvio());
 			messageConverted.setUserFrom(message.getSender().getId());
 			messageConverted.setUserTo(message.getReceiver().getId());
 			messagesConverted.add(messageConverted);
 		}
 		
 		return messagesConverted;
-		
 	}
 }
