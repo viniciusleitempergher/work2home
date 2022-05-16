@@ -120,9 +120,8 @@ public class UsuarioService {
 			usuario.setRole(Roles.BANIDO);						
 		}
 		usuarioRepository.save(usuario);
-		
 	}
-	
+
 	public boolean verificaBanido(Integer id){
 		return Objects.equals(getRole(id).getRole(), "BANIDO");
 	}
