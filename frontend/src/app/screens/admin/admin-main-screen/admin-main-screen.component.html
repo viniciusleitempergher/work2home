@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let u of denuncias; let i = index" (click)="verInformacao(u.denunciado_id)">
+                        <tr class="pointer" *ngFor="let u of denuncias; let i = index" (click)="verInformacao(u.denunciado_id)">
                             <td>{{u.denunciado_id}}</td>
                             <td>{{u.nome}}</td>
                             <td>{{u.role}}</td>
