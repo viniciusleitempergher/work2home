@@ -110,12 +110,12 @@ public class UsuarioService {
 		return new UsuarioResponse(usuario);
 	}
 
-	public void banimentoUsuario(String id) {
+	public void banimentoUsuario(Integer id) {
 		Usuario usuario = usuarioRepository
-				.findById(Integer.parseInt(id))
+				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		if(verificaBanido(id)) {
-			usuario.setRole(buscarRoleBanido(Integer.parseInt(id)));
+			usuario.setRole(buscarRoleBanido(id));
 		}else {			
 			usuario.setRole(Roles.BANIDO);						
 		}
@@ -123,8 +123,8 @@ public class UsuarioService {
 		
 	}
 	
-	public boolean verificaBanido(String id){
-		return Objects.equals(getRole(Integer.parseInt(id)).getRole(), "BANIDO");
+	public boolean verificaBanido(Integer id){
+		return Objects.equals(getRole(id).getRole(), "BANIDO");
 	}
 	
 	public Roles buscarRoleBanido(Integer id) {
