@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry } from 'rxjs';
+import { delay, retry } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class AdminService {
       this.http.get(`${environment.apiHostAddress}/relatorio/usuario`,
         { headers: headers, responseType: 'blob' as 'json' }).pipe(
           retry(15),
+          delay(2000)
         )
         .subscribe(response => {
           resolve(response as any);

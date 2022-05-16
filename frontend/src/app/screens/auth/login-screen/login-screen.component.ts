@@ -89,6 +89,8 @@ export class LoginScreenComponent implements OnInit {
   async getUserNRedirect() {
     this.user = await this.usuarioService.getUserFromAccessToken();
 
+    localStorage.setItem("userId", this.user.id + "");
+
     if (this.user.role == 'ADMIN')
       this.router.navigate(['admin']);
 

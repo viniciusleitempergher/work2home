@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from 'src/models/Usuario';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../screens/auth/login-screen/login-screen.component';
-import { catchError, Observable, retry } from 'rxjs';
+import { catchError, delay, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class UserService {
   getUserFromAccessToken(): Promise<Usuario> {
     return new Promise(async resolve => {
         this.http.get(`${environment.apiHostAddress}/usuario/me`).pipe(
-          retry(15),
+          retry(15)
         ).subscribe(response => {
           resolve(response as Usuario);
         })

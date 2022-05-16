@@ -6,6 +6,10 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
+import com.corundumstudio.socketio.listener.DataListener;
+import com.work2home.publica.project.model.MessageDto;
+import com.work2home.publica.project.service.MessageService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class MessageController {
+	
+	@Autowired
+	private MessageService messageService;
 
     private Logger logger = LoggerFactory.getLogger(MessageController.class);
 
@@ -39,34 +46,36 @@ public class MessageController {
 
     @OnConnect
     public void onConnect(SocketIOClient socketIOClient) {
-        String userName = socketIOClient.getHandshakeData().getSingleUrlParam("userName");
+        String userId = socketIOClient.getHandshakeData().getSingleUrlParam("userId");
         
-        System.out.println("ALow");
-        
-        if (StringUtils.isNotBlank(userName)) {
+        if (StringUtils.isNotBlank(userId)) {
             logger.info("New User: {}, NettySocketSessionId: {}, NettySocketRemoteAddress: {}",
-                    userName, socketIOClient.getSessionId().toString(), socketIOClient.getRemoteAddress().toString());
+            		userId, socketIOClient.getSessionId().toString(), socketIOClient.getRemoteAddress().toString());
 
-            clientMap.put(userName, socketIOClient.getSessionId());
+            clientMap.put(userId, socketIOClient.getSessionId());
         }
     }
 
     @OnDisconnect
-    public void onDisConnect(SocketIOClient socketIOClient) {
-    	System.out.println("falow");
-    	
-        String userName = socketIOClient.getHandshakeData().getSingleUrlParam("userName");
-        if (StringUtils.isNotBlank(userName)) {
+    public void onDisConnect(SocketIOClient socketIOClient) {    	
+        String userId = socketIOClient.getHandshakeData().getSingleUrlParam("userId");
+        if (StringUtils.isNotBlank(userId)) {
             logger.info("User Disconnected: {}, NettySocketSessionId: {}, NettySocketRemoteAddress: {}",
-                    userName, socketIOClient.getSessionId().toString(), socketIOClient.getRemoteAddress().toString());
-
-            clientMap.remove(userName);
-
+            		userId, socketIOClient.getSessionId().toString(), socketIOClient.getRemoteAddress().toString());
+            clientMap.remove(userId);
         }
     }
     
     @OnEvent("message")
-    public void sendMsg(SocketIOClient socketIOClient, AckRequest ackRequest, Object obj) {
-        System.out.println("RECEBI PORRAAA!");
+    public void sendMsg(SocketIOClient socketIOClient, AckRequest ackRequest, MessageDto msg) {
+    	logger.info(msg.toString());
+        if (msg != null) {
+            clientMap.forEach((key, value) -> {
+                if (value != null && Integer.parseInt(key) == msg.getUserTo()) {
+                	messageService.add(msg);
+                    socketIOServer.getClient(value).sendEvent("receiveMsg", msg);
+                }
+            });
+        }
     }
 }

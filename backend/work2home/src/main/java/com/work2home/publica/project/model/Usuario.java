@@ -70,6 +70,12 @@ public class Usuario {
 	@OneToMany(mappedBy = "denunciado")
 	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
 
+	@OneToMany(mappedBy = "sender")
+	private List<Message> mensagensEnviadas = new ArrayList<>();
+
+	@OneToMany(mappedBy = "receiver")
+	private List<Message> mensagensRecebidas = new ArrayList<>();
+	
 	public Double getMediaAvaliacao() {
 		Locale.setDefault(Locale.US);
 		if (avaliacoesRecebidas == null || avaliacoesRecebidas.isEmpty()) {

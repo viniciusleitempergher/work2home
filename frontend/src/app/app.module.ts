@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,11 +32,16 @@ import { OrcamentoComponent } from './orcamento/orcamento.component';
 import { ChangeThemeComponent } from './screens/change-theme/change-theme.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChatComponent } from './screens/chat/chat.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: environment.chatHostAddress, options: {
-  autoConnect: false
-} };
+const config: SocketIoConfig = {
+	url: environment.chatHostAddress,
+	options: {
+    query: "userId=" + localStorage.getItem("userId"),
+		transports: ['websocket']
+	}
+}
 
 @NgModule({
 
@@ -74,7 +78,7 @@ const config: SocketIoConfig = { url: environment.chatHostAddress, options: {
     FormsModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config), 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
@@ -83,4 +87,4 @@ const config: SocketIoConfig = { url: environment.chatHostAddress, options: {
   }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,13 @@
 <main>
+    <div class="perfilFoto">
+        <img class="perfil__img" id="fotoPerfil" *ngIf="hasImage"
+        src={{profileImgUrl}}>
+        <i class="bi bi-person-circle semImagem" *ngIf="!hasImage"></i>
+    </div>
+    <h3 class="perfil__nome">{{userReceiver.nome}}</h3>
+    <div class="messages">
+        <p *ngFor="let message of messages">{{message.text}}</p>
+    </div>
     <form class="form form-chat" [formGroup]="chatForm">
         <input type="text" name="message" formControlName="message" class="form-control form__input">
         <input (click)="handleSendMessage()" type="button" class="btn btn-primary form__button" value="Enviar">
