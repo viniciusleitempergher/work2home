@@ -22,6 +22,8 @@ export class AppComponent {
       Temas.temaPreto();
     } else if (tema == "verde") {
       Temas.temaVerde();
+    } else if (tema == "vermelho") {
+      Temas.temaVermelho();
     }
   }
 }

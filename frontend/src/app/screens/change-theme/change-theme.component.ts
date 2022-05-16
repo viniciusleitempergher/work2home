@@ -32,5 +32,10 @@ export class ChangeThemeComponent implements OnInit {
     localStorage.setItem("tema", "verde");
     Temas.temaVerde();
   }
+
+  temaVermelho() {
+    localStorage.setItem("tema", "vermelho");
+    Temas.temaVermelho();
+  }
   
 }

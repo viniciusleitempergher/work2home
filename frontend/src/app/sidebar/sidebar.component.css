@@ -50,4 +50,6 @@
     line-height: 50px;
     margin-left:auto;
 }
-  
+.color-white{
+    color: var(--font-fourth) !important;
+}

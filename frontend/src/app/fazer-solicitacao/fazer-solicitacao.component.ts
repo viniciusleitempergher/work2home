@@ -28,6 +28,7 @@ export class FazerSolicitacaoComponent implements OnInit {
   prestadorId: number = 0;
   descricao: string = '';
 
+
   nomeImagem: string = ""
 
   solicitacaoForm = new FormGroup({
