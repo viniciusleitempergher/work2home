@@ -53,17 +53,14 @@ public class Usuario {
 	@Enumerated(value = EnumType.ORDINAL)
 	private Roles role;
 
-	@JsonIgnore
 	@PrimaryKeyJoinColumn
 	@OneToOne
 	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
 	private RefreshToken refreshToken;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "avaliado")
 	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 	

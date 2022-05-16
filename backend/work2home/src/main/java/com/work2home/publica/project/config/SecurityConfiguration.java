@@ -39,9 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/aceitar-orcamento").hasAnyRole("PRESTADOR", "CLIENTE")
 			.antMatchers(HttpMethod.PATCH, "/ordem-servico/*/finalizar-os").hasAnyRole("PRESTADOR")
 			.antMatchers(HttpMethod.GET, "ordem-servico/filtro/*").hasAnyRole("CLIENTE", "PRESTADOR")
-
-			.antMatchers(HttpMethod.GET, "ordem-servico/quantidades-servicos").permitAll()
-
+			.antMatchers(HttpMethod.GET, "ordem-servico/quantidades-servicos").hasAnyRole("CLIENTE", "PRESTADOR")
 
 			//requisicoes avaliacao
 			.antMatchers("/avaliacao/prestador-avalia-cliente/*").hasAnyRole("PRESTADOR")

@@ -26,7 +26,6 @@ public class CidadeService {
 	private JwtUtil jwt;
 	
 	public Cidade converter(EnderecoRequest enderecoDto) {
-	
 		return verificaECadastra(enderecoDto.getEstado(), enderecoDto.getCidade());
 	}
 

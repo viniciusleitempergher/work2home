@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 

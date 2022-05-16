@@ -80,6 +80,4 @@ public class OrdemServicoController {
 	public List<List<Long>> buscarQuantidadesDeOs() {
 		return service.buscarQuantidadesDeOs();
 	}
-
-
 }

@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -98,7 +99,7 @@ public class UsuarioService {
 		return usuarioRepository
 				.findAll()
 				.stream()
-				.map(c -> new UsuarioResponse(c))
+				.map(UsuarioResponse::new)
 				.toList();
 	}
 
@@ -123,10 +124,7 @@ public class UsuarioService {
 	}
 	
 	public boolean verificaBanido(String id){
-		if(getRole(Integer.parseInt(id)).getRole()=="BANIDO"){
-			return true;
-		}		
-		return false;
+		return Objects.equals(getRole(Integer.parseInt(id)).getRole(), "BANIDO");
 	}
 	
 	public Roles buscarRoleBanido(Integer id) {
