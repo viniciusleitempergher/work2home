@@ -2,6 +2,8 @@ package com.work2home.publica.project.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +17,7 @@ import com.work2home.publica.project.model.MessageDto;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.MessageRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
+import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class MessageService {
@@ -43,4 +46,22 @@ public class MessageService {
 		usuarioRepository.save(receiver);
 	}
 
+	public List<MessageDto> getMessagesByUserId(int id) {	
+		System.out.println(id);
+		
+		List<Message> messages = messageRepository.findByReceiverIdOrSenderId(id, id);
+		List<MessageDto> messagesConverted = new ArrayList<>();
+		
+		for (Message message : messages) {
+			MessageDto messageConverted = new MessageDto();
+			messageConverted.setText(message.getText());
+			messageConverted.setSentDate(LocalDateTime.now());
+			messageConverted.setUserFrom(message.getSender().getId());
+			messageConverted.setUserTo(message.getReceiver().getId());
+			messagesConverted.add(messageConverted);
+		}
+		
+		return messagesConverted;
+		
+	}
 }

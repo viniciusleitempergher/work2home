@@ -24,7 +24,7 @@ public class UsuarioDenunciasResponse {
 		this.cargo = usuario.getRole().toString();
 		this.denuncias = usuario.getDenunciasRecebidas()
 				.stream()
-				.map(d -> new DenunciaDto(d))
+				.map(DenunciaDto::new)
 				.toList();
 		
 	}

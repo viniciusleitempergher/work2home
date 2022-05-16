@@ -1,12 +1,19 @@
 <main>
-    <div class="perfilFoto">
-        <img class="perfil__img" id="fotoPerfil" *ngIf="hasImage"
-        src={{profileImgUrl}}>
-        <i class="bi bi-person-circle semImagem" *ngIf="!hasImage"></i>
+    <div class="receiverProfile">
+        <div class="perfilFoto">
+            <img class="perfil__img" id="fotoPerfil" *ngIf="hasImage"
+            src={{profileImgUrl}}>
+            <i class="bi bi-person-circle semImagem perfil__img" *ngIf="!hasImage"></i>
+        </div>
+        <h3 class="perfil__nome">{{userReceiver.nome}}</h3>
     </div>
-    <h3 class="perfil__nome">{{userReceiver.nome}}</h3>
     <div class="messages">
-        <p *ngFor="let message of messages">{{message.text}}</p>
+        <div class="message" *ngFor="let message of messages trackBy: scrollMessages" [class.myMessage]="message.userFrom == user.id" [class.hisMessage]="message.userFrom != user.id">
+            <p class="message__title" *ngIf="message.userFrom == user.id"><b>Você</b></p>
+            <p class="message__title" *ngIf="message.userFrom != user.id"><b>{{userReceiver.nome}}</b></p>
+            <p class="message__text">{{message.text}}</p>
+            <p class="message__sentDate">{{message.sentDate | date : 'HH:mm'}}</p>
+        </div>
     </div>
     <form class="form form-chat" [formGroup]="chatForm">
         <input type="text" name="message" formControlName="message" class="form-control form__input">

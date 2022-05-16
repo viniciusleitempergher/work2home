@@ -32,30 +32,14 @@ public class CategoriaService {
 	private PrestadorService prestadorService;
 
 	public CategoriaResponse cadastrarCategoria(@Valid CategoriaRequest categoriaRequest) {
-		Categoria categoria = categoriaRepository.save(new Categoria(categoriaRequest.getNome()));
-		CategoriaResponse cr = new CategoriaResponse();
-		try {
-			BeanUtils.copyProperties(cr, categoria);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		return cr;
+		return new CategoriaResponse(categoriaRepository.save(new Categoria(categoriaRequest.getNome())));
 	}
 
 	public List<CategoriaResponse> buscarCategorias() {
-		
 		return categoriaRepository
 				.findAll()
 				.stream()
-				.map(c -> {
-					CategoriaResponse cr = new CategoriaResponse();
-					try {
-						BeanUtils.copyProperties(cr, c);
-					} catch (Exception e) {				
-						e.printStackTrace();
-					} 
-					return cr;
-				})
+				.map(CategoriaResponse::new)
 				.toList();
 	}
 
@@ -63,7 +47,7 @@ public class CategoriaService {
 		prestadorService.adicionarCategoria(categoriaId);
 	}
 
-	public Categoria cadastrarImagem(Integer id, MultipartFile multipartFile) {
+	public CategoriaResponse cadastrarImagem(Integer id, MultipartFile multipartFile) {
 		
 		Categoria categoria = categoriaRepository
 				.findById(id)
@@ -72,16 +56,14 @@ public class CategoriaService {
 		String uuid = UUID.randomUUID().toString();
 		String dir = "../images/categoria";
 		String url = dir + "/" + uuid + ".png";
-		
-		categoria.setImagemUrl(url);
-		
+
 		try {
-			FileUploadUtil.saveFile(dir, uuid , multipartFile);		
+			FileUploadUtil.saveFile(dir, uuid , multipartFile);
+			categoria.setImagemUrl(url);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
-		
-		return categoriaRepository.save(categoria);
+		}
+		return new CategoriaResponse(categoriaRepository.save(categoria));
 	}
 
 	public void deletarCategoria(Integer id) {

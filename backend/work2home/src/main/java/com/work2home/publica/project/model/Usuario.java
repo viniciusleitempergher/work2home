@@ -10,16 +10,15 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.work2home.publica.project.enums.Roles;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Table(name = "usuario_tb")
 public class Usuario {
 
@@ -53,17 +52,14 @@ public class Usuario {
 	@Enumerated(value = EnumType.ORDINAL)
 	private Roles role;
 
-	@JsonIgnore
 	@PrimaryKeyJoinColumn
 	@OneToOne
 	@JoinColumn(name = "refresh_token_id", referencedColumnName = "id")
 	private RefreshToken refreshToken;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "avaliado")
 	private List<Avaliacao> avaliacoesRecebidas = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "avaliador")
 	private List<Avaliacao> avaliacoesFeitas = new ArrayList<>();
 	

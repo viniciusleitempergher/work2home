@@ -44,6 +44,7 @@ export class Temas {
         this.rootStyle.setProperty("--font-fourth", "#ffffff")
     }
 
+
     static temaVermelho() {
         this.rootStyle.setProperty("--background-primary", "#f4e8e8")
         this.rootStyle.setProperty("--background-secondary", "#f3acac")

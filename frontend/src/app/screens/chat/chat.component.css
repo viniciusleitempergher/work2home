@@ -1,6 +1,72 @@
+.receiverProfile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.perfil__img {
+    width: 70px;
+    height: 70px;
+    font-size: 70px;
+    border-radius: 50%;
+}
+.perfil__nome {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
 .form-chat {
+    background-color: var(--background-primary);
+    display: flex;
+    position: absolute;
+    bottom: 15px;
+    flex-direction: row;
+    gap: 13px;
+}
+
+.messages {
+    overflow-y: auto;
+    bottom: 0;
+    height: 70vh;
+    width: 100vw;
+    padding: 20px 40px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 13px;
+    align-items: flex-start;
+    gap: 10px;
+    transition: all 0.2s;
+}
+
+main {
+    padding-top: 15px;
+    height: 100vh;
+}
+
+.myMessage {
+    align-self: flex-end;
+}
+
+.myMessage .message__sentDate {
+    text-align: right;
+}
+
+.hisMessage .message__title {
+    text-align: left;
+}
+
+.message {
+    background-color: var(--background-secondary);
+    padding: 7px 15px;
+    border-radius: 10px;
+}
+
+.message__title {
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.message__sentDate {
+    font-size: .8rem;
+    margin-bottom: 0;
 }
