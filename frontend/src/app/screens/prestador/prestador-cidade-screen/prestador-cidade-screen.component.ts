@@ -7,6 +7,7 @@ import { PrestadorService } from 'src/app/services/prestador.service';
 import { UserService } from 'src/app/services/user.service';
 import { Cidade } from 'src/models/Cidade';
 import { CidadePrestador } from 'src/models/CidadePrestador';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Estado } from 'src/models/Estado';
 import { Prestador } from 'src/models/Prestador';
 import { Usuario } from 'src/models/Usuario';
@@ -56,11 +57,11 @@ export class PrestadorCidadeScreenComponent implements OnInit {
     this.validaCbxEstado();
     this.validaCbxCidade();
   } catch (e:any) {
-    Swal.fire('Erro!', e.message, 'error')
+    CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
   }
   if (this.cidadeForm.valid) {
     await this.serviceCidade.cadastrarCidade(this.cidadePrestador);
-    Swal.fire({
+    CustomAlerts.primaryAlert.fire({
       position: 'center',
       icon: 'success',
       title: 'Cidade Adicionada!',
@@ -116,7 +117,7 @@ export class PrestadorCidadeScreenComponent implements OnInit {
 
   async handleDeletarCidade(id:number){
     console.log(id)
-    let escolha = await Swal.fire({
+    let escolha = await CustomAlerts.primaryAlert.fire({
       title: '<strong>Alerta!</strong>',
       icon: 'info',
       html:

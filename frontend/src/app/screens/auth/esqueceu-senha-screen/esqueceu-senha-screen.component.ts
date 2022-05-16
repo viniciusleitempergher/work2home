@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,7 +25,7 @@ export class EsqueceuSenhaScreenComponent implements OnInit {
 
     await this.usuarioService.esqueceuSenha(email);
 
-    Swal.fire({
+    CustomAlerts.primaryAlert.fire({
       position: 'center',
       icon: 'success',
       title: 'Confira seu email!',

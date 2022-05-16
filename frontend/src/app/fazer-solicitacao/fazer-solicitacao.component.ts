@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { OrdemServicoRequest } from 'src/models/OrdemServicoRequest';
+import { environment } from 'src/environments/environment';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 @Component({
   selector: 'app-fazer-solicitacao',
@@ -17,6 +19,7 @@ import { OrdemServicoRequest } from 'src/models/OrdemServicoRequest';
   styleUrls: ['./fazer-solicitacao.component.css'],
 })
 export class FazerSolicitacaoComponent implements OnInit {
+  environment = environment;
   categoriaId: number = 0;
   prestadores: Prestador[] = [];
   cidade: string = '';
@@ -73,7 +76,7 @@ export class FazerSolicitacaoComponent implements OnInit {
         this.solicitacaoForm.get('imagemSrc')?.value
       );
 
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Solicitação realizada',
@@ -82,7 +85,7 @@ export class FazerSolicitacaoComponent implements OnInit {
       });
       this.router.navigate(['cliente']);
     } catch (err: any) {
-      Swal.fire('Erro!', err.message, 'error');
+      CustomAlerts.primaryAlert.fire('Erro!', err.message, 'error');
     }
   }
 

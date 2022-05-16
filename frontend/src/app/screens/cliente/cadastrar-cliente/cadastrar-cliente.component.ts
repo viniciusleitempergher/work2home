@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
 import { LoginResponse } from '../../auth/login-screen/login-screen.component';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 export type ClienteCadastro = {
   usuarioDto: Usuario;
@@ -62,12 +63,12 @@ export class CadastrarClienteComponent implements OnInit {
       this.validaCpf();
       this.validaTelefone();
     } catch (e:any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
     if (this.cadastroClienteForm.valid) {
       await this.clienteService.cadastrarCliente(this.cliente);
       this.logar();
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Cliente Cadastrado!',

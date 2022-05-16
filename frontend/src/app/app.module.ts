@@ -10,7 +10,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddTokenInterceptor } from './interceptors/AddTokenInterceptor';
 import { AdminMainScreenComponent } from './screens/admin/admin-main-screen/admin-main-screen.component';
-import { CadastrarCategoriaComponent } from './screens/admin/cadastrar-categoria/cadastrar-categoria.component';
 import { EscolherTipoComponent } from './screens/auth/escolher-tipo/escolher-tipo.component';
 import { EsqueceuSenhaScreenComponent } from './screens/auth/esqueceu-senha-screen/esqueceu-senha-screen.component';
 import { LoginScreenComponent } from './screens/auth/login-screen/login-screen.component';
@@ -49,7 +48,6 @@ const config: SocketIoConfig = {
     AppComponent,
     LoginScreenComponent,
     AdminMainScreenComponent,
-    CadastrarCategoriaComponent,
     EscolherTipoComponent,
     CadastrarPrestadorComponent,
     CadastrarClienteComponent,

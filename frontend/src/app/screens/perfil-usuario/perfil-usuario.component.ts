@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { DenunciaService } from 'src/app/services/denuncia.service';
 import { Denuncia } from 'src/models/dtos/Denuncia';
 import { Location } from '@angular/common';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -158,18 +159,8 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   denuncia() {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        title: 'titles',
-        popup: 'popus',
-        input: 'inputs',
-        confirmButton: 'botaoDenuncia',
-        cancelButton: 'botaoCancela'
-      },
-      buttonsStyling: false
-    })
 
-    swalWithBootstrapButtons.fire({
+    CustomAlerts.primaryAlert.fire({
       title: 'Descreva o motivo da denúncia',
       input: 'text',
       inputAttributes: {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,18 +28,18 @@ export class AlterarSenhaScreenComponent implements OnInit {
     let repetirSenha = this.alterarSenhaForm.value.repetirSenha;
 
     if (!senha || senha.length < 8) {
-      Swal.fire('Erro!', "A senha deve possuir mais que 8 caracteres!", 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', "A senha deve possuir mais que 8 caracteres!", 'error')
       return;
     }
     if (senha != repetirSenha) {
-      Swal.fire('Erro!', "Senhas diferentes!", 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', "Senhas diferentes!", 'error')
       return;
     }
 
     localStorage.setItem('accessToken', JSON.stringify(this.accessToken));
     this.usuarioService.alterarSenha(senha);
     
-    await Swal.fire({
+    await CustomAlerts.primaryAlert.fire({
       position: 'center',
       icon: 'success',
       title: 'Senha alterada!',

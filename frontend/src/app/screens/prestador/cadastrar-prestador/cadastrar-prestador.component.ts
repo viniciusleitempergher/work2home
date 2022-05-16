@@ -8,6 +8,7 @@ import { PrestadorService } from 'src/app/services/prestador.service';
 import { UserService } from 'src/app/services/user.service';
 import { Usuario } from 'src/models/Usuario';
 import { LoginResponse } from '../../auth/login-screen/login-screen.component';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 export type PrestadorCadastro = {
   usuarioDto: Usuario;
@@ -64,13 +65,13 @@ export class CadastrarPrestadorComponent implements OnInit {
       this.validaTelefone();
       this.validaNomeEmpresa();
     } catch (e:any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
 
     if (this.cadastroPrestadorForm.valid) {
       await this.prestadorService.cadastrarPrestador(this.prestador);
       await this.logar();
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Prestador Cadastrado!',

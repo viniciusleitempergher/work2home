@@ -8,6 +8,7 @@ import { DenunciaService } from 'src/app/services/denuncia.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { Categoria } from 'src/models/Categoria';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Denuncia } from 'src/models/dtos/Denuncia';
 import { DenunciaResponse } from 'src/models/dtos/DenunciaResponse';
 import { UsuarioDenuncia } from 'src/models/dtos/UsuarioDenuncia';
@@ -90,7 +91,7 @@ export class AdminMainScreenComponent implements OnInit {
   }
 
   async handleDeletarCategoria(id: number) {
-    let escolha = await Swal.fire({
+    let escolha = await CustomAlerts.primaryAlert.fire({
       title: '<strong>Alerta!</strong>',
       icon: 'info',
       html:
@@ -126,7 +127,7 @@ export class AdminMainScreenComponent implements OnInit {
     this.categorias.push(categoria);
     this.limparCampos();
     }else{
-      Swal.fire('Erro!', "Informe todos os campos!!!", 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', "Informe todos os campos!!!", 'error')
     }
   }
   
@@ -147,19 +148,8 @@ export class AdminMainScreenComponent implements OnInit {
     return this.datePipe.transform(data, 'dd/MM/yyyy') as string
   }
  async verInformacao(i: number) {
-    
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        title: 'tituloBanir',
-        popup: 'popus',
-        input: 'inputs',
-        confirmButton: 'botaoDenuncia',
-        cancelButton: 'botaoCancela'
-      },
-      buttonsStyling: false
-    })
 
-    swalWithBootstrapButtons.fire({
+  CustomAlerts.primaryAlert.fire({
       title:await this.informacoesUsuario(i) ,
       showCancelButton: true,
       confirmButtonText: this.botaoBanir
@@ -168,9 +158,9 @@ export class AdminMainScreenComponent implements OnInit {
         this.userService.banimentoUsuario(i);
         
         if(this.botaoBanir=="Banir"){
-          Swal.fire('Usuário banido!', '', 'success')
+          CustomAlerts.primaryAlert.fire('Usuário banido!', '', 'success')
         }else{
-          Swal.fire('Usuário Desbanido!', '', 'success')
+          CustomAlerts.primaryAlert.fire('Usuário Desbanido!', '', 'success')
         }
         await this.carregarDenuncias();
         
@@ -209,11 +199,11 @@ export class AdminMainScreenComponent implements OnInit {
       this.validaDataNascimento();
       this.validaTelefone();
     } catch (e:any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
     if (this.cadastroAdmForm.valid) {
       await this.userService.cadastrarAdm(this.usuarioAdm);
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Administrador Cadastrado!',

@@ -24,7 +24,7 @@
     <div class="cidades">
         <div class="cidade" *ngFor="let c of prestador.cidades">
             <h3 class="cidade__nome">{{c.estado}} - {{c.nome}}</h3>
-            <i class="cidade__closebtn" class="bi bi-x-lg" (click)="handleDeletarCidade(c.id)"></i>
+            <i class="cidade__closebtn" class="bi bi-x-lg pointer" (click)="handleDeletarCidade(c.id)"></i>
         </div>
     </div>
     <div class="btn__wrapper">

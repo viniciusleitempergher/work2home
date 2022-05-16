@@ -5,7 +5,6 @@ import { FazerSolicitacaoComponent } from './fazer-solicitacao/fazer-solicitacao
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminMainScreenComponent } from './screens/admin/admin-main-screen/admin-main-screen.component';
-import { CadastrarCategoriaComponent } from './screens/admin/cadastrar-categoria/cadastrar-categoria.component';
 import { AlterarSenhaScreenComponent } from './screens/auth/alterar-senha-screen/alterar-senha-screen.component';
 import { EscolherTipoComponent } from './screens/auth/escolher-tipo/escolher-tipo.component';
 import { EsqueceuSenhaScreenComponent } from './screens/auth/esqueceu-senha-screen/esqueceu-senha-screen.component';
@@ -26,7 +25,6 @@ import { ChatComponent } from './screens/chat/chat.component';
 const routes: Routes = [
   {path: 'login', component: LoginScreenComponent},
   {path: 'admin', component: AdminMainScreenComponent},
-  {path: 'cadastrar-categoria', component: CadastrarCategoriaComponent},
   {path: 'escolher-tipo', component: EscolherTipoComponent},
   {path: 'cadastrar-prestador', component: CadastrarPrestadorComponent},
   {path: 'cidade', component: PrestadorCidadeScreenComponent},

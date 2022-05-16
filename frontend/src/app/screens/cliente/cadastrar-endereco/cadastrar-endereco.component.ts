@@ -7,6 +7,7 @@ import { EnderecoService } from 'src/app/services/endereco.service';
 import { UserService } from 'src/app/services/user.service';
 import { Cidade } from 'src/models/Cidade';
 import { Cliente } from 'src/models/Cliente';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Endereco } from 'src/models/Endereco';
 import { Estado } from 'src/models/Estado';
 import { Usuario } from 'src/models/Usuario';
@@ -71,11 +72,11 @@ export class CadastrarEnderecoComponent implements OnInit {
       this.validaNumero();
       this.validaComplemento();
     } catch (e: any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
     if (this.cadastroEnderecoForm.valid) {
       await this.enderecoService.cadastrarEndereco(this.endereco);
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Endereço atualizado!',
