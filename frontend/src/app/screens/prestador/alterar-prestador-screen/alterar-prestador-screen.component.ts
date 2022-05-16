@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PrestadorService } from 'src/app/services/prestador.service';
 import { UserService } from 'src/app/services/user.service';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../auth/login-screen/login-screen.component';
@@ -87,7 +88,7 @@ export class AlterarPrestadorScreenComponent implements OnInit {
       else 
         await this.prestadorService.alterarPrestador(this.prestador);
 
-      Swal.fire({
+        CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Dados atualizados!',
@@ -96,7 +97,7 @@ export class AlterarPrestadorScreenComponent implements OnInit {
       });
      this.router.navigate(['cidade']);
     } catch (e:any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
   }
   validaNome() {

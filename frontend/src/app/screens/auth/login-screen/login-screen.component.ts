@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,8 @@ export type LoginResponse = {
   styleUrls: ['./login-screen.component.css']
 })
 export class LoginScreenComponent implements OnInit {
+
+
   user = {} as Usuario;
   environment = environment;
 
@@ -67,11 +70,11 @@ export class LoginScreenComponent implements OnInit {
   
   async handleLogin() {
     if (!this.validaEmail()) {
-      Swal.fire('Erro!', 'Preencha o email!', 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', 'Preencha o email!', 'error')
       return;
     }
     if (!this.validaSenha()) {
-      Swal.fire('Erro!', 'Preencha a senha!', 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', 'Preencha a senha!', 'error')
       return;
     }
 

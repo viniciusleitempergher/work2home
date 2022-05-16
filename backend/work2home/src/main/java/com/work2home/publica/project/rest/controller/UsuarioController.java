@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.work2home.publica.project.rest.dto.ImagemDto;
 import com.work2home.publica.project.rest.dto.usuario.AlterarSenha;
-import com.work2home.publica.project.rest.dto.usuario.BanirUsuario;
 import com.work2home.publica.project.rest.dto.usuario.RoleUsuarioResponse;
 import com.work2home.publica.project.service.UsuarioService;
 import io.swagger.annotations.ApiOperation;

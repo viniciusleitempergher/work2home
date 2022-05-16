@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { UserService } from 'src/app/services/user.service';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 import { Usuario } from 'src/models/Usuario';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../auth/login-screen/login-screen.component';
@@ -80,7 +81,7 @@ export class AlterarClienteScreenComponent implements OnInit {
       else 
         await this.clienteService.completarCadastro(this.cliente);
 
-      Swal.fire({
+        CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Dados atualizados!',
@@ -89,7 +90,7 @@ export class AlterarClienteScreenComponent implements OnInit {
       })
       this.router.navigate(['cadastrar-endereco']);
     } catch (e: any) {
-      Swal.fire('Erro!', e.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
     }
   }
 

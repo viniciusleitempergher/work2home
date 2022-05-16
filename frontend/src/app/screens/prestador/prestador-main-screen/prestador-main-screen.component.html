@@ -9,7 +9,7 @@
 
     <form>
 
-      <select id="cbxStatus" class="form-select form-control form__input form__input-staus" (change)="getServicosByStatus()"
+      <select id="cbxStatus" class="form-select form-control form__input form__input-staus pointer" (change)="getServicosByStatus()"
           name="cbxStatusServico" [(ngModel)]="cbxStatus">
         <option value="-1">Todos ({{ordensServico.length}})</option>
         <option value="0">Solicitados ({{qtdStatusOs[0]}})</option>

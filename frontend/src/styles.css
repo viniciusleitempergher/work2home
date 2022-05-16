@@ -131,6 +131,9 @@ font-size: 1rem !important;
     color: var(--font-primary) !important;
     border-radius: 10%;
 }
+.icons{
+    border-color: var(--font-primary) !important;
+}
 
 .inputs {
     border: 1px solid var(--font-thirdy) !important;
@@ -158,3 +161,17 @@ font-size: 1rem !important;
     margin: 10px;
     border-radius: 5px;
 }
+
+::-webkit-scrollbar {
+    width: 8px;  
+    height: 8px;            
+  }
+  
+::-webkit-scrollbar-track {
+    background: none;        
+  }
+  
+::-webkit-scrollbar-thumb {
+    background-color: var(--font-primary);   
+    border-radius: 20px; 
+  }

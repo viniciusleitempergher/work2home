@@ -27,7 +27,7 @@ public class Email {
     @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "texto", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "texto", nullable = false, columnDefinition = "TEXT", length=500)
     private String texto;
 
     @Column(name = "data_envio", nullable = false)

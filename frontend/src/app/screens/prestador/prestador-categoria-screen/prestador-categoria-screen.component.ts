@@ -9,6 +9,7 @@ import { Usuario } from 'src/models/Usuario';
 import { Categoria } from 'src/models/Categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import Swal from 'sweetalert2';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 @Component({
   selector: 'app-prestador-categoria-screen',
@@ -46,11 +47,11 @@ export class PrestadorCategoriaScreenComponent implements OnInit {
         this.validaCbxCategoria();
 
       } catch (e: any) {
-        Swal.fire('Erro!', e.message, 'error')
+        CustomAlerts.primaryAlert.fire('Erro!', e.message, 'error')
       }
       if (this.categoriaAtuaForm.valid) {
         await this.categoriaService.cadastrarCategoria(this.categoriaAtuaForm.value.cbxCategoria);
-        Swal.fire({
+        CustomAlerts.primaryAlert.fire({
           position: 'center',
           icon: 'success',
           title: 'Categoria Cadastrada!',
@@ -60,12 +61,12 @@ export class PrestadorCategoriaScreenComponent implements OnInit {
         this.prestador = await this.prestadorService.getPrestador(this.user.id);
       }
     } else {
-      Swal.fire('Erro!', 'Categoria '+this.nomeCategoria+' já cadastrada', 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', 'Categoria '+this.nomeCategoria+' já cadastrada', 'error')
     }
   }
   async handleDeletarCategoria(id: number) {
     console.log(id)
-    let escolha = await Swal.fire({
+    let escolha = await CustomAlerts.primaryAlert.fire({
       title: '<strong>Alerta!</strong>',
       icon: 'info',
       html:

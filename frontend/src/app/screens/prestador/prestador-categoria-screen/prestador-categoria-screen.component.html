@@ -15,7 +15,7 @@
     <div class="ctgs">
         <div class="ctg" *ngFor="let c of prestador.categorias">
             <h3 class="ctg__nome">{{c.nome}}</h3>
-            <i class="ctg__closebtn" class="bi bi-x-lg" (click)="handleDeletarCategoria(c.id)"></i>
+            <i class="ctg__closebtn" class="bi bi-x-lg pointer" (click)="handleDeletarCategoria(c.id)"></i>
         </div>
     </div>
     <div class="btn__wrapper">

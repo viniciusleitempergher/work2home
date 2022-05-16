@@ -5,6 +5,7 @@ import { OrdemServicoService } from 'src/app/services/ordem-servico.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 @Component({
   selector: 'app-orcamento',
@@ -45,14 +46,14 @@ export class OrcamentoComponent implements OnInit {
       this.validaValor();
 
     }catch(err:any){
-      Swal.fire('Erro!', err.message, 'error')
+      CustomAlerts.primaryAlert.fire('Erro!', err.message, 'error')
     }
 
     if(this.orcamentoForm.valid){
 
       this.osService.aceitarSolicitacao(this.osId, this.ordemServico)
       .then(() => {
-        Swal.fire({
+        CustomAlerts.primaryAlert.fire({
           position: 'center',
           icon: 'success',
           title: 'Orçamento realizado!',

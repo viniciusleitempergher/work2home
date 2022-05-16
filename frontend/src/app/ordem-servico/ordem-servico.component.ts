@@ -7,6 +7,7 @@ import { OrdemServicoService } from './../services/ordem-servico.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { CustomAlerts } from 'src/models/CustomAlerts';
 
 @Component({
   selector: 'app-ordem-servico',
@@ -21,6 +22,7 @@ export class OrdemServicoComponent implements OnInit {
   jaAvaliado: boolean = false;
 
   thereIsImage: boolean = false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +53,7 @@ export class OrdemServicoComponent implements OnInit {
   async respostaOrcamento(aceitar: boolean) {
     if (aceitar) {
       this.status = 'EM_ANDAMENTO';
-      Swal.fire({
+      CustomAlerts.primaryAlert.fire({
         position: 'center',
         icon: 'success',
         title: 'Orçamento aceito!',
@@ -61,10 +63,10 @@ export class OrdemServicoComponent implements OnInit {
 
       this.osService.responderOrcamento(aceitar, this.ordemServico.id);
     } else {
-      let escolha = await Swal.fire({
+      let escolha = await CustomAlerts.primaryAlert.fire({
         title: '<strong>Alerta!</strong>',
         icon: 'info',
-        html: 'Você deseja realmente excluir essa categoria!?',
+        html: 'Você deseja realmente negar esse orçamento?',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
@@ -76,7 +78,7 @@ export class OrdemServicoComponent implements OnInit {
 
       if (escolha.isConfirmed) {
         this.status = 'NEGADO';
-        Swal.fire({
+        CustomAlerts.primaryAlert.fire({
           position: 'center',
           icon: 'success',
           title: 'Orçamento negado',
@@ -89,10 +91,11 @@ export class OrdemServicoComponent implements OnInit {
   }
 
   async negarSolicitacao() {
-    let escolha = await Swal.fire({
+    
+    let escolha = await CustomAlerts.primaryAlert.fire({
       title: '<strong>Alerta!</strong>',
       icon: 'info',
-      html: 'Você deseja realmente excluir essa categoria!?',
+      html: 'Você deseja realmente negar essa solicitação!?',
       showCloseButton: true,
       showCancelButton: true,
       focusConfirm: false,
@@ -107,7 +110,7 @@ export class OrdemServicoComponent implements OnInit {
         .negarSolicitacao(this.ordemServico.id)
         .then(() => {
           this.status = 'NEGADO';
-          Swal.fire({
+          CustomAlerts.primaryAlert.fire({
             position: 'center',
             icon: 'success',
             title: 'Solicitação negada',
@@ -126,13 +129,13 @@ export class OrdemServicoComponent implements OnInit {
     var dataFormatada = listaData[1] + '-' + listaData[0] + '-' + listaData[2];
 
     if (new Date(dataFormatada) >= new Date()) {
-      Swal.fire('Erro!', 'Muito cedo para finalizar', 'error');
+      CustomAlerts.primaryAlert.fire('Erro!', 'Muito cedo para finalizar', 'error');
     } else {
       this.osService
         .finalizarOrcamento(this.ordemServico.id)
         .then(() => {
           this.status = 'FINALIZADO';
-          Swal.fire({
+          CustomAlerts.primaryAlert.fire({
             position: 'center',
             icon: 'success',
             title: 'Serviço finalizado!',
