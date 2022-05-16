@@ -1,5 +1,7 @@
 package com.work2home.publica.project.model;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,4 +15,5 @@ public class MessageDto {
 	private Integer userFrom;
 	private Integer userTo;
 	private String text;
+	private LocalDateTime sentDate;
 }

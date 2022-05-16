@@ -187,6 +187,7 @@ public class JwtUtil {
 
 	public Usuario getUserFromHeaderToken() {
 		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		
 		return getUserFromAccessToken(token);
 
 	}
