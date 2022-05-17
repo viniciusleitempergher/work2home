@@ -1,5 +1,6 @@
 <app-sidebar></app-sidebar>
 <main>
+  
   <div id="imagem">
 
     <img  *ngIf="thereIsImage" src="{{imagem}}" alt="imagem do serviço" id="imagemServico" class="rounded img-fluid">
@@ -17,9 +18,9 @@
       <p *ngIf="status == 'NEGADO'"><b>Serviço Negado</b></p>
     </div>
 
-    <div>
-      <p class="pointer" routerLink="/perfil/{{ordemServico.clienteId}}"><b>Cliente:</b> {{ordemServico.nomeCliente}}</p>
-      <p class="pointer" routerLink="/perfil/{{ordemServico.prestadorId}}"><b>Prestador:</b> {{ordemServico.nomePrestador}}</p>
+    <div class="profiles">
+      <div class="profiles__wrapper"><p class="pointer" routerLink="/perfil/{{ordemServico.clienteId}}"><b>Cliente:</b> {{ordemServico.nomeCliente}}</p><div class="btn" *ngIf="status == 'EM_ANDAMENTO' || status == 'EM_ORCAMENTO' && usuario.id != ordemServico.clienteId" class="btn__chat-wrapper"><button class="btn btn-primary form__button form__button-chat" routerLink="/chat/{{ordemServico.clienteId}}"><i class="bi bi-chat-fill"></i>Chat</button></div></div>
+      <div class="profiles__wrapper"><p class="pointer" routerLink="/perfil/{{ordemServico.prestadorId}}"><b>Prestador:</b> {{ordemServico.nomePrestador}}</p><div class="btn" *ngIf="status == 'EM_ANDAMENTO' || status == 'EM_ORCAMENTO' && usuario.id != ordemServico.prestadorId" class="btn__chat-wrapper"><button class="btn btn-primary form__button form__button-chat" routerLink="/chat/{{ordemServico.prestadorId}}"><i class="bi bi-chat-fill"></i>Chat</button></div></div>
     </div>
 
     <div>

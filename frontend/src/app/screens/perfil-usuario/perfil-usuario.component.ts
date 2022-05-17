@@ -181,7 +181,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   voltarPagina(){
-    this.location.back()
+    this.location.back();
   }
 
 }

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Socket } from 'ngx-socket-io';
 import { Usuario } from 'src/models/Usuario';
 import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PrestadorService } from 'src/app/services/prestador.service';
 import { MessageDto } from 'src/models/MessageDto';
 import { MessageService } from 'src/app/services/message.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 
 @Component({
@@ -19,7 +19,6 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe] 
 })
 export class ChatComponent implements OnInit {
-
   user = {} as Usuario;
   userReceiver: Usuario = {} as Usuario;
   userReceiverId: number = +this.route.snapshot.params['usuarioId'];
@@ -28,7 +27,7 @@ export class ChatComponent implements OnInit {
 
   hasImage: boolean = true;
 
-  constructor(private socket: Socket, private usuarioService: UserService, private messageService: MessageService, private route: ActivatedRoute, private clienteService: ClienteService, private prestadorService: PrestadorService, private datePipe: DatePipe) { }
+  constructor(private location: Location, private socket: Socket, private usuarioService: UserService, private messageService: MessageService, private route: ActivatedRoute, private clienteService: ClienteService, private prestadorService: PrestadorService, private datePipe: DatePipe, private router: Router) { }
 
   chatForm = new FormGroup({
     message: new FormControl()
@@ -83,5 +82,8 @@ export class ChatComponent implements OnInit {
       messagesDiv.scrollTo(0, messagesDiv.scrollHeight + 1500);
     }, 300);
   }
-
+  voltarPagina(){
+    let ordemId = JSON.parse(localStorage.getItem("ordemServicoId") as string);
+    this.router.navigate([`ordem-servico/${ordemId}`])
+  }
 }

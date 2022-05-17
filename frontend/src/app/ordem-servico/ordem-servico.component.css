@@ -87,3 +87,29 @@ p{
   max-width: 500px;
   word-break: break-all;
 }
+
+.form__button-chat {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: min-content;
+  align-self: center;
+}
+.form__button-chat i {
+  font-size: 1rem;
+}
+
+.profiles{
+  display: flex;
+  flex-direction: column;
+}
+.profiles__wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn__chat-wrapper {
+  display: inline-block;
+}

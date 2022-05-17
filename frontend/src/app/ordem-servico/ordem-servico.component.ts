@@ -39,9 +39,18 @@ export class OrdemServicoComponent implements OnInit {
 
   async getOrdemServico() {
     let id = this.route.snapshot.params['id'];
+    localStorage.setItem("ordemServicoId", JSON.stringify(id))
     await this.osService.getById(id).then((res) => {
       this.ordemServico = res;
+
       this.imagem = environment.apiHostAddress + '/' + res.imagemUrl;
+      
+      if ((res.imagemUrl).includes("https")) {
+        this.imagem = res.imagemUrl;
+      } else {
+        this.imagem = environment.apiHostAddress + '/' + res.imagemUrl;
+      }
+
 
       console.log(this.ordemServico);
       this.thereIsImage = !!res.imagemUrl;
