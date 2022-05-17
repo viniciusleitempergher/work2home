@@ -12,7 +12,7 @@
 
 
         <div id="prestador__informacao" class="pointer" routerLink="/perfil/{{p.id}}">
-          <img id="imagem__perfil" *ngIf="p.imagemUrl" src="{{environment.apiHostAddress + '/' + p.imagemUrl}}">
+          <img id="imagem__perfil" *ngIf="p.imagemUrl" src="{{getSrc(p.imagemUrl)}}">
           <i class="bi bi-person-circle semImagem" *ngIf="!p.imagemUrl"></i>
           <div>
             <h5 class="prestador__nome" style="display: inline;">{{p.nome}} - {{p.mediaAvaliacao}}</h5>

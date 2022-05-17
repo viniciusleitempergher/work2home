@@ -1,14 +1,11 @@
 package com.work2home.publica.project.service;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.work2home.publica.project.model.Categoria;
-import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.repositores.CategoriaRepository;
 import com.work2home.publica.project.rest.dto.categoria.CategoriaRequest;
 import com.work2home.publica.project.rest.dto.categoria.CategoriaResponse;

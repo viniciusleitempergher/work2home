@@ -3,7 +3,6 @@ package com.work2home.publica.project.rest.controller;
 import com.work2home.publica.project.model.Email;
 import com.work2home.publica.project.rest.dto.email.EmailRequest;
 import com.work2home.publica.project.service.EmailService;
-import com.work2home.publica.project.service.UsuarioService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

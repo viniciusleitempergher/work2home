@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.model.Denuncia;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaRequest;
 import com.work2home.publica.project.rest.dto.denuncia.DenunciaResponse;
 import com.work2home.publica.project.rest.dto.usuario.UsuarioDenunciasResponse;

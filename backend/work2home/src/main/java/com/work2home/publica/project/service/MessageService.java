@@ -16,7 +16,6 @@ import com.work2home.publica.project.model.MessageDto;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.MessageRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
-import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class MessageService {

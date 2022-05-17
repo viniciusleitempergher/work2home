@@ -2,7 +2,6 @@ package com.work2home.publica.project.rest.dto.usuario;
 
 import java.time.LocalDate;
 import com.work2home.publica.project.enums.Roles;
-import com.work2home.publica.project.model.Cliente;
 import com.work2home.publica.project.model.Usuario;
 
 import lombok.AllArgsConstructor;
