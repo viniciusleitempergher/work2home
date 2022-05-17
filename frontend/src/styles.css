@@ -19,6 +19,7 @@
 }
 body {
     background-color: var(--background-primary) !important;
+    overflow-y: auto !important;
 }
 
 .logo {
