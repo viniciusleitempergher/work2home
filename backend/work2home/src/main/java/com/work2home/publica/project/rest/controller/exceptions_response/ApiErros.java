@@ -1,8 +1,6 @@
 package com.work2home.publica.project.rest.controller.exceptions_response;
 
 import lombok.Data;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Data

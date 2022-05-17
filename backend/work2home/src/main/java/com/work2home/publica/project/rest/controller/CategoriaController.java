@@ -2,7 +2,6 @@ package com.work2home.publica.project.rest.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.work2home.publica.project.model.Categoria;
-import com.work2home.publica.project.model.Prestador;
 import com.work2home.publica.project.rest.dto.categoria.CategoriaRequest;
 import com.work2home.publica.project.rest.dto.categoria.CategoriaResponse;
 import com.work2home.publica.project.service.CategoriaService;

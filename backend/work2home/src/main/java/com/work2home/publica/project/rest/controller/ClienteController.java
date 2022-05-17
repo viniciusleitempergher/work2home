@@ -2,23 +2,17 @@ package com.work2home.publica.project.rest.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import com.work2home.publica.project.rest.dto.cliente.ClienteCompletarCadastroRequest;
 import com.work2home.publica.project.rest.dto.cliente.ClienteRequest;
 import com.work2home.publica.project.rest.dto.cliente.ClienteResponse;
-import com.work2home.publica.project.rest.dto.prestador.PrestadorCompletarCadastroRequest;
-
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.work2home.publica.project.model.Cliente;
-import com.work2home.publica.project.repositores.ClienteRepository;
 import com.work2home.publica.project.service.ClienteService;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/cliente")

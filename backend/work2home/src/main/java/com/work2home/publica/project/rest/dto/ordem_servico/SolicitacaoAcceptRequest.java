@@ -1,6 +1,5 @@
 package com.work2home.publica.project.rest.dto.ordem_servico;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

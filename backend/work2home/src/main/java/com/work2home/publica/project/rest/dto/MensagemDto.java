@@ -2,9 +2,6 @@ package com.work2home.publica.project.rest.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

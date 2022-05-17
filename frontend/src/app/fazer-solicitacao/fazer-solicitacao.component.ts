@@ -28,7 +28,6 @@ export class FazerSolicitacaoComponent implements OnInit {
   prestadorId: number = 0;
   descricao: string = '';
 
-
   nomeImagem: string = ""
 
   solicitacaoForm = new FormGroup({
@@ -99,6 +98,13 @@ export class FazerSolicitacaoComponent implements OnInit {
         imagemSrc: file,
       });
     }
+  }
+
+  getSrc(url: string) {
+    if ((url).includes("https")) {
+      return url;
+    }
+    return environment.apiHostAddress + '/' + url;
   }
 
   selecionarPrestadorId(id: number) {
