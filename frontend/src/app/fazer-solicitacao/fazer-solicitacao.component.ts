@@ -113,4 +113,5 @@ export class FazerSolicitacaoComponent implements OnInit {
     let file = document.getElementById('imagemFile');
     file?.click();
   }
+  // teste
 }
