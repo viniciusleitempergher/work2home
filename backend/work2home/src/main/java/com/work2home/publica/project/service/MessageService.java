@@ -11,12 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.work2home.publica.project.model.Message;
-import com.work2home.publica.project.model.MessageDto;
+import com.work2home.publica.project.model.Mensagem;
+import com.work2home.publica.project.rest.dto.MensagemDto;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.repositores.MessageRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
-import com.work2home.publica.project.utils.JwtUtil;
 
 @Service
 public class MessageService {
@@ -26,11 +25,11 @@ public class MessageService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Transactional
-	public MessageDto add(MessageDto dto) {
+	public MensagemDto add(MensagemDto dto) {
 		Usuario sender = usuarioRepository.findById(dto.getUserFrom()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		Usuario receiver = usuarioRepository.findById(dto.getUserTo()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-		Message message = new Message();
+		Mensagem message = new Mensagem();
 		
 		message.setSender(sender);
 		message.setReceiver(receiver);
@@ -47,13 +46,13 @@ public class MessageService {
 		return dto;
 	}
 
-	public List<MessageDto> getMessagesByUserId(int id) {
+	public List<MensagemDto> getMessagesByUserId(int id) {
 		
-		List<Message> messages = messageRepository.findByReceiverIdOrSenderId(id, id);
-		List<MessageDto> messagesConverted = new ArrayList<>();
+		List<Mensagem> messages = messageRepository.findByReceiverIdOrSenderId(id, id);
+		List<MensagemDto> messagesConverted = new ArrayList<>();
 		
-		for (Message message : messages) {
-			MessageDto messageConverted = new MessageDto();
+		for (Mensagem message : messages) {
+			MensagemDto messageConverted = new MensagemDto();
 			messageConverted.setText(message.getText());
 			messageConverted.setSentDate(message.getDataEnvio());
 			messageConverted.setUserFrom(message.getSender().getId());

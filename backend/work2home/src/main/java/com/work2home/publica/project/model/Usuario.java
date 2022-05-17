@@ -67,10 +67,10 @@ public class Usuario {
 	private List<Denuncia> denunciasRecebidas = new ArrayList<>();
 
 	@OneToMany(mappedBy = "sender")
-	private List<Message> mensagensEnviadas = new ArrayList<>();
+	private List<Mensagem> mensagensEnviadas = new ArrayList<>();
 
 	@OneToMany(mappedBy = "receiver")
-	private List<Message> mensagensRecebidas = new ArrayList<>();
+	private List<Mensagem> mensagensRecebidas = new ArrayList<>();
 	
 	public Double getMediaAvaliacao() {
 		Locale.setDefault(Locale.US);

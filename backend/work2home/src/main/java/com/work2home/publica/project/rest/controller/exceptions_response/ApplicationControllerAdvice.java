@@ -18,7 +18,6 @@ public class ApplicationControllerAdvice {
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
-
         return new ApiErros(erros);
     }
 }

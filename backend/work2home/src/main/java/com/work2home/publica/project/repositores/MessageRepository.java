@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.work2home.publica.project.model.Message;
+import com.work2home.publica.project.model.Mensagem;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Integer> {
-	List<Message> findByReceiverIdOrSenderId(Integer id, Integer id2);
+public interface MessageRepository extends JpaRepository<Mensagem, Integer> {
+	List<Mensagem> findByReceiverIdOrSenderId(Integer id, Integer id2);
 }

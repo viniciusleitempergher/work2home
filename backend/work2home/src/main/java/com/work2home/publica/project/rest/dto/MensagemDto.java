@@ -1,4 +1,4 @@
-package com.work2home.publica.project.model;
+package com.work2home.publica.project.rest.dto;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MessageDto {
+public class MensagemDto {
 	private Integer userFrom;
 	private Integer userTo;
 	private String text;

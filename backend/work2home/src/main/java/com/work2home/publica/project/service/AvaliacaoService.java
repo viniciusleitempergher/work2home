@@ -18,14 +18,13 @@ import com.work2home.publica.project.repositores.OrdemServicoRepository;
 import com.work2home.publica.project.repositores.UsuarioRepository;
 import com.work2home.publica.project.utils.JwtUtil;
 
+import java.util.Objects;
+
 @Service
 public class AvaliacaoService {
 
 	@Autowired
 	private AvaliacaoRepository avaliacaoRepository;
-
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
@@ -44,7 +43,7 @@ public class AvaliacaoService {
 			throw new ResponseStatusException(HttpStatus.CONFLICT);
 		}
 
-		avaliacaoRepository.save(avaliacaoDto.converter(usuarioRepository, os));
+		avaliacaoRepository.save(avaliacaoDto.converter(os));
 	}
 
 	public void avaliarPrestador(Integer OrdemServicoId, @Valid AvaliarPrestadorDto avaliacaoDto) {
@@ -58,12 +57,12 @@ public class AvaliacaoService {
 			throw new ResponseStatusException(HttpStatus.CONFLICT);
 		}
 
-		avaliacaoRepository.save(avaliacaoDto.converter(usuarioRepository, os));
+		avaliacaoRepository.save(avaliacaoDto.converter(os));
 	}
 	
 	private boolean avaliacaoJaExiste(Integer avaliadorId, Integer osId, Integer avaliadorOsId) {
 
-		if (avaliadorId != avaliadorOsId) {
+		if (!Objects.equals(avaliadorId, avaliadorOsId)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		return avaliacaoRepository.findByAvaliadorIdAndOrdemServicoId(avaliadorId, osId).isPresent();
