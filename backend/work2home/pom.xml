@@ -14,12 +14,8 @@
 	<description>Work2Home</description>
 	<packaging>war</packaging>
 	<properties>
-		<java.version>15</java.version>
+		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
-		<deploy.wildfly.host>127.0.0.1</deploy.wildfly.host>
-	    <deploy.wildfly.port>9990</deploy.wildfly.port>
-	    <deploy.wildfly.username>vinicebas</deploy.wildfly.username>
-	    <deploy.wildfly.password>vinicebas</deploy.wildfly.password>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -156,26 +152,6 @@
 						</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-			<plugin>
-			    <groupId>org.wildfly.plugins</groupId>
-			    <artifactId>wildfly-maven-plugin</artifactId>
-			    <version>2.0.2.Final</version>
-			    <executions>
-			        <execution>
-			            <phase>install</phase>
-			            <goals>
-			                <goal>deploy</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			    <configuration>                
-			        <filename>${project.build.finalName}.war</filename>
-			        <hostname>${deploy.wildfly.host}</hostname>
-			        <port>${deploy.wildfly.port}</port>
-			        <username>${deploy.wildfly.username}</username>
-			        <password>${deploy.wildfly.password}</password>
-			    </configuration>
 			</plugin>
 		</plugins>
 	</build>
