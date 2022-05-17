@@ -134,14 +134,11 @@ public class LoginService {
 	}
 	
 	public RefreshResponse refresh(RefreshRequest request) {
-		String refreshToken = request.getRefreshToken();
-		
-		RefreshToken dbRefreshToken = refreshRepository.findByToken(refreshToken);
-		
-		if (dbRefreshToken == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-		
+		RefreshToken dbRefreshToken = refreshRepository
+				.findByToken(request.getRefreshToken())
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+
 		String accessToken = jwt.generateAccessToken(dbRefreshToken);
-		
 		return RefreshResponse.builder().accessToken(accessToken).build();
 	}
 }

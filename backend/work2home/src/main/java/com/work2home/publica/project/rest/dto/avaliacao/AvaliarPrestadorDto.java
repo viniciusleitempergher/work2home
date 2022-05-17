@@ -13,7 +13,7 @@ public class AvaliarPrestadorDto {
 	private Integer nota;
 	private String comentario;
 	
-	public Avaliacao converter(UsuarioRepository usuarioRepository, OrdemServico os) {
+	public Avaliacao converter(OrdemServico os) {
 		
 		return Avaliacao.builder()
 				.nota(nota)

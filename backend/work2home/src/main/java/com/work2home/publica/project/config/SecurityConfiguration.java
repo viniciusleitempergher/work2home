@@ -19,7 +19,6 @@ import com.work2home.publica.project.filter.JwtFilter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private final JwtFilter jwtFilter;
-		
 	public SecurityConfiguration(JwtFilter jwtFilter) {
 		this.jwtFilter = jwtFilter;
 	}
@@ -81,7 +80,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.DELETE, "/categoria/*").hasAnyRole("ADMIN")
 			.antMatchers("/relatorio/**").hasAnyRole("ADMIN")
 
-
 			// requisicoes abertas
 			.antMatchers(HttpMethod.GET, "/usuario/me").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
@@ -94,7 +92,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			
 			// mensagens
 			.antMatchers("/messages").permitAll()
-
 
 			// requisicoes do swegger
 			.antMatchers("/swagger-ui/**").permitAll().antMatchers("/swagger-resources/**").permitAll()

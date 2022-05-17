@@ -82,7 +82,6 @@ public class OrdemServicoService {
 					.map(OrdemServicoResponse::new)
 					.toList();
 		}
-
 		return ordemServicoList
 				.stream()
 				.map(OrdemServicoResponse::new)
@@ -95,7 +94,7 @@ public class OrdemServicoService {
 		
 		OrdemServico os = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		
-		if(os.getPrestador().getId() != usuario.getId() && os.getEndereco().getCliente().getId() != usuario.getId() 
+		if(!Objects.equals(os.getPrestador().getId(), usuario.getId()) && !Objects.equals(os.getEndereco().getCliente().getId(), usuario.getId())
 				&& usuario.getRole() != Roles.ADMIN ) {
 		  throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
@@ -123,7 +122,7 @@ public class OrdemServicoService {
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
 		emailService.enviarEmailOsChange(os.getStatus(), os.getEndereco().getCliente().getUsuario().getEmail());
-		if (os.getPrestador().getId() != usuario.getId()) {
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 
@@ -190,7 +189,7 @@ public class OrdemServicoService {
 
 		Usuario usuario = jwt.getUserFromHeaderToken();
 
-		if (os.getPrestador().getId() != usuario.getId()) {
+		if (!Objects.equals(os.getPrestador().getId(), usuario.getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		if (os.getStatus() != StatusOrcamento.EM_ANDAMENTO) {
@@ -211,7 +210,7 @@ public class OrdemServicoService {
 				.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
-		if(os.getEndereco().getCliente().getId() != jwt.getUserFromHeaderToken().getId()) {
+		if(!Objects.equals(os.getEndereco().getCliente().getId(), jwt.getUserFromHeaderToken().getId())) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
 		

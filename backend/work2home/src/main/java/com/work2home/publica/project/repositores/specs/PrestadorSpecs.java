@@ -14,8 +14,4 @@ public class PrestadorSpecs {
 	public static Specification<OrdemServico> enderecoEqual(Integer enderecoId){
 		return (root, query, cb) -> cb.equal(root.get("endereco"), enderecoId);
 	}
-
-	public static Specification<OrdemServico> statusEqual(Integer status){
-		return (root, query, cb) -> cb.equal(root.get("statusOrcamento"), status);
-	}
 }

@@ -3,6 +3,7 @@ package com.work2home.publica.project.utils;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 import javax.persistence.EntityNotFoundException;
@@ -119,7 +120,7 @@ public class JwtUtil {
 	public Boolean validateRefreshToken(String token, Usuario usuario) {
 		final Integer id = getIdFromToken(token);
 
-		return (id == usuario.getId() && !isTokenExpired(token));
+		return (Objects.equals(id, usuario.getId()) && !isTokenExpired(token));
 	}
 
 	/**
@@ -130,7 +131,7 @@ public class JwtUtil {
 	 */
 	public Boolean validateAccessToken(String token, RefreshToken refreshToken) {
 		final Integer id = getIdFromToken(token);
-		return (id == refreshToken.getId() && !isTokenExpired(token));
+		return (Objects.equals(id, refreshToken.getId()) && !isTokenExpired(token));
 	}
 
 	/**
@@ -143,7 +144,7 @@ public class JwtUtil {
 	public Boolean validateAccessToken(String token) {
 		final Integer id = getIdFromToken(token);
 		RefreshToken refreshToken = refreshTokenRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException());
+				.orElseThrow(EntityNotFoundException::new);
 		return validateAccessToken(token, refreshToken);
 	}
 
@@ -157,7 +158,7 @@ public class JwtUtil {
 		Integer refreshTokenId = getIdFromToken(token);
 
 		RefreshToken refreshToken = refreshTokenRepository.findById(refreshTokenId)
-				.orElseThrow(() -> new EntityNotFoundException());
+				.orElseThrow(EntityNotFoundException::new);
 
 		return refreshToken.getUsuario();
 	}
@@ -171,9 +172,7 @@ public class JwtUtil {
 	public Usuario getUserFromRefreshToken(String token) {
 		Integer usuarioId = getIdFromToken(token);
 
-		Usuario usuario = userRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException());
-
-		return usuario;
+		return userRepository.findById(usuarioId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	/**
@@ -187,8 +186,6 @@ public class JwtUtil {
 
 	public Usuario getUserFromHeaderToken() {
 		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-		
 		return getUserFromAccessToken(token);
-
 	}
 }

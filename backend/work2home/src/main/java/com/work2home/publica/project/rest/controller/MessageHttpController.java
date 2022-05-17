@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work2home.publica.project.model.MessageDto;
+import com.work2home.publica.project.rest.dto.MensagemDto;
 import com.work2home.publica.project.model.Usuario;
 import com.work2home.publica.project.service.MessageService;
 import com.work2home.publica.project.utils.JwtUtil;
@@ -22,13 +22,13 @@ public class MessageHttpController {
 	private JwtUtil jwt;
 	
     @GetMapping("/me")
-    public List<MessageDto> getMyMessages() {
+    public List<MensagemDto> getMyMessages() {
 		Usuario user = jwt.getUserFromHeaderToken();
     	return messageService.getMessagesByUserId(user.getId());
     }
     
     @PostMapping
-    public MessageDto sendMessage(@RequestBody MessageDto dto) {
+    public MensagemDto sendMessage(@RequestBody MensagemDto dto) {
     	System.out.println(dto);
     	return messageService.add(dto);
     }

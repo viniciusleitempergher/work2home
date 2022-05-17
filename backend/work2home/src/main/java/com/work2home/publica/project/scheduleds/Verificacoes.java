@@ -55,7 +55,7 @@ public class Verificacoes {
 				
 				OrdemServico os = servicos.get(servicos.size() - 1);
 
-				if ((os.getStatus() == StatusOrcamento.FINALIZADO || os.getStatus() == StatusOrcamento.PAGO)
+				if ((os.getStatus() == StatusOrcamento.FINALIZADO)
 						&& plusThirdyBefore(os.getDataFim())) {
 					desativarPrestador(p);
 				}
@@ -76,11 +76,6 @@ public class Verificacoes {
 			} else if(os.getStatus() == StatusOrcamento.EM_ORCAMENTO && os.getDataInicio().isBefore(LocalDate.now())) {
 				os.cancelar();
 				osRepository.save(os);
-			} 
-			else if (os.getStatus() == StatusOrcamento.FINALIZADO && plusThirdyBefore(os.getDataFim())) {
-				Usuario usuario = os.getEndereco().getCliente().getUsuario();
-				usuario.setRole(Roles.BANIDO);
-				usuarioRepository.save(usuario);
 			}
 		}
 	}

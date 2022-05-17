@@ -6,13 +6,15 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
-import com.work2home.publica.project.model.MessageDto;
+import com.work2home.publica.project.rest.dto.MensagemDto;
 import com.work2home.publica.project.service.MessageService;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -64,7 +66,7 @@ public class MessageController {
     }
     
     @OnEvent("message")
-    public void sendMsg(SocketIOClient socketIOClient, AckRequest ackRequest, MessageDto msg) {
+    public void sendMsg(SocketIOClient socketIOClient, AckRequest ackRequest, MensagemDto msg) {
     	logger.info(msg.toString());
         if (msg != null) {
             clientMap.forEach((key, value) -> {
