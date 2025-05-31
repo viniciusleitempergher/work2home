@@ -1,6 +1,6 @@
 # work2home
 
-It is an application for searching for residential services. The application mechanism works by communicating between two types of users (Client and Provider).
+Application for searching residential services. The application operates by facilitating communication between two types of users: Clients and Providers.
 - The client searches for a service through categories and providers registered in their location and requests a quote, saving the provider's response.
 - The provider registers their services by category and location, receives a quote and returns a response to the client.
 
